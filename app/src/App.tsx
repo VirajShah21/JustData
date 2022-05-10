@@ -11,51 +11,8 @@ import logo from './logo.png';
 import stocksLogo from './stocks.png';
 import { AdvancedRealTimeChart } from 'react-ts-tradingview-widgets';
 import mostWantedLogo from './Just Most Wanted.png';
-
-function ProductSectionTitle(props: { icon: JSX.Element; label: string }) {
-    return (
-        <HStack className='product-section-title' justify='start' width='100%'>
-            <span className='product-section-icon'>{props.icon}</span>
-            <span className='product-section-label'>{props.label}</span>
-        </HStack>
-    );
-}
-
-function ProductResult(props: { icon: string; label: string; url: string }) {
-    return (
-        <button
-            className='product-result'
-            onClick={() => {
-                window.location.href = props.url;
-            }}>
-            <HStack className='product-result' justify='start' width='100%'>
-                <span className='product-icon'>
-                    <img src={props.icon} alt={props.label} height='50' />
-                </span>
-                <span className='product-label'>{props.label}</span>
-            </HStack>
-        </button>
-    );
-}
-
-function SearchBar(props: { placeholder?: string; value?: string }) {
-    return (
-        <HStack className='search-bar'>
-            <span className='search-icon-wrapper'>
-                <SearchIcon />
-            </span>
-            <input
-                type='text'
-                value={props.value}
-                placeholder={props.placeholder}
-                className='search-bar-input'
-            />
-            <button className='search-button'>
-                <ArrowRightIcon size={25} />
-            </button>
-        </HStack>
-    );
-}
+import { ProductSectionTitle, ProductResult } from './components/ProductComponents';
+import SearchBar from './components/SearchBar';
 
 function LandingPage() {
     return (

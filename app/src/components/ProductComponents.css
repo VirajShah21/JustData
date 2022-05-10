@@ -1,0 +1,27 @@
+.product-section-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: gray;
+}
+
+.product-section-icon {
+    padding: 1rem;
+}
+
+.product-result {
+    width: 30%;
+    background-color: rgb(100, 100, 100);
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    transition: 0.25s all;
+}
+
+.product-result .product-icon {
+    padding: 0.5rem;
+}
+
+.product-result .product-label {
+    padding: 1rem;
+}

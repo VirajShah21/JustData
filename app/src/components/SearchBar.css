@@ -1,0 +1,31 @@
+.search-bar {
+    background-color: rgb(40, 40, 40);
+    position: relative;
+    transition: 0.5s filter;
+}
+
+.search-bar:hover {
+    filter: brightness(200%);
+}
+
+.search-bar .search-icon-wrapper {
+    padding: 1rem;
+}
+
+.search-bar .search-bar-input {
+    flex-grow: 1;
+    padding: 1rem;
+    font-size: 1rem;
+    background: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    transition: 0.25s all;
+}
+
+.search-bar .search-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    transition: 0.5s background-color;
+}
