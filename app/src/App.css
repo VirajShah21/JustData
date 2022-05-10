@@ -1,36 +1,3 @@
-/* ! LandingPage */
-
-.landing-left {
-    background-image: url(landing-bg.jpg);
-    background-size: cover;
-}
-
-.landing-right {
-    width: 100vw;
-}
-
-.landing-left .landing-brand {
-    width: 50%;
-}
-
-.landing-left .bg-attribution {
-    font-size: 0.75rem;
-    color: gray;
-    background: rgba(0, 0, 0, 0.5);
-    -webkit-backdrop-filter: blur(1rem);
-    backdrop-filter: blur(1rem);
-    padding: 0.5rem;
-}
-
-.landing-divider {
-    width: 0.25rem;
-    background-image: linear-gradient(
-        to bottom,
-        var(--primary-gradient-start),
-        var(--primary-gradient-end)
-    );
-}
-
 /* ! TradingView */
 
 #tradingview_widget_wrapper {
