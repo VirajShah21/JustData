@@ -1,18 +1,22 @@
-.search-bar {
-    background-color: rgb(40, 40, 40);
+.search-bar-container {
     position: relative;
+    width: 100%;
+}
+
+.search-bar-container .search-bar {
+    background-color: rgb(40, 40, 40);
     transition: 0.5s filter;
 }
 
-.search-bar:hover {
+.search-bar-container .search-bar:hover {
     filter: brightness(200%);
 }
 
-.search-bar .search-icon-wrapper {
+.search-bar-container .search-bar .search-icon-wrapper {
     padding: 1rem;
 }
 
-.search-bar .search-bar-input {
+.search-bar-container .search-bar .search-bar-input {
     flex-grow: 1;
     padding: 1rem;
     font-size: 1rem;
@@ -23,9 +27,21 @@
     transition: 0.25s all;
 }
 
-.search-bar .search-button {
+.search-bar-container .search-bar .search-button {
     background-color: transparent;
     border: none;
     color: white;
     transition: 0.5s background-color;
+}
+
+.search-bar-container .search-bar-autocomplete {
+    position: absolute;
+    z-index: 1000;
+}
+
+.search-bar-container .search-bar-autocomplete .search-bar-suggestion {
+    box-sizing: border-box;
+    padding: 1rem;
+    background-color: rgb(40, 40, 40);
+    transition: 0.5s filter;
 }
