@@ -1,0 +1,19 @@
+.brand-button {
+    height: 50px;
+    background-image: linear-gradient(
+        to bottom right,
+        var(--primary-gradient-start),
+        var(--primary-gradient-end)
+    );
+}
+
+.brand-button .brand-button-brand {
+    background-color: black;
+    height: 100%;
+    transition: 0.5s background-color, filter;
+}
+
+.brand-button .brand-button-brand:hover {
+    filter: brightness(0);
+    background-color: transparent;
+}
