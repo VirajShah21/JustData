@@ -1,6 +1,29 @@
+@keyframes blur-in-landing-left {
+    0% {
+        filter: blur(0);
+    }
+
+    90% {
+        filter: blur(0);
+    }
+
+    100% {
+        filter: blur(1rem);
+    }
+}
+
 .landing-left {
     background-image: url(landing-bg.jpg);
     background-size: cover;
+    filter: blur(1rem);
+    transition: 0.25s filter;
+    animation-name: blur-in-landing-left;
+    animation-duration: 5s;
+    animation-timing-function: ease-in-out;
+}
+
+.landing-left:hover {
+    filter: blur(0);
 }
 
 .landing-right {
