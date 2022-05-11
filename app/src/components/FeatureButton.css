@@ -1,0 +1,31 @@
+.feature-button {
+    box-sizing: border-box;
+    border: none;
+    background-image: linear-gradient(
+        to bottom right,
+        var(--primary-gradient-start),
+        var(--primary-gradient-end)
+    );
+    padding: 1px;
+    border-radius: 2rem;
+    margin: 0.5rem;
+}
+
+.feature-button.active .feature-button-inside {
+    background: transparent;
+    color: black;
+}
+
+.feature-button .feature-button-inside {
+    box-sizing: border-box;
+    background: black;
+    color: white;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+}
+
+.feature-button .feature-button-inside .feature-button-icon {
+    margin-right: 0.5rem;
+}

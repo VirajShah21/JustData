@@ -1,33 +1,38 @@
-@keyframes blur-in-landing-left {
+@keyframes landing-blur-in {
     0% {
-        filter: blur(0);
+        -webkit-backdrop-filter: blur(0);
     }
 
     90% {
-        filter: blur(0);
+        -webkit-backdrop-filter: blur(0);
     }
 
     100% {
-        filter: blur(1rem);
+        -webkit-backdrop-filter: blur(2.5rem);
     }
 }
 
 .landing-left {
     background-image: url(landing-bg.jpg);
     background-size: cover;
-    filter: blur(1rem);
-    transition: 0.25s filter;
-    animation-name: blur-in-landing-left;
-    animation-duration: 5s;
-    animation-timing-function: ease-in-out;
-}
-
-.landing-left:hover {
-    filter: blur(0);
 }
 
 .landing-right {
     width: 100vw;
+}
+
+.landing-left .landing-left-overlay {
+    -webkit-backdrop-filter: blur(2.5rem);
+    backdrop-filter: blur(2.5rem);
+    transition: 0.5s backdrop-filter;
+    animation-name: landing-blur-in;
+    animation-duration: 5s;
+    animation-timing-function: ease-in-out;
+}
+
+.landing-left .landing-left-overlay:hover {
+    -webkit-backdrop-filter: blur(0);
+    backdrop-filter: blur(0);
 }
 
 .landing-left .landing-brand {

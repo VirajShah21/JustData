@@ -10,12 +10,14 @@ import mostWantedLogo from './Just Most Wanted.png';
 function LandingLeft() {
     return (
         <VStack className='landing-left'>
-            <Spacer />
-            <img src={logo} alt='Just Data' className='landing-brand' />
-            <Spacer />
-            <span className='bg-attribution' style={{ alignSelf: 'start' }}>
-                Photo by Maximalfocus on Unsplash
-            </span>
+            <VStack className='landing-left-overlay'>
+                <Spacer />
+                <img src={logo} alt='Just Data' className='landing-brand' />
+                <Spacer />
+                <span className='bg-attribution' style={{ alignSelf: 'start' }}>
+                    Photo by Maximalfocus on Unsplash
+                </span>
+            </VStack>
         </VStack>
     );
 }
