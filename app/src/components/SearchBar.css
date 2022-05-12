@@ -54,3 +54,7 @@
     border-top: 1px solid rgb(30, 30, 30);
     text-align: left;
 }
+
+.search-bar-container .search-bar-autocomplete .search-bar-suggestion:hover {
+    filter: brightness(150%);
+}

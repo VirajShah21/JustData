@@ -1,43 +1,46 @@
-.stock-search-ac-ticker,
-.stock-search-ac-name,
-.stock-search-ac-price,
-.stock-search-ac-industry,
-.stock-search-ac-type,
-.stock-search-ac-exchange {
+#just-stocks .stock-search-ac-ticker,
+#just-stocks .stock-search-ac-name,
+#just-stocks .stock-search-ac-price,
+#just-stocks .stock-search-ac-industry,
+#just-stocks .stock-search-ac-type,
+#just-stocks .stock-search-ac-exchange {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.stock-search-ac-ticker {
+#just-stocks .stock-search-ac-ticker {
     font-weight: bold;
     width: 6rem;
 }
 
-.stock-search-ac-name {
+#just-stocks .stock-search-ac-name {
     font-weight: bold;
     color: gray;
     width: 20rem;
 }
 
-.stock-search-ac-price {
+#just-stocks .stock-search-ac-price {
     width: 6rem;
 }
 
-.stock-search-ac-price::before {
+#just-stocks .stock-search-ac-price::before {
     content: '$';
 }
 
-.stock-search-ac-industry {
+#just-stocks .stock-search-ac-industry {
     width: 10rem;
     overflow: hidden;
+    color: gray;
 }
 
-.stock-search-ac-type {
+#just-stocks .stock-search-ac-type {
     width: 5rem;
     overflow: hidden;
+    color: gray;
 }
 
-.stock-search-ac-exchange {
+#just-stocks .stock-search-ac-exchange {
     width: 5rem;
+    color: gray;
 }

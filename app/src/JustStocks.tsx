@@ -61,7 +61,7 @@ function JustStocks() {
     const [ticker, setTicker] = useState('AAPL');
 
     return (
-        <VStack width='100%'>
+        <VStack width='100%' id='just-stocks'>
             <HStack>
                 <BrandButton />
                 <StockSearchBar onSearch={t => setTicker(t)} />
