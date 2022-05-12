@@ -52,7 +52,10 @@ function StockSearchBar(props: { value?: string; onSearch: (value: string) => vo
                 setSearchInput(value);
                 refreshSearchSuggestions(value);
             }}
-            onSearch={value => props.onSearch(value)}
+            onSearch={value => {
+                setSearchInput(value);
+                props.onSearch(value);
+            }}
         />
     );
 }
@@ -64,7 +67,11 @@ function JustStocks() {
         <VStack width='100%' id='just-stocks'>
             <HStack>
                 <BrandButton />
-                <StockSearchBar onSearch={t => setTicker(t)} />
+                <StockSearchBar
+                    onSearch={t => {
+                        setTicker(t);
+                    }}
+                />
             </HStack>
             <HStack>
                 <FeatureButton icon={<GraphIcon />} label='Charts' active />

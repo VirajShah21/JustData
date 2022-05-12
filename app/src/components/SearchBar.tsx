@@ -35,7 +35,7 @@ function SearchBar(props: {
                     onBlur={() =>
                         window.setTimeout(() => {
                             setShowingSuggestions(false);
-                        }, 25)
+                        }, 250)
                     }
                 />
                 <button
@@ -57,7 +57,8 @@ function SearchBar(props: {
                                 icon={typeof suggestion === 'string' ? undefined : suggestion.icon}
                                 image={
                                     typeof suggestion === 'string' ? undefined : suggestion.image
-                                }>
+                                }
+                                onClick={value => props.onSearch?.(value)}>
                                 {typeof suggestion !== 'string' ? suggestion.children : undefined}
                             </SearchBarSuggestion>
                         ))}
@@ -68,7 +69,7 @@ function SearchBar(props: {
     );
 }
 
-function SearchBarSuggestion(props: SearchSuggestion) {
+function SearchBarSuggestion(props: SearchSuggestion & { onClick: (value: string) => void }) {
     let innerNodes: JSX.Element[];
 
     if (!props.children) {
@@ -88,7 +89,7 @@ function SearchBarSuggestion(props: SearchSuggestion) {
     }
 
     return (
-        <button className='search-bar-suggestion'>
+        <button className='search-bar-suggestion' onClick={() => props.onClick(props.value)}>
             <HStack justify='start'>{props.children ?? innerNodes!}</HStack>
         </button>
     );
