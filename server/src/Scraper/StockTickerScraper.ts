@@ -1,7 +1,24 @@
 import Scraper from './Scraper';
 import ScrapeUtils, { ParsedHTMLElement } from './ScrapeUtils';
+import fs from 'fs';
 
-const cache: Record<string, StockTickerScraperResponse> = {};
+let cache: Record<string, StockTickerScraperResponse> = {};
+
+function setupCache() {
+    if (!fs.existsSync('./caches')) fs.mkdirSync('./caches');
+
+    if (!fs.existsSync('./caches/stock-ticker-scraper.json')) {
+        fs.writeFileSync('./caches/stock-ticker-scraper.json', '{}');
+    } else {
+        cache = JSON.parse(fs.readFileSync('./caches/stock-ticker-scraper.json').toString());
+    }
+
+    setInterval(() => {
+        fs.writeFileSync('./caches/stock-ticker-scraper.json', JSON.stringify(cache));
+    }, 60000);
+}
+
+setupCache();
 
 class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
     private query: string;
@@ -12,7 +29,7 @@ class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
     }
 
     async scrape(): Promise<StockTickerScraperResponse | null> {
-        if (cache[this.query]) return cache[this.query];
+        if (cache[this.query.toUpperCase()]) return cache[this.query.toUpperCase()];
 
         await this.openTab();
 
@@ -43,7 +60,7 @@ class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
             }),
         };
 
-        cache[this.query] = response;
+        cache[this.query.toUpperCase()] = response;
 
         return response;
     }
