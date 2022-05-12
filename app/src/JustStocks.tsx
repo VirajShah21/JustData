@@ -2,10 +2,11 @@ import { GraphIcon } from '@primer/octicons-react';
 import axios from 'axios';
 import { useState } from 'react';
 import { AdvancedRealTimeChart } from 'react-ts-tradingview-widgets';
-import { HStack, VStack } from 'reaction';
+import { HStack, Spacer, VStack } from 'reaction';
 import BrandButton from './components/BrandButton';
 import FeatureButton from './components/FeatureButton';
 import SearchBar from './components/SearchBar';
+import './JustStocks.css';
 
 function StockSearchBar(props: { value?: string; onSearch: (value: string) => void }) {
     const [searchSuggestions, setSearchSuggestions] = useState<StockSearchResult[]>([]);
@@ -36,7 +37,15 @@ function StockSearchBar(props: { value?: string; onSearch: (value: string) => vo
             value={searchInput}
             suggestions={searchSuggestions.map(result => ({
                 value: result.symbol,
-                children: [<div>{result.symbol}</div>, <div>{result.name}</div>],
+                children: [
+                    <div className='stock-search-ac-ticker'>{result.symbol}</div>,
+                    <div className='stock-search-ac-name'>{result.name}</div>,
+                    <div className='stock-search-ac-price'>{result.lastPrice}</div>,
+                    <Spacer />,
+                    <div className='stock-search-ac-industry'>{result.industry}</div>,
+                    <div className='stock-search-ac-type'>{result.type}</div>,
+                    <div className='stock-search-ac-exchange'>{result.exchange}</div>,
+                ],
             }))}
             onChange={e => {
                 const value = e.target.value;

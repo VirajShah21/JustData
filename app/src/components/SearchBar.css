@@ -42,8 +42,15 @@
 }
 
 .search-bar-container .search-bar-autocomplete .search-bar-suggestion {
+    width: 100%;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    margin: 0;
     box-sizing: border-box;
     padding: 1rem;
     background-color: rgb(40, 40, 40);
     transition: 0.5s filter;
+    border-top: 1px solid rgb(30, 30, 30);
+    text-align: left;
 }

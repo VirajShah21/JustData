@@ -1,0 +1,43 @@
+.stock-search-ac-ticker,
+.stock-search-ac-name,
+.stock-search-ac-price,
+.stock-search-ac-industry,
+.stock-search-ac-type,
+.stock-search-ac-exchange {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.stock-search-ac-ticker {
+    font-weight: bold;
+    width: 6rem;
+}
+
+.stock-search-ac-name {
+    font-weight: bold;
+    color: gray;
+    width: 20rem;
+}
+
+.stock-search-ac-price {
+    width: 6rem;
+}
+
+.stock-search-ac-price::before {
+    content: '$';
+}
+
+.stock-search-ac-industry {
+    width: 10rem;
+    overflow: hidden;
+}
+
+.stock-search-ac-type {
+    width: 5rem;
+    overflow: hidden;
+}
+
+.stock-search-ac-exchange {
+    width: 5rem;
+}

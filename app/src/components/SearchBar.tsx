@@ -32,7 +32,11 @@ function SearchBar(props: {
                     className='search-bar-input'
                     onChange={props.onChange}
                     onFocus={() => setShowingSuggestions(true)}
-                    onBlur={() => setShowingSuggestions(false)}
+                    onBlur={() =>
+                        window.setTimeout(() => {
+                            setShowingSuggestions(false);
+                        }, 25)
+                    }
                 />
                 <button
                     className='search-button'
@@ -84,9 +88,9 @@ function SearchBarSuggestion(props: SearchSuggestion) {
     }
 
     return (
-        <HStack className='search-bar-suggestion' justify='start'>
-            {props.children ?? innerNodes!}
-        </HStack>
+        <button className='search-bar-suggestion'>
+            <HStack justify='start'>{props.children ?? innerNodes!}</HStack>
+        </button>
     );
 }
 
