@@ -1,7 +1,12 @@
-import { GraphIcon } from '@primer/octicons-react';
+import { GraphIcon, InfoIcon, LightBulbIcon, NumberIcon } from '@primer/octicons-react';
 import axios from 'axios';
 import { useState } from 'react';
-import { AdvancedRealTimeChart } from 'react-ts-tradingview-widgets';
+import {
+    AdvancedRealTimeChart,
+    CompanyProfile,
+    FundamentalData,
+    TechnicalAnalysis,
+} from 'react-ts-tradingview-widgets';
 import { HStack, Spacer, VStack } from 'reaction';
 import BrandButton from './components/BrandButton';
 import FeatureButton from './components/FeatureButton';
@@ -61,7 +66,10 @@ function StockSearchBar(props: { value?: string; onSearch: (value: string) => vo
 }
 
 function JustStocks() {
+    type Feature = 'chart' | 'analysis' | 'fundamentals' | 'profile';
+
     const [ticker, setTicker] = useState('AAPL');
+    const [activeFeature, setActiveFeature] = useState<Feature>('chart');
 
     return (
         <VStack width='100%' id='just-stocks'>
@@ -74,9 +82,43 @@ function JustStocks() {
                 />
             </HStack>
             <HStack>
-                <FeatureButton icon={<GraphIcon />} label='Charts' active />
+                <FeatureButton
+                    icon={<GraphIcon />}
+                    label='Charts'
+                    onClick={() => setActiveFeature('chart')}
+                    active={activeFeature === 'chart'}
+                />
+                <FeatureButton
+                    icon={<LightBulbIcon />}
+                    label='Analysis'
+                    onClick={() => setActiveFeature('analysis')}
+                    active={activeFeature === 'analysis'}
+                />
+                <FeatureButton
+                    icon={<NumberIcon />}
+                    label='Fundamentals'
+                    onClick={() => setActiveFeature('fundamentals')}
+                    active={activeFeature === 'fundamentals'}
+                />
+                <FeatureButton
+                    icon={<InfoIcon />}
+                    label='Company Profile'
+                    onClick={() => setActiveFeature('profile')}
+                    active={activeFeature === 'profile'}
+                />
             </HStack>
-            <AdvancedRealTimeChart theme='dark' width='100%' symbol={ticker} autosize />
+            {activeFeature === 'chart' && (
+                <AdvancedRealTimeChart theme='dark' width='100%' symbol={ticker} autosize />
+            )}
+            {activeFeature === 'analysis' && (
+                <TechnicalAnalysis colorTheme='dark' symbol={ticker} />
+            )}
+            {activeFeature === 'fundamentals' && (
+                <FundamentalData colorTheme='dark' height='100%' width='100%' symbol={ticker} />
+            )}
+            {activeFeature === 'profile' && (
+                <CompanyProfile colorTheme='dark' height='100%' width='100%' symbol={ticker} />
+            )}
         </VStack>
     );
 }

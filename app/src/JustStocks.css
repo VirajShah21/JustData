@@ -44,3 +44,16 @@
     width: 5rem;
     color: gray;
 }
+
+#tradingview_widget_wrapper {
+    width: 100%;
+    flex-grow: 1;
+}
+
+#tradingview_widget_wrapper div:nth-child(1) {
+    height: 100%;
+}
+
+#tradingview_widget_wrapper div:nth-child(2) {
+    display: none;
+}

@@ -11,9 +11,20 @@
     margin: 0.5rem;
 }
 
+.feature-button:hover {
+    animation-name: rainbow;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+
 .feature-button.active .feature-button-inside {
     background: transparent;
     color: black;
+    transition: 0.5s color;
+}
+
+.feature-button.active .feature-button-inside:hover {
+    color: white;
 }
 
 .feature-button .feature-button-inside {
@@ -28,4 +39,14 @@
 
 .feature-button .feature-button-inside .feature-button-icon {
     margin-right: 0.5rem;
+}
+
+@keyframes rainbow {
+    from {
+        filter: hue-rotate(0deg);
+    }
+
+    to {
+        filter: hue-rotate(360deg);
+    }
 }
