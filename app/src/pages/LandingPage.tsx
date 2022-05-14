@@ -1,10 +1,10 @@
 import { ArchiveIcon, GraphIcon, LawIcon } from '@primer/octicons-react';
 import { HStack, Spacer, VStack } from 'reaction';
-import { ProductResult, ProductSectionTitle } from '@components/ProductComponents';
-import SearchBar from '@components/SearchBar';
-import mostWantedLogo from '@icons/Just Most Wanted.png';
-import logo from '@icons/logo.png';
-import stocksLogo from '@icons/stocks.png';
+import { ProductResult, ProductSectionTitle } from '../components/ProductComponents';
+import SearchBar from '../components/SearchBar';
+import mostWantedLogo from '../resources/images/icons/Just Most Wanted.png';
+import logo from '../resources/images/icons/logo.png';
+import stocksLogo from '../resources/images/icons/stocks.png';
 import './LandingPage.css';
 
 function LandingLeft() {

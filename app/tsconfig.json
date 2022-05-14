@@ -16,13 +16,10 @@
         "isolatedModules": true,
         "noEmit": true,
         "jsx": "react-jsx",
-        "typeRoots": ["node_modules/@types", "../shared/@types"],
-        "paths": {
-            "@components/*": ["src/components/*"],
-            "@pages/*": ["src/pages/*"],
-            "@icons/*": ["src/images/icons/*"],
-            "@shared/*": ["src/shared/*"]
-        }
+        "typeRoots": ["node_modules/@types", "../shared/@types"]
+    },
+    "ts-node": {
+        "files": true
     },
     "include": ["src", "../shared"]
 }
