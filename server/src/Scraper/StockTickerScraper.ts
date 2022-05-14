@@ -1,24 +1,10 @@
 import Scraper from './Scraper';
 import ScrapeUtils, { ParsedHTMLElement } from './ScrapeUtils';
 import fs from 'fs';
+import ScraperCache from './ScraperCache';
 
-let cache: Record<string, StockTickerScraperResponse> = {};
-
-function setupCache() {
-    if (!fs.existsSync('./caches')) fs.mkdirSync('./caches');
-
-    if (!fs.existsSync('./caches/stock-ticker-scraper.json')) {
-        fs.writeFileSync('./caches/stock-ticker-scraper.json', '{}');
-    } else {
-        cache = JSON.parse(fs.readFileSync('./caches/stock-ticker-scraper.json').toString());
-    }
-
-    setInterval(() => {
-        fs.writeFileSync('./caches/stock-ticker-scraper.json', JSON.stringify(cache));
-    }, 60000);
-}
-
-setupCache();
+let cache: Record<string, StockTickerScraperResponse> =
+    ScraperCache.initializeCache('stock-ticker-scraper.json') ?? {};
 
 class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
     private query: string;

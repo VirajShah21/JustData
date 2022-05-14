@@ -2,6 +2,7 @@ import express from 'express';
 import axios from 'axios';
 import StockTickerScraper from './Scraper/StockTickerScraper';
 import ScrapeUtils from './Scraper/ScrapeUtils';
+import { TenMostWantedFugitivesScraper } from './Scraper/FBIMostWantedScrapers';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -24,6 +25,11 @@ app.get('/api/stocks/ticker-search', async (req, res) => {
     } else {
         console.error(`The query ${q} is not a string`);
     }
+});
+
+app.get('/api/fbi-most-wanted/ten-most-wanted', async (req, res) => {
+    const scraper = new TenMostWantedFugitivesScraper();
+    res.send(await scraper.scrape());
 });
 
 app.listen(PORT, () => {
