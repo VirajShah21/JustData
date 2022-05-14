@@ -13,7 +13,7 @@
 }
 
 .landing-left {
-    background-image: url(landing-bg.jpg);
+    background-image: url(../resources/images/backgrounds/landing-bg.jpg);
     background-size: cover;
 }
 

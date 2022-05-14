@@ -1,4 +1,4 @@
-import logo from '../logo-alt.png';
+import logo from '../resources/images/icons/logo-alt.png';
 import './BrandButton.css';
 
 function BrandButton() {

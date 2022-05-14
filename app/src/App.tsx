@@ -1,6 +1,6 @@
 import './App.css';
-import JustStocks from './JustStocks';
-import LandingPage from './LandingPage';
+import JustStocks from './pages/JustStocks';
+import LandingPage from './pages/LandingPage';
 
 function App() {
     switch (window.location.pathname) {
