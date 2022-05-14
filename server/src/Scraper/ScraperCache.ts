@@ -8,7 +8,7 @@ abstract class ScraperCache {
         if (!fs.existsSync(ScraperCache.cacheRoot)) fs.mkdirSync(ScraperCache.cacheRoot);
     }
 
-    static initializeCache<T>(filename: string): T | null {
+    static initializeCache<T>(filename: string, memoryAccessor?: () => T): T | null {
         ScraperCache.initializeCacheRoot();
 
         const filePath = path.join(ScraperCache.cacheRoot, filename);
@@ -20,9 +20,11 @@ abstract class ScraperCache {
             cache = JSON.parse(fs.readFileSync(filePath).toString());
         }
 
-        setInterval(() => {
-            fs.writeFileSync(filePath, JSON.stringify(cache));
-        }, 60000);
+        if (memoryAccessor) {
+            setInterval(() => {
+                fs.writeFileSync(filePath, JSON.stringify(memoryAccessor()));
+            }, 60000);
+        }
 
         return cache;
     }

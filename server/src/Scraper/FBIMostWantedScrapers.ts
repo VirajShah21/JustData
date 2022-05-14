@@ -2,14 +2,8 @@ import Scraper from './Scraper';
 import ScraperCache from './ScraperCache';
 import ScrapeUtils from './ScrapeUtils';
 
-interface TenMostWantedResult {
-    name: string;
-    mugshot: string;
-    posterURL: string;
-}
-
-const tenMostWantedCache: TenMostWantedResult[] =
-    ScraperCache.initializeCache('fbi-ten-most-wanted.json') ?? [];
+let tenMostWantedCache: TenMostWantedResult[] =
+    ScraperCache.initializeCache('fbi-ten-most-wanted.json', () => tenMostWantedCache) ?? [];
 
 class TenMostWantedFugitivesScraper extends Scraper<TenMostWantedResult[]> {
     constructor() {
@@ -20,18 +14,20 @@ class TenMostWantedFugitivesScraper extends Scraper<TenMostWantedResult[]> {
         if (tenMostWantedCache.length > 0) return tenMostWantedCache;
 
         await this.openTab();
-
         const li = await ScrapeUtils.select(this.tab!, '.portal-type-person');
+        this.closeTab();
+
         const profileUrls = li.map(item => item.querySelector('a')!.getAttribute('href')!);
         const posterUrls = await Promise.all(
             profileUrls.map(async url => {
-                return (await ScrapeUtils.select(await ScrapeUtils.getPage(url), 'p.Download'))![0]
-                    .querySelector('a')!
-                    .getAttribute('href')!;
+                const page = await ScrapeUtils.getPage(url);
+                const downloadParagraph = (await ScrapeUtils.select(page, 'p.Download'))![0];
+                page.close();
+                return downloadParagraph.querySelector('a')!.getAttribute('href')!;
             })
         );
 
-        return li.map((item, index) => {
+        const response = li.map((item, index) => {
             const imgSrc = item.querySelector('a')!.querySelector('img')!.getAttribute('src')!;
             const fugitiveName = item.querySelector('h3.title')!.textContent;
             return {
@@ -40,6 +36,10 @@ class TenMostWantedFugitivesScraper extends Scraper<TenMostWantedResult[]> {
                 posterURL: posterUrls[index],
             };
         });
+
+        tenMostWantedCache = response;
+
+        return response;
     }
 
     get cache(): Record<string, TenMostWantedResult[]> {

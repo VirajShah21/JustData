@@ -4,7 +4,7 @@ import fs from 'fs';
 import ScraperCache from './ScraperCache';
 
 let cache: Record<string, StockTickerScraperResponse> =
-    ScraperCache.initializeCache('stock-ticker-scraper.json') ?? {};
+    ScraperCache.initializeCache('stock-ticker-scraper.json', () => cache) ?? {};
 
 class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
     private query: string;

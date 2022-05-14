@@ -27,7 +27,7 @@ app.get('/api/stocks/ticker-search', async (req, res) => {
     }
 });
 
-app.get('/api/fbi-most-wanted/ten-most-wanted', async (req, res) => {
+app.get('/api/fbi/ten-most-wanted', async (req, res) => {
     const scraper = new TenMostWantedFugitivesScraper();
     res.send(await scraper.scrape());
 });
