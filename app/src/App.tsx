@@ -1,4 +1,5 @@
 import './App.css';
+import FBIMostWanted from './pages/FBIMostWanted';
 import JustStocks from './pages/JustStocks';
 import LandingPage from './pages/LandingPage';
 
@@ -13,6 +14,8 @@ function getPage(pathname: string) {
             return <LandingPage />;
         case '/stocks':
             return <JustStocks />;
+        case '/most-wanted':
+            return <FBIMostWanted />;
         default:
             return <div>404</div>;
     }

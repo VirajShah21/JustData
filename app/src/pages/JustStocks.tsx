@@ -11,8 +11,9 @@ import { HStack, Spacer, VStack } from 'reaction';
 import BrandButton from '../components/BrandButton';
 import FeatureButton from '../components/FeatureButton';
 import SearchBar from '../components/SearchBar';
-import justStocksLogo from '../resources/images/icons/stocks.png';
 import './JustStocks.css';
+
+type StocksFeature = 'chart' | 'analysis' | 'fundamentals' | 'profile';
 
 function StockSearchBar(props: { value?: string; onSearch: (value: string) => void }) {
     const [searchSuggestions, setSearchSuggestions] = useState<StockSearchResult[]>([]);
@@ -67,10 +68,8 @@ function StockSearchBar(props: { value?: string; onSearch: (value: string) => vo
 }
 
 function JustStocks() {
-    type Feature = 'chart' | 'analysis' | 'fundamentals' | 'profile';
-
     const [ticker, setTicker] = useState('AAPL');
-    const [activeFeature, setActiveFeature] = useState<Feature>('chart');
+    const [activeFeature, setActiveFeature] = useState<StocksFeature>('chart');
 
     return (
         <VStack width='100%' id='just-stocks'>
