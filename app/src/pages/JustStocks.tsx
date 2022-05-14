@@ -1,6 +1,3 @@
-import BrandButton from '../components/BrandButton';
-import FeatureButton from '../components/FeatureButton';
-import SearchBar from '../components/SearchBar';
 import { GraphIcon, InfoIcon, LightBulbIcon, NumberIcon } from '@primer/octicons-react';
 import axios from 'axios';
 import { useState } from 'react';
@@ -11,6 +8,10 @@ import {
     TechnicalAnalysis,
 } from 'react-ts-tradingview-widgets';
 import { HStack, Spacer, VStack } from 'reaction';
+import BrandButton from '../components/BrandButton';
+import FeatureButton from '../components/FeatureButton';
+import SearchBar from '../components/SearchBar';
+import justStocksLogo from '../resources/images/icons/stocks.png';
 import './JustStocks.css';
 
 function StockSearchBar(props: { value?: string; onSearch: (value: string) => void }) {
