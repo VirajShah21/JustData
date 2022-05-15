@@ -11,22 +11,24 @@ interface FullFugitiveData extends SimpleFugitiveData {
         src: string;
         caption: string;
     }[];
-    bio: {
-        alias: string;
-        dob: string;
-        birthplace: string;
-        hair: string;
-        eyes: string;
-        height: string;
-        weight: string;
-        build: string;
-        complexion: string;
-        sex: string;
-        race: string;
-        occupation: string;
-        nationality: string;
-        markings: string;
-    };
+    bio:
+        | {
+              alias: string;
+              dob: string;
+              birthplace: string;
+              hair: string;
+              eyes: string;
+              height: string;
+              weight: string;
+              build: string;
+              complexion: string;
+              sex: string;
+              race: string;
+              occupation: string;
+              nationality: string;
+              markings: string;
+          }
+        | undefined;
     remarks: string | undefined;
     caution: {
         text: string | undefined;

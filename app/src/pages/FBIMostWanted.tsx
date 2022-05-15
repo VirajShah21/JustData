@@ -43,7 +43,7 @@ function FBIMostWanted() {
 
 function TenMostWantedList() {
     const [isLoading, setIsLoading] = useState(true);
-    const [fugitives, setFugitives] = useState<TenMostWantedResult[]>([]);
+    const [fugitives, setFugitives] = useState<SimpleFugitiveData[]>([]);
 
     axios.get('http://localhost:3001/api/fbi/ten-most-wanted').then(response => {
         if (response.status === 200) {
@@ -66,7 +66,7 @@ function TenMostWantedList() {
     );
 }
 
-function FugitiveListItem(props: FugitiveData) {
+function FugitiveListItem(props: SimpleFugitiveData) {
     return (
         <VStack
             className='fugitive-list-item'

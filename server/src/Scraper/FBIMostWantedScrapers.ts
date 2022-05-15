@@ -55,14 +55,9 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
     }
 
     override async scrape(): Promise<FullFugitiveData[] | null> {
-        await this.openTab();
+        if (allFugitivesCache.length > 0) return allFugitivesCache;
 
-        this.tab!.on('console', async msg => {
-            const msgArgs = msg.args();
-            for (let i = 0; i < msgArgs.length; ++i) {
-                console.log(await msgArgs[i].jsonValue());
-            }
-        });
+        await this.openTab();
 
         while (
             await this.tab!.evaluate(() =>
@@ -117,14 +112,18 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
                         const bioTable = profileBody.querySelector(
                             'table.wanted-person-description'
                         )!;
-                        const bioTableJson: Record<string, string> = {};
-                        bioTable
-                            .querySelector('tbody')!
-                            .querySelectorAll('tr')!
-                            .forEach(tr => {
-                                const [key, value] = tr.querySelectorAll('td');
-                                bioTableJson[key.textContent] = value.textContent;
-                            });
+                        let bioTableJson: Record<string, string> | undefined = {};
+                        if (bioTable) {
+                            bioTable
+                                ? bioTable
+                                      .querySelector('tbody')!
+                                      .querySelectorAll('tr')!
+                                      .forEach(tr => {
+                                          const [key, value] = tr.querySelectorAll('td');
+                                          bioTableJson![key.textContent] = value.textContent;
+                                      })
+                                : undefined;
+                        } else bioTableJson = undefined;
 
                         const aliasContainer = profileBody.querySelector('p.wanted-person-aliases');
                         let aliases = 'No known aliases';
@@ -161,22 +160,24 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
                                 .textContent.split(';')
                                 .map(s => s.trim()),
                             pictures,
-                            bio: {
-                                alias: aliases,
-                                dob: bioTableJson['Date(s) of Birth Used'],
-                                birthplace: bioTableJson['Place of Birth'],
-                                hair: bioTableJson['Hair'],
-                                eyes: bioTableJson['Eyes'],
-                                height: bioTableJson['Height'],
-                                weight: bioTableJson['Weight'],
-                                build: bioTableJson['Build'],
-                                complexion: bioTableJson['Complexion'],
-                                sex: bioTableJson['Sex'],
-                                race: bioTableJson['Race'],
-                                occupation: bioTableJson['Occupation'],
-                                nationality: bioTableJson['Nationality'],
-                                markings: bioTableJson['Scars and Marks'],
-                            },
+                            bio: bioTableJson
+                                ? {
+                                      alias: aliases,
+                                      dob: bioTableJson['Date(s) of Birth Used'],
+                                      birthplace: bioTableJson['Place of Birth'],
+                                      hair: bioTableJson['Hair'],
+                                      eyes: bioTableJson['Eyes'],
+                                      height: bioTableJson['Height'],
+                                      weight: bioTableJson['Weight'],
+                                      build: bioTableJson['Build'],
+                                      complexion: bioTableJson['Complexion'],
+                                      sex: bioTableJson['Sex'],
+                                      race: bioTableJson['Race'],
+                                      occupation: bioTableJson['Occupation'],
+                                      nationality: bioTableJson['Nationality'],
+                                      markings: bioTableJson['Scars and Marks'],
+                                  }
+                                : undefined,
                             remarks,
                             caution: {
                                 text: caution,
@@ -190,6 +191,9 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
 
         const response: FullFugitiveData[] = [];
         batchResponses.forEach(batch => batch.forEach(result => response.push(result)));
+
+        allFugitivesCache = response;
+
         return response;
     }
 
