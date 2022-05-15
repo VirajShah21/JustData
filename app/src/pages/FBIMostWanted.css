@@ -63,6 +63,15 @@
 .fbi-most-wanted-page .fugitives-list .fugitive-list-item .fugitive-popover .fugitive-poster-link {
     display: none;
     color: white;
+    background: none;
+    border: none;
+    font-size: 0.75rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    margin-top: 0.5rem;
 }
 
 .fbi-most-wanted-page

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import FeatureButton from 'src/components/FeatureButton';
+import FugitiveProfile from 'src/components/FugitiveProfile';
 import './FBIMostWanted.css';
 
 type FBIMostWantedFeature =
@@ -60,7 +61,7 @@ function TenMostWantedList() {
             {isLoading && 'Loading...'}
             <HStack className='fugitives-list'>
                 {fugitives.map(fugitive => (
-                    <FugitiveListItem {...fugitive} />
+                    <FugitiveListItem {...fugitive} opensProfile={false} />
                 ))}
             </HStack>
         </VStack>
@@ -85,14 +86,18 @@ function AllFugitivesList() {
             {isLoading && 'Loading...'}
             <HStack className='fugitives-list'>
                 {fugitives.slice(0, 40).map(fugitive => (
-                    <FugitiveListItem {...fugitive} />
+                    <FugitiveListItem {...fugitive} opensProfile={true} />
                 ))}
             </HStack>
         </VStack>
     );
 }
 
-function FugitiveListItem(props: SimpleFugitiveData) {
+function FugitiveListItem(
+    props: (SimpleFugitiveData | FullFugitiveData) & { opensProfile?: boolean }
+) {
+    const [showingProfile, setShowingProfile] = useState(false);
+
     return (
         <VStack
             className='fugitive-list-item'
@@ -100,10 +105,26 @@ function FugitiveListItem(props: SimpleFugitiveData) {
             justify='end'>
             <VStack className='fugitive-popover' justify='start'>
                 <h3 className='fugitive-name'>{props.name}</h3>
-                <a href={props.posterURL} className='fugitive-poster-link'>
-                    Wanted Poster
-                </a>
+                {props.opensProfile ? (
+                    <button
+                        onClick={() => {
+                            setShowingProfile(true);
+                        }}
+                        className='fugitive-poster-link'>
+                        View Full Profile
+                    </button>
+                ) : (
+                    <a href={props.posterURL} className='fugitive-poster-link'>
+                        Wanted Poster
+                    </a>
+                )}
             </VStack>
+            {showingProfile && (
+                <FugitiveProfile
+                    {...(props as FullFugitiveData)}
+                    onClose={() => setShowingProfile(false)}
+                />
+            )}
         </VStack>
     );
 }

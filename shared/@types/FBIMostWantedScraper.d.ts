@@ -13,7 +13,7 @@ interface FullFugitiveData extends SimpleFugitiveData {
     }[];
     bio:
         | {
-              alias: string;
+              alias: string | undefined;
               dob: string;
               birthplace: string;
               hair: string;

@@ -155,7 +155,7 @@ class FugitiveProfileScraper extends Scraper<FullFugitiveData> {
         } else bioTableJson = undefined;
 
         const aliasContainer = profileBody.querySelector('p.wanted-person-aliases');
-        let aliases = 'No known aliases';
+        let aliases: string | undefined;
         if (aliasContainer) aliases = aliasContainer.textContent;
 
         let remarksContainer = profileBody.querySelector('.wanted-person-remarks');
