@@ -5,24 +5,25 @@
     backdrop-filter: blur(1rem);
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+    z-index: 100;
 }
 
 .fbi-most-wanted-page .feature-container {
     margin-top: 5rem;
 }
 
-.fbi-most-wanted-page .ten-most-wanted-list {
+.fbi-most-wanted-page .fugitives-list {
     flex-wrap: wrap;
     overflow-y: scroll;
 }
 
-.fbi-most-wanted-page .ten-most-wanted-list .fugitive-list-item {
+.fbi-most-wanted-page .fugitives-list .fugitive-list-item {
     height: 20rem;
     width: 20rem;
     background-size: cover;
 }
 
-.fbi-most-wanted-page .ten-most-wanted-list .fugitive-list-item .fugitive-popover {
+.fbi-most-wanted-page .fugitives-list .fugitive-list-item .fugitive-popover {
     background: rgba(0, 0, 0, 0.5);
     -webkit-backdro-filter: blur(1rem);
     backdrop-filter: blur(1rem);
@@ -34,15 +35,15 @@
     overflow: hidden;
 }
 
-.fbi-most-wanted-page .ten-most-wanted-list .fugitive-list-item .fugitive-popover:hover {
+.fbi-most-wanted-page .fugitives-list .fugitive-list-item .fugitive-popover:hover {
     justify-content: center !important;
 }
 
-.fbi-most-wanted-page .ten-most-wanted-list .fugitive-list-item:hover .fugitive-popover {
+.fbi-most-wanted-page .fugitives-list .fugitive-list-item:hover .fugitive-popover {
     height: 100%;
 }
 
-.fbi-most-wanted-page .ten-most-wanted-list .fugitive-list-item .fugitive-popover h3.fugitive-name {
+.fbi-most-wanted-page .fugitives-list .fugitive-list-item .fugitive-popover h3.fugitive-name {
     width: 100%;
     padding: 0 1rem;
     white-space: nowrap;
@@ -52,28 +53,20 @@
     margin: 0;
 }
 
-.fbi-most-wanted-page
-    .ten-most-wanted-list
-    .fugitive-list-item:hover
-    .fugitive-popover
-    h3.fugitive-name {
+.fbi-most-wanted-page .fugitives-list .fugitive-list-item:hover .fugitive-popover h3.fugitive-name {
     font-weight: 600;
     white-space: normal;
     overflow: visible;
     text-align: center;
 }
 
-.fbi-most-wanted-page
-    .ten-most-wanted-list
-    .fugitive-list-item
-    .fugitive-popover
-    .fugitive-poster-link {
+.fbi-most-wanted-page .fugitives-list .fugitive-list-item .fugitive-popover .fugitive-poster-link {
     display: none;
     color: white;
 }
 
 .fbi-most-wanted-page
-    .ten-most-wanted-list
+    .fugitives-list
     .fugitive-list-item:hover
     .fugitive-popover
     .fugitive-poster-link {

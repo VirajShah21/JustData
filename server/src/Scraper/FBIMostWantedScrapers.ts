@@ -74,7 +74,7 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
             });
         }
 
-        const listItems = await ScrapeUtils.select(this.tab!, '.portal-type-person');
+        const listItems = (await ScrapeUtils.select(this.tab!, '.portal-type-person')).slice(0, 50);
         const batches: ParsedHTMLElement[][] = [];
         listItems.forEach((item, index) => {
             if (index % 10 === 0) batches.push([]);
@@ -100,7 +100,10 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
                         const profilePage = await ScrapeUtils.getPage(profileUrl);
                         const profileBody = (await ScrapeUtils.select(profilePage, 'body'))[0];
                         profilePage.close();
-                        const mugshot = profileBody.querySelector('img')!.getAttribute('src')!;
+                        const mugshot = profileBody
+                            .querySelector('.wanted-person-mug')!
+                            .querySelector('img')!
+                            .getAttribute('src')!;
                         const pictures = profileBody
                             .querySelector('.wanted-person-images')!
                             .querySelectorAll('li')!

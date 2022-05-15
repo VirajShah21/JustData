@@ -36,6 +36,7 @@ function FBIMostWanted() {
             </HStack>
             <HStack className='feature-container'>
                 {feature === 'ten-most-wanted' && <TenMostWantedList />}
+                {feature === 'fugitives' && <AllFugitivesList />}
             </HStack>
         </VStack>
     );
@@ -57,8 +58,33 @@ function TenMostWantedList() {
     return (
         <VStack>
             {isLoading && 'Loading...'}
-            <HStack className='ten-most-wanted-list'>
+            <HStack className='fugitives-list'>
                 {fugitives.map(fugitive => (
+                    <FugitiveListItem {...fugitive} />
+                ))}
+            </HStack>
+        </VStack>
+    );
+}
+
+function AllFugitivesList() {
+    const [isLoading, setIsLoading] = useState(true);
+    const [fugitives, setFugitives] = useState<SimpleFugitiveData[]>([]);
+
+    axios.get('http://localhost:3001/api/fbi/all-fugitives').then(response => {
+        if (response.status === 200) {
+            setFugitives(response.data);
+            setIsLoading(false);
+        } else {
+            alert('Error recieving list of ten most wanted fugitives');
+        }
+    });
+
+    return (
+        <VStack>
+            {isLoading && 'Loading...'}
+            <HStack className='fugitives-list'>
+                {fugitives.slice(0, 40).map(fugitive => (
                     <FugitiveListItem {...fugitive} />
                 ))}
             </HStack>
