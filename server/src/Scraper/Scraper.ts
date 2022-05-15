@@ -2,7 +2,7 @@ import { Page } from 'puppeteer';
 import ScrapeUtils, { ParsedHTMLElement } from './ScrapeUtils';
 
 interface IScraper<R> {
-    get cache(): Record<string, R>;
+    get cache(): Record<string, R> | R;
     scrape(): Promise<R | null>;
 }
 
@@ -28,7 +28,7 @@ abstract class Scraper<R> implements IScraper<R> {
 
     abstract scrape(): Promise<R | null>;
 
-    abstract get cache(): Record<string, R>;
+    abstract get cache(): Record<string, R> | R;
 }
 
 export default Scraper;

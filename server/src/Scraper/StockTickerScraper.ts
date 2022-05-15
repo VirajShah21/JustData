@@ -1,7 +1,6 @@
 import Scraper from './Scraper';
-import ScrapeUtils, { ParsedHTMLElement } from './ScrapeUtils';
-import fs from 'fs';
 import ScraperCache from './ScraperCache';
+import ScrapeUtils from './ScrapeUtils';
 
 let cache: Record<string, StockTickerScraperResponse> =
     ScraperCache.initializeCache('stock-ticker-scraper.json', () => cache) ?? {};
@@ -14,7 +13,7 @@ class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
         this.query = query;
     }
 
-    async scrape(): Promise<StockTickerScraperResponse | null> {
+    override async scrape(): Promise<StockTickerScraperResponse | null> {
         if (cache[this.query.toUpperCase()]) return cache[this.query.toUpperCase()];
 
         await this.openTab();
@@ -51,7 +50,7 @@ class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
         return response;
     }
 
-    get cache() {
+    override get cache() {
         return cache;
     }
 }

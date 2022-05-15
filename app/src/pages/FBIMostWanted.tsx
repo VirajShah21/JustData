@@ -58,22 +58,26 @@ function TenMostWantedList() {
         <VStack>
             {isLoading && 'Loading...'}
             <HStack className='ten-most-wanted-list'>
-                {fugitives.map(fugitive => {
-                    return (
-                        <VStack
-                            className='fugitive-list-item'
-                            style={{ backgroundImage: `url(${fugitive.mugshot})` }}
-                            justify='end'>
-                            <VStack className='fugitive-popover' justify='start'>
-                                <h3 className='fugitive-name'>{fugitive.name}</h3>
-                                <a href={fugitive.posterURL} className='fugitive-poster-link'>
-                                    Wanted Poster
-                                </a>
-                            </VStack>
-                        </VStack>
-                    );
-                })}
+                {fugitives.map(fugitive => (
+                    <FugitiveListItem {...fugitive} />
+                ))}
             </HStack>
+        </VStack>
+    );
+}
+
+function FugitiveListItem(props: FugitiveData) {
+    return (
+        <VStack
+            className='fugitive-list-item'
+            style={{ backgroundImage: `url(${props.mugshot})` }}
+            justify='end'>
+            <VStack className='fugitive-popover' justify='start'>
+                <h3 className='fugitive-name'>{props.name}</h3>
+                <a href={props.posterURL} className='fugitive-poster-link'>
+                    Wanted Poster
+                </a>
+            </VStack>
         </VStack>
     );
 }

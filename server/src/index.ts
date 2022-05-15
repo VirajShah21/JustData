@@ -2,7 +2,10 @@ import express from 'express';
 import axios from 'axios';
 import StockTickerScraper from './Scraper/StockTickerScraper';
 import ScrapeUtils from './Scraper/ScrapeUtils';
-import { TenMostWantedFugitivesScraper } from './Scraper/FBIMostWantedScrapers';
+import {
+    AllFugitivesScraper,
+    TenMostWantedFugitivesScraper,
+} from './Scraper/FBIMostWantedScrapers';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -29,6 +32,11 @@ app.get('/api/stocks/ticker-search', async (req, res) => {
 
 app.get('/api/fbi/ten-most-wanted', async (req, res) => {
     const scraper = new TenMostWantedFugitivesScraper();
+    res.send(await scraper.scrape());
+});
+
+app.get('/api/fbi/all-fugitives', async (req, res) => {
+    const scraper = new AllFugitivesScraper();
     res.send(await scraper.scrape());
 });
 
