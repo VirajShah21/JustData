@@ -3,6 +3,20 @@
 | <img src=".README/logo.png" height="100"> | Scraping the web, and collecting just data |
 | ----------------------------------------- | ------------------------------------------ |
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
+
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=bugs)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=coverage)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
+
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
+
 - [JustData](#justdata)
   - [What is Just Data?](#what-is-just-data)
   - [Scraping Rules](#scraping-rules)
