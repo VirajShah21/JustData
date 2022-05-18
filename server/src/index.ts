@@ -6,6 +6,7 @@ import {
     AllFugitivesScraper,
     TenMostWantedFugitivesScraper,
 } from './Scraper/FBIMostWantedScrapers';
+import OyezCaseListScraper from './Scraper/OyezCaseScraper';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -37,6 +38,22 @@ app.get('/api/fbi/ten-most-wanted', async (req, res) => {
 
 app.get('/api/fbi/all-fugitives', async (req, res) => {
     const scraper = new AllFugitivesScraper();
+    res.send(await scraper.scrape());
+});
+
+app.get('/api/supreme-court/cases', async (req, res) => {
+    let terms;
+
+    if (req.query.terms) {
+        terms = (JSON.parse(req.query.terms as string) as string[]).map(term => +term);
+    } else if (req.query.term) {
+        terms = [+req.query.term];
+    } else {
+        res.send('Error: You must specify a term or terms');
+        return;
+    }
+
+    const scraper = new OyezCaseListScraper(terms);
     res.send(await scraper.scrape());
 });
 
