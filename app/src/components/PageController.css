@@ -1,0 +1,20 @@
+.page-controller {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.page-controller button.page-controller-number-button {
+    background: none;
+    border: none;
+    color: gray;
+    box-sizing: border-box;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+}
+
+.page-controller button.page-controller-number-button.active {
+    background-color: rgb(50, 50, 50);
+    color: white;
+    font-weight: bold;
+}

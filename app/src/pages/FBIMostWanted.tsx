@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import FeatureButton from 'src/components/FeatureButton';
 import FugitiveProfile from 'src/components/FugitiveProfile';
+import PageController from 'src/components/PageController';
 import './FBIMostWanted.css';
 
 type FBIMostWantedFeature =
@@ -69,8 +70,10 @@ function TenMostWantedList() {
 }
 
 function AllFugitivesList() {
+    const pageSize = 20;
     const [isLoading, setIsLoading] = useState(true);
     const [fugitives, setFugitives] = useState<SimpleFugitiveData[]>([]);
+    const [page, setPage] = useState(1);
 
     axios.get('http://localhost:3001/api/fbi/all-fugitives').then(response => {
         if (response.status === 200) {
@@ -85,10 +88,15 @@ function AllFugitivesList() {
         <VStack>
             {isLoading && 'Loading...'}
             <HStack className='fugitives-list'>
-                {fugitives.slice(0, 40).map(fugitive => (
+                {fugitives.slice(pageSize * (page - 1), pageSize * page).map(fugitive => (
                     <FugitiveListItem {...fugitive} opensProfile={true} />
                 ))}
             </HStack>
+            <PageController
+                lastPage={Math.ceil(fugitives.length / pageSize)}
+                currentPage={page}
+                onPageChange={pgNumber => setPage(pgNumber)}
+            />
         </VStack>
     );
 }
@@ -119,6 +127,7 @@ function FugitiveListItem(
                     </a>
                 )}
             </VStack>
+
             {showingProfile && (
                 <FugitiveProfile
                     {...(props as FullFugitiveData)}
