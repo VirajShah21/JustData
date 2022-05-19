@@ -126,20 +126,31 @@ function JustStocks() {
                     active={activeFeature === 'profile'}
                 />
             </HStack>
-            {activeFeature === 'chart' && (
-                <AdvancedRealTimeChart theme='dark' width='100%' symbol={ticker} autosize />
-            )}
-            {activeFeature === 'analysis' && (
-                <TechnicalAnalysis colorTheme='dark' symbol={ticker} />
-            )}
-            {activeFeature === 'fundamentals' && (
-                <FundamentalData colorTheme='dark' height='100%' width='100%' symbol={ticker} />
-            )}
-            {activeFeature === 'profile' && (
-                <CompanyProfile colorTheme='dark' height='100%' width='100%' symbol={ticker} />
-            )}
+            {getActiveFeature(activeFeature, ticker)}
         </VStack>
     );
+}
+
+/**
+ * Gets a rendering of the active feature with the active stock ticker.
+ *
+ * @param feature - The feature name to be rendered.
+ * @param ticker - The ticker symbol of the stock to be rendered.
+ * @returns The active feature
+ */
+function getActiveFeature(feature: StocksFeature, ticker: string) {
+    switch (feature) {
+        case 'chart':
+            return <AdvancedRealTimeChart theme='dark' width='100%' symbol={ticker} autosize />;
+        case 'analysis':
+            return <TechnicalAnalysis colorTheme='dark' symbol={ticker} />;
+        case 'fundamentals':
+            return <FundamentalData colorTheme='dark' height='100%' width='100%' symbol={ticker} />;
+        case 'profile':
+            return <CompanyProfile colorTheme='dark' height='100%' width='100%' symbol={ticker} />;
+        default:
+            return <AdvancedRealTimeChart theme='dark' width='100%' symbol={ticker} autosize />;
+    }
 }
 
 export default JustStocks;

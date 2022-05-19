@@ -19,6 +19,7 @@ const features: Record<string, FBIMostWantedFeature> = {
     allFugitives: 'fugitives',
     capitolViolence: 'capitol-violence',
 };
+const loadingText = 'Loading...';
 
 const httpSuccess = 200;
 
@@ -91,7 +92,7 @@ function TenMostWantedList() {
 
     return (
         <VStack>
-            {isLoading && 'Loading...'}
+            {isLoading && loadingText}
             <HStack className='fugitives-list'>
                 {fugitives.map(fugitive => (
                     <FugitiveListItem {...fugitive} opensProfile={false} />
@@ -123,13 +124,13 @@ function AllFugitivesList() {
             setFugitives(response.data);
             setIsLoading(false);
         } else {
-            alert('Error recieving list of ten most wanted fugitives');
+            alert('Error recieving list of all fugitives');
         }
     });
 
     return (
         <VStack>
-            {isLoading && 'Loading...'}
+            {isLoading && loadingText}
             <HStack className='fugitives-list'>
                 {fugitives.slice(pageSize * (page - 1), pageSize * page).map(fugitive => (
                     <FugitiveListItem {...fugitive} opensProfile={true} />

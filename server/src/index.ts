@@ -9,6 +9,8 @@ import StockTickerScraper from './Scraper/StockTickerScraper';
 
 // DEV_PORT is 3001 because react-scripts takes 3000
 const DEV_PORT = 3001;
+// If a PORT is provided as an environment variable (usually on a production server)
+// then that port will be used
 const PORT = process.env.PORT ?? DEV_PORT;
 
 const app = express();

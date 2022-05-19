@@ -21,6 +21,7 @@
  * @returns A promise which resolves in the specified number of milliseconds.
  */
 function sleep(ms: number) {
+    // Simply resolve the promise once the timeout is triggered
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
