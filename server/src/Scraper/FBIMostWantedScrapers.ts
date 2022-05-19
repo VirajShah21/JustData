@@ -3,6 +3,8 @@ import ScraperCache from './ScraperCache';
 import ScrapeUtils, { ParsedHTMLElement } from './ScrapeUtils';
 
 const fugitiveLIClassName = '.portal-type-person';
+const wantedPosterQuery = 'p.Download';
+const loadMoreButtonQuery = 'button.load-more';
 
 let tenMostWantedCache: SimpleFugitiveData[] =
     ScraperCache.initializeCache('fbi-ten-most-wanted.json', () => tenMostWantedCache) ?? [];
@@ -42,7 +44,7 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
                 profileUrls.map(async url => {
                     const page = await ScrapeUtils.getPage(url);
                     const downloadParagraphHTML = await page.evaluate(
-                        () => document.querySelector('p.Download')?.outerHTML,
+                        () => document.querySelector(wantedPosterQuery)?.outerHTML,
                     );
                     page.close();
 
@@ -106,11 +108,11 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
 
         while (
             await this.tab?.evaluate(() =>
-                document.querySelector('button.load-more') ? true : false,
+                document.querySelector(loadMoreButtonQuery) ? true : false,
             )
         ) {
             await this.tab?.evaluate(() => {
-                const btn = document.querySelector('button.load-more') as HTMLButtonElement;
+                const btn = document.querySelector(loadMoreButtonQuery) as HTMLButtonElement;
                 if (btn) {
                     btn.click();
                     return true;
@@ -250,7 +252,7 @@ class FugitiveProfileScraper extends Scraper<FullFugitiveData> {
                 mugshot,
                 posterURL:
                     profileBody
-                        .querySelector('p.Download')
+                        .querySelector(wantedPosterQuery)
                         ?.querySelector('a')
                         ?.getAttribute('href') ?? '',
                 category: this.category,

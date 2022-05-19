@@ -14,7 +14,12 @@ type FBIMostWantedFeature =
     | 'missing-persons'
     | 'parental-kidnappings';
 
-const tenMostWantedFeature: FBIMostWantedFeature = 'ten-most-wanted';
+const features: Record<string, FBIMostWantedFeature> = {
+    tenMostWanted: 'ten-most-wanted',
+    allFugitives: 'fugitives',
+    capitolViolence: 'capitol-violence',
+};
+
 const httpSuccess = 200;
 
 /**
@@ -34,30 +39,30 @@ const httpSuccess = 200;
  * @returns The page for the FBIs most wanted fugitives.
  */
 function FBIMostWanted() {
-    const [feature, setFeature] = useState<FBIMostWantedFeature>(tenMostWantedFeature);
+    const [feature, setFeature] = useState<FBIMostWantedFeature>(features.tenMostWanted);
 
     return (
         <VStack width='100%' justify='start' className='fbi-most-wanted-page'>
             <HStack className='features-bar'>
                 <FeatureButton
                     label='Ten Most Wanted Fugitives'
-                    onClick={() => setFeature(tenMostWantedFeature)}
-                    active={feature === tenMostWantedFeature}
+                    onClick={() => setFeature(features.tenMostWanted)}
+                    active={feature === features.tenMostWanted}
                 />
                 <FeatureButton
                     label='Fugitives'
-                    onClick={() => setFeature('fugitives')}
-                    active={feature === 'fugitives'}
+                    onClick={() => setFeature(features.allFugitives)}
+                    active={feature === features.allFugitives}
                 />
                 <FeatureButton
                     label='Capitol Violence'
-                    onClick={() => setFeature('capitol-violence')}
-                    active={feature === 'capitol-violence'}
+                    onClick={() => setFeature(features.capitolViolence)}
+                    active={feature === features.capitolViolence}
                 />
             </HStack>
             <HStack className='feature-container'>
-                {feature === tenMostWantedFeature && <TenMostWantedList />}
-                {feature === 'fugitives' && <AllFugitivesList />}
+                {feature === features.tenMostWanted && <TenMostWantedList />}
+                {feature === features.allFugitives && <AllFugitivesList />}
             </HStack>
         </VStack>
     );
