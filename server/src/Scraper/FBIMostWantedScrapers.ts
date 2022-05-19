@@ -144,14 +144,12 @@ class FugitiveProfileScraper extends Scraper<FullFugitiveData> {
         let bioTableJson: Record<string, string> | undefined = {};
         if (bioTable) {
             bioTable
-                ? bioTable
-                      .querySelector('tbody')!
-                      .querySelectorAll('tr')!
-                      .forEach(tr => {
-                          const [key, value] = tr.querySelectorAll('td');
-                          bioTableJson![key.textContent] = value.textContent;
-                      })
-                : undefined;
+                .querySelector('tbody')!
+                .querySelectorAll('tr')!
+                .forEach(tr => {
+                    const [key, value] = tr.querySelectorAll('td');
+                    bioTableJson![key.textContent] = value.textContent;
+                });
         } else bioTableJson = undefined;
 
         const aliasContainer = profileBody.querySelector('p.wanted-person-aliases');
