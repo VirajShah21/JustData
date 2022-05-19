@@ -10,7 +10,12 @@ interface YellowPagesSearchResult {
     };
     website?: string;
     phone: string;
-    address: string;
+    address: {
+        street: string;
+        city: string;
+        state: string;
+        zip: string;
+    };
     age?: number;
     openStatus: string;
 }
@@ -39,8 +44,8 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
                 query,
             )}&geo_location_terms=${encodeURI(location)}`,
         );
-        this.query = query;
-        this.location = location;
+        this.query = query.trim();
+        this.location = location.trim();
     }
 
     async scrape(): Promise<YellowPagesSearchResult[] | null> {
@@ -53,23 +58,30 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
         const results = listings.map(listing => {
             const categoriesContainer = listing.querySelector('.categories');
             const ratingsContainer = listing.querySelector('.ratings');
-            const websiteContainer = listing.querySelector('.track-visit-website');
+            const websiteContainer = listing.querySelector('a.track-visit-website');
             const ageContainer = listing
                 .querySelector('.years-in-business')
                 ?.querySelector('.count');
             const openStatusContainer = listing.querySelector('.open-status');
+            const addressContainer = listing.querySelector('.adr');
 
             const business =
-                listing.querySelector('h2.n')?.querySelector('.business-name')?.textContent ??
-                'Unknown Business';
+                listing
+                    .querySelector('h2.n')
+                    ?.querySelector('.business-name')
+                    ?.textContent.trim() ?? 'Unknown Business';
             const categories: string[] = [];
             let ypRating: number | undefined;
             let taRating: number | undefined;
+            let street: string | undefined;
+            let city: string | undefined;
+            let state: string | undefined;
+            let zip: string | undefined;
 
             if (categoriesContainer) {
                 categoriesContainer
                     .querySelectorAll('a')
-                    .forEach(a => categories.push(a.textContent));
+                    .forEach(a => categories.push(a.textContent.trim()));
             }
 
             if (ratingsContainer) {
@@ -103,6 +115,24 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
                 }
             }
 
+            if (addressContainer) {
+                const streetContainer = addressContainer.querySelector('.street-address');
+                const localityContainer = addressContainer.querySelector('.locality');
+
+                if (streetContainer) street = streetContainer.textContent;
+
+                if (localityContainer) {
+                    const localityCommaSplit = localityContainer.textContent.split(',');
+                    const afterCommaSplit = localityCommaSplit[1].split(' ');
+                    city = localityCommaSplit[0].trim();
+                    state = afterCommaSplit
+                        .slice(0, afterCommaSplit.length - 1)
+                        .join(' ')
+                        .trim();
+                    zip = afterCommaSplit[afterCommaSplit.length - 1].trim();
+                }
+            }
+
             return {
                 business,
                 categories,
@@ -110,9 +140,14 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
                     yellowPages: ypRating,
                     tripAdvisor: taRating,
                 },
-                website: websiteContainer?.textContent,
+                website: websiteContainer?.getAttribute('href'),
                 phone: listing.querySelector('.phone')?.textContent ?? 'n/a',
-                address: listing.querySelector('.address')?.textContent ?? 'n/a',
+                address: {
+                    street: street ?? 'Unknown Street',
+                    city: city ?? 'Unknown City',
+                    state: state ?? 'Unknown State',
+                    zip: zip ?? 'Unknown Zip',
+                },
                 age: ageContainer ? parseInt(ageContainer.textContent, 10) : undefined,
                 openStatus: openStatusContainer?.textContent ?? 'Hours Unknown',
             };
