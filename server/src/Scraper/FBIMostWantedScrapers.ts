@@ -116,7 +116,7 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
 }
 
 class FugitiveProfileScraper extends Scraper<FullFugitiveData> {
-    private category: string;
+    private readonly category: string;
 
     constructor(url: string, category: string) {
         super(url);
@@ -208,10 +208,6 @@ class FugitiveProfileScraper extends Scraper<FullFugitiveData> {
                 },
             };
         } catch (e) {
-            console.error(
-                'Threw an error with: ' +
-                    profileBody.querySelector('h1.documentFirstHeading')!.textContent
-            );
             throw e;
         }
     }

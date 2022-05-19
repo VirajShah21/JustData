@@ -27,16 +27,16 @@ app.get('/api/stocks/ticker-search', async (req, res) => {
         const scraper = new StockTickerScraper(q);
         res.send(await scraper.scrape());
     } else {
-        console.error(`The query ${q} is not a string`);
+        res.send(`The query ${q} is not a string`);
     }
 });
 
-app.get('/api/fbi/ten-most-wanted', async (req, res) => {
+app.get('/api/fbi/ten-most-wanted', async (_, res) => {
     const scraper = new TenMostWantedFugitivesScraper();
     res.send(await scraper.scrape());
 });
 
-app.get('/api/fbi/all-fugitives', async (req, res) => {
+app.get('/api/fbi/all-fugitives', async (_, res) => {
     const scraper = new AllFugitivesScraper();
     res.send(await scraper.scrape());
 });

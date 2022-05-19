@@ -24,10 +24,8 @@ function StockSearchBar(props: { value?: string; onSearch: (value: string) => vo
         if (!searchSuggestionLock) {
             searchSuggestionLock = true;
             axios
-                .get(`http://localhost:3001/api/stocks/ticker-search?q=${value}`)
+                .get(`http://localhost:3001/api/stocks/ticker-search?q=${encodeURI(value)}`)
                 .then(response => {
-                    console.log(response);
-
                     setSearchSuggestions(
                         response.data.results.length <= 5
                             ? response.data.results

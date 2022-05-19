@@ -1,4 +1,3 @@
-import './App.css';
 import FBIMostWanted from './pages/FBIMostWanted';
 import JustStocks from './pages/JustStocks';
 import LandingPage from './pages/LandingPage';

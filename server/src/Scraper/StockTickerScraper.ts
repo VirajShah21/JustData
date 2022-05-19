@@ -6,7 +6,7 @@ const cache: Record<string, StockTickerScraperResponse> =
     ScraperCache.initializeCache('stock-ticker-scraper.json', () => cache) ?? {};
 
 class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
-    private query: string;
+    private readonly query: string;
 
     constructor(query: string) {
         super(`https://finance.yahoo.com/lookup?s=${encodeURI(query)}`);

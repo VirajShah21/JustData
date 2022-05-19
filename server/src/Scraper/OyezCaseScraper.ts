@@ -18,7 +18,7 @@ const listCache: Record<string, OyezCaseListItem[]> =
     ScraperCache.initializeCache('oyez-case-list.json') ?? {};
 
 class OyezCaseListScraper extends Scraper<OyezCaseListResults> {
-    private termStarts: number[];
+    private readonly termStarts: number[];
 
     constructor(termStarts: number[]) {
         if (termStarts.length === 0)
