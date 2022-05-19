@@ -15,6 +15,7 @@ type FBIMostWantedFeature =
     | 'parental-kidnappings';
 
 const tenMostWantedFeature: FBIMostWantedFeature = 'ten-most-wanted';
+const httpSuccess = 200;
 
 /**
  * This is the webpage for the FBIs most wanted fugitives. It includes several features,
@@ -75,7 +76,7 @@ function TenMostWantedList() {
 
     // Load the fugitives from the FBI scraper API
     axios.get('http://localhost:3001/api/fbi/ten-most-wanted').then(response => {
-        if (response.status === 200) {
+        if (response.status === httpSuccess) {
             setFugitives(response.data); // Set the fugitives
             setIsLoading(false); // Clear out the loading state
         } else {
@@ -113,7 +114,7 @@ function AllFugitivesList() {
 
     // Load all of the fugitives from the FBI scraper API
     axios.get('http://localhost:3001/api/fbi/all-fugitives').then(response => {
-        if (response.status === 200) {
+        if (response.status === httpSuccess) {
             setFugitives(response.data);
             setIsLoading(false);
         } else {

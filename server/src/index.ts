@@ -7,8 +7,11 @@ import OyezCaseListScraper from './Scraper/OyezCaseListScraper';
 import ScrapeUtils from './Scraper/ScrapeUtils';
 import StockTickerScraper from './Scraper/StockTickerScraper';
 
+// DEV_PORT is 3001 because react-scripts takes 3000
+const DEV_PORT = 3001;
+const PORT = process.env.PORT ?? DEV_PORT;
+
 const app = express();
-const PORT = process.env.PORT || 3001;
 
 ScrapeUtils.init();
 

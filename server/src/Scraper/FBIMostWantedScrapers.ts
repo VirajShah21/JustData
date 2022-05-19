@@ -84,6 +84,8 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
  * full profile.
  */
 class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
+    private static readonly batchSize = 10;
+
     /**
      * Constructs a new scraper.
      */
@@ -123,7 +125,7 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
 
         const batches: ParsedHTMLElement[][] = [];
         listItems.forEach((item, index) => {
-            if (index % 10 === 0) batches.push([]);
+            if (index % AllFugitivesScraper.batchSize === 0) batches.push([]);
             batches[batches.length - 1].push(item);
         });
 

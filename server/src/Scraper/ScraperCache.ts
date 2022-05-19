@@ -5,6 +5,7 @@ import path from 'path';
  * A caching utility for caching data from a web scraper.
  */
 abstract class ScraperCache {
+    private static readonly cacheSavingInterval = 60000; // 1 Minute
     private static readonly cacheRoot = './caches';
 
     /**
@@ -37,7 +38,7 @@ abstract class ScraperCache {
         if (memoryAccessor) {
             setInterval(() => {
                 fs.writeFileSync(filePath, JSON.stringify(memoryAccessor()));
-            }, 60000);
+            }, ScraperCache.cacheSavingInterval);
         }
 
         return cache;

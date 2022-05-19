@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import './SearchBar.css';
 
+const suggestionBlurDelay = 250;
+
 interface SearchSuggestion {
     image?: string;
     icon?: JSX.Element;
@@ -50,7 +52,7 @@ function SearchBar(props: {
                     onBlur={() =>
                         window.setTimeout(() => {
                             setShowingSuggestions(false);
-                        }, 250)
+                        }, suggestionBlurDelay)
                     }
                 />
                 <button

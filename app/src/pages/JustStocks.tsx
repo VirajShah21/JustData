@@ -15,6 +15,8 @@ import './JustStocks.css';
 
 type StocksFeature = 'chart' | 'analysis' | 'fundamentals' | 'profile';
 
+const maxTickerSuggestions = 5;
+
 /**
  * A custom SearchBar component for searching stock tickers.
  *
@@ -43,9 +45,9 @@ function StockSearchBar(props: { value?: string; onSearch: (value: string) => vo
                 .get(`http://localhost:3001/api/stocks/ticker-search?q=${encodeURI(value)}`)
                 .then(response => {
                     setSearchSuggestions(
-                        response.data.results.length <= 5
+                        response.data.results.length <= maxTickerSuggestions
                             ? response.data.results
-                            : response.data.results.slice(0, 5),
+                            : response.data.results.slice(0, maxTickerSuggestions),
                     );
                     searchSuggestionLock = false;
                 });

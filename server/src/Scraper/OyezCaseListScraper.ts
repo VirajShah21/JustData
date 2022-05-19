@@ -69,6 +69,8 @@ class OyezCaseListScraper extends Scraper<OyezCaseListResults> {
  * for a specified term.
  */
 class OyezTermCaseListScraper extends Scraper<OyezCaseListItem[]> {
+    private static readonly loadDelay = 500;
+
     private termStart: number;
 
     /**
@@ -92,7 +94,7 @@ class OyezTermCaseListScraper extends Scraper<OyezCaseListItem[]> {
         let selectedLists = await this.select('.index');
 
         while (selectedLists.length === 0) {
-            await sleep(500); // To avoid rapid iterations
+            await sleep(OyezTermCaseListScraper.loadDelay); // To avoid rapid iterations
             selectedLists = await this.select('.index');
         }
 
