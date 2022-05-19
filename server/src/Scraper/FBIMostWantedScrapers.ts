@@ -21,23 +21,31 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
         const li = await this.select(fugitiveLIClassName);
         this.closeTab();
 
-        const profileUrls = li.map(item => item.querySelector('a')!.getAttribute('href')!);
-        const posterUrls = await Promise.all(
-            profileUrls.map(async url => {
-                const page = await ScrapeUtils.getPage(url);
+        const profileUrls = li
+            .map(item => item.querySelector('a')?.getAttribute('href'))
+            .filter(url => url !== undefined) as string[];
 
-                const downloadParagraph = ScrapeUtils.parseHTML(
-                    await page.evaluate(() => document.querySelector('p.Download')!.outerHTML),
-                );
+        const posterUrls = (
+            await Promise.all(
+                profileUrls.map(async url => {
+                    const page = await ScrapeUtils.getPage(url);
+                    const downloadParagraphHTML = await page.evaluate(
+                        () => document.querySelector('p.Download')?.outerHTML,
+                    );
+                    page.close();
 
-                page.close();
-                return downloadParagraph.querySelector('a')!.getAttribute('href')!;
-            }),
-        );
+                    if (downloadParagraphHTML === undefined) return null;
+                    const downloadParagraph = ScrapeUtils.parseHTML(downloadParagraphHTML);
+
+                    return downloadParagraph.querySelector('a')?.getAttribute('href') ?? null;
+                }),
+            )
+        ).filter(url => url !== undefined && url === null) as string[];
 
         const response = li.map((item, index) => {
-            const imgSrc = item.querySelector('a')!.querySelector('img')!.getAttribute('src')!;
-            const fugitiveName = item.querySelector('h3.title')!.textContent;
+            const imgSrc = item.querySelector('a')?.querySelector('img')?.getAttribute('src') ?? '';
+            const fugitiveName =
+                item.querySelector('h3.title')?.textContent ?? 'Unidentified Person';
             return {
                 name: fugitiveName,
                 mugshot: imgSrc,
@@ -66,11 +74,11 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
         await this.openTab();
 
         while (
-            await this.tab!.evaluate(() =>
+            await this.tab?.evaluate(() =>
                 document.querySelector('button.load-more') ? true : false,
             )
         ) {
-            await this.tab!.evaluate(() => {
+            await this.tab?.evaluate(() => {
                 const btn = document.querySelector('button.load-more') as HTMLButtonElement;
                 if (btn) {
                     btn.click();
@@ -90,26 +98,33 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
             batches[batches.length - 1].push(item);
         });
 
-        const categories = listItems.map(item => item.querySelector('h3.title')!.textContent);
+        const categories = listItems.map(
+            item => item.querySelector('h3.title')?.textContent ?? 'Uncategorized',
+        );
 
         const batchResponses = [];
         for (const batch of batches) {
             batchResponses.push(
                 await Promise.all(
                     batch.map(async (item, index) => {
-                        const profileUrl = item
-                            .querySelector('p.name')!
-                            .querySelector('a')!
-                            .getAttribute('href')!;
+                        const profileUrl =
+                            item
+                                .querySelector('p.name')
+                                ?.querySelector('a')
+                                ?.getAttribute('href') ?? '';
                         const scraper = new FugitiveProfileScraper(profileUrl, categories[index]);
-                        return (await scraper.scrape())!;
+                        return await scraper.scrape();
                     }),
                 ),
             );
         }
 
         const response: FullFugitiveData[] = [];
-        batchResponses.forEach(batch => batch.forEach(result => response.push(result)));
+        batchResponses.forEach(batch =>
+            batch.forEach(result => {
+                if (result) response.push(result);
+            }),
+        );
 
         allFugitivesCache = response;
 
@@ -132,31 +147,36 @@ class FugitiveProfileScraper extends Scraper<FullFugitiveData> {
     override async scrape(): Promise<FullFugitiveData | null> {
         await this.openTab();
         const profileBody = (await this.select('body'))[0];
-        this.tab!.close();
+        this.closeTab();
 
-        const mugshot = profileBody
-            .querySelector('.wanted-person-mug')!
-            .querySelector('img')!
-            .getAttribute('src')!;
-        const pictures = profileBody
-            .querySelector('.wanted-person-images')!
-            .querySelectorAll('li')!
-            .map(li => li.querySelector('img'))
-            .map(img => ({
-                src: img!.getAttribute('src')!,
-                caption: img!.getAttribute('alt')!,
-            }));
-        const bioTable = profileBody.querySelector('table.wanted-person-description')!;
-        let bioTableJson: Record<string, string> | undefined = {};
+        const mugshot =
+            profileBody
+                .querySelector('.wanted-person-mug')
+                ?.querySelector('img')
+                ?.getAttribute('src') ?? '';
+
+        const pictures =
+            profileBody
+                .querySelector('.wanted-person-images')
+                ?.querySelectorAll('li')
+                .map(li => li.querySelector('img'))
+                .map(img => ({
+                    src: img?.getAttribute('src') ?? '',
+                    caption: img?.getAttribute('alt') ?? '',
+                })) ?? [];
+
+        const bioTable = profileBody.querySelector('table.wanted-person-description');
+        let bioTableJson: Record<string, string> = {};
+
         if (bioTable) {
             bioTable
-                .querySelector('tbody')!
-                .querySelectorAll('tr')!
+                .querySelector('tbody')
+                ?.querySelectorAll('tr')
                 .forEach(tr => {
                     const [key, value] = tr.querySelectorAll('td');
-                    bioTableJson![key.textContent] = value.textContent;
+                    bioTableJson[key.textContent] = value.textContent;
                 });
-        } else bioTableJson = undefined;
+        }
 
         const aliasContainer = profileBody.querySelector('p.wanted-person-aliases');
         let aliases: string | undefined;
@@ -177,19 +197,21 @@ class FugitiveProfileScraper extends Scraper<FullFugitiveData> {
         if (warningContainer) warning = warningContainer.textContent;
         try {
             return {
-                name: profileBody.querySelector('h1.documentFirstHeading')!.textContent,
+                name: profileBody.querySelector('h1.documentFirstHeading')?.textContent ?? '',
                 mugshot,
-                posterURL: profileBody
-                    .querySelector('p.Download')!
-                    .querySelector('a')!
-                    .getAttribute('href')!,
+                posterURL:
+                    profileBody
+                        .querySelector('p.Download')
+                        ?.querySelector('a')
+                        ?.getAttribute('href') ?? '',
                 category: this.category,
-                charges: profileBody
-                    .querySelector('p.summary')!
-                    .textContent.split(';')
-                    .map(s => s.trim()),
+                charges:
+                    profileBody
+                        .querySelector('p.summary')
+                        ?.textContent.split(';')
+                        ?.map(s => s.trim()) ?? [],
                 pictures,
-                bio: bioTableJson
+                bio: bioTable
                     ? {
                           alias: aliases,
                           dob: bioTableJson['Date(s) of Birth Used'],

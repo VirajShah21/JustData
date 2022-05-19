@@ -68,26 +68,38 @@ class OyezTermCaseListScraper extends Scraper<OyezCaseListItem[]> {
         this.closeTab();
 
         const listItems = list.querySelectorAll('li');
-        const results = listItems.map(li => ({
-            name: li.querySelector('h2')!.textContent!.trim(),
-            description: li.querySelector('.description')!.textContent!.trim(),
-            granted: li
-                .querySelector('.cell.granted')!
-                .querySelector('.ng-scope')!
-                .textContent!.trim(),
-            argued: li
-                .querySelector('.cell.argued')!
-                .querySelector('.ng-scope')!
-                .textContent!.trim(),
-            decided: li
-                .querySelector('.cell.decided')!
-                .querySelector('.ng-scope')!
-                .textContent!.trim(),
-            citation: li
-                .querySelector('.cell.citation')!
-                .querySelector('.ng-scope')!
-                .textContent!.trim(),
-        }));
+        const results = listItems
+            .map(li => {
+                const name = li.querySelector('h2')?.textContent.trim();
+
+                if (name) {
+                    return {
+                        name,
+                        description: li.querySelector('.description')?.textContent?.trim() ?? '',
+                        granted:
+                            li
+                                .querySelector('.cell.granted')
+                                ?.querySelector('.ng-scope')
+                                ?.textContent.trim() ?? 'n/a',
+                        argued:
+                            li
+                                .querySelector('.cell.argued')
+                                ?.querySelector('.ng-scope')
+                                ?.textContent.trim() ?? 'Pending',
+                        decided:
+                            li
+                                .querySelector('.cell.decided')
+                                ?.querySelector('.ng-scope')
+                                ?.textContent.trim() ?? 'Pending',
+                        citation:
+                            li
+                                .querySelector('.cell.citation')
+                                ?.querySelector('.ng-scope')
+                                ?.textContent.trim() ?? 'Pending',
+                    };
+                }
+            })
+            .filter(result => result !== undefined) as OyezCaseListItem[];
 
         listCache[this.termStart] = results;
 

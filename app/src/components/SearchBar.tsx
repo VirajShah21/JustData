@@ -70,11 +70,9 @@ function SearchBar(props: {
 }
 
 function SearchBarSuggestion(props: SearchSuggestion & { onClick: (value: string) => void }) {
-    let innerNodes: JSX.Element[];
+    const innerNodes: JSX.Element[] = [];
 
     if (!props.children) {
-        innerNodes = [];
-
         if (props.icon) {
             innerNodes.push(<span className='search-bar-suggestion-icon'>{props.icon}</span>);
         }
@@ -90,7 +88,7 @@ function SearchBarSuggestion(props: SearchSuggestion & { onClick: (value: string
 
     return (
         <button className='search-bar-suggestion' onClick={() => props.onClick(props.value)}>
-            <HStack justify='start'>{props.children ?? innerNodes!}</HStack>
+            <HStack justify='start'>{props.children ?? innerNodes}</HStack>
         </button>
     );
 }
