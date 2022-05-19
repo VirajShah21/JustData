@@ -2,6 +2,8 @@ import Scraper from './Scraper';
 import ScraperCache from './ScraperCache';
 import ScrapeUtils, { ParsedHTMLElement } from './ScrapeUtils';
 
+const fugitiveLIClassName = '.portal-type-person';
+
 let tenMostWantedCache: SimpleFugitiveData[] =
     ScraperCache.initializeCache('fbi-ten-most-wanted.json', () => tenMostWantedCache) ?? [];
 let allFugitivesCache: FullFugitiveData[] =
@@ -16,7 +18,7 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
         if (tenMostWantedCache.length > 0) return tenMostWantedCache;
 
         await this.openTab();
-        const li = await this.select('.portal-type-person');
+        const li = await this.select(fugitiveLIClassName);
         this.closeTab();
 
         const profileUrls = li.map(item => item.querySelector('a')!.getAttribute('href')!);
@@ -78,7 +80,7 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
             });
         }
 
-        const listItems = await this.select('.portal-type-person');
+        const listItems = await this.select(fugitiveLIClassName);
 
         this.closeTab();
 

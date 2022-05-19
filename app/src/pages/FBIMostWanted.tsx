@@ -14,16 +14,18 @@ type FBIMostWantedFeature =
     | 'missing-persons'
     | 'parental-kidnappings';
 
+const tenMostWantedFeature: FBIMostWantedFeature = 'ten-most-wanted';
+
 function FBIMostWanted() {
-    const [feature, setFeature] = useState<FBIMostWantedFeature>('ten-most-wanted');
+    const [feature, setFeature] = useState<FBIMostWantedFeature>(tenMostWantedFeature);
 
     return (
         <VStack width='100%' justify='start' className='fbi-most-wanted-page'>
             <HStack className='features-bar'>
                 <FeatureButton
                     label='Ten Most Wanted Fugitives'
-                    onClick={() => setFeature('ten-most-wanted')}
-                    active={feature === 'ten-most-wanted'}
+                    onClick={() => setFeature(tenMostWantedFeature)}
+                    active={feature === tenMostWantedFeature}
                 />
                 <FeatureButton
                     label='Fugitives'
@@ -37,7 +39,7 @@ function FBIMostWanted() {
                 />
             </HStack>
             <HStack className='feature-container'>
-                {feature === 'ten-most-wanted' && <TenMostWantedList />}
+                {feature === tenMostWantedFeature && <TenMostWantedList />}
                 {feature === 'fugitives' && <AllFugitivesList />}
             </HStack>
         </VStack>
