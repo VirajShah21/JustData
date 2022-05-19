@@ -146,7 +146,7 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
                                 ?.querySelector('a')
                                 ?.getAttribute('href') ?? '';
                         const scraper = new FugitiveProfileScraper(profileUrl, categories[index]);
-                        return await scraper.scrape();
+                        return scraper.scrape();
                     }),
                 ),
             );
@@ -217,7 +217,7 @@ class FugitiveProfileScraper extends Scraper<FullFugitiveData> {
                 })) ?? [];
 
         const bioTable = profileBody.querySelector('table.wanted-person-description');
-        let bioTableJson: Record<string, string> = {};
+        const bioTableJson: Record<string, string> = {};
 
         if (bioTable) {
             bioTable
@@ -246,49 +246,46 @@ class FugitiveProfileScraper extends Scraper<FullFugitiveData> {
         const warningContainer = profileBody.querySelector('h3.wanted-person-warning');
         let warning: string | undefined;
         if (warningContainer) warning = warningContainer.textContent;
-        try {
-            return {
-                name: profileBody.querySelector('h1.documentFirstHeading')?.textContent ?? '',
-                mugshot,
-                posterURL:
-                    profileBody
-                        .querySelector(wantedPosterQuery)
-                        ?.querySelector('a')
-                        ?.getAttribute('href') ?? '',
-                category: this.category,
-                charges:
-                    profileBody
-                        .querySelector('p.summary')
-                        ?.textContent.split(';')
-                        ?.map(s => s.trim()) ?? [],
-                pictures,
-                bio: bioTable
-                    ? {
-                          alias: aliases,
-                          dob: bioTableJson['Date(s) of Birth Used'],
-                          birthplace: bioTableJson['Place of Birth'],
-                          hair: bioTableJson['Hair'],
-                          eyes: bioTableJson['Eyes'],
-                          height: bioTableJson['Height'],
-                          weight: bioTableJson['Weight'],
-                          build: bioTableJson['Build'],
-                          complexion: bioTableJson['Complexion'],
-                          sex: bioTableJson['Sex'],
-                          race: bioTableJson['Race'],
-                          occupation: bioTableJson['Occupation'],
-                          nationality: bioTableJson['Nationality'],
-                          markings: bioTableJson['Scars and Marks'],
-                      }
-                    : undefined,
-                remarks,
-                caution: {
-                    text: caution,
-                    warning,
-                },
-            };
-        } catch (e) {
-            throw e;
-        }
+
+        return {
+            name: profileBody.querySelector('h1.documentFirstHeading')?.textContent ?? '',
+            posterURL:
+                profileBody
+                    .querySelector(wantedPosterQuery)
+                    ?.querySelector('a')
+                    ?.getAttribute('href') ?? '',
+            category: this.category,
+            charges:
+                profileBody
+                    .querySelector('p.summary')
+                    ?.textContent.split(';')
+                    ?.map(s => s.trim()) ?? [],
+            bio: bioTable
+                ? {
+                      alias: aliases,
+                      dob: bioTableJson['Date(s) of Birth Used'],
+                      birthplace: bioTableJson['Place of Birth'],
+                      hair: bioTableJson['Hair'],
+                      eyes: bioTableJson['Eyes'],
+                      height: bioTableJson['Height'],
+                      weight: bioTableJson['Weight'],
+                      build: bioTableJson['Build'],
+                      complexion: bioTableJson['Complexion'],
+                      sex: bioTableJson['Sex'],
+                      race: bioTableJson['Race'],
+                      occupation: bioTableJson['Occupation'],
+                      nationality: bioTableJson['Nationality'],
+                      markings: bioTableJson['Scars and Marks'],
+                  }
+                : undefined,
+            caution: {
+                text: caution,
+                warning,
+            },
+            remarks,
+            mugshot,
+            pictures,
+        };
     }
 
     /**

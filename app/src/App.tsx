@@ -2,7 +2,7 @@ import FBIMostWanted from './pages/FBIMostWanted';
 import JustStocks from './pages/JustStocks';
 import LandingPage from './pages/LandingPage';
 
-function App() {
+function App(): JSX.Element {
     return <>{getPage(window.location.pathname)}</>;
 }
 

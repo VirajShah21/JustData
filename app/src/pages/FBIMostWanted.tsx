@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import FeatureButton from 'src/components/FeatureButton';
 import FugitiveProfile from 'src/components/FugitiveProfile';
-import PaginationController from 'src/components/PageController';
+import PaginationController from 'src/components/PaginationController';
 import './FBIMostWanted.css';
 
 type FBIMostWantedFeature =

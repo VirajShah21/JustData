@@ -1,6 +1,6 @@
 import { HStack } from 'reaction';
 import ArrayUtils from '../utils/ArrayUtils';
-import './PageController.css';
+import './PaginationController.css';
 
 /**
  * @param props - Takes three non-optional props:

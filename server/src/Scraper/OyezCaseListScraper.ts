@@ -132,6 +132,7 @@ class OyezTermCaseListScraper extends Scraper<OyezCaseListItem[]> {
                                 ?.textContent.trim() ?? 'Pending',
                     };
                 }
+                return undefined;
             })
             .filter(result => result !== undefined) as OyezCaseListItem[];
 

@@ -31,7 +31,7 @@ app.get('/api/stocks/ticker-search', async (req, res) => {
         const scraper = new StockTickerScraper(q);
         res.send(await scraper.scrape());
     } else {
-        res.send(`The query ${q} is not a string`);
+        res.send(`The provided query is not a string`);
     }
 });
 
