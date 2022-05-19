@@ -25,6 +25,9 @@ const cache: Record<
     Record<string, YellowPagesSearchResult[]>
 > = ScraperCache.initializeCache('yellow-pages-search.json') ?? {};
 
+/**
+ * Scraper for Yellow Pages Search results.
+ */
 class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
     private readonly query: string;
     private readonly location: string;
@@ -38,6 +41,12 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
         undefined: undefined,
     };
 
+    /**
+     * Constructs a scraper for a Yellow Pages search.
+     *
+     * @param query - The search query to input into Yellow Pages.
+     * @param location - The geographical location to search for businesses.
+     */
     constructor(query: string, location: string) {
         super(
             `https://www.yellowpages.com/search?search_terms=${encodeURI(
@@ -48,6 +57,11 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
         this.location = location.trim();
     }
 
+    /**
+     * Scrapes the Yellow Pages SERP.
+     *
+     * @returns An array of all the Yellow Pages search results.
+     */
     async scrape(): Promise<YellowPagesSearchResult[] | null> {
         if (this.cache) return this.cache;
 
@@ -159,6 +173,9 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
         return results;
     }
 
+    /**
+     * The cache for the yellow pages search using the provided query and location.
+     */
     get cache(): YellowPagesSearchResult[] | null {
         if (cache.hasOwnProperty(this.location)) {
             const locationCache = cache[this.location];
