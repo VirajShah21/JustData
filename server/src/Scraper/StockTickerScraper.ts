@@ -5,14 +5,27 @@ import ScrapeUtils from './ScrapeUtils';
 const cache: Record<string, StockTickerScraperResponse> =
     ScraperCache.initializeCache('stock-ticker-scraper.json', () => cache) ?? {};
 
+/**
+ * A scraper which scrapes Yahoo Finance for a list of securities results
+ * when searching for a ticker symbol.
+ */
 class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
     private readonly query: string;
 
+    /**
+     * Constructs the scraper.
+     *
+     * @param query - The query which the user is searching for.
+     */
     constructor(query: string) {
         super(`https://finance.yahoo.com/lookup?s=${encodeURI(query)}`);
         this.query = query;
     }
 
+    /**
+     * @returns An object which contains the scraped query and a list of
+     * securities which match the query.
+     */
     override async scrape(): Promise<StockTickerScraperResponse | null> {
         if (cache[this.query.toUpperCase()]) return cache[this.query.toUpperCase()];
 
@@ -50,6 +63,9 @@ class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
         return response;
     }
 
+    /**
+     * The cache for the stock ticker scraper.
+     */
     override get cache() {
         return cache;
     }

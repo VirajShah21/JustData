@@ -9,11 +9,23 @@ let tenMostWantedCache: SimpleFugitiveData[] =
 let allFugitivesCache: FullFugitiveData[] =
     ScraperCache.initializeCache('all-fugitives.json', () => allFugitivesCache) ?? [];
 
+/**
+ * Scrapes the FBI's most wanted site for the ten most wanted fugitives
+ * by the FBI.
+ */
 class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
+    /**
+     * Constructs a new scraper.
+     */
     constructor() {
         super('https://www.fbi.gov/wanted/topten');
     }
 
+    /**
+     * Scrapes the FBI site for the ten most wanted fugitives.
+     *
+     * @returns An array of the ten most wanted fugitives.
+     */
     override async scrape(): Promise<SimpleFugitiveData[] | null> {
         if (tenMostWantedCache.length > 0) return tenMostWantedCache;
 
@@ -58,16 +70,33 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
         return response;
     }
 
+    /**
+     * The cached results of the scraper.
+     */
     override get cache(): SimpleFugitiveData[] {
         return tenMostWantedCache;
     }
 }
 
+/**
+ * Scrapes the FBI's most wanted site for every single fugitive wanted by the FBI.
+ * This is a very slow scraper since it opens many URLs to scrape each fugitive's
+ * full profile.
+ */
 class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
+    /**
+     * Constructs a new scraper.
+     */
     constructor() {
         super('https://www.fbi.gov/wanted/fugitives');
     }
 
+    /**
+     * Scrapes the FBI site for every single fugitive wanted by the FBI.
+     *
+     * @returns An array of every single fugitive wanted by the FBI
+     * and their full profile.
+     */
     override async scrape(): Promise<FullFugitiveData[] | null> {
         if (allFugitivesCache.length > 0) return allFugitivesCache;
 
@@ -131,19 +160,37 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
         return response;
     }
 
+    /**
+     * The cached results of the scraper.
+     */
     get cache() {
         return allFugitivesCache;
     }
 }
 
+/**
+ * A scraper for an individuals profile page from the FBI's most wanted
+ * site.
+ */
 class FugitiveProfileScraper extends Scraper<FullFugitiveData> {
     private readonly category: string;
 
+    /**
+     * Constructs a new scraper.
+     *
+     * @param url - The URL for the fugitive's profile page.
+     * @param category - The criminal category the fugitive belongs to.
+     */
     constructor(url: string, category: string) {
         super(url);
         this.category = category;
     }
 
+    /**
+     * Scrapes the page for the fugitive's profile.
+     *
+     * @returns The fugitive's full profile data.
+     */
     override async scrape(): Promise<FullFugitiveData | null> {
         await this.openTab();
         const profileBody = (await this.select('body'))[0];
@@ -240,6 +287,9 @@ class FugitiveProfileScraper extends Scraper<FullFugitiveData> {
         }
     }
 
+    /**
+     * The cached results of the scraper.
+     */
     get cache(): FullFugitiveData {
         throw new Error('Not implemented yet');
     }

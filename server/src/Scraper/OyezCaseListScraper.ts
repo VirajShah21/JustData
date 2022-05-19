@@ -17,9 +17,18 @@ type OyezCaseListResults = Record<string, OyezCaseListItem[]>;
 const listCache: Record<string, OyezCaseListItem[]> =
     ScraperCache.initializeCache('oyez-case-list.json') ?? {};
 
+/**
+ * A Scraper to scrape the list of all cases from the Oyez website.
+ * This scraper requires the term start dates (year) to be provided.
+ */
 class OyezCaseListScraper extends Scraper<OyezCaseListResults> {
     private readonly termStarts: number[];
 
+    /**
+     * Constructs the scraper to scrape the defined term starts.
+     *
+     * @param termStarts - The term starting years to scrape.
+     */
     constructor(termStarts: number[]) {
         if (termStarts.length === 0)
             throw new Error('At least one value for termStart must be provided');
@@ -27,6 +36,13 @@ class OyezCaseListScraper extends Scraper<OyezCaseListResults> {
         this.termStarts = termStarts;
     }
 
+    /**
+     * Scrapes the required number of Oyez pages for all cases during the
+     * specified terms.
+     *
+     * @returns An object which maps the term start year to the list of cases
+     * belonging to that term.
+     */
     async scrape(): Promise<OyezCaseListResults> {
         const results: OyezCaseListResults = {};
 
@@ -40,19 +56,36 @@ class OyezCaseListScraper extends Scraper<OyezCaseListResults> {
         return results;
     }
 
+    /**
+     * Gets the cached data
+     */
     get cache(): Record<string, OyezCaseListItem[]> {
         return listCache;
     }
 }
 
+/**
+ * A scraper to scrape the list of all cases from the Oyez website
+ * for a specified term.
+ */
 class OyezTermCaseListScraper extends Scraper<OyezCaseListItem[]> {
     private termStart: number;
 
+    /**
+     * Constructs a scraper for the specified term start.
+     *
+     * @param termStart - The term start year to scrape.
+     */
     constructor(termStart: number) {
         super(`https://www.oyez.org/cases/${termStart}`);
         this.termStart = termStart;
     }
 
+    /**
+     * Scrapes the Oyez page for the specified term.
+     *
+     * @returns The list of cases for the specified term.
+     */
     async scrape(): Promise<OyezCaseListItem[]> {
         await this.openTab();
 
@@ -106,6 +139,9 @@ class OyezTermCaseListScraper extends Scraper<OyezCaseListItem[]> {
         return results;
     }
 
+    /**
+     * Gets the cached data for the specified term.
+     */
     get cache() {
         return listCache[this.termStart];
     }

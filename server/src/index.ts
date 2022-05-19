@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 3001;
 
 ScrapeUtils.init();
 
+// Middleware which allows any origin to access this API.
 app.use((_, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -22,6 +23,7 @@ app.use((_, res, next) => {
 app.get('/api/stocks/ticker-search', async (req, res) => {
     const { q } = req.query;
 
+    // Guards to ensure the query provided is a valid string.
     if (typeof q === 'string') {
         const scraper = new StockTickerScraper(q);
         res.send(await scraper.scrape());
@@ -44,8 +46,12 @@ app.get('/api/supreme-court/cases', async (req, res) => {
     let terms;
 
     if (req.query.terms) {
+        // If the query includes an array of terms, it must be parsed
+        // using the builtin JSON parser
         terms = (JSON.parse(req.query.terms as string) as string[]).map(term => +term);
     } else if (req.query.term) {
+        // If terms is not provided but term is, then it should be added
+        // to an array which only contains a single item
         terms = [+req.query.term];
     } else {
         res.send('Error: You must specify a term or terms');

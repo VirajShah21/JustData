@@ -10,6 +10,21 @@ interface SearchSuggestion {
     children?: JSX.Element[];
 }
 
+/**
+ * @param props - The props for the SearchBar:
+ * - `placeholder` - The placeholder text for the input
+ * - `value` - The value of the input
+ * - `suggestions` - An array of each search suggestion
+ *     - If an item is a string, then a regular string suggestion is provided
+ *     - If an item is a SearchSuggestion object, then the specified image,
+ *       icon, and value are used instead. If a `children` field exists on the object,
+ *       then it is displayed instead of the other fields. The `value` field must exist
+ *       as this is the text used as the value of the input.
+ * - `onChange` - The function to be called when the value of the input changes
+ * - `onSearch` - The function to be called when the user clicks the search button or
+ *   clicks on a search suggestion.
+ * @returns A search bar
+ */
 function SearchBar(props: {
     placeholder?: string;
     value?: string;
@@ -69,6 +84,18 @@ function SearchBar(props: {
     );
 }
 
+/**
+ * @param props - The props for the SearchBarSuggestion are SearchSuggestion, as outlined below:
+ * - `value: string` - The value of the suggestion (will appear in the search input when clicked)
+ * - `image: string` - The URL of an image to display to the left of the suggestion
+ * - `icon: JSX.Element` - A custom icon to display to the left of the suggestion
+ * - `children: JSX.Element[]` - Custom content to display in the suggestion result. If this is
+ *   provided, then the `image`, `icon`, and `value` fields are not displayed.
+ *
+ * In addition to the previously mentioned props, a required onClick callback must be provided.
+ * It will pass the value of the suggestion to the callback.
+ * @returns The search bar suggestion to be displayed under the search bar.
+ */
 function SearchBarSuggestion(props: SearchSuggestion & { onClick: (value: string) => void }) {
     const innerNodes: JSX.Element[] = [];
 

@@ -15,13 +15,29 @@ import './JustStocks.css';
 
 type StocksFeature = 'chart' | 'analysis' | 'fundamentals' | 'profile';
 
+/**
+ * A custom SearchBar component for searching stock tickers.
+ *
+ * @param props - Two props:
+ * - `value?` - The value of the input
+ * - `onSearch` - The function to be called when the user clicks the search button or on
+ *   a search suggestion.
+ * @returns The search bar for the Just Stocks product.
+ */
 function StockSearchBar(props: { value?: string; onSearch: (value: string) => void }) {
     const [searchSuggestions, setSearchSuggestions] = useState<StockSearchResult[]>([]);
     const [searchInput, setSearchInput] = useState(props.value ?? 'AAPL');
     let searchSuggestionLock = false;
 
+    /**
+     * Refreshes `searchSuggestions` state variable with provided StockSearchResult array.
+     * This is based on the user's query and provides suggestions for the stock ticker symbol.
+     *
+     * @param value - The value of the input
+     */
     function refreshSearchSuggestions(value: string) {
         if (!searchSuggestionLock) {
+            // The lock prevents many searches from being executed at once.
             searchSuggestionLock = true;
             axios
                 .get(`http://localhost:3001/api/stocks/ticker-search?q=${encodeURI(value)}`)
@@ -65,6 +81,9 @@ function StockSearchBar(props: { value?: string; onSearch: (value: string) => vo
     );
 }
 
+/**
+ * @returns The Just Stocks product page.
+ */
 function JustStocks() {
     const [ticker, setTicker] = useState('AAPL');
     const [activeFeature, setActiveFeature] = useState<StocksFeature>('chart');

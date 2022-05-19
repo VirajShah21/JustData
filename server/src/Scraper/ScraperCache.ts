@@ -1,13 +1,27 @@
 import fs from 'fs';
 import path from 'path';
 
+/**
+ * A caching utility for caching data from a web scraper.
+ */
 abstract class ScraperCache {
     private static readonly cacheRoot = './caches';
 
+    /**
+     * Initialized the cache root directory.
+     */
     private static initializeCacheRoot() {
         if (!fs.existsSync(ScraperCache.cacheRoot)) fs.mkdirSync(ScraperCache.cacheRoot);
     }
 
+    /**
+     * Initializes a cache variable.
+     *
+     * @param filename - The name of the file to store the cache in.
+     * @param memoryAccessor - A function which returns the variable which
+     * holds the cached data.
+     * @returns The loaded cache data.
+     */
     static initializeCache<T>(filename: string, memoryAccessor?: () => T): T | null {
         ScraperCache.initializeCacheRoot();
 

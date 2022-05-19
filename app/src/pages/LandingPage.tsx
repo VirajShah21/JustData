@@ -7,6 +7,10 @@ import logo from '../resources/images/icons/logo.png';
 import stocksLogo from '../resources/images/icons/stocks.png';
 import './LandingPage.css';
 
+/**
+ * @returns The left side of the landing page. This incldues a logo and a
+ * sleek background.
+ */
 function LandingLeft() {
     return (
         <VStack className='landing-left'>
@@ -22,6 +26,12 @@ function LandingLeft() {
     );
 }
 
+/**
+ * A React component which displays the right side of the landing page.
+ * This includes the search bar and a list of products, sorted by category.
+ *
+ * @returns The right side of the landing page.
+ */
 function LandingRight() {
     return (
         <VStack className='landing-right'>
@@ -52,6 +62,9 @@ function LandingRight() {
     );
 }
 
+/**
+ * @returns The landing page for Just Data.
+ */
 function LandingPage() {
     return (
         <HStack height='100%'>
