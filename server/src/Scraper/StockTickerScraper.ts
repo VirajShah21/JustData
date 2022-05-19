@@ -1,6 +1,5 @@
 import Scraper from './Scraper';
 import ScraperCache from './ScraperCache';
-import ScrapeUtils from './ScrapeUtils';
 
 const cache: Record<string, StockTickerScraperResponse> =
     ScraperCache.initializeCache('stock-ticker-scraper.json', () => cache) ?? {};

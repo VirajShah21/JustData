@@ -1,5 +1,5 @@
 import { Page } from 'puppeteer';
-import ScrapeUtils, { ParsedHTMLElement } from './ScrapeUtils';
+import ScrapeUtils from './ScrapeUtils';
 
 interface IScraper<R> {
     get cache(): Record<string, R> | R;

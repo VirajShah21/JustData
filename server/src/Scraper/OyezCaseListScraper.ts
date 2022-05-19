@@ -1,7 +1,6 @@
 import { sleep } from '../utils/TimeFunctions';
 import Scraper from './Scraper';
 import ScraperCache from './ScraperCache';
-import ScrapeUtils from './ScrapeUtils';
 
 interface OyezCaseListItem {
     name: string;
