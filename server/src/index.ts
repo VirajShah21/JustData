@@ -1,12 +1,11 @@
 import express from 'express';
-import axios from 'axios';
-import StockTickerScraper from './Scraper/StockTickerScraper';
-import ScrapeUtils from './Scraper/ScrapeUtils';
 import {
     AllFugitivesScraper,
     TenMostWantedFugitivesScraper,
 } from './Scraper/FBIMostWantedScrapers';
-import OyezCaseListScraper from './Scraper/OyezCaseScraper';
+import OyezCaseListScraper from './Scraper/OyezCaseListScraper';
+import ScrapeUtils from './Scraper/ScrapeUtils';
+import StockTickerScraper from './Scraper/StockTickerScraper';
 
 const app = express();
 const PORT = process.env.PORT || 3001;

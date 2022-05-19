@@ -18,7 +18,7 @@ class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
 
         await this.openTab();
 
-        const table = await ScrapeUtils.select(this.tab!, '.lookup-table');
+        const table = await this.select('.lookup-table');
         if (table.length === 0) return null;
 
         this.closeTab();

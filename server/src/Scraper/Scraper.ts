@@ -26,6 +26,21 @@ abstract class Scraper<R> implements IScraper<R> {
         }
     }
 
+    protected async select(selector: string) {
+        if (this.tab) {
+            return (
+                await this.tab.evaluate(
+                    _selector => Array.from(document.querySelectorAll(_selector), e => e.innerHTML),
+                    selector
+                )
+            ).map(ScrapeUtils.parseHTML);
+        }
+
+        throw new Error(
+            'Cannot use "[Scraper].select()" without first calling await "[Scraper].openTab()"'
+        );
+    }
+
     abstract scrape(): Promise<R | null>;
 
     abstract get cache(): Record<string, R> | R;

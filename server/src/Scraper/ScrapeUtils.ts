@@ -42,24 +42,6 @@ class ScrapeUtils {
         return parse(html);
     }
 
-    static async select(
-        page: Page | ParsedHTMLElement | string,
-        selector: string
-    ): Promise<ParsedHTMLElement[]> {
-        if (page instanceof ParsedHTMLElement) {
-            return page.querySelectorAll(selector);
-        } else if (typeof page === 'string') {
-            return parse(page).querySelectorAll(selector);
-        } else {
-            return (
-                await page.evaluate(
-                    _selector => Array.from(document.querySelectorAll(_selector), e => e.innerHTML),
-                    selector
-                )
-            ).map(ScrapeUtils.parseHTML);
-        }
-    }
-
     static get chrome(): Browser {
         return ScrapeUtils.browser;
     }

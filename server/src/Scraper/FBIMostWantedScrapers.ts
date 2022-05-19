@@ -16,14 +16,18 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
         if (tenMostWantedCache.length > 0) return tenMostWantedCache;
 
         await this.openTab();
-        const li = await ScrapeUtils.select(this.tab!, '.portal-type-person');
+        const li = await this.select('.portal-type-person');
         this.closeTab();
 
         const profileUrls = li.map(item => item.querySelector('a')!.getAttribute('href')!);
         const posterUrls = await Promise.all(
             profileUrls.map(async url => {
                 const page = await ScrapeUtils.getPage(url);
-                const downloadParagraph = (await ScrapeUtils.select(page, 'p.Download'))![0];
+
+                const downloadParagraph = ScrapeUtils.parseHTML(
+                    await page.evaluate(() => document.querySelector('p.Download')!.outerHTML)
+                );
+
                 page.close();
                 return downloadParagraph.querySelector('a')!.getAttribute('href')!;
             })
@@ -74,7 +78,7 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
             });
         }
 
-        const listItems = await ScrapeUtils.select(this.tab!, '.portal-type-person');
+        const listItems = await this.select('.portal-type-person');
 
         this.closeTab();
 
@@ -125,7 +129,7 @@ class FugitiveProfileScraper extends Scraper<FullFugitiveData> {
 
     override async scrape(): Promise<FullFugitiveData | null> {
         await this.openTab();
-        const profileBody = (await ScrapeUtils.select(this.tab!, 'body'))[0];
+        const profileBody = (await this.select('body'))[0];
         this.tab!.close();
 
         const mugshot = profileBody

@@ -1,7 +1,7 @@
+import { sleep } from '../utils/TimeFunctions';
 import Scraper from './Scraper';
 import ScraperCache from './ScraperCache';
 import ScrapeUtils from './ScrapeUtils';
-import fs from 'fs';
 
 interface OyezCaseListItem {
     name: string;
@@ -56,11 +56,11 @@ class OyezTermCaseListScraper extends Scraper<OyezCaseListItem[]> {
     async scrape(): Promise<OyezCaseListItem[]> {
         await this.openTab();
 
-        let selectedLists = await ScrapeUtils.select(this.tab!, '.index');
+        let selectedLists = await this.select('.index');
 
         while (selectedLists.length === 0) {
             await sleep(500); // To avoid rapid iterations
-            selectedLists = await ScrapeUtils.select(this.tab!, '.index');
+            selectedLists = await this.select('.index');
         }
 
         const list = selectedLists[0];

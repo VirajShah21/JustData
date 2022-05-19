@@ -3,8 +3,7 @@ import JustStocks from './pages/JustStocks';
 import LandingPage from './pages/LandingPage';
 
 function App() {
-    const page = getPage(window.location.pathname);
-    return page;
+    return <>{getPage(window.location.pathname)}</>;
 }
 
 function getPage(pathname: string) {
