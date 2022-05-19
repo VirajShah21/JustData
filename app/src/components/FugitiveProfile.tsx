@@ -3,6 +3,15 @@ import { HStack, Spacer, VStack } from 'reaction';
 import './FugitiveProfile.css';
 
 function FugitiveProfile(props: FullFugitiveData & { onClose: () => void }) {
+    const basicBio = props.bio ? (
+        <>
+            <BioBasicDetails label='Known Aliases' value={props.bio.alias} />
+            <BioBasicDetails label='D.O.B.(s)' value={props.bio.dob} />
+            <BioBasicDetails label='Birthplace' value={props.bio.birthplace} />
+            <BioBasicDetails label='Occupation(s)' value={props.bio.occupation} />
+        </>
+    ) : undefined;
+
     return (
         <VStack className='fugitive-profile' justify='start'>
             <HStack justify='start' className='fugitive-profile-titlebar'>
@@ -16,30 +25,7 @@ function FugitiveProfile(props: FullFugitiveData & { onClose: () => void }) {
                 <img src={props.mugshot} alt={`${props.name}'s mugshot`} />
                 <VStack align='start' justify='between' className='bio-details' grow={1}>
                     <h1>{props.name}</h1>
-                    {props.bio && props.bio.alias && (
-                        <HStack justify='start'>
-                            <strong>Known Aliases: &nbsp;</strong>
-                            {props.bio.alias}
-                        </HStack>
-                    )}
-                    {props.bio && props.bio.dob && (
-                        <HStack justify='start'>
-                            <strong>D.O.B.(s): &nbsp;</strong>
-                            {props.bio.dob}
-                        </HStack>
-                    )}
-                    {props.bio && props.bio.birthplace && (
-                        <HStack justify='start'>
-                            <strong>Birthplace: &nbsp;</strong>
-                            {props.bio.birthplace}
-                        </HStack>
-                    )}
-                    {props.bio && props.bio.occupation && (
-                        <HStack justify='start'>
-                            <strong>Occupation(s): &nbsp;</strong>
-                            {props.bio.occupation}
-                        </HStack>
-                    )}
+                    {basicBio}
                     <h2>Physical Features</h2>
                     <HStack justify='between' className='physical-features-row-1'>
                         {props.bio && props.bio.hair && (
@@ -120,6 +106,15 @@ function FugitiveProfile(props: FullFugitiveData & { onClose: () => void }) {
             )}
             <Spacer />
         </VStack>
+    );
+}
+
+function BioBasicDetails(props: { label: string; value?: string }) {
+    return (
+        <HStack justify='start'>
+            <strong>{props.label}: &nbsp;</strong>
+            {props.value ?? 'n/a'}
+        </HStack>
     );
 }
 

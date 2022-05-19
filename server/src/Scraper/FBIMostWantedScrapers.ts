@@ -166,7 +166,7 @@ class FugitiveProfileScraper extends Scraper<FullFugitiveData> {
         if (cautionContainer) cautionContainer = cautionContainer.querySelector('p');
         if (cautionContainer) caution = cautionContainer.textContent;
 
-        let warningContainer = profileBody.querySelector('h3.wanted-person-warning');
+        const warningContainer = profileBody.querySelector('h3.wanted-person-warning');
         let warning: string | undefined;
         if (warningContainer) warning = warningContainer.textContent;
         try {

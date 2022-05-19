@@ -2,7 +2,7 @@ import Scraper from './Scraper';
 import ScraperCache from './ScraperCache';
 import ScrapeUtils from './ScrapeUtils';
 
-let cache: Record<string, StockTickerScraperResponse> =
+const cache: Record<string, StockTickerScraperResponse> =
     ScraperCache.initializeCache('stock-ticker-scraper.json', () => cache) ?? {};
 
 class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
