@@ -1,4 +1,5 @@
 import express from 'express';
+import BingSearchScraper from './Scraper/BingSearchScraper';
 import {
     AllFugitivesScraper,
     TenMostWantedFugitivesScraper,
@@ -77,6 +78,13 @@ app.get('/api/business/search', async (req, res) => {
     } else {
         res.send('Error: URL parameters q and location must be strings.');
     }
+});
+
+app.get('/api/serp/bing', async (req, res) => {
+    const { q } = req.query;
+    const scraper = new BingSearchScraper(q as string);
+    const result = await scraper.scrape();
+    res.send(result);
 });
 
 app.listen(PORT, () => {
