@@ -1,9 +1,12 @@
 import { Page } from 'puppeteer';
 import ScrapeUtils from './ScrapeUtils';
 
+type BaseCache<R> = R | Record<string, R>;
+type UniversalCache<R> = BaseCache<R> | Record<string, BaseCache<R>>;
+
 interface IScraper<R> {
-    get cache(): Record<string, R> | R;
     scrape(): Promise<R | null>;
+    get cache(): UniversalCache<R> | null;
 }
 
 /**
@@ -81,7 +84,7 @@ abstract class Scraper<R> implements IScraper<R> {
     /**
      * Should return the cache used by the defined scraper.
      */
-    abstract get cache(): Record<string, R> | R;
+    abstract get cache(): UniversalCache<R> | null;
 }
 
 export default Scraper;
