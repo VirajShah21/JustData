@@ -6,6 +6,7 @@ import {
 import OyezCaseListScraper from './Scraper/OyezCaseListScraper';
 import ScrapeUtils from './Scraper/ScrapeUtils';
 import StockTickerScraper from './Scraper/StockTickerScraper';
+import YellowPagesSearchScraper from './Scraper/YellowPagesSearchScraper';
 
 // DEV_PORT is 3001 because react-scripts takes 3000
 const DEV_PORT = 3001;
@@ -65,6 +66,17 @@ app.get('/api/supreme-court/cases', async (req, res) => {
 
     const scraper = new OyezCaseListScraper(terms);
     res.send(await scraper.scrape());
+});
+
+app.get('/api/business/search', async (req, res) => {
+    const { q, location } = req.query;
+
+    if (typeof q === 'string' && typeof location === 'string') {
+        const scraper = new YellowPagesSearchScraper(q, location);
+        res.send(await scraper.scrape());
+    } else {
+        res.send('Error: URL parameters q and location must be strings.');
+    }
 });
 
 app.listen(PORT, () => {
