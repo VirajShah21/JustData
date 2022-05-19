@@ -81,7 +81,7 @@ function SearchBarSuggestion(props: SearchSuggestion & { onClick: (value: string
 
         if (props.image) {
             innerNodes.push(
-                <img className='search-bar-suggestion-image' src={props.image} alt={props.value} />
+                <img className='search-bar-suggestion-image' src={props.image} alt={props.value} />,
             );
         }
 

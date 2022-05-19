@@ -27,12 +27,12 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
                 const page = await ScrapeUtils.getPage(url);
 
                 const downloadParagraph = ScrapeUtils.parseHTML(
-                    await page.evaluate(() => document.querySelector('p.Download')!.outerHTML)
+                    await page.evaluate(() => document.querySelector('p.Download')!.outerHTML),
                 );
 
                 page.close();
                 return downloadParagraph.querySelector('a')!.getAttribute('href')!;
-            })
+            }),
         );
 
         const response = li.map((item, index) => {
@@ -67,7 +67,7 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
 
         while (
             await this.tab!.evaluate(() =>
-                document.querySelector('button.load-more') ? true : false
+                document.querySelector('button.load-more') ? true : false,
             )
         ) {
             await this.tab!.evaluate(() => {
@@ -103,8 +103,8 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
                             .getAttribute('href')!;
                         const scraper = new FugitiveProfileScraper(profileUrl, categories[index]);
                         return (await scraper.scrape())!;
-                    })
-                )
+                    }),
+                ),
             );
         }
 

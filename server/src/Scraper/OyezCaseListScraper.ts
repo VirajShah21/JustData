@@ -34,7 +34,7 @@ class OyezCaseListScraper extends Scraper<OyezCaseListResults> {
             this.termStarts.map(async ts => {
                 const scraper = new OyezTermCaseListScraper(ts);
                 results[ts.toString()] = await scraper.scrape();
-            })
+            }),
         );
 
         return results;

@@ -31,13 +31,13 @@ abstract class Scraper<R> implements IScraper<R> {
             return (
                 await this.tab.evaluate(
                     _selector => Array.from(document.querySelectorAll(_selector), e => e.innerHTML),
-                    selector
+                    selector,
                 )
             ).map(ScrapeUtils.parseHTML);
         }
 
         throw new Error(
-            'Cannot use "[Scraper].select()" without first calling await "[Scraper].openTab()"'
+            'Cannot use "[Scraper].select()" without first calling await "[Scraper].openTab()"',
         );
     }
 

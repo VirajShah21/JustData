@@ -104,7 +104,7 @@ function AllFugitivesList() {
 }
 
 function FugitiveListItem(
-    props: (SimpleFugitiveData | FullFugitiveData) & { opensProfile?: boolean }
+    props: (SimpleFugitiveData | FullFugitiveData) & { opensProfile?: boolean },
 ) {
     const [showingProfile, setShowingProfile] = useState(false);
 

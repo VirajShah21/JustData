@@ -29,7 +29,7 @@ function StockSearchBar(props: { value?: string; onSearch: (value: string) => vo
                     setSearchSuggestions(
                         response.data.results.length <= 5
                             ? response.data.results
-                            : response.data.results.slice(0, 5)
+                            : response.data.results.slice(0, 5),
                     );
                     searchSuggestionLock = false;
                 });
