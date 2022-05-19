@@ -6,6 +6,12 @@ function App() {
     return <>{getPage(window.location.pathname)}</>;
 }
 
+/**
+ * Returns the correct page based on the pathname.
+ *
+ * @param pathname - The pathname of the current page.
+ * @returns The correct JSX page.
+ */
 function getPage(pathname: string) {
     switch (pathname) {
         case '/':

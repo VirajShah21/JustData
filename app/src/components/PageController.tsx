@@ -2,7 +2,15 @@ import { HStack } from 'reaction';
 import ArrayUtils from '../utils/ArrayUtils';
 import './PageController.css';
 
-function PageController(props: {
+/**
+ * @param props - Takes three non-optional props:
+ * - `lastPage` - The last page of the pagination.
+ * - `currentPage` - The currently active page of the pagination.
+ * - `onPageChange` - A function that will be called when the user changes the page
+ * by clicking on a page number.
+ * @returns The pagination controller component.
+ */
+function PaginationController(props: {
     lastPage: number;
     currentPage: number;
     onPageChange: (pageNumber: number) => void;
@@ -10,7 +18,7 @@ function PageController(props: {
     return (
         <HStack className='page-controller'>
             {ArrayUtils.enumerate(1, props.lastPage).map(num => (
-                <PageControllerNumberButton
+                <PaginationControllerNumberButton
                     page={num}
                     active={num === props.currentPage}
                     onClick={page => props.onPageChange(page)}
@@ -20,7 +28,14 @@ function PageController(props: {
     );
 }
 
-function PageControllerNumberButton(props: {
+/**
+ * @param props - Takes three props:
+ * - `page` - The page number to be displayed on the button
+ * - `active` - Whether this page is the current page
+ * - `onClick` - A callback to be called when the page number button is clicked
+ * @returns A pagination controller button
+ */
+function PaginationControllerNumberButton(props: {
     page: number;
     active?: boolean;
     onClick: (pageNumber: number) => void;
@@ -34,4 +49,4 @@ function PageControllerNumberButton(props: {
     );
 }
 
-export default PageController;
+export default PaginationController;

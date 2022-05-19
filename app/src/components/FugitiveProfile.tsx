@@ -2,12 +2,22 @@ import { XIcon } from '@primer/octicons-react';
 import { HStack, Spacer, VStack } from 'reaction';
 import './FugitiveProfile.css';
 
+/**
+ * A react component to display the entire profile for a fugitive.
+ *
+ * @param props - The `FullFugitiveData` object for the fugitive who's profile should be displayed.
+ * An additional `onClose()` function is passed to this component to handle behavior once the red
+ * close button is clicked (since this is handled by the parent).
+ * @returns A fugitive profile which overlays the entire window with the specified fugitive's info.
+ */
 function FugitiveProfile(props: FullFugitiveData & { onClose: () => void }) {
     let basicBio: JSX.Element | undefined;
     let row1Bio: JSX.Element | undefined;
     let row2Bio: JSX.Element | undefined;
 
+    // Sometimes there may be no bio table, so none of the bio should be displayed.
     if (props.bio) {
+        // Basic biography details
         basicBio = (
             <>
                 <BioBasicDetails label='Known Aliases' value={props.bio.alias} />
@@ -17,6 +27,7 @@ function FugitiveProfile(props: FullFugitiveData & { onClose: () => void }) {
             </>
         );
 
+        // Row 1 of the physical features
         row1Bio = (
             <HStack justify='between' className='physical-features-row-1'>
                 <PhysicalFeature label='Hair' value={props.bio.hair} />
@@ -26,6 +37,7 @@ function FugitiveProfile(props: FullFugitiveData & { onClose: () => void }) {
             </HStack>
         );
 
+        // Row 2 of the physical features
         row2Bio = (
             <HStack justify='between' className='physical-features-row-2'>
                 <PhysicalFeature label='Build' value={props.bio.build} />
@@ -83,6 +95,17 @@ function FugitiveProfile(props: FullFugitiveData & { onClose: () => void }) {
     );
 }
 
+/**
+ * A simple React component to display a label and value for a fugitive.
+ *
+ * Props:
+ *
+ * - `label`: The label to display. This must be provided.
+ * - `value`: The value to display. If this is not provided, then 'n/a' is used.
+ *
+ * @param props - Refer to the description.
+ * @returns A simple component to display a bio attribute for the fugitive.
+ */
 function BioBasicDetails(props: { label: string; value?: string }) {
     return (
         <HStack justify='start'>
@@ -92,6 +115,17 @@ function BioBasicDetails(props: { label: string; value?: string }) {
     );
 }
 
+/**
+ * A simple React component to display a label and value for a fugitive's physical traits.
+ *
+ * Props:
+ *
+ * - `label`: The label to display. This must be provided.
+ * - `value`: The value to display. If this is not provided, then 'n/a' is used.
+ *
+ * @param props - Refer to the description.
+ * @returns A simple component to display a physical traits for a fugitive.
+ */
 function PhysicalFeature(props: { label: string; value?: string }) {
     return (
         <span>
