@@ -5,6 +5,7 @@ import {
     TenMostWantedFugitivesScraper,
 } from './Scraper/FBIMostWantedScrapers';
 import OyezCaseListScraper from './Scraper/OyezCaseListScraper';
+import Scraper from './Scraper/Scraper';
 import ScrapeUtils from './Scraper/ScrapeUtils';
 import StockTickerScraper from './Scraper/StockTickerScraper';
 import YellowPagesSearchScraper from './Scraper/YellowPagesSearchScraper';
@@ -80,11 +81,27 @@ app.get('/api/business/search', async (req, res) => {
     }
 });
 
-app.get('/api/serp/bing', async (req, res) => {
+app.get('/api/serp', async (req, res) => {
+    const engine = (req.query.engine as string).toLowerCase().trim();
     const { q } = req.query;
-    const scraper = new BingSearchScraper(q as string);
-    const result = await scraper.scrape();
-    res.send(result);
+
+    // The correct SERP scraper will be assigned to this
+    let scraper: BingSearchScraper;
+
+    // Based on the engine, a correct scraper should be assigned
+    // to `let scraper`
+    // ! Since there is only a SERP scraper for Bing, that will also be the default scraper
+    // TODO: Add Google and other search engines.
+    switch (engine) {
+        case 'bing':
+            scraper = new BingSearchScraper(q as string);
+            break;
+        default:
+            scraper = new BingSearchScraper(q as string);
+            break;
+    }
+
+    res.send(await scraper.scrape());
 });
 
 app.listen(PORT, () => {

@@ -80,6 +80,12 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
         return results;
     }
 
+    /**
+     * Extracts all listing data from a single Yellow Pages search result.
+     *
+     * @param listing - The element for which a single rating is contained within.
+     * @returns All of the details for the specified Yellow Pages listing.
+     */
     private static extractListingData(listing: ParsedHTMLElement) {
         const categoriesContainer = listing.querySelector('.categories');
         const ratingsContainer = listing.querySelector('.ratings');
@@ -149,6 +155,12 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
         };
     }
 
+    /**
+     * Extracts the Yellow Pages and Trip Advisor ratings from the ratings container.
+     *
+     * @param ratingsContainer - The `ParsedHTMLElement` container for the ratings.
+     * @returns The YellowPages and TripAdvisor ratings if they are available.
+     */
     private static extractListingRating(
         ratingsContainer: ParsedHTMLElement,
     ): YellowPagesListingRating {
