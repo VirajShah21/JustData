@@ -52,7 +52,7 @@ class ScrapeUtils {
                     });
                 })
                 .catch(err => {
-                    console.error(err);
+                    Logger.error(err);
                 });
         });
     }
