@@ -5,7 +5,6 @@ import {
     TenMostWantedFugitivesScraper,
 } from './Scraper/FBIMostWantedScrapers';
 import OyezCaseListScraper from './Scraper/OyezCaseListScraper';
-import Scraper from './Scraper/Scraper';
 import ScrapeUtils from './Scraper/ScrapeUtils';
 import StockTickerScraper from './Scraper/StockTickerScraper';
 import YellowPagesSearchScraper from './Scraper/YellowPagesSearchScraper';
@@ -92,12 +91,8 @@ app.get('/api/serp', async (req, res) => {
     // to `let scraper`
     // ! Since there is only a SERP scraper for Bing, that will also be the default scraper
     // TODO: Add Google and other search engines.
-    switch (engine) {
-        case 'bing':
-        default:
-            scraper = new BingSearchScraper(q as string);
-            break;
-    }
+
+    scraper = new BingSearchScraper(q as string);
 
     res.send(await scraper.scrape());
 });

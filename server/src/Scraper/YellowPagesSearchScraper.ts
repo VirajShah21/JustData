@@ -41,7 +41,7 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
         three: 3,
         four: 4,
         five: 5,
-        undefined: undefined,
+        undefined,
     };
 
     /**

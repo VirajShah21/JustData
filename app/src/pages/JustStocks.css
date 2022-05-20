@@ -1,3 +1,5 @@
+/* Sets width constraints on the autocomplete suggestions
+   width. This will replace any overflowing text with ellipsis */
 #just-stocks .stock-search-ac-ticker,
 #just-stocks .stock-search-ac-name,
 #just-stocks .stock-search-ac-price,
@@ -8,6 +10,8 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+/** BEGIN styles for autocomplete suggestions */
 
 #just-stocks .stock-search-ac-ticker {
     font-weight: bold;
@@ -45,6 +49,10 @@
     color: gray;
 }
 
+/** END styles for autocomplete suggestions */
+
+/** BEGIN overrides for the TradingView widgets */
+
 #tradingview_widget_wrapper {
     width: 100%;
     flex-grow: 1;
@@ -57,3 +65,5 @@
 #tradingview_widget_wrapper div:nth-child(2) {
     display: none;
 }
+
+/** END overrides for the TradingView widgets */

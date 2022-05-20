@@ -3,20 +3,25 @@
     --primary-gradient-end: #7f00ff;
 }
 
+/* Custom styles for text/images which are selected */
 *::selection {
     background: var(--primary-gradient-start);
     color: white;
 }
 
+/* Default body styles */
 body {
     margin: 0;
+    /* Ensures the page is at least the height of the window */
+    min-height: 100vh;
+    background-color: black;
+    color: white;
+    /* apple-system is SF Pro, so is BlinkMacSystemFont
+       The other fonts, I have no idea: GitHub CoPilot just autofilled them */
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
         'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    min-height: 100vh;
-    background-color: black;
-    color: white;
 }
 
 code {
