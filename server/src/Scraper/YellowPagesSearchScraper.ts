@@ -203,7 +203,10 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
     }
 
     /**
-     * The cache for the yellow pages search using the provided query and location.
+     * The cache for the yellow pages search.
+     * This uses specifically the specified location and query
+     * to find the cached result. If either have not been cached yet
+     * then the value is null.
      */
     get cache(): YellowPagesSearchResult[] | null {
         if (cache.hasOwnProperty(this.location)) {
