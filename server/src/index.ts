@@ -94,8 +94,6 @@ app.get('/api/serp', async (req, res) => {
     // TODO: Add Google and other search engines.
     switch (engine) {
         case 'bing':
-            scraper = new BingSearchScraper(q as string);
-            break;
         default:
             scraper = new BingSearchScraper(q as string);
             break;
