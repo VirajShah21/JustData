@@ -166,6 +166,9 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
     ): YellowPagesListingRating {
         const ypRatingContainer = ratingsContainer.querySelector('.result-rating');
         const taRatingContainer = ratingsContainer.querySelector('.ta-rating');
+        const PARTIAL_RATING = 0.5;
+        const TA_WHOLE_RATING_INDEX = 1;
+        const TA_PARTIAL_RATING_INDEX = 2;
 
         let yellowPages: number | undefined;
         let tripAdvisor: number | undefined;
@@ -180,7 +183,7 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
                 ];
             const halfRating = ypRatingContainer.classNames.split(' ').includes('half');
             if (wholeRating) {
-                if (halfRating) yellowPages = wholeRating + 0.5;
+                if (halfRating) yellowPages = wholeRating + PARTIAL_RATING;
                 else yellowPages = wholeRating;
             }
         }
@@ -191,7 +194,8 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
                 .find(cn => cn.startsWith('ta-'))
                 ?.split('-');
             if (ratingClass) {
-                tripAdvisor = +`${ratingClass[1]}.${ratingClass[2]}`;
+                tripAdvisor =
+                    +`${ratingClass[TA_WHOLE_RATING_INDEX]}.${ratingClass[TA_PARTIAL_RATING_INDEX]}`;
             }
         }
 
