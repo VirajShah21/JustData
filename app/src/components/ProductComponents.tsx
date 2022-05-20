@@ -26,12 +26,7 @@ function ProductResult(props: { icon: string; label: string; url: string }) {
             onClick={() => {
                 window.location.href = props.url;
             }}>
-            <HStack className='product-result' justify='start' width='100%'>
-                <span className='product-icon'>
-                    <img src={props.icon} alt={props.label} height='50' />
-                </span>
-                <span className='product-label'>{props.label}</span>
-            </HStack>
+            <img src={props.icon} alt={props.label} height='50' />
         </button>
     );
 }

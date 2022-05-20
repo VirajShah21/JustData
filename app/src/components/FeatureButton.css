@@ -46,15 +46,3 @@
 .feature-button .feature-button-inside .feature-button-icon {
     margin-right: 0.5rem;
 }
-
-/* A rainbow animation to change the background
-   color/gradient */
-@keyframes rainbow {
-    from {
-        filter: hue-rotate(0deg);
-    }
-
-    to {
-        filter: hue-rotate(360deg);
-    }
-}
