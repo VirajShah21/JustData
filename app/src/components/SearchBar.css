@@ -1,6 +1,8 @@
 .search-bar-container {
-    position: relative;
     width: 100%;
+    /* Relative position allows the search suggestions
+       to appear under the search bar */
+    position: relative;
 }
 
 .search-bar-container .search-bar {
@@ -37,8 +39,11 @@
 .search-bar-container .search-bar-autocomplete {
     width: 100%;
     display: block;
-    position: absolute;
     z-index: 1000;
+    /* Absolute positioning allows the autocomplete
+       suggestions to appear underneath the search bar
+       which is { position: relative } */
+    position: absolute;
 }
 
 .search-bar-container .search-bar-autocomplete .search-bar-suggestion {

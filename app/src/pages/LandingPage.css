@@ -1,3 +1,4 @@
+/* Blurs in the left out of the landing page */
 @keyframes landing-blur-in {
     0% {
         -webkit-backdrop-filter: blur(0);
@@ -25,11 +26,15 @@
     -webkit-backdrop-filter: blur(2.5rem);
     backdrop-filter: blur(2.5rem);
     transition: 0.5s backdrop-filter;
+    /* Blurs out the left side of the landing page
+       5 seconds after the page loads */
     animation-name: landing-blur-in;
     animation-duration: 5s;
     animation-timing-function: ease-in-out;
 }
 
+/* When the left side is hovered, the blur should be
+   removed */
 .landing-left .landing-left-overlay:hover {
     -webkit-backdrop-filter: blur(0);
     backdrop-filter: blur(0);
@@ -39,6 +44,7 @@
     width: 50%;
 }
 
+/* The attribution for the background image */
 .landing-left .bg-attribution {
     font-size: 0.75rem;
     color: gray;

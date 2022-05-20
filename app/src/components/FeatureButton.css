@@ -1,6 +1,9 @@
 .feature-button {
     box-sizing: border-box;
     border: none;
+    /* The background image is only visible on hover
+       otherwise the child covers the background and
+       uses it as a gradient border instead */
     background-image: linear-gradient(
         to bottom right,
         var(--primary-gradient-start),
@@ -11,12 +14,16 @@
     margin: 0.5rem;
 }
 
+/* On hover, a rainbow effect should take place. This
+   is acheived by rotating the hue of the background,
+   thus changing the gradient */
 .feature-button:hover {
     animation-name: rainbow;
     animation-duration: 3s;
     animation-iteration-count: infinite;
 }
 
+/* An active feature button has a gradient background */
 .feature-button.active .feature-button-inside {
     background: transparent;
     color: black;
@@ -40,6 +47,8 @@
     margin-right: 0.5rem;
 }
 
+/* A rainbow animation to change the background
+   color/gradient */
 @keyframes rainbow {
     from {
         filter: hue-rotate(0deg);

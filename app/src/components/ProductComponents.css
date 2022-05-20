@@ -1,13 +1,16 @@
+/* The heading for a product category */
 .product-section-title {
     font-size: 1rem;
     font-weight: bold;
     color: gray;
 }
 
+/* The icon appearing to the left of the product section title */
 .product-section-icon {
     padding: 1rem;
 }
 
+/* A product button */
 .product-result {
     width: 30%;
     background-color: rgb(100, 100, 100);
@@ -18,10 +21,12 @@
     transition: 0.25s all;
 }
 
+/* The product icon (png) appearing on the left side of the label */
 .product-result .product-icon {
     padding: 0.5rem;
 }
 
+/* The product label (the name of the product */
 .product-result .product-label {
     padding: 1rem;
 }
