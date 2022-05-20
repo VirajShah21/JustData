@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
+import BrandButton from 'src/components/BrandButton';
 import FeatureButton from 'src/components/FeatureButton';
 import FugitiveProfile from 'src/components/FugitiveProfile';
 import PaginationController from 'src/components/PaginationController';
+import SearchBar from 'src/components/SearchBar';
 import './FBIMostWanted.css';
 
 type FBIMostWantedFeature =
@@ -44,6 +46,10 @@ function FBIMostWanted() {
 
     return (
         <VStack width='100%' justify='start' className='fbi-most-wanted-page'>
+            <HStack>
+                <BrandButton />
+                <SearchBar />
+            </HStack>
             <HStack className='features-bar'>
                 <FeatureButton
                     label='Ten Most Wanted Fugitives'

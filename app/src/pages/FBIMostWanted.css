@@ -1,9 +1,11 @@
 /* The features bar */
 .fbi-most-wanted-page .features-bar {
-    position: fixed;
+    position: sticky;
+    top: 0;
     background-color: rgba(0, 0, 0, 0.5);
     -webkit-backdrop-filter: blur(1rem);
     backdrop-filter: blur(1rem);
+    box-sizing: border-box;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     z-index: 100;
