@@ -5,7 +5,6 @@ import {
     TenMostWantedFugitivesScraper,
 } from './Scraper/FBIMostWantedScrapers';
 import OyezCaseListScraper from './Scraper/OyezCaseListScraper';
-import Scraper from './Scraper/Scraper';
 import ScrapeUtils from './Scraper/ScrapeUtils';
 import StockTickerScraper from './Scraper/StockTickerScraper';
 import YellowPagesSearchScraper from './Scraper/YellowPagesSearchScraper';
