@@ -6,11 +6,24 @@ interface BingSearchResult {
     description: string;
 }
 
+/**
+ * Scraper for the Bing SERP
+ */
 class BingSearchScraper extends Scraper<BingSearchResult[]> {
+    /**
+     * Constructs a scraper for the Bing Search Engine Results Page.
+     *
+     * @param query - The query to search for.
+     */
     constructor(query: string) {
         super(`https://www.bing.com/search?q=${encodeURI(query)}`);
     }
 
+    /**
+     * Performs a Bing search and scrapes the results page.
+     *
+     * @returns An array of all the Bing search results for the query.
+     */
     async scrape(): Promise<BingSearchResult[] | null> {
         await this.openTab();
         const resultsContainers = await this.select('#b_results');
@@ -52,6 +65,11 @@ class BingSearchScraper extends Scraper<BingSearchResult[]> {
         return results;
     }
 
+    /**
+     * Cached data for the Bing search.
+     *
+     * TODO: This is incomplete. Fill out this method to enable caching.
+     */
     get cache():
         | (
               | (BingSearchResult[] | Record<string, BingSearchResult[]>)
