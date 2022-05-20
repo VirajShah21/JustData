@@ -1,5 +1,6 @@
 import puppeteer, { Browser, Page } from 'puppeteer';
 import { parse, HTMLElement as ParsedHTMLElement } from 'node-html-parser';
+import Logger from '../utils/Logger';
 
 /**
  * A utility class for scraping websites using the Puppeteer library.
@@ -20,15 +21,15 @@ class ScrapeUtils {
      * Launches the Google Chrome browser instance using the Puppeteer library.
      */
     private static async launchBrowser() {
-        console.log('Launching a virtual Chrome instance...');
+        Logger.info('Launching a virtual Chrome instance...');
         puppeteer
             .launch({ args: ['--no-sandbox'] })
             .then(chrome => {
-                console.log('Successfully launched a virtual Chrome instance');
+                Logger.info('Successfully launched a virtual Chrome instance');
                 ScrapeUtils.browser = chrome;
             })
             .catch(err => {
-                console.log('Failed to launch a virtual Chrome instance');
+                Logger.info('Failed to launch a virtual Chrome instance');
                 throw err;
             });
     }

@@ -8,6 +8,7 @@ import OyezCaseListScraper from './Scraper/OyezCaseListScraper';
 import ScrapeUtils from './Scraper/ScrapeUtils';
 import StockTickerScraper from './Scraper/StockTickerScraper';
 import YellowPagesSearchScraper from './Scraper/YellowPagesSearchScraper';
+import Logger from './utils/Logger';
 
 // DEV_PORT is 3001 because react-scripts takes 3000
 const DEV_PORT = 3001;
@@ -98,5 +99,5 @@ app.get('/api/serp', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+    Logger.info(`Server listening on port ${PORT}`);
 });
