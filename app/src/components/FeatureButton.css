@@ -23,6 +23,15 @@
     animation-iteration-count: infinite;
 }
 
+.feature-button .feature-button-inside {
+    box-sizing: border-box;
+    background: black;
+    color: white;
+    font-size: 0.8rem;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+}
+
 /* An active feature button has a gradient background */
 .feature-button.active .feature-button-inside {
     background: transparent;
@@ -32,15 +41,6 @@
 
 .feature-button.active .feature-button-inside:hover {
     color: white;
-}
-
-.feature-button .feature-button-inside {
-    box-sizing: border-box;
-    background: black;
-    color: white;
-    font-size: 0.8rem;
-    border-radius: 2rem;
-    padding: 0.5rem 1rem;
 }
 
 .feature-button .feature-button-inside .feature-button-icon {
