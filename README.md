@@ -19,6 +19,9 @@
 
 - [JustData](#justdata)
   - [What is Just Data?](#what-is-just-data)
+  - [Services](#services)
+    - [APIs Coming Soon](#apis-coming-soon)
+    - [API Ideas](#api-ideas)
   - [Scraping Rules](#scraping-rules)
 
 ## What is Just Data?
@@ -26,6 +29,38 @@
 Just Data is a data collection tool which scrapes the web to collect just data. The server provides a series of API endpoints which perform the scraping activities and caches the results. A client web application is provided to beautifully display the scraped data.
 
 The web application makes it simple to browse and visualize data from various sources, along with downloading the data for external use.
+
+## Services
+
+-   **Just Securities** – A cross-exchange securities information and data visualization application. Allows for searching stocks (NYSE/NASDAQ/foreign markets), funds (ETFs/mutual funds/index funds), crypto currencies, FOREX, and more.
+-   **Just Fugitives** – A fugitives database which allows for finding fugitives by name, biography, crimes, and other details. The application uses data pulled directly from the FBIs database of wanted fugitives.
+-   **Just Search** – A cross-engine search platform. Compiles data from multiple search engines and provides a unified search interface.
+
+### APIs Coming Soon
+
+Below is a list of APIs which have been developed but have no frontend service:
+
+-   Oyez Case List
+-   Yellow Pages SERP
+
+> The above APIs may be incomplete. They should be complete by Milestone v0.0.1 (Armadillo).
+
+APIs to develop by Milestone v0.0.1 (Armadillo):
+
+-   Oyez case
+-   Yellow Pages business
+-   Search Engines:
+    -   Google SERP
+    -   Yahoo Search SERP
+    -   DuckDuckGo SERP
+-   Magic Search: Open a new tab with the best search engine result.
+
+### API Ideas
+
+-   Stack Overflow SERP/Answers
+-   GitHub Code Search
+-   IMDB TV/Movies
+-   Yelp Business Search
 
 ## Scraping Rules
 
