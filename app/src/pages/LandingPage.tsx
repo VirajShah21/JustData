@@ -2,7 +2,7 @@ import { ArchiveIcon, GraphIcon, LawIcon, SearchIcon } from '@primer/octicons-re
 import { HStack, Spacer, VStack } from 'reaction';
 import { ProductResult, ProductSectionTitle } from '../components/ProductComponents';
 import SearchBar from '../components/SearchBar';
-import mostWantedLogo from '../resources/images/icons/Just Most Wanted.png';
+import justFugitivesLogo from '../resources/images/icons/Just Fugitives.png';
 import logo from '../resources/images/icons/logo.png';
 import stocksLogo from '../resources/images/icons/stocks.png';
 import searchLogo from '../resources/images/icons/search.png';
@@ -55,7 +55,7 @@ function LandingRight() {
             <ProductSectionTitle icon={<LawIcon />} label='Crime & Justice' />
 
             <HStack justify='start'>
-                <ProductResult icon={mostWantedLogo} label='FBI Most Wanted' url='most-wanted' />
+                <ProductResult icon={justFugitivesLogo} label='FBI Most Wanted' url='most-wanted' />
             </HStack>
 
             <ProductSectionTitle icon={<SearchIcon />} label='Web Search' />
