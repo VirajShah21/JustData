@@ -1,5 +1,5 @@
-import FBIMostWanted from './pages/FBIMostWanted';
-import JustStocks from './pages/JustStocks';
+import FBIMostWanted from './pages/JustFugitives';
+import JustStocks from './pages/JustSecurities';
 import LandingPage from './pages/LandingPage';
 import SearchEngine from './pages/SearchEngine';
 

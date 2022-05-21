@@ -6,7 +6,7 @@ import FeatureButton from 'src/components/FeatureButton';
 import FugitiveProfile from 'src/components/FugitiveProfile';
 import PaginationController from 'src/components/PaginationController';
 import SearchBar from 'src/components/SearchBar';
-import './FBIMostWanted.css';
+import './JustFugitives.css';
 
 type FBIMostWantedFeature =
     | 'ten-most-wanted'
