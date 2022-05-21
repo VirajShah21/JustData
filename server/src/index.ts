@@ -7,6 +7,7 @@ import {
 import OyezCaseListScraper from './Scraper/OyezCaseListScraper';
 import ScrapeUtils from './Scraper/ScrapeUtils';
 import StockTickerScraper from './Scraper/StockTickerScraper';
+import WHFinancialDisclosureScraper from './Scraper/WHFinancialDisclosureScraper';
 import YellowPagesSearchScraper from './Scraper/YellowPagesSearchScraper';
 import Logger from './utils/Logger';
 
@@ -95,6 +96,11 @@ app.get('/api/serp', async (req, res) => {
 
     scraper = new BingSearchScraper(q as string);
 
+    res.send(await scraper.scrape());
+});
+
+app.get('/api/white-house/financial-disclosures', async (req, res) => {
+    const scraper = new WHFinancialDisclosureScraper();
     res.send(await scraper.scrape());
 });
 

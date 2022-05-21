@@ -10,6 +10,13 @@ const transports: winston.transport[] = [
         format: winston.format.combine(
             winston.format.timestamp(),
             winston.format.prettyPrint(),
+            JustDataLogFormat,
+        ),
+    }),
+    new winston.transports.Console({
+        format: winston.format.combine(
+            winston.format.timestamp(),
+            winston.format.prettyPrint(),
             winston.format.colorize(),
             JustDataLogFormat,
         ),

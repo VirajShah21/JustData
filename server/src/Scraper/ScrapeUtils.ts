@@ -23,7 +23,11 @@ class ScrapeUtils {
     private static async launchBrowser() {
         Logger.info('Launching a virtual Chrome instance...');
         puppeteer
-            .launch({ args: ['--no-sandbox'] })
+            .launch({
+                args: ['--no-sandbox'],
+                // * To debug a scraper, set headless to false:
+                // headless: false,
+            })
             .then(chrome => {
                 Logger.info('Successfully launched a virtual Chrome instance');
                 ScrapeUtils.browser = chrome;

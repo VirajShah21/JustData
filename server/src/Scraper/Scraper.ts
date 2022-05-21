@@ -63,7 +63,7 @@ abstract class Scraper<R> implements IScraper<R> {
         if (this.tab) {
             return (
                 await this.tab.evaluate(
-                    _selector => Array.from(document.querySelectorAll(_selector), e => e.innerHTML),
+                    _selector => Array.from(document.querySelectorAll(_selector), e => e.outerHTML),
                     selector,
                 )
             ).map(ScrapeUtils.parseHTML);
