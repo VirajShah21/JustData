@@ -42,7 +42,7 @@ function LandingRight() {
 
             <ProductSectionTitle icon={<GraphIcon />} label='Financial Markets' />
 
-            <HStack justify='around'>
+            <HStack justify='start'>
                 <ProductResult icon={stocksLogo} label='Stocks' url='stocks' />
             </HStack>
 
@@ -54,13 +54,13 @@ function LandingRight() {
 
             <ProductSectionTitle icon={<LawIcon />} label='Crime & Justice' />
 
-            <HStack justify='around'>
+            <HStack justify='start'>
                 <ProductResult icon={mostWantedLogo} label='FBI Most Wanted' url='most-wanted' />
             </HStack>
 
             <ProductSectionTitle icon={<SearchIcon />} label='Web Search' />
 
-            <HStack justify='around'>
+            <HStack justify='start'>
                 <ProductResult icon={searchLogo} label='Search Engine' url='/search' />
             </HStack>
 
