@@ -6,6 +6,10 @@ import Scraper from './Scraper';
 type WHFinancialDisclosures = {
     president: Record<number, string>;
     vp: Record<number, string>;
+    employees: {
+        id: string;
+        name: string;
+    }[];
 };
 
 class WHFinancialDisclosureScraper extends Scraper<WHFinancialDisclosures> {
@@ -15,7 +19,6 @@ class WHFinancialDisclosureScraper extends Scraper<WHFinancialDisclosures> {
 
     async scrape(): Promise<WHFinancialDisclosures> {
         await this.openTab();
-
         const links = (await this.select('body'))[0].querySelectorAll('a').filter(a => {
             const text = a.textContent.trim();
             return (
@@ -23,7 +26,18 @@ class WHFinancialDisclosureScraper extends Scraper<WHFinancialDisclosures> {
                 text.includes('Financial Disclosure Report')
             );
         });
-
+        const employeesList = (await this.select('select[name=disclosureId]'))[0]
+            .querySelectorAll('option')
+            .filter(option => {
+                const value = option.getAttribute('value');
+                return value && value.length > 0;
+            })
+            .map(option => {
+                return {
+                    id: option.getAttribute('value') ?? 'No ID',
+                    name: option.textContent.trim(),
+                };
+            });
         this.closeTab();
 
         const presidentsReports: Record<number, string> = {};
@@ -52,6 +66,7 @@ class WHFinancialDisclosureScraper extends Scraper<WHFinancialDisclosures> {
         return {
             president: presidentsReports,
             vp: vpReports,
+            employees: employeesList,
         };
     }
 
