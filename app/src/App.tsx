@@ -1,6 +1,7 @@
-import FBIMostWanted from './pages/FBIMostWanted';
-import JustStocks from './pages/JustStocks';
+import FBIMostWanted from './pages/JustFugitives';
+import JustStocks from './pages/JustSecurities';
 import LandingPage from './pages/LandingPage';
+import SearchEngine from './pages/SearchEngine';
 
 function App(): JSX.Element {
     return <>{getPage(window.location.pathname)}</>;
@@ -20,6 +21,8 @@ function getPage(pathname: string) {
             return <JustStocks />;
         case '/most-wanted':
             return <FBIMostWanted />;
+        case '/search':
+            return <SearchEngine />;
         default:
             return <div>404</div>;
     }

@@ -83,7 +83,7 @@ app.get('/api/business/search', async (req, res) => {
 });
 
 app.get('/api/serp', async (req, res) => {
-    const engine = (req.query.engine as string).toLowerCase().trim();
+    // const engine = (req.query.engine as string).toLowerCase().trim();
     const { q } = req.query;
 
     // The correct SERP scraper will be assigned to this

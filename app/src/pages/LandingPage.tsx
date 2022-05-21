@@ -1,10 +1,11 @@
-import { ArchiveIcon, GraphIcon, LawIcon } from '@primer/octicons-react';
+import { ArchiveIcon, GraphIcon, LawIcon, SearchIcon } from '@primer/octicons-react';
 import { HStack, Spacer, VStack } from 'reaction';
 import { ProductResult, ProductSectionTitle } from '../components/ProductComponents';
 import SearchBar from '../components/SearchBar';
-import mostWantedLogo from '../resources/images/icons/Just Most Wanted.png';
+import justFugitivesLogo from '../resources/images/icons/Just Fugitives.png';
 import logo from '../resources/images/icons/logo.png';
-import stocksLogo from '../resources/images/icons/stocks.png';
+import justSecuritiesLogo from '../resources/images/icons/Just Securities.png';
+import searchLogo from '../resources/images/icons/search.png';
 import './LandingPage.css';
 
 /**
@@ -41,8 +42,8 @@ function LandingRight() {
 
             <ProductSectionTitle icon={<GraphIcon />} label='Financial Markets' />
 
-            <HStack justify='around'>
-                <ProductResult icon={stocksLogo} label='Stocks' url='stocks' />
+            <HStack justify='start'>
+                <ProductResult icon={justSecuritiesLogo} label='Just Securities' url='stocks' />
             </HStack>
 
             {/* Stock information */}
@@ -53,8 +54,14 @@ function LandingRight() {
 
             <ProductSectionTitle icon={<LawIcon />} label='Crime & Justice' />
 
-            <HStack justify='around'>
-                <ProductResult icon={mostWantedLogo} label='FBI Most Wanted' url='most-wanted' />
+            <HStack justify='start'>
+                <ProductResult icon={justFugitivesLogo} label='Just Fugitives' url='most-wanted' />
+            </HStack>
+
+            <ProductSectionTitle icon={<SearchIcon />} label='Web Search' />
+
+            <HStack justify='start'>
+                <ProductResult icon={searchLogo} label='Just Search' url='/search' />
             </HStack>
 
             <Spacer />

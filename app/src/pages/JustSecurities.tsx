@@ -11,7 +11,7 @@ import { HStack, Spacer, VStack } from 'reaction';
 import BrandButton from '../components/BrandButton';
 import FeatureButton from '../components/FeatureButton';
 import SearchBar from '../components/SearchBar';
-import './JustStocks.css';
+import './JustSecurities.css';
 
 type StocksFeature = 'chart' | 'analysis' | 'fundamentals' | 'profile';
 
