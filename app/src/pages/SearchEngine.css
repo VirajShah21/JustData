@@ -5,12 +5,15 @@
 .search-engine .search-results {
     box-sizing: border-box;
     padding: 2rem;
+    padding-left: 50px;
+    padding-bottom: 1rem;
+    overflow-y: scroll;
 }
 
 .search-engine .search-results .search-result {
     box-sizing: border-box;
     padding: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     border-radius: 1rem;
     background: linear-gradient(
         to right,
