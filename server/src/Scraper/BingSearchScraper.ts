@@ -1,15 +1,10 @@
+import Logger from '../utils/Logger';
 import Scraper from './Scraper';
-
-interface BingSearchResult {
-    title: string;
-    url: string;
-    description: string;
-}
 
 /**
  * Scraper for the Bing SERP
  */
-class BingSearchScraper extends Scraper<BingSearchResult[]> {
+class BingSearchScraper extends Scraper<SERPItem[]> {
     /**
      * Constructs a scraper for the Bing Search Engine Results Page.
      *
@@ -24,7 +19,7 @@ class BingSearchScraper extends Scraper<BingSearchResult[]> {
      *
      * @returns An array of all the Bing search results for the query.
      */
-    async scrape(): Promise<BingSearchResult[] | null> {
+    async scrape(): Promise<SERPItem[] | null> {
         await this.openTab();
         const resultsContainers = await this.select('#b_results');
         this.closeTab();
@@ -72,8 +67,8 @@ class BingSearchScraper extends Scraper<BingSearchResult[]> {
      */
     get cache():
         | (
-              | (BingSearchResult[] | Record<string, BingSearchResult[]>)
-              | Record<string, BingSearchResult[] | Record<string, BingSearchResult[]>>
+              | (SERPItem[] | Record<string, SERPItem[]>)
+              | Record<string, SERPItem[] | Record<string, SERPItem[]>>
           )
         | null {
         throw new Error('Method not implemented.');
