@@ -1,0 +1,3 @@
+.just-places .just-places-placeholder {
+    max-height: calc(100% - 60px);
+}
