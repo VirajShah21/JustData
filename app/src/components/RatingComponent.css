@@ -1,0 +1,15 @@
+.rating .rating-circle {
+    border-radius: 100%;
+    width: 1rem;
+    height: 1rem;
+    border-width: 1px;
+    border-style: solid;
+    border-image-slice: 10px;
+    overflow: hidden;
+    margin: 0.1rem;
+}
+
+.rating .rating-circle .rating-circle-fill {
+    height: 100%;
+    overflow: hidden;
+}

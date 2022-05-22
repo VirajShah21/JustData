@@ -31,6 +31,8 @@ function SearchBar(props: {
     placeholder?: string;
     value?: string;
     suggestions?: (string | SearchSuggestion)[];
+    icon?: JSX.Element;
+    searchDisabled?: boolean;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
     onSearch?: (value: string) => void;
 }) {
@@ -39,9 +41,7 @@ function SearchBar(props: {
     return (
         <div className='search-bar-container'>
             <HStack className='search-bar'>
-                <span className='search-icon-wrapper'>
-                    <SearchIcon />
-                </span>
+                <span className='search-icon-wrapper'>{props.icon ?? <SearchIcon />}</span>
                 <input
                     type='text'
                     value={props.value}
@@ -55,13 +55,15 @@ function SearchBar(props: {
                         }, suggestionBlurDelay)
                     }
                 />
-                <button
-                    className='search-button'
-                    onClick={() => {
-                        props.onSearch?.(props.value ?? '');
-                    }}>
-                    <ArrowRightIcon size={25} />
-                </button>
+                {!props.searchDisabled && (
+                    <button
+                        className='search-button'
+                        onClick={() => {
+                            props.onSearch?.(props.value ?? '');
+                        }}>
+                        <ArrowRightIcon size={25} />
+                    </button>
+                )}
             </HStack>
             {showingSuggestions && props.suggestions && (
                 <div className='search-bar-autocomplete'>

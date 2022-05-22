@@ -1,4 +1,5 @@
 import FBIMostWanted from './pages/JustFugitives';
+import JustPlaces from './pages/JustPlaces';
 import JustStocks from './pages/JustSecurities';
 import LandingPage from './pages/LandingPage';
 import SearchEngine from './pages/SearchEngine';
@@ -23,6 +24,8 @@ function getPage(pathname: string) {
             return <FBIMostWanted />;
         case '/search':
             return <SearchEngine />;
+        case '/places':
+            return <JustPlaces />;
         default:
             return <div>404</div>;
     }

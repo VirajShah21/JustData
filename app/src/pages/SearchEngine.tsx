@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import BrandButton from 'src/components/BrandButton';
 import SearchBar from 'src/components/SearchBar';
+import SearchResult from 'src/components/SearchResult';
 import background from '../resources/images/backgrounds/search.png';
 import './SearchEngine.css';
 
@@ -39,7 +40,7 @@ function SearchEngine() {
             {showingResults && (
                 <VStack className='search-results' align='start' justify='start'>
                     {results.map(result => (
-                        <SearchResult {...result} />
+                        <EngineResult {...result} />
                     ))}
                 </VStack>
             )}
@@ -47,21 +48,23 @@ function SearchEngine() {
     );
 }
 
-function SearchResult(props: { title: string; url: string; description: string }) {
+function EngineResult(props: { title: string; url: string; description: string }) {
     return (
-        <VStack className='search-result' width='50%' align='start'>
-            <VStack className='search-result-inside' align='start' width='100%'>
-                <h3 className='result-title'>
-                    <a href={props.url}>{props.title}</a>
-                </h3>
-                <div className='result-url'>
-                    <a href={props.url}>{props.url}</a>
-                </div>
-                <p
-                    className='result-description'
-                    dangerouslySetInnerHTML={{ __html: props.description }}></p>
-            </VStack>
-        </VStack>
+        <SearchResult>
+            <h3 className='result-title'>
+                <a href={props.url} className='text-gradient-primary'>
+                    {props.title}
+                </a>
+            </h3>
+            <div className='result-url'>
+                <a href={props.url} className='text-gradient-link'>
+                    {props.url}
+                </a>
+            </div>
+            <p
+                className='result-description'
+                dangerouslySetInnerHTML={{ __html: props.description }}></p>
+        </SearchResult>
     );
 }
 

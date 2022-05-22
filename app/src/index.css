@@ -28,6 +28,29 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+.text-gradient-primary {
+    background: linear-gradient(
+        to right,
+        var(--primary-gradient-start),
+        var(--primary-gradient-end)
+    );
+    -webkit-background-clip: text;
+    background-clip: none; /* Ignore the gradient stuff for non-webkit browsers */
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-link {
+    background: linear-gradient(
+        to right,
+        var(--primary-gradient-start),
+        var(--primary-gradient-end)
+    );
+    -webkit-background-clip: text;
+    background-clip: none; /* Ignore the gradient stuff for non-webkit browsers */
+    -webkit-text-fill-color: transparent;
+    filter: hue-rotate(270deg) brightness(200%);
+}
+
 /** Below are keyframe animations to be used across all components */
 
 /* A rainbow animation to change the background
