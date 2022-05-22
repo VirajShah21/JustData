@@ -3,11 +3,12 @@ import { HStack, Spacer, VStack } from 'reaction';
 import { ProductResult, ProductSectionTitle } from '../components/ProductComponents';
 import SearchBar from '../components/SearchBar';
 import justFugitivesLogo from '../resources/images/icons/Just Fugitives.png';
-import logo from '../resources/images/icons/logo.png';
+import justPlacesLogo from '../resources/images/icons/Just Places.png';
+import justSCOTUSLogo from '../resources/images/icons/Just SCOTUS.png';
 import justSecuritiesLogo from '../resources/images/icons/Just Securities.png';
+import logo from '../resources/images/icons/logo.png';
 import searchLogo from '../resources/images/icons/search.png';
 import './LandingPage.css';
-import justPlacesLogo from '../resources/images/icons/Just Places.png';
 
 /**
  * @returns The left side of the landing page. This incldues a logo and a
@@ -47,8 +48,6 @@ function LandingRight() {
                 <ProductResult icon={justSecuritiesLogo} label='Just Securities' url='stocks' />
             </HStack>
 
-            {/* Stock information */}
-
             <ProductSectionTitle icon={<ArchiveIcon />} label='U.S. Intelligence' />
 
             {/* CIA World Factbook */}
@@ -57,6 +56,7 @@ function LandingRight() {
 
             <HStack justify='start'>
                 <ProductResult icon={justFugitivesLogo} label='Just Fugitives' url='most-wanted' />
+                <ProductResult icon={justSCOTUSLogo} label='Just SCOTUS' url='/scotus' />
             </HStack>
 
             <ProductSectionTitle icon={<SearchIcon />} label='Web Search' />

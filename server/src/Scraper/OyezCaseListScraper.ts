@@ -2,17 +2,6 @@ import { sleep } from '../utils/TimeFunctions';
 import Scraper from './Scraper';
 import ScraperCache from './ScraperCache';
 
-interface OyezCaseListItem {
-    name: string;
-    description: string;
-    granted: string;
-    argued: string;
-    decided: string;
-    citation: string;
-}
-
-type OyezCaseListResults = Record<string, OyezCaseListItem[]>;
-
 const listCache: Record<string, OyezCaseListItem[]> =
     ScraperCache.initializeCache('oyez-case-list.json') ?? {};
 
