@@ -52,10 +52,14 @@ function EngineResult(props: { title: string; url: string; description: string }
     return (
         <SearchResult>
             <h3 className='result-title'>
-                <a href={props.url}>{props.title}</a>
+                <a href={props.url} className='text-gradient-primary'>
+                    {props.title}
+                </a>
             </h3>
             <div className='result-url'>
-                <a href={props.url}>{props.url}</a>
+                <a href={props.url} className='text-gradient-link'>
+                    {props.url}
+                </a>
             </div>
             <p
                 className='result-description'
