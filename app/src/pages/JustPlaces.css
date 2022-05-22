@@ -12,3 +12,34 @@
 .just-places .search-results .search-result {
     width: 100%;
 }
+
+.just-places .search-results .search-result h3 {
+    margin: 0;
+    font-weight: 400;
+}
+
+.just-places .search-results .search-result:hover h3 {
+    filter: brightness(150%);
+}
+
+.just-places .search-results .search-result .categories span {
+    margin: 0.1rem;
+    font-size: 0.8rem;
+    background-color: rgba(255, 255, 255, 0.25);
+    color: black;
+    padding: 0.1rem 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.just-places .search-results .search-result .business-age {
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+    background-color: black;
+    border-radius: 1rem;
+    margin-right: 0.5rem;
+}
+
+.just-places .search-results .search-result .business-age-label {
+    box-sizing: border-box;
+    font-size: 0.75rem;
+}

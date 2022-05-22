@@ -1,4 +1,4 @@
-import { HStack, VStack } from 'reaction';
+import { HStack, Spacer, VStack } from 'reaction';
 import BrandButton from 'src/components/BrandButton';
 import SearchBar from 'src/components/SearchBar';
 import './JustPlaces.css';
@@ -8,6 +8,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import Rating from 'src/components/RatingComponent';
 import SearchResult from 'src/components/SearchResult';
+import yellowPagesIcon from '../resources/images/icons/yellow pages.png';
 
 function JustPlaces() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -61,8 +62,51 @@ function JustPlaces() {
 function PlaceSearchResult(props: YellowPagesSearchResult) {
     return (
         <SearchResult>
-            <h3>{props.business}</h3>
-            <HStack>{props.categories}</HStack>
+            <HStack>
+                <h3 className='text-gradient-primary'>{props.business}</h3>
+                <Spacer />
+                <span>{props.openStatus}</span>
+            </HStack>
+            <HStack className='categories' justify='start'>
+                {props.categories.map(category => (
+                    <span>{category}</span>
+                ))}
+            </HStack>
+            <HStack justify='between'>
+                {props.rating.yellowPages && (
+                    <HStack width='auto'>
+                        <img
+                            src={yellowPagesIcon}
+                            alt='Yellow Pages Rating'
+                            style={{ height: '2rem' }}
+                        />
+                        <Rating rating={props.rating.yellowPages} color='yellow' />
+                    </HStack>
+                )}
+            </HStack>
+            <HStack justify='between'>
+                <VStack align='start'>
+                    <span>{props.phone}</span>
+                    <a href={props.website} className='text-gradient-link'>
+                        Website
+                    </a>
+                </VStack>
+                <VStack align='start'>
+                    <span>{props.address.street}</span>
+                    <span>
+                        {props.address.city}, {props.address.state} {props.address.zip}
+                    </span>
+                </VStack>
+                {props.age && (
+                    <HStack width='auto'>
+                        <VStack className='business-age'>{props.age}</VStack>
+                        <VStack className='business-age-label' align='start'>
+                            <span>Years in</span>
+                            <span>Business</span>
+                        </VStack>
+                    </HStack>
+                )}
+            </HStack>
         </SearchResult>
     );
 }
