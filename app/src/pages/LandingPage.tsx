@@ -7,6 +7,7 @@ import logo from '../resources/images/icons/logo.png';
 import justSecuritiesLogo from '../resources/images/icons/Just Securities.png';
 import searchLogo from '../resources/images/icons/search.png';
 import './LandingPage.css';
+import justPlacesLogo from '../resources/images/icons/Just Places.png';
 
 /**
  * @returns The left side of the landing page. This incldues a logo and a
@@ -62,6 +63,7 @@ function LandingRight() {
 
             <HStack justify='start'>
                 <ProductResult icon={searchLogo} label='Just Search' url='/search' />
+                <ProductResult icon={justPlacesLogo} label='Just Places' url='/places' />
             </HStack>
 
             <Spacer />
