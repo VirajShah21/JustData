@@ -24,7 +24,9 @@ Scraping the web, and collecting just data. :robot:
   - [Services](#services)
     - [APIs Coming Soon](#apis-coming-soon)
     - [API Ideas](#api-ideas)
-  - [Scraping Rules](#scraping-rules)
+  - [Contributing](#contributing)
+    - [Scraping Rules](#scraping-rules)
+    - [Design Guidelines](#design-guidelines)
 
 ## What is Just Data?
 
@@ -66,7 +68,9 @@ APIs to develop by Milestone v0.0.1 (Armadillo):
 -   IMDB TV/Movies :movie_camera:
 -   Yelp Business Search :office:
 
-## Scraping Rules
+## Contributing
+
+### Scraping Rules
 
 Scraping websites for valuable information is perfectly legal, but it has its limitations. All web scraping practices must conform to U.S. Federal Law in addition to the rules outlined here:
 
@@ -90,3 +94,13 @@ Scraping websites for valuable information is perfectly legal, but it has its li
     4. The data is not attached to a child or minor;
     5. When the data is attached to a currently incarcerated convicted felon, the above rules do not apply;
     6. When the data is attached to a fugitive or terrorist, the above rules do not apply.
+
+### Design Guidelines
+
+A full list of design guidelines can be found [here](.README/design-guidelines.md).
+
+Specification include:
+
+-   Colors
+-   Sizing, Padding, and Margins
+-   Font Sizes
