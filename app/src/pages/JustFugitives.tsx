@@ -6,6 +6,7 @@ import FeatureButton from 'src/components/FeatureButton';
 import FugitiveProfile from 'src/components/FugitiveProfile';
 import PaginationController from 'src/components/PaginationController';
 import SearchBar from 'src/components/SearchBar';
+import { useTitle } from 'src/HTMLHead';
 import './JustFugitives.css';
 
 type FBIMostWantedFeature =
@@ -43,6 +44,8 @@ const httpSuccess = 200;
  */
 function FBIMostWanted() {
     const [feature, setFeature] = useState<FBIMostWantedFeature>(features.tenMostWanted);
+
+    useTitle('Just Fugitives');
 
     return (
         <VStack width='100%' justify='start' className='fbi-most-wanted-page'>
