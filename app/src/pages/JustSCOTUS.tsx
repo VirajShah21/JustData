@@ -4,6 +4,7 @@ import { HStack, VStack } from 'reaction';
 import Button from 'src/components/Button';
 import DropdownMenu, { ValueLabelPair } from 'src/components/DropdownMenu';
 import SearchResult from 'src/components/SearchResult';
+import { useTitle } from 'src/HTMLHead';
 import './JustSCOTUS.css';
 
 const scotusTerms: ValueLabelPair[] = [];
@@ -17,6 +18,8 @@ scotusTerms.reverse();
 function JustSCOTUS() {
     const [term, setTerm] = useState<number>();
     const [caseList, setCaseList] = useState<OyezCaseListItem[]>([]);
+
+    useTitle('Just SCOTUS');
 
     return (
         <VStack justify='start'>
