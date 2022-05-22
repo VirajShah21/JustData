@@ -10,34 +10,6 @@
     overflow-y: scroll;
 }
 
-.search-engine .search-results .search-result {
-    box-sizing: border-box;
-    padding: 0;
-    margin-bottom: 1rem;
-    border-radius: 1rem;
-    background: linear-gradient(
-        to right,
-        var(--primary-gradient-start),
-        var(--primary-gradient-end)
-    );
-    transition: 0.25s all;
-}
-
-.search-engine .search-results .search-result:hover {
-    padding: 0.5rem;
-}
-
-.search-engine .search-results .search-result .search-result-inside {
-    box-sizing: border-box;
-    padding: 1rem;
-    border-radius: 1rem;
-    background-color: rgb(40, 40, 40);
-}
-
-.search-engine .search-results .search-result:hover .search-result-inside {
-    border-radius: 0.75rem;
-}
-
 .search-engine .search-results .search-result .result-title {
     margin: 0;
     font-weight: 300;

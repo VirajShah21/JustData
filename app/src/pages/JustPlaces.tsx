@@ -7,6 +7,7 @@ import { LocationIcon } from '@primer/octicons-react';
 import { useState } from 'react';
 import axios from 'axios';
 import Rating from 'src/components/RatingComponent';
+import SearchResult from 'src/components/SearchResult';
 
 function JustPlaces() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -50,17 +51,19 @@ function JustPlaces() {
                     className='just-places-placeholder'
                 />
             )}
-            {showingResults && results.map(result => <PlaceSearchResult {...result} />)}
+            <VStack justify='start' align='start' className='search-results'>
+                {showingResults && results.map(result => <PlaceSearchResult {...result} />)}
+            </VStack>
         </VStack>
     );
 }
 
 function PlaceSearchResult(props: YellowPagesSearchResult) {
     return (
-        <VStack>
+        <SearchResult>
             <h3>{props.business}</h3>
             <HStack>{props.categories}</HStack>
-        </VStack>
+        </SearchResult>
     );
 }
 

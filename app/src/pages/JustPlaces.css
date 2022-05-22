@@ -1,3 +1,14 @@
 .just-places .just-places-placeholder {
     max-height: calc(100% - 60px);
 }
+
+.just-places .search-results {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 50px;
+    overflow-y: scroll;
+}
+
+.just-places .search-results .search-result {
+    width: 100%;
+}
