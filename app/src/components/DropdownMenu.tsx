@@ -7,11 +7,12 @@ type ValueLabelPair = { value: string; label: string };
 
 function DropdownMenu(props: {
     options: ValueLabelPair[];
+    placeholder?: string;
     default?: ValueLabelPair;
     onChange: (selected: ValueLabelPair) => void;
 }) {
     const [selected, setSelected] = useState(
-        props.default ?? { value: '', label: 'Select an Item' },
+        props.default ?? { value: '', label: props.placeholder ?? 'Select an Item' },
     );
     const [showingDropdown, setShowingDropdown] = useState(false);
 

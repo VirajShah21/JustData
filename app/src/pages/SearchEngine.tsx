@@ -39,9 +39,7 @@ function SearchEngine() {
             )}
             {showingResults && (
                 <VStack className='search-results' align='start' justify='start'>
-                    {results.map(result => (
-                        <EngineResult {...result} />
-                    ))}
+                    {results.map(EngineResult)}
                 </VStack>
             )}
         </VStack>

@@ -1,0 +1,13 @@
+.button-component {
+    background-color: rgb(40, 40, 40);
+    color: gray;
+    font-size: 1rem;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    border: none;
+    transition: 0.25s filter;
+}
+
+.button-component:hover {
+    filter: brightness(150%);
+}

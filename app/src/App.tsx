@@ -1,5 +1,6 @@
 import FBIMostWanted from './pages/JustFugitives';
 import JustPlaces from './pages/JustPlaces';
+import JustSCOTUS from './pages/JustSCOTUS';
 import JustStocks from './pages/JustSecurities';
 import LandingPage from './pages/LandingPage';
 import SearchEngine from './pages/SearchEngine';
@@ -26,6 +27,8 @@ function getPage(pathname: string) {
             return <SearchEngine />;
         case '/places':
             return <JustPlaces />;
+        case '/scotus':
+            return <JustSCOTUS />;
         default:
             return <div>404</div>;
     }
