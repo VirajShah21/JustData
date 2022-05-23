@@ -1,5 +1,4 @@
 import { GraphIcon, InfoIcon, LightBulbIcon, NumberIcon } from '@primer/octicons-react';
-import axios from 'axios';
 import { useState } from 'react';
 import {
     AdvancedRealTimeChart,
@@ -9,6 +8,7 @@ import {
 } from 'react-ts-tradingview-widgets';
 import { HStack, Spacer, VStack } from 'reaction';
 import { useTitle } from 'src/HTMLHead';
+import { SecuritiesKit } from 'src/utils/JustSDK';
 import BrandButton from '../components/BrandButton';
 import FeatureButton from '../components/FeatureButton';
 import SearchBar from '../components/SearchBar';
@@ -38,20 +38,17 @@ function StockSearchBar(props: { value?: string; onSearch: (value: string) => vo
      *
      * @param value - The value of the input
      */
-    function refreshSearchSuggestions(value: string) {
+    async function refreshSearchSuggestions(value: string) {
         if (!searchSuggestionLock) {
             // The lock prevents many searches from being executed at once.
             searchSuggestionLock = true;
-            axios
-                .get(`http://localhost:3001/api/stocks/ticker-search?q=${encodeURI(value)}`)
-                .then(response => {
-                    setSearchSuggestions(
-                        response.data.results.length <= maxTickerSuggestions
-                            ? response.data.results
-                            : response.data.results.slice(0, maxTickerSuggestions),
-                    );
-                    searchSuggestionLock = false;
-                });
+            const suggestions = await SecuritiesKit.searchTickerSymbols(value);
+            setSearchSuggestions(
+                suggestions.results.length <= maxTickerSuggestions
+                    ? suggestions.results
+                    : suggestions.results.slice(0, maxTickerSuggestions),
+            );
+            searchSuggestionLock = false;
         }
     }
 

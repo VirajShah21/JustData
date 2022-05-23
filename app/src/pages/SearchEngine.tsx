@@ -1,14 +1,12 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import BrandButton from 'src/components/BrandButton';
 import SearchBar from 'src/components/SearchBar';
 import SearchResult from 'src/components/SearchResult';
 import { useTitle } from 'src/HTMLHead';
+import { SERPKit } from 'src/utils/JustSDK';
 import background from '../resources/images/backgrounds/search.png';
 import './SearchEngine.css';
-
-const httpSuccess = 200;
 
 function SearchEngine() {
     const [showingResults, setShowingResults] = useState(false);
@@ -16,6 +14,11 @@ function SearchEngine() {
     const [searchValue, setSearchValue] = useState('');
 
     useTitle('Just Search');
+
+    async function search() {
+        setResults(await SERPKit.bing(searchValue));
+        if (!showingResults) setShowingResults(true);
+    }
 
     return (
         <VStack justify='start' className='search-engine'>
@@ -25,16 +28,7 @@ function SearchEngine() {
                     value={searchValue}
                     placeholder='Search the Web'
                     onChange={e => setSearchValue(e.target.value)}
-                    onSearch={value => {
-                        axios
-                            .get(`http://localhost:3001/api/serp?q=${encodeURI(value)}`)
-                            .then(response => {
-                                if (response.status === httpSuccess) {
-                                    if (!showingResults) setShowingResults(true);
-                                    setResults(response.data);
-                                }
-                            });
-                    }}
+                    onSearch={search}
                 />
             </HStack>
             {!showingResults && (

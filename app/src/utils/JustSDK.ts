@@ -45,7 +45,7 @@ class PlacesKit {
 }
 
 class SCOTUSKit {
-    static async getCaseList(...terms: string[]) {
+    static async getCaseList(...terms: number[]) {
         const query =
             terms.length === 1 ? `term=${terms[0]}` : `terms=${encodeURI(terms.toString())}`;
         const response = await axios.get(`${JustSDK.hostname}/api/supreme-court/cases?${query}`);

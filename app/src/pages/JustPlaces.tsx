@@ -1,25 +1,32 @@
-import { HStack, Spacer, VStack } from 'reaction';
-import BrandButton from 'src/components/BrandButton';
-import SearchBar from 'src/components/SearchBar';
-import './JustPlaces.css';
-import justPlacesPlaceholder from '../resources/images/backgrounds/places.png';
 import { LocationIcon } from '@primer/octicons-react';
 import { useState } from 'react';
-import axios from 'axios';
+import { HStack, Spacer, VStack } from 'reaction';
+import BrandButton from 'src/components/BrandButton';
 import Rating from 'src/components/RatingComponent';
+import SearchBar from 'src/components/SearchBar';
 import SearchResult from 'src/components/SearchResult';
-import yellowPagesIcon from '../resources/images/icons/yellow pages.png';
 import { useTitle } from 'src/HTMLHead';
-
-const httpSuccess = 200;
+import { PlacesKit } from 'src/utils/JustSDK';
+import justPlacesPlaceholder from '../resources/images/backgrounds/places.png';
+import yellowPagesIcon from '../resources/images/icons/yellow pages.png';
+import './JustPlaces.css';
 
 function JustPlaces() {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchLocation, setSearchLocation] = useState('');
-    const [results, setSearchResults] = useState([]);
+    const [results, setSearchResults] = useState<YellowPagesSearchResult[]>([]);
     const [showingResults, setShowingResults] = useState(false);
 
     useTitle('Just Places');
+
+    async function search() {
+        try {
+            setSearchResults(await PlacesKit.search(searchQuery, searchLocation));
+            setShowingResults(true);
+        } catch (err) {
+            // TODO: Error handling
+        }
+    }
 
     return (
         <VStack className='just-places' justify='start'>
@@ -35,18 +42,7 @@ function JustPlaces() {
                     value={searchLocation}
                     placeholder='Where are you looking for it?'
                     onChange={e => setSearchLocation(e.target.value)}
-                    onSearch={() => {
-                        axios
-                            .get(
-                                `http://localhost:3001/api/business/search?q=${searchQuery}&location=${searchLocation}`,
-                            )
-                            .then(response => {
-                                if (response.status === httpSuccess) {
-                                    setSearchResults(response.data);
-                                    setShowingResults(true);
-                                }
-                            });
-                    }}
+                    onSearch={search}
                     icon={<LocationIcon />}
                 />
             </HStack>
