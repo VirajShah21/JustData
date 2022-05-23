@@ -1,5 +1,7 @@
 # JustData
 
+![Data For All Banner](.README/data-for-all.png)
+
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
@@ -14,10 +16,6 @@
 
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
-
-![Data For All Banner](.README/data-for-all.png)
-
-Scraping the web, and collecting just data. :robot:
 
 - [JustData](#justdata)
   - [What is Just Data?](#what-is-just-data)
