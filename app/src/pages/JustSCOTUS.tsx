@@ -34,7 +34,6 @@ function JustSCOTUS() {
                         axios
                             .get(`http://localhost:3001/api/supreme-court/cases?term=${term}`)
                             .then(response => {
-                                console.log(response);
                                 if (response.status === httpSuccess) {
                                     const arr = [];
                                     for (const term in response.data) {
@@ -42,7 +41,6 @@ function JustSCOTUS() {
                                             arr.push(...response.data[term]);
                                         }
                                     }
-                                    console.log(arr);
                                     setCaseList(arr);
                                 }
                             });
