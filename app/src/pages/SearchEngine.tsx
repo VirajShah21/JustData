@@ -4,6 +4,7 @@ import { HStack, VStack } from 'reaction';
 import BrandButton from 'src/components/BrandButton';
 import SearchBar from 'src/components/SearchBar';
 import SearchResult from 'src/components/SearchResult';
+import { useTitle } from 'src/HTMLHead';
 import background from '../resources/images/backgrounds/search.png';
 import './SearchEngine.css';
 
@@ -13,6 +14,8 @@ function SearchEngine() {
     const [showingResults, setShowingResults] = useState(false);
     const [results, setResults] = useState<SERPItem[]>([]);
     const [searchValue, setSearchValue] = useState('');
+
+    useTitle('Just Search');
 
     return (
         <VStack justify='start' className='search-engine'>

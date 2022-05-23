@@ -9,12 +9,15 @@ import axios from 'axios';
 import Rating from 'src/components/RatingComponent';
 import SearchResult from 'src/components/SearchResult';
 import yellowPagesIcon from '../resources/images/icons/yellow pages.png';
+import { useTitle } from 'src/HTMLHead';
 
 function JustPlaces() {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchLocation, setSearchLocation] = useState('');
     const [results, setSearchResults] = useState([]);
     const [showingResults, setShowingResults] = useState(false);
+
+    useTitle('Just Places');
 
     return (
         <VStack className='just-places' justify='start'>

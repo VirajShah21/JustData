@@ -25,10 +25,13 @@
 .product-result img {
     width: 100%;
     height: auto;
+    border-radius: 0%;
+    background: transparent;
+    transition: 0.5s all;
 }
 
 .product-result:hover img {
-    animation-name: rainbow;
-    animation-iteration-count: infinite;
-    animation-duration: 3s;
+    filter: brightness(150%);
+    background: rgb(50, 50, 50);
+    border-radius: 100%;
 }

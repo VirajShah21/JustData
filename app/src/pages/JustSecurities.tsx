@@ -8,6 +8,7 @@ import {
     TechnicalAnalysis,
 } from 'react-ts-tradingview-widgets';
 import { HStack, Spacer, VStack } from 'reaction';
+import { useTitle } from 'src/HTMLHead';
 import BrandButton from '../components/BrandButton';
 import FeatureButton from '../components/FeatureButton';
 import SearchBar from '../components/SearchBar';
@@ -89,6 +90,8 @@ function StockSearchBar(props: { value?: string; onSearch: (value: string) => vo
 function JustStocks() {
     const [ticker, setTicker] = useState('AAPL');
     const [activeFeature, setActiveFeature] = useState<StocksFeature>('chart');
+
+    useTitle('Just Securities');
 
     return (
         <VStack width='100%' id='just-stocks'>
