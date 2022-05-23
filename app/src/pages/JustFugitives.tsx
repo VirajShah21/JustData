@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import BrandButton from 'src/components/BrandButton';
 import FeatureButton from 'src/components/FeatureButton';
@@ -7,6 +6,7 @@ import FugitiveProfile from 'src/components/FugitiveProfile';
 import PaginationController from 'src/components/PaginationController';
 import SearchBar from 'src/components/SearchBar';
 import { useTitle } from 'src/HTMLHead';
+import { FBIKit } from 'src/utils/JustSDK';
 import './JustFugitives.css';
 
 type FBIMostWantedFeature =
@@ -89,15 +89,18 @@ function TenMostWantedList() {
     const [isLoading, setIsLoading] = useState(true);
     const [fugitives, setFugitives] = useState<SimpleFugitiveData[]>([]);
 
-    // Load the fugitives from the FBI scraper API
-    axios.get('http://localhost:3001/api/fbi/ten-most-wanted').then(response => {
-        if (response.status === httpSuccess) {
-            setFugitives(response.data); // Set the fugitives
-            setIsLoading(false); // Clear out the loading state
-        } else {
-            alert('Error recieving list of ten most wanted fugitives');
+    async function loadFugitives() {
+        try {
+            setFugitives(await FBIKit.requestTenMostWantedFugitives());
+            setIsLoading(false);
+        } catch (err) {
+            // TODO: Error handling
         }
-    });
+    }
+
+    useEffect(() => {
+        loadFugitives();
+    }, []);
 
     return (
         <VStack>
@@ -127,15 +130,18 @@ function AllFugitivesList() {
     const [fugitives, setFugitives] = useState<SimpleFugitiveData[]>([]);
     const [page, setPage] = useState(1);
 
-    // Load all of the fugitives from the FBI scraper API
-    axios.get('http://localhost:3001/api/fbi/all-fugitives').then(response => {
-        if (response.status === httpSuccess) {
-            setFugitives(response.data);
+    async function loadFugitives() {
+        try {
+            setFugitives(await FBIKit.requestAllFugitives());
             setIsLoading(false);
-        } else {
-            alert('Error recieving list of all fugitives');
+        } catch (err) {
+            // TODO: Error handling
         }
-    });
+    }
+
+    useEffect(() => {
+        loadFugitives();
+    }, []);
 
     return (
         <VStack>

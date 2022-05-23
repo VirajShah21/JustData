@@ -1,17 +1,15 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import Button from 'src/components/Button';
 import DropdownMenu, { ValueLabelPair } from 'src/components/DropdownMenu';
 import SearchResult from 'src/components/SearchResult';
 import { useTitle } from 'src/HTMLHead';
+import { SCOTUSKit } from 'src/utils/JustSDK';
 import './JustSCOTUS.css';
-
-const httpSuccess = 200;
 
 function JustSCOTUS() {
     const scotusTerms: ValueLabelPair[] = [];
-    for (let i = 1789; i <= new Date().getFullYear(); i++) {
+    for (let i = 1789; i < new Date().getFullYear(); i++) {
         scotusTerms.push({ value: i.toString(), label: `${i} - ${i + 1}` });
     }
     scotusTerms.reverse();
@@ -21,6 +19,18 @@ function JustSCOTUS() {
 
     useTitle('Just SCOTUS');
 
+    async function pullCases() {
+        try {
+            const cases = await SCOTUSKit.getCaseList(term ?? new Date().getFullYear() - 1);
+            const arr = [];
+            // Flatten the Year-to-CaseList map into an array of cases
+            for (const term in cases) if (cases.hasOwnProperty(term)) arr.push(...cases[term]);
+            setCaseList(arr);
+        } catch (err) {
+            // TODO: Handle error
+        }
+    }
+
     return (
         <VStack justify='start'>
             <HStack>
@@ -29,24 +39,7 @@ function JustSCOTUS() {
                     options={scotusTerms}
                     onChange={term => setTerm(parseInt(term.value, 10))}
                 />
-                <Button
-                    onClick={() => {
-                        axios
-                            .get(`http://localhost:3001/api/supreme-court/cases?term=${term}`)
-                            .then(response => {
-                                if (response.status === httpSuccess) {
-                                    const arr = [];
-                                    for (const term in response.data) {
-                                        if (response.data.hasOwnProperty(term)) {
-                                            arr.push(...response.data[term]);
-                                        }
-                                    }
-                                    setCaseList(arr);
-                                }
-                            });
-                    }}>
-                    Pull Cases
-                </Button>
+                <Button onClick={pullCases}>Pull Cases</Button>
             </HStack>
 
             <VStack justify='start' align='start' alignSelf='start'>
