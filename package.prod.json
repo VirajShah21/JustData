@@ -27,6 +27,7 @@
         "winston": "^3.7.2"
     },
     "scripts": {
-        "build": "echo No build required"
+        "build": "echo No build required",
+        "start": "node index.js"
     }
 }
