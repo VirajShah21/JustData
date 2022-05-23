@@ -11,6 +11,32 @@ import logo from '../resources/images/icons/logo.png';
 import searchLogo from '../resources/images/icons/search.png';
 import './LandingPage.css';
 
+enum ProductCategoryRef {
+    FinancialMarkets,
+    USIntelligence,
+    CrimeAndJustice,
+    WebSearch,
+}
+
+interface ProductCategory {
+    category: ProductCategoryRef;
+    icon: React.ReactElement;
+    products: Product[];
+}
+
+interface Product {
+    product: string;
+    icon: string;
+    url: string;
+}
+
+const CATEGORY_REF_MAPPING = {
+    [ProductCategoryRef.FinancialMarkets]: 'Financial Markets',
+    [ProductCategoryRef.USIntelligence]: 'United States Intelligence',
+    [ProductCategoryRef.CrimeAndJustice]: 'Crime and Justice',
+    [ProductCategoryRef.WebSearch]: 'Web Search',
+};
+
 /**
  * @returns The landing page for Just Data.
  */
@@ -41,32 +67,6 @@ function LandingLeft() {
             </VStack>
         </VStack>
     );
-}
-
-enum ProductCategoryRef {
-    FinancialMarkets,
-    USIntelligence,
-    CrimeAndJustice,
-    WebSearch,
-}
-
-const CATEGORY_REF_MAPPING = {
-    [ProductCategoryRef.FinancialMarkets]: 'Financial Markets',
-    [ProductCategoryRef.USIntelligence]: 'United States Intelligence',
-    [ProductCategoryRef.CrimeAndJustice]: 'Crime and Justice',
-    [ProductCategoryRef.WebSearch]: 'Web Search',
-};
-
-interface ProductCategory {
-    category: ProductCategoryRef;
-    icon: React.ReactElement;
-    products: Product[];
-}
-
-interface Product {
-    product: string;
-    icon: string;
-    url: string;
 }
 
 /**
