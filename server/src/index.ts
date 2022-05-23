@@ -30,7 +30,7 @@ app.use((_, res, next) => {
     next();
 });
 
-app.use(express.static(path.join(__dirname, 'static')));
+app.use(express.static(path.join(__dirname, 'web')));
 
 app.get('/api/stocks/ticker-search', async (req, res) => {
     const { q } = req.query;
@@ -105,6 +105,10 @@ app.get('/api/serp', async (req, res) => {
 app.get('/api/white-house/financial-disclosures', async (req, res) => {
     const scraper = new WHFinancialDisclosureScraper();
     res.send(await scraper.scrape());
+});
+
+app.get('*', (_, res) => {
+    res.sendFile(path.join(__dirname, 'web/index.html'));
 });
 
 app.listen(PORT, () => {

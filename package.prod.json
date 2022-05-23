@@ -2,7 +2,6 @@
     "name": "JustData",
     "version": "0.0.1",
     "private": true,
-    "type": "module",
     "dependencies": {
         "@primer/octicons-react": "^17.1.0",
         "@testing-library/jest-dom": "^5.16.4",
