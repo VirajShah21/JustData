@@ -7,15 +7,15 @@ import SearchResult from 'src/components/SearchResult';
 import { useTitle } from 'src/HTMLHead';
 import './JustSCOTUS.css';
 
-const scotusTerms: ValueLabelPair[] = [];
-
-for (let i = 1789; i <= new Date().getFullYear(); i++) {
-    scotusTerms.push({ value: i.toString(), label: `${i} - ${i + 1}` });
-}
-
-scotusTerms.reverse();
+const httpSuccess = 200;
 
 function JustSCOTUS() {
+    const scotusTerms: ValueLabelPair[] = [];
+    for (let i = 1789; i <= new Date().getFullYear(); i++) {
+        scotusTerms.push({ value: i.toString(), label: `${i} - ${i + 1}` });
+    }
+    scotusTerms.reverse();
+
     const [term, setTerm] = useState<number>();
     const [caseList, setCaseList] = useState<OyezCaseListItem[]>([]);
 
@@ -35,7 +35,7 @@ function JustSCOTUS() {
                             .get(`http://localhost:3001/api/supreme-court/cases?term=${term}`)
                             .then(response => {
                                 console.log(response);
-                                if (response.status === 200) {
+                                if (response.status === httpSuccess) {
                                     const arr = [];
                                     for (const term in response.data) {
                                         if (response.data.hasOwnProperty(term)) {

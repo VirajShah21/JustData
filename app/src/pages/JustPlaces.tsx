@@ -11,6 +11,8 @@ import SearchResult from 'src/components/SearchResult';
 import yellowPagesIcon from '../resources/images/icons/yellow pages.png';
 import { useTitle } from 'src/HTMLHead';
 
+const httpSuccess = 200;
+
 function JustPlaces() {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchLocation, setSearchLocation] = useState('');
@@ -39,7 +41,7 @@ function JustPlaces() {
                                 `http://localhost:3001/api/business/search?q=${searchQuery}&location=${searchLocation}`,
                             )
                             .then(response => {
-                                if (response.status === 200) {
+                                if (response.status === httpSuccess) {
                                     setSearchResults(response.data);
                                     setShowingResults(true);
                                 }
