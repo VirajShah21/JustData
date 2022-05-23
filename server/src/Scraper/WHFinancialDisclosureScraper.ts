@@ -48,14 +48,14 @@ class WHFinancialDisclosureScraper extends Scraper<WHFinancialDisclosures> {
 
             // The presidents link
             if (text.indexOf('President') === 0) {
-                const year = parseInt(text.split(' ')[1]);
+                const year = parseInt(text.split(' ')[1], 10);
                 const url = link.getAttribute('href') ?? '#';
                 presidentsReports[year] = url;
             }
 
             // The VP link
             if (text.indexOf('Vice President') === 0) {
-                const year = parseInt(text.split(' ')[2]);
+                const year = parseInt(text.split(' ')[2], 10);
                 const url = link.getAttribute('href') ?? '#';
                 vpReports[year] = url;
             }

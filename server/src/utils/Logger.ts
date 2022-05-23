@@ -1,4 +1,4 @@
-import * as winston from 'winston';
+import winston from 'winston';
 
 const JustDataLogFormat = winston.format.printf(
     ({ level, message, timestamp }) => `${timestamp} [${level}]: ${message}`,
