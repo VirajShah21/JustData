@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import BingSearchScraper from './Scraper/BingSearchScraper';
 import {
     AllFugitivesScraper,
@@ -28,6 +29,8 @@ app.use((_, res, next) => {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
+
+app.use(express.static(path.join(__dirname, 'static')));
 
 app.get('/api/stocks/ticker-search', async (req, res) => {
     const { q } = req.query;
@@ -86,12 +89,15 @@ app.get('/api/serp', async (req, res) => {
     // const engine = (req.query.engine as string).toLowerCase().trim();
     const { q } = req.query;
 
+    // The correct SERP scraper will be assigned to this
+    let scraper: BingSearchScraper;
+
     // Based on the engine, a correct scraper should be assigned
     // to `let scraper`
     // ! Since there is only a SERP scraper for Bing, that will also be the default scraper
     // TODO: Add Google and other search engines.
 
-    const scraper = new BingSearchScraper(q as string);
+    scraper = new BingSearchScraper(q as string);
 
     res.send(await scraper.scrape());
 });
