@@ -20,13 +20,13 @@ class JustSDK {
 }
 
 class FBIKit {
-    async requestTenMostWantedFugitives(): Promise<SimpleFugitiveData[]> {
+    static async requestTenMostWantedFugitives(): Promise<SimpleFugitiveData[]> {
         const response = await axios.get(`${JustSDK.hostname}/api/fbi/ten-most-wanted`);
         if (response.status === httpSuccess) return response.data;
         else throw new HTTPError(response.status);
     }
 
-    async requestAllFugitives(): Promise<FullFugitiveData[]> {
+    static async requestAllFugitives(): Promise<FullFugitiveData[]> {
         const response = await axios.get(`${JustSDK.hostname}/api/fbi/all-fugitives`);
         if (response.status === httpSuccess) return response.data;
         else throw new HTTPError(response.status);
@@ -34,7 +34,7 @@ class FBIKit {
 }
 
 class PlacesKit {
-    async search(query: string, location: string): Promise<YellowPagesSearchResult[]> {
+    static async search(query: string, location: string): Promise<YellowPagesSearchResult[]> {
         const response = await axios.get(
             `${JustSDK.hostname}/api/business/search?q=${query}&location=${location}`,
         );
@@ -45,7 +45,7 @@ class PlacesKit {
 }
 
 class SCOTUSKit {
-    async getCaseList(...terms: string[]) {
+    static async getCaseList(...terms: string[]) {
         const query =
             terms.length === 1 ? `term=${terms[0]}` : `terms=${encodeURI(terms.toString())}`;
         const response = await axios.get(`${JustSDK.hostname}/api/supreme-court/cases?${query}`);
@@ -64,7 +64,7 @@ class SCOTUSKit {
 }
 
 class SecuritiesKit {
-    async searchTickerSymbols(query: string): Promise<StockTickerScraperResponse> {
+    static async searchTickerSymbols(query: string): Promise<StockTickerScraperResponse> {
         const response = await axios.get(
             `${JustSDK.hostname}/api/stocks/ticker-search?q=${encodeURI(query)}`,
         );
@@ -75,7 +75,7 @@ class SecuritiesKit {
 }
 
 class SERPKit {
-    async bing(query: string): Promise<SERPItem[]> {
+    static async bing(query: string): Promise<SERPItem[]> {
         const response = await axios.get(`${JustSDK.hostname}/api/serp?q=${encodeURI(query)}`);
         if (response.status === httpSuccess) return response.data;
         else throw new HTTPError(response.status);
