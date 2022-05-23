@@ -1,36 +1,47 @@
-import { Db, MongoClient, ObjectId, ServerApiVersion } from 'mongodb';
+import {
+    Db,
+    MongoClient,
+    ObjectId,
+    ServerApiVersion,
+    Document as MongoDocument,
+    WithId,
+} from 'mongodb';
 
 type CloseMongoDbClientExecutor = () => void;
 
-/**
- * A caching utility for caching data from a web scraper.
- */
-class ScraperDatabase {
+interface ScrapedData<T> extends MongoDocument {
+    url: string;
+    timestamp: number;
+    expires: number;
+    data: T;
+}
+
+class ScraperDatabase<T> {
     private collection: string;
 
     constructor(collection: string) {
         this.collection = collection;
     }
 
-    async get(id: ObjectId) {
+    async get(id: ObjectId): Promise<WithId<ScrapedData<T>> | null> {
         const [db, close] = await ScraperDatabase.openDatabase();
         const result = await db.collection(this.collection).findOne({ _id: id });
         close();
-        return result;
+        return result as WithId<ScrapedData<T>> | null;
     }
 
-    async find(filter: Record<string, unknown>) {
+    async find(filter: Record<string, unknown>): Promise<WithId<ScrapedData<T>> | null> {
+        const [db, close] = await ScraperDatabase.openDatabase();
+        const result = await db.collection(this.collection).findOne(filter);
+        close();
+        return result as WithId<ScrapedData<T>> | null;
+    }
+
+    async findAll(filter: Record<string, unknown>): Promise<WithId<ScrapedData<T>>[]> {
         const [db, close] = await ScraperDatabase.openDatabase();
         const result = await db.collection(this.collection).find(filter).toArray();
         close();
-        return result;
-    }
-
-    async findAll(filter: Record<string, unknown>) {
-        const [db, close] = await ScraperDatabase.openDatabase();
-        const result = await db.collection(this.collection).find(filter).toArray();
-        close();
-        return result;
+        return result as unknown as WithId<ScrapedData<T>>[];
     }
 
     async insert(...data: Record<string, unknown>[]) {
