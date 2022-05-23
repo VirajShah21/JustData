@@ -1,16 +1,16 @@
 #!/bin/zsh
 
 # Build the application
-echo Building the application
+echo 🤖     Building the application 
 cd app
 yarn build
-echo Finished building the application
+echo ✅     Finished building the application
 
 # Build the server
-echo Building the server
+echo 🤖     Building the server
 cd ../server
 yarn build
-echo Finished building the server
+echo ✅     Finished building the server
 
 # Change back to the root directory
 cd ..
@@ -21,7 +21,7 @@ rm -rf deployments
 # Setup the deployments directory
 mkdir deployments
 mkdir deployments/web
-echo Finished setting up the deployments directory
+echo ✅     Finished setting up the deployments directory
 
 # Copy the built server code to the deployments directory
 cp -r server/dist/* deployments
@@ -29,4 +29,7 @@ cp -r server/dist/* deployments
 # Copy the built application code to the deployments directory
 cp -r app/build/* deployments/web
 
-echo Done creating the deployment! 👍
+# Copy the production package.json file
+cp package.prod.json deployments/package.json
+
+echo 👍     Done creating the deployment!
