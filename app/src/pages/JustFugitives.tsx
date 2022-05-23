@@ -64,11 +64,11 @@ function FBIMostWanted() {
                     onClick={() => setFeature(features.allFugitives)}
                     active={feature === features.allFugitives}
                 />
-                <FeatureButton
+                {/* <FeatureButton
                     label='Capitol Violence'
                     onClick={() => setFeature(features.capitolViolence)}
                     active={feature === features.capitolViolence}
-                />
+                /> */}
             </HStack>
             <HStack className='feature-container'>
                 {feature === features.tenMostWanted && <TenMostWantedList />}
