@@ -32,4 +32,11 @@ cp -r app/build/* deployments/web
 # Copy the production package.json file
 cp package.prod.json deployments/package.json
 
+# Install dependencies + generate yarn.lock file
+echo 🤖     Installing yarn dependencies
+cd deployments
+yarn install
+echo ✅     Finished installing yarn dependencies
+
+# All done
 echo 👍     Done creating the deployment!
