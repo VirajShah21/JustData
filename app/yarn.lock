@@ -7212,7 +7212,7 @@ react-scripts@5.0.1:
 
 "react-ts-tradingview-widgets@https://github.com/VirajShah21/react-ts-tradingview-widgets.git":
   version "1.0.10"
-  resolved "https://github.com/VirajShah21/react-ts-tradingview-widgets.git#cd0a1cac5efb1147d570d3de6e2e8314d1d9046e"
+  resolved "https://github.com/VirajShah21/react-ts-tradingview-widgets.git#62b3a7ea47029b4bdd96dd48c087a951d2dea11f"
 
 react@^18.1.0:
   version "18.1.0"
