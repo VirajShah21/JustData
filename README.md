@@ -15,7 +15,7 @@
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
 
-<img src="./.README/logo.png" height="200px" />
+![Data For All Banner](.README/data-for-all.png)
 
 Scraping the web, and collecting just data. :robot:
 
