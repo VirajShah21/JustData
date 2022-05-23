@@ -27,7 +27,7 @@ function JustSCOTUS() {
                 <DropdownMenu
                     placeholder='Select a Term'
                     options={scotusTerms}
-                    onChange={term => setTerm(parseInt(term.value))}
+                    onChange={term => setTerm(parseInt(term.value, 10))}
                 />
                 <Button
                     onClick={() => {
@@ -38,7 +38,9 @@ function JustSCOTUS() {
                                 if (response.status === 200) {
                                     const arr = [];
                                     for (const term in response.data) {
-                                        arr.push(...response.data[term]);
+                                        if (response.data.hasOwnProperty(term)) {
+                                            arr.push(...response.data[term]);
+                                        }
                                     }
                                     console.log(arr);
                                     setCaseList(arr);
