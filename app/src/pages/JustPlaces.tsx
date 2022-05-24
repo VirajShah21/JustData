@@ -11,10 +11,20 @@ import justPlacesPlaceholder from '../resources/images/backgrounds/places.png';
 import yellowPagesIcon from '../resources/images/icons/yellow pages.png';
 import './JustPlaces.css';
 
+/**
+ * The page which displays the Just Places application.
+ *
+ * @returns The Just Places page.
+ */
 function JustPlaces() {
+    // Search query and location from the titlebar's search bar
     const [searchQuery, setSearchQuery] = useState('');
     const [searchLocation, setSearchLocation] = useState('');
+
+    // The search results (this is populated when the server responsds with the search results)
     const [results, setSearchResults] = useState<YellowPagesSearchResult[]>([]);
+
+    // Allows the page to know if search results are provided
     const [showingResults, setShowingResults] = useState(false);
 
     useTitle('Just Places');
@@ -60,6 +70,21 @@ function JustPlaces() {
     );
 }
 
+/**
+ * A component which extends the base `SearchResult` component to display a search result
+ * for a Yellow Pages SERP result.
+ *
+ * Note: Rather than applying each property using the `attr={value}` notation, the
+ * spread operation should be used insted:
+ *
+ * ```
+ * <PlaceSearchResult {...result} />
+ * ```
+ *
+ * @param props - Properties belonging to `YellowPagesSearchResult` which contains
+ * all the data from a Yellow Pages search.
+ * @returns The search result component.
+ */
 function PlaceSearchResult(props: YellowPagesSearchResult) {
     return (
         <SearchResult>

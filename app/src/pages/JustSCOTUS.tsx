@@ -8,7 +8,14 @@ import { useTitle } from 'src/HTMLHead';
 import { SCOTUSKit } from 'src/utils/JustSDK';
 import './JustSCOTUS.css';
 
+/**
+ * The application container for the Just SCOTUS application.
+ *
+ * @returns The Just SCOTUS page.
+ */
 function JustSCOTUS() {
+    // Generates the options for the term selection dropdown menu
+    // This uses values from the first SCOTUS case till the current term
     const scotusTerms: ValueLabelPair[] = [];
     for (let i = 1789; i < new Date().getFullYear(); i++) {
         scotusTerms.push({ value: i.toString(), label: `${i} - ${i + 1}` });
@@ -21,6 +28,9 @@ function JustSCOTUS() {
 
     useTitle('Just SCOTUS');
 
+    /**
+     * Pulls the cases for the selected terms.
+     */
     async function pullCases() {
         try {
             setCaseList(await SCOTUSKit.getCaseList(...terms));
@@ -68,6 +78,15 @@ function JustSCOTUS() {
     );
 }
 
+/**
+ * A case term badge component. It is used when adding or removing terms from/to the terms
+ * list. It comes paired with a remove button (denoted by an X) which removes the term from
+ * the term list.
+ *
+ * @param props - The term start year and the action to perform when the remove button
+ * is clicked.
+ * @returns A badge for the SCOTUS term.
+ */
 function CaseTermBadge(props: { term: number; onRemove: () => void }) {
     return (
         <HStack className='case-term-badge' width='auto'>
@@ -81,6 +100,17 @@ function CaseTermBadge(props: { term: number; onRemove: () => void }) {
     );
 }
 
+/**
+ * A search result component for displaying an Oyez Supreme court case result.
+ *
+ * @param props - The case to display. This should use the spread operator with the
+ * the `OyezCaseListItem` object rather than assigning each property individually:
+ *
+ * ```
+ * <CaseResult {...case} />
+ * ```
+ * @returns The case search result.
+ */
 function CaseResult(props: OyezCaseListItem) {
     return (
         <SearchResult>
