@@ -1,7 +1,5 @@
-import { loggers } from 'winston';
-import Logger from '../utils/Logger';
-import { sleep } from '../utils/TimeFunctions';
 import Scraper from './Scraper';
+import { ScrapedDocument } from './ScraperDatabase';
 
 type WHFinancialDisclosures = {
     president: Record<number, string>;
@@ -73,6 +71,11 @@ class WHFinancialDisclosureScraper extends Scraper<WHFinancialDisclosures> {
     // TODO: Implement caching
     get cache(): WHFinancialDisclosures {
         throw new Error('Not implemented yet');
+    }
+
+    // TODO: Fix this entire class
+    async findInDatabase(): Promise<null> {
+        throw new Error('This entire class requires reworking');
     }
 }
 

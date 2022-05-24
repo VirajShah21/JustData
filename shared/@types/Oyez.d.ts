@@ -1,4 +1,5 @@
 interface OyezCaseListItem {
+    term: string;
     name: string;
     description: string;
     granted: string;
@@ -6,5 +7,3 @@ interface OyezCaseListItem {
     decided: string;
     citation: string;
 }
-
-type OyezCaseListResults = Record<string, OyezCaseListItem[]>;

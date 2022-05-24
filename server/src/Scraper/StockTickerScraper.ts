@@ -1,8 +1,13 @@
 import Scraper from './Scraper';
 import ScraperCache from './ScraperCache';
+import ScraperDatabase, { ScrapedDocument } from './ScraperDatabase';
 
 const cache: Record<string, StockTickerScraperResponse> =
     ScraperCache.initializeCache('stock-ticker-scraper.json', () => cache) ?? {};
+
+const tickerSERPDatabase = new ScraperDatabase<StockTickerScraperResponse>(
+    'securities-ticker-serp',
+);
 
 /**
  * A scraper which scrapes Yahoo Finance for a list of securities results
@@ -26,7 +31,8 @@ class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
      * securities which match the query.
      */
     override async scrape(): Promise<StockTickerScraperResponse | null> {
-        if (cache[this.query.toUpperCase()]) return cache[this.query.toUpperCase()];
+        const inDatabase = await this.findInDatabase();
+        if (inDatabase) return inDatabase.data;
 
         await this.openTab();
 
@@ -42,7 +48,7 @@ class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
         if (rows.length === 0) return null;
 
         const response = {
-            q: this.query,
+            query: this.query,
             results: rows.map(row => {
                 const [symbol, name, lastPriceString, industry, type, exchange] = row
                     .querySelectorAll('td')
@@ -59,14 +65,23 @@ class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
 
         cache[this.query.toUpperCase()] = response;
 
+        this.saveToDatabase(tickerSERPDatabase, {
+            url: this.origin,
+            data: response,
+            expiration: {
+                months: 3,
+            },
+        });
+
         return response;
     }
 
-    /**
-     * The cache for the stock ticker scraper.
-     */
-    override get cache() {
-        return cache;
+    async findInDatabase(): Promise<ScrapedDocument<StockTickerScraperResponse> | null> {
+        return await tickerSERPDatabase.find({
+            query: {
+                $eq: this.query,
+            },
+        });
     }
 }
 

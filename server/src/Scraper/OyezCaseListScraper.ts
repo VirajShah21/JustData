@@ -1,15 +1,18 @@
 import { sleep } from '../utils/TimeFunctions';
 import Scraper from './Scraper';
 import ScraperCache from './ScraperCache';
+import ScraperDatabase, { ScrapedDocument } from './ScraperDatabase';
 
 const listCache: Record<string, OyezCaseListItem[]> =
     ScraperCache.initializeCache('oyez-case-list.json') ?? {};
+
+const caseListDatabase = new ScraperDatabase<OyezCaseListItem>('oyez-case-serp');
 
 /**
  * A Scraper to scrape the list of all cases from the Oyez website.
  * This scraper requires the term start dates (year) to be provided.
  */
-class OyezCaseListScraper extends Scraper<OyezCaseListResults> {
+class OyezCaseListScraper extends Scraper<OyezCaseListItem> {
     private readonly termStarts: number[];
 
     /**
@@ -31,24 +34,23 @@ class OyezCaseListScraper extends Scraper<OyezCaseListResults> {
      * @returns An object which maps the term start year to the list of cases
      * belonging to that term.
      */
-    async scrape(): Promise<OyezCaseListResults> {
-        const results: OyezCaseListResults = {};
+    async scrape(): Promise<OyezCaseListItem[]> {
+        const results: OyezCaseListItem[] = [];
 
         await Promise.all(
             this.termStarts.map(async ts => {
                 const scraper = new OyezTermCaseListScraper(ts);
-                results[ts.toString()] = await scraper.scrape();
+                results.push(...(await scraper.scrape()));
             }),
         );
 
         return results;
     }
 
-    /**
-     * Gets the cached data
-     */
-    get cache(): Record<string, OyezCaseListItem[]> {
-        return listCache;
+    async findInDatabase(): Promise<ScrapedDocument<OyezCaseListItem> | null> {
+        throw new Error(
+            'findInDatabase cannot be called on OyezCaseListScraper, it should instead be called on OyezTermCaseListScraper for a specific term',
+        );
     }
 }
 
@@ -56,7 +58,7 @@ class OyezCaseListScraper extends Scraper<OyezCaseListResults> {
  * A scraper to scrape the list of all cases from the Oyez website
  * for a specified term.
  */
-class OyezTermCaseListScraper extends Scraper<OyezCaseListItem[]> {
+class OyezTermCaseListScraper extends Scraper<OyezCaseListItem> {
     private static readonly loadDelay = 500;
 
     private termStart: number;
@@ -77,6 +79,19 @@ class OyezTermCaseListScraper extends Scraper<OyezCaseListItem[]> {
      * @returns The list of cases for the specified term.
      */
     async scrape(): Promise<OyezCaseListItem[]> {
+        const inDatabase = await this.findInDatabase();
+        if (inDatabase) {
+            return inDatabase.map(doc => ({
+                term: doc.data.term,
+                name: doc.data.name,
+                description: doc.data.description,
+                granted: doc.data.granted,
+                argued: doc.data.argued,
+                decided: doc.data.decided,
+                citation: doc.data.citation,
+            }));
+        }
+
         await this.openTab();
 
         let selectedLists = await this.select('.index');
@@ -125,16 +140,24 @@ class OyezTermCaseListScraper extends Scraper<OyezCaseListItem[]> {
             })
             .filter(result => result !== undefined) as OyezCaseListItem[];
 
-        listCache[this.termStart] = results;
+        this.saveToDatabase(
+            caseListDatabase,
+            ...results.map(result => ({
+                url: this.origin,
+                data: result,
+                expiration: {
+                    months: 30,
+                },
+            })),
+        );
 
         return results;
     }
 
-    /**
-     * Gets the cached data for the specified term.
-     */
-    get cache() {
-        return listCache[this.termStart];
+    async findInDatabase() {
+        const results = await caseListDatabase.findAll({ term: this.termStart });
+        if (results.length === 0) return null;
+        return results;
     }
 }
 

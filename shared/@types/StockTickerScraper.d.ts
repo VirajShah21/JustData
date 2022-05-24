@@ -8,6 +8,6 @@ interface StockSearchResult {
 }
 
 interface StockTickerScraperResponse {
-    q: string;
+    query: string;
     results: StockSearchResult[];
 }

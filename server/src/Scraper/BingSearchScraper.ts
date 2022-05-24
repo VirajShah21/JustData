@@ -1,10 +1,15 @@
 import Logger from '../utils/Logger';
 import Scraper from './Scraper';
+import ScraperDatabase from './ScraperDatabase';
+
+const bingSearchDatabase = new ScraperDatabase<BingSearchResults>('bing-serp');
 
 /**
  * Scraper for the Bing SERP
  */
-class BingSearchScraper extends Scraper<SERPItem[]> {
+class BingSearchScraper extends Scraper<BingSearchResults> {
+    private readonly query: string;
+
     /**
      * Constructs a scraper for the Bing Search Engine Results Page.
      *
@@ -12,6 +17,7 @@ class BingSearchScraper extends Scraper<SERPItem[]> {
      */
     constructor(query: string) {
         super(`https://www.bing.com/search?q=${encodeURI(query)}`);
+        this.query = query;
     }
 
     /**
@@ -19,7 +25,10 @@ class BingSearchScraper extends Scraper<SERPItem[]> {
      *
      * @returns An array of all the Bing search results for the query.
      */
-    async scrape(): Promise<SERPItem[] | null> {
+    async scrape(): Promise<BingSearchResults | null> {
+        const inDatabase = await this.findInDatabase();
+        if (inDatabase) return inDatabase.data;
+
         await this.openTab();
         const resultsContainers = await this.select('#b_results');
         this.closeTab();
@@ -57,21 +66,30 @@ class BingSearchScraper extends Scraper<SERPItem[]> {
             };
         });
 
-        return results;
+        const response = {
+            query: this.query,
+            url: this.origin,
+            results,
+        };
+
+        this.saveToDatabase(bingSearchDatabase, {
+            url: this.origin,
+            data: response,
+            expiration: { minutes: 30 },
+        });
+
+        return response;
     }
 
-    /**
-     * Cached data for the Bing search.
-     *
-     * TODO: This is incomplete. Fill out this method to enable caching.
-     */
-    get cache():
-        | (
-              | (SERPItem[] | Record<string, SERPItem[]>)
-              | Record<string, SERPItem[] | Record<string, SERPItem[]>>
-          )
-        | null {
-        throw new Error('Method not implemented.');
+    override async findInDatabase() {
+        const doc = await bingSearchDatabase.find({
+            query: {
+                $eq: this.query,
+            },
+        });
+
+        if (doc) return doc;
+        return null;
     }
 }
 

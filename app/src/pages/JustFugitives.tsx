@@ -98,9 +98,7 @@ function TenMostWantedList() {
         }
     }
 
-    useEffect(() => {
-        loadFugitives();
-    }, []);
+    loadFugitives();
 
     return (
         <VStack>
@@ -195,7 +193,7 @@ function FugitiveListItem(
                         View Full Profile
                     </button>
                 ) : (
-                    <a href={props.posterURL} className='fugitive-poster-link'>
+                    <a href={props.profileURL} className='fugitive-poster-link'>
                         Wanted Poster
                     </a>
                 )}

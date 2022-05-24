@@ -1,5 +1,6 @@
 import Scraper from './Scraper';
 import ScraperCache from './ScraperCache';
+import ScraperDatabase, { ScrapedDocument } from './ScraperDatabase';
 import { ParsedHTMLElement } from './ScrapeUtils';
 
 const cache: Record<
@@ -7,10 +8,12 @@ const cache: Record<
     Record<string, YellowPagesSearchResult[]>
 > = ScraperCache.initializeCache('yellow-pages-search.json') ?? {};
 
+const database = new ScraperDatabase<YellowPagesSERP>('yellow-pages-serp');
+
 /**
  * Scraper for Yellow Pages Search results.
  */
-class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
+class YellowPagesSearchScraper extends Scraper<YellowPagesSERP> {
     private readonly query: string;
     private readonly location: string;
     private static readonly wordToNumberMap: Record<string, number | undefined> = {
@@ -44,8 +47,9 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
      *
      * @returns An array of all the Yellow Pages search results.
      */
-    async scrape(): Promise<YellowPagesSearchResult[] | null> {
-        if (this.cache) return this.cache;
+    async scrape(): Promise<YellowPagesSERP | null> {
+        const inDatabase = await this.findInDatabase();
+        // if (inDatabase) return inDatabase.;
 
         await this.openTab();
         const listings = await this.select('.srp-listing');
@@ -56,7 +60,12 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
         if (!cache.hasOwnProperty(this.location)) cache[this.location] = {};
         cache[this.location][this.query] = results;
 
-        return results;
+        return {
+            query: this.query,
+            location: this.location,
+            url: this.origin,
+            results,
+        };
     }
 
     /**
@@ -181,20 +190,17 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSearchResult[]> {
         return { yellowPages, tripAdvisor };
     }
 
-    /**
-     * The cache for the yellow pages search.
-     * This uses specifically the specified location and query
-     * to find the cached result. If either have not been cached yet
-     * then the value is null.
-     */
-    get cache(): YellowPagesSearchResult[] | null {
-        if (cache.hasOwnProperty(this.location)) {
-            const locationCache = cache[this.location];
-            if (locationCache.hasOwnProperty(this.query)) {
-                return cache[this.location][this.query];
-            }
-        }
-        return null;
+    async findInDatabase(): Promise<ScrapedDocument<YellowPagesSERP> | null> {
+        const result = await database.find({
+            query: {
+                $eq: this.query,
+            },
+            location: {
+                $eq: this.location,
+            },
+        });
+
+        return result;
     }
 }
 

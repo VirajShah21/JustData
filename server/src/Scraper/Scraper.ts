@@ -1,12 +1,20 @@
 import { Page } from 'puppeteer';
+import ScraperDatabase, {
+    ScrapedDocument,
+    ScrapedDocumentInsertionObject,
+} from './ScraperDatabase';
 import ScrapeUtils from './ScrapeUtils';
 
 type BaseCache<R> = R | Record<string, R>;
 type UniversalCache<R> = BaseCache<R> | Record<string, BaseCache<R>>;
 
 interface IScraper<R> {
-    scrape(): Promise<R | null>;
-    get cache(): UniversalCache<R> | null;
+    scrape(): Promise<R | R[] | null>;
+    findInDatabase(): Promise<ScrapedDocument<R> | ScrapedDocument<R>[] | null>;
+    saveToDatabase(
+        database: ScraperDatabase<R>,
+        ...insertionObjects: ScrapedDocumentInsertionObject<R>[]
+    ): Promise<void>;
 }
 
 /**
@@ -79,12 +87,26 @@ abstract class Scraper<R> implements IScraper<R> {
      * If the origin could not be scraped, or raises an error this method should
      * return `null`.
      */
-    abstract scrape(): Promise<R | null>;
+    abstract scrape(): Promise<R | R[] | null>;
 
-    /**
-     * Should return the cache used by the defined scraper.
-     */
-    abstract get cache(): UniversalCache<R> | null;
+    abstract findInDatabase(): Promise<ScrapedDocument<R> | ScrapedDocument<R>[] | null>;
+
+    async saveToDatabase(
+        database: ScraperDatabase<R>,
+        ...insertionObjects: ScrapedDocumentInsertionObject<R>[]
+    ): Promise<void> {
+        await database.insert(
+            ...insertionObjects.map(insertion => {
+                const [timestamp, expires] = ScraperDatabase.lifespan(insertion.expiration);
+                return {
+                    timestamp,
+                    expires,
+                    url: insertion.url,
+                    data: insertion.data,
+                };
+            }),
+        );
+    }
 }
 
 export default Scraper;
