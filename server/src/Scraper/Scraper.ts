@@ -13,7 +13,7 @@ interface IScraper<R> {
     findInDatabase(): Promise<ScrapedDocument<R> | ScrapedDocument<R>[] | null>;
     saveToDatabase(
         database: ScraperDatabase<R>,
-        ...insertionObjects: ScrapedDocumentInsertionObject<SimpleFugitiveData>[]
+        ...insertionObjects: ScrapedDocumentInsertionObject<R>[]
     ): Promise<void>;
 }
 
@@ -93,7 +93,7 @@ abstract class Scraper<R> implements IScraper<R> {
 
     async saveToDatabase(
         database: ScraperDatabase<R>,
-        ...insertionObjects: ScrapedDocumentInsertionObject<SimpleFugitiveData>[]
+        ...insertionObjects: ScrapedDocumentInsertionObject<R>[]
     ): Promise<void> {
         await database.insert(
             ...insertionObjects.map(insertion => {
