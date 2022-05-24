@@ -49,14 +49,9 @@ class SCOTUSKit {
         const query =
             terms.length === 1 ? `term=${terms[0]}` : `terms=${encodeURI(terms.toString())}`;
         const response = await axios.get(`${JustSDK.hostname}/api/supreme-court/cases?${query}`);
+        console.log(response);
         if (response.status === httpSuccess) {
-            const arr = [];
-            for (const term in response.data) {
-                if (response.data.hasOwnProperty(term)) {
-                    arr.push(...response.data[term]);
-                }
-            }
-            return arr;
+            return response.data;
         } else {
             throw new HTTPError(response.status);
         }
