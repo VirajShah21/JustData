@@ -21,7 +21,7 @@ const PORT = process.env.PORT ?? DEV_PORT;
 
 const app = express();
 
-const indexHTML = fs.readFileSync(path.join(__dirname, 'web/index.html'));
+// const indexHTML = fs.readFileSync(path.join(__dirname, 'web/index.html'));
 
 ScrapeUtils.init();
 
@@ -112,9 +112,9 @@ app.get('/api/white-house/financial-disclosures', async (req, res) => {
     res.send(await scraper.scrape());
 });
 
-app.get('*', (_, res) => {
-    res.send(indexHTML);
-});
+// app.get('*', (_, res) => {
+//     res.send(indexHTML);
+// });
 
 app.listen(PORT, () => {
     Logger.info(`Server listening on port ${PORT}`);
