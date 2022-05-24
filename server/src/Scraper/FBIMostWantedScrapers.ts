@@ -6,16 +6,12 @@ import ScraperDatabase, {
 } from './ScraperDatabase';
 
 const FUGITIVE_LI_CLASSNAME = '.portal-type-person';
+// ! Keep this, as it will be useful later
 const WANTED_POSTER_QUERY = 'p.Download';
 const LOAD_MORE_BUTTON_QUERY = 'button.load-more';
 
 const tenMostWantedDatabase = new ScraperDatabase<SimpleFugitiveData>('fbi-ten-most-wanted');
 const allFugitivesDatabase = new ScraperDatabase<SimpleFugitiveData>('all-fugitives');
-
-let tenMostWantedCache: SimpleFugitiveData[] =
-    ScraperCache.initializeCache('fbi-ten-most-wanted.json', () => tenMostWantedCache) ?? [];
-let allFugitivesCache: FullFugitiveData[] =
-    ScraperCache.initializeCache('all-fugitives.json', () => allFugitivesCache) ?? [];
 
 /**
  * Scrapes the FBI's most wanted site for the ten most wanted fugitives
@@ -160,13 +156,8 @@ class AllFugitivesScraper extends Scraper<SimpleFugitiveData> {
 
     override async findInDatabase() {
         const results = await allFugitivesDatabase.findAll({});
-        const now = Date.now();
 
-        for (let i = 0; i < results.length; i++) {
-            if (results[i].expires < now) {
-                return null;
-            }
-        }
+        if (results.length === 0) return null;
 
         return results;
     }

@@ -4,6 +4,12 @@ interface SERPItem {
     description: string;
 }
 
+interface BingSearchResults {
+    query: string;
+    url: string;
+    results: SERPItem[];
+}
+
 interface YellowPagesSearchResult {
     business: string;
     categories: string[];
