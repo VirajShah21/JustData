@@ -98,9 +98,7 @@ function TenMostWantedList() {
         }
     }
 
-    useEffect(() => {
-        loadFugitives();
-    }, []);
+    loadFugitives();
 
     return (
         <VStack>

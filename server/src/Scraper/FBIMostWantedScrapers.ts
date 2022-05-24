@@ -1,5 +1,6 @@
 import Scraper from './Scraper';
 import ScraperCache from './ScraperCache';
+import ScraperDatabase, { ScrapedDocument, ScrapedDocumentExpiration } from './ScraperDatabase';
 import ScrapeUtils, { ParsedHTMLElement } from './ScrapeUtils';
 
 const fugitiveLIClassName = '.portal-type-person';
@@ -10,6 +11,8 @@ let tenMostWantedCache: SimpleFugitiveData[] =
     ScraperCache.initializeCache('fbi-ten-most-wanted.json', () => tenMostWantedCache) ?? [];
 let allFugitivesCache: FullFugitiveData[] =
     ScraperCache.initializeCache('all-fugitives.json', () => allFugitivesCache) ?? [];
+
+const database = new ScraperDatabase<SimpleFugitiveData>('fbi-ten-most-wanted');
 
 /**
  * Scrapes the FBI's most wanted site for the ten most wanted fugitives
@@ -29,11 +32,17 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
      * @returns An array of the ten most wanted fugitives.
      */
     override async scrape(): Promise<SimpleFugitiveData[] | null> {
-        if (tenMostWantedCache.length > 0) return tenMostWantedCache;
+        console.log('Beginning to scrape');
+        const inDatabase = await this.findInDatabase();
+        if (inDatabase) return inDatabase.map(doc => doc.data);
+        console.log('Done checking database');
+        database.clear();
 
         await this.openTab();
         const li = await this.select(fugitiveLIClassName);
         this.closeTab();
+
+        console.log('Tab closed');
 
         const profileUrls = li
             .map(item => item.querySelector('a')?.getAttribute('href'))
@@ -44,7 +53,8 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
                 profileUrls.map(async url => {
                     const page = await ScrapeUtils.getPage(url);
                     const downloadParagraphHTML = await page.evaluate(
-                        () => document.querySelector(wantedPosterQuery)?.outerHTML,
+                        query => document.querySelector(query)?.outerHTML,
+                        wantedPosterQuery,
                     );
                     page.close();
 
@@ -55,6 +65,8 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
                 }),
             )
         ).filter(url => url !== undefined && url === null) as string[];
+
+        console.log('Compiled list of poster urls');
 
         const response = li.map((item, index) => {
             const imgSrc = item.querySelector('a')?.querySelector('img')?.getAttribute('src') ?? '';
@@ -67,7 +79,9 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
             };
         });
 
-        tenMostWantedCache = response;
+        response.map(data => {
+            this.insertToDatabase(this.origin, response, { minutes: 30 });
+        });
 
         return response;
     }
@@ -77,6 +91,37 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
      */
     override get cache(): SimpleFugitiveData[] {
         return tenMostWantedCache;
+    }
+
+    async findInDatabase(): Promise<ScrapedDocument<SimpleFugitiveData>[] | null> {
+        console.log('Finding in database');
+        const results = await database.findAll({});
+        console.log('Found results', results);
+        const now = Date.now();
+
+        if (results.length != 10) return null;
+
+        for (let i = 0; i < results.length; i++) {
+            if (results[i].expires < now) {
+                return null;
+            }
+        }
+        console.log('Compiled fugitive data');
+        return results;
+    }
+
+    async insertToDatabase(
+        url: string,
+        data: SimpleFugitiveData[],
+        expiration: ScrapedDocumentExpiration,
+    ): Promise<void> {
+        const [timestamp, expires] = ScraperDatabase.lifespan(expiration);
+        await database.insert({
+            timestamp,
+            url,
+            data,
+            expires,
+        });
     }
 }
 
