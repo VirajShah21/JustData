@@ -10,6 +10,13 @@ interface BingSearchResults {
     results: SERPItem[];
 }
 
+interface YellowPagesSERP {
+    query: string;
+    location: string;
+    url: string;
+    results: YellowPagesSearchResult[];
+}
+
 interface YellowPagesSearchResult {
     business: string;
     categories: string[];
