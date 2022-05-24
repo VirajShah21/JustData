@@ -60,7 +60,7 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData> {
                 return {
                     url: this.origin,
                     data: fugitiveData,
-                    expiration: { minutes: 30 },
+                    expiration: { weeks: 1 },
                 };
             }),
         );
@@ -146,7 +146,7 @@ class AllFugitivesScraper extends Scraper<SimpleFugitiveData> {
                 return {
                     url: this.origin,
                     data: fugitiveData,
-                    expiration: { minutes: 30 },
+                    expiration: { weeks: 1 },
                 };
             }),
         );
