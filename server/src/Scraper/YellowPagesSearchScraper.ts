@@ -58,7 +58,6 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSERP> {
         const results = listings.map(YellowPagesSearchScraper.extractListingData);
 
         if (!cache.hasOwnProperty(this.location)) cache[this.location] = {};
-        cache[this.location][this.query] = results;
 
         return {
             query: this.query,

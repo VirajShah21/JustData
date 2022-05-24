@@ -1,4 +1,5 @@
 import express from 'express';
+import fs from 'fs';
 import path from 'path';
 import BingSearchScraper from './Scraper/BingSearchScraper';
 import {
@@ -19,6 +20,8 @@ const DEV_PORT = 3001;
 const PORT = process.env.PORT ?? DEV_PORT;
 
 const app = express();
+
+const indexHTML = fs.readFileSync(path.join(__dirname, 'web/index.html'));
 
 ScrapeUtils.init();
 
@@ -110,7 +113,7 @@ app.get('/api/white-house/financial-disclosures', async (req, res) => {
 });
 
 app.get('*', (_, res) => {
-    res.sendFile(path.join(__dirname, 'web/index.html'));
+    res.send(indexHTML);
 });
 
 app.listen(PORT, () => {
