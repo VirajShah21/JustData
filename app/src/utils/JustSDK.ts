@@ -49,7 +49,7 @@ class SCOTUSKit {
         const query =
             terms.length === 1 ? `term=${terms[0]}` : `terms=${encodeURI(JSON.stringify(terms))}`;
         const response = await axios.get(`${JustSDK.hostname}/api/supreme-court/cases?${query}`);
-        console.log(response);
+
         if (response.status === httpSuccess) {
             return response.data;
         } else {

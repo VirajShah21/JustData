@@ -51,7 +51,12 @@ function JustSCOTUS() {
                 </HStack>
                 <HStack justify='end'>
                     {terms.map(t => (
-                        <CaseTermBadge term={t} />
+                        <CaseTermBadge
+                            term={t}
+                            onRemove={() => {
+                                setTerms(terms.filter(currTerm => currTerm !== t));
+                            }}
+                        />
                     ))}
                 </HStack>
             </HStack>
@@ -63,10 +68,10 @@ function JustSCOTUS() {
     );
 }
 
-function CaseTermBadge(props: { term: number }) {
+function CaseTermBadge(props: { term: number; onRemove: () => void }) {
     return (
         <HStack className='case-term-badge' width='auto'>
-            <Button className='case-term-remove-btn'>
+            <Button className='case-term-remove-btn' onClick={props.onRemove}>
                 <XIcon />
             </Button>
             <span className='case-term'>
