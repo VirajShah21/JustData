@@ -1,0 +1,17 @@
+#just-scotus .term-selection-bar {
+    box-sizing: border-box;
+    padding: 0.5rem;
+}
+
+#just-scotus .case-term-badge {
+    box-sizing: border-box;
+    margin-left: 1rem;
+    height: auto;
+}
+
+#just-scotus .case-term-badge .case-term {
+    background: rgb(40, 40, 40);
+    color: gray;
+    box-sizing: border-box;
+    padding: 0.5rem;
+}

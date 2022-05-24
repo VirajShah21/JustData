@@ -1,3 +1,4 @@
+import Logger from '../utils/Logger';
 import { sleep } from '../utils/TimeFunctions';
 import Scraper from './Scraper';
 import ScraperCache from './ScraperCache';
@@ -21,6 +22,7 @@ class OyezCaseListScraper extends Scraper<OyezCaseListItem> {
      * @param termStarts - The term starting years to scrape.
      */
     constructor(termStarts: number[]) {
+        Logger.debug('Initializing scraper with terms: ' + termStarts);
         if (termStarts.length === 0)
             throw new Error('At least one value for termStart must be provided');
         super('');
@@ -43,6 +45,8 @@ class OyezCaseListScraper extends Scraper<OyezCaseListItem> {
                 results.push(...(await scraper.scrape()));
             }),
         );
+
+        Logger.debug('Found all results ' + results.length);
 
         return results;
     }

@@ -55,7 +55,7 @@ app.get('/api/fbi/all-fugitives', async (_, res) => {
 });
 
 app.get('/api/supreme-court/cases', async (req, res) => {
-    let terms;
+    let terms: number[];
 
     if (req.query.terms) {
         // If the query includes an array of terms, it must be parsed
@@ -69,6 +69,8 @@ app.get('/api/supreme-court/cases', async (req, res) => {
         res.send('Error: You must specify a term or terms');
         return;
     }
+
+    Logger.debug('Terms ' + terms);
 
     const scraper = new OyezCaseListScraper(terms);
     res.send(await scraper.scrape());
