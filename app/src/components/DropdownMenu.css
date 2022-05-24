@@ -16,11 +16,12 @@
 }
 
 .dropdown-menu .dropdown-options {
+    box-sizing: border-box;
     position: absolute;
     top: 100%;
     left: 0;
     background-color: rgb(60, 60, 60);
-    max-height: stretch;
+    max-height: 50vh;
     height: auto;
     overflow-y: scroll;
 }
