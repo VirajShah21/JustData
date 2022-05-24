@@ -18,7 +18,13 @@ interface ScrapedDocument<T> extends MongoDocument {
 }
 
 interface ScrapedDocumentExpiration {
-    minutes: number;
+    seconds?: number;
+    minutes?: number;
+    hours?: number;
+    days?: number;
+    weeks?: number;
+    months?: number;
+    years?: number;
 }
 
 interface ScrapedDocumentInsertionObject<T> {
@@ -127,8 +133,19 @@ class ScraperDatabase<T> {
     }
 
     static lifespan(expiration: ScrapedDocumentExpiration): [number, number] {
+        let delta = 0; // Time frmo now to expiration
+
+        if (expiration.seconds) delta += expiration.seconds * 1000;
+        if (expiration.minutes) delta += expiration.minutes * 60000;
+        if (expiration.hours) delta += expiration.hours * 3600000;
+        if (expiration.days) delta += expiration.days * 86400000;
+        if (expiration.weeks) delta += expiration.weeks * 604800000;
+        if (expiration.months) delta += expiration.months * 2592000000;
+        if (expiration.years) delta += expiration.years * 31536000000;
+
         const now = Date.now();
-        return [now, now + expiration.minutes * 60 * 1000];
+
+        return [now, now + delta];
     }
 }
 
