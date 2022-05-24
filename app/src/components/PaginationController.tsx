@@ -1,3 +1,4 @@
+import { DotIcon } from '@primer/octicons-react';
 import { HStack } from 'reaction';
 import ArrayUtils from '../utils/ArrayUtils';
 import './PaginationController.css';
@@ -15,15 +16,44 @@ function PaginationController(props: {
     currentPage: number;
     onPageChange: (pageNumber: number) => void;
 }) {
+    let start = 1;
+    let stop: number;
+
+    if (props.currentPage > 5) start = props.currentPage - 3;
+    if (props.currentPage + 10 < props.lastPage) stop = start + 9;
+    else stop = props.lastPage;
+
     return (
         <HStack className='page-controller'>
-            {ArrayUtils.enumerate(1, props.lastPage).map(num => (
+            {start !== 1 && (
+                <>
+                    <PaginationControllerNumberButton
+                        page={1}
+                        active={props.currentPage === 1}
+                        onClick={props.onPageChange}
+                    />
+                    <DotIcon fill='gray' />
+                </>
+            )}
+
+            {ArrayUtils.enumerate(start, stop + 1).map(num => (
                 <PaginationControllerNumberButton
                     page={num}
                     active={num === props.currentPage}
                     onClick={page => props.onPageChange(page)}
                 />
             ))}
+
+            {stop !== props.lastPage && (
+                <>
+                    <DotIcon fill='gray' />
+                    <PaginationControllerNumberButton
+                        page={props.lastPage}
+                        active={props.currentPage === props.lastPage}
+                        onClick={props.onPageChange}
+                    />
+                </>
+            )}
         </HStack>
     );
 }
