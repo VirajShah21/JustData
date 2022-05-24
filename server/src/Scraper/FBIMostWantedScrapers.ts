@@ -2,21 +2,20 @@ import Scraper from './Scraper';
 import ScraperCache from './ScraperCache';
 import ScraperDatabase, {
     ScrapedDocument,
-    ScrapedDocumentExpiration,
     ScrapedDocumentInsertionObject,
 } from './ScraperDatabase';
 import ScrapeUtils, { ParsedHTMLElement } from './ScrapeUtils';
 
-const fugitiveLIClassName = '.portal-type-person';
-const wantedPosterQuery = 'p.Download';
-const loadMoreButtonQuery = 'button.load-more';
+const FUGITIVE_LI_CLASSNAME = '.portal-type-person';
+const WANTED_POSTER_QUERY = 'p.Download';
+const LOAD_MORE_BUTTON_QUERY = 'button.load-more';
+
+const tenMostWantedDatabase = new ScraperDatabase<SimpleFugitiveData>('fbi-ten-most-wanted');
 
 let tenMostWantedCache: SimpleFugitiveData[] =
     ScraperCache.initializeCache('fbi-ten-most-wanted.json', () => tenMostWantedCache) ?? [];
 let allFugitivesCache: FullFugitiveData[] =
     ScraperCache.initializeCache('all-fugitives.json', () => allFugitivesCache) ?? [];
-
-const database = new ScraperDatabase<SimpleFugitiveData>('fbi-ten-most-wanted');
 
 /**
  * Scrapes the FBI's most wanted site for the ten most wanted fugitives
@@ -40,10 +39,10 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
         const inDatabase = await this.findInDatabase();
         if (inDatabase) return inDatabase.map(doc => doc.data);
         console.log('Done checking database');
-        database.clear();
+        tenMostWantedDatabase.clear();
 
         await this.openTab();
-        const li = await this.select(fugitiveLIClassName);
+        const li = await this.select(FUGITIVE_LI_CLASSNAME);
         this.closeTab();
 
         console.log('Tab closed');
@@ -58,7 +57,7 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
                     const page = await ScrapeUtils.getPage(url);
                     const downloadParagraphHTML = await page.evaluate(
                         query => document.querySelector(query)?.outerHTML,
-                        wantedPosterQuery,
+                        WANTED_POSTER_QUERY,
                     );
                     page.close();
 
@@ -105,7 +104,7 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
 
     async findInDatabase(): Promise<ScrapedDocument<SimpleFugitiveData>[] | null> {
         console.log('Finding in database');
-        const results = await database.findAll({});
+        const results = await tenMostWantedDatabase.findAll({});
         console.log('Found results', results);
         const now = Date.now();
 
@@ -123,7 +122,7 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
     async insertToDatabase(
         ...insertionObjects: ScrapedDocumentInsertionObject<SimpleFugitiveData>[]
     ): Promise<void> {
-        await database.insert(
+        await tenMostWantedDatabase.insert(
             ...insertionObjects.map(insertion => {
                 const [timestamp, expires] = ScraperDatabase.lifespan(insertion.expiration);
                 return {
@@ -165,11 +164,11 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
 
         while (
             await this.tab?.evaluate(() =>
-                document.querySelector(loadMoreButtonQuery) ? true : false,
+                document.querySelector(LOAD_MORE_BUTTON_QUERY) ? true : false,
             )
         ) {
             await this.tab?.evaluate(() => {
-                const btn = document.querySelector(loadMoreButtonQuery) as HTMLButtonElement;
+                const btn = document.querySelector(LOAD_MORE_BUTTON_QUERY) as HTMLButtonElement;
                 if (btn) {
                     btn.click();
                     return true;
@@ -178,7 +177,7 @@ class AllFugitivesScraper extends Scraper<FullFugitiveData[]> {
             });
         }
 
-        const listItems = await this.select(fugitiveLIClassName);
+        const listItems = await this.select(FUGITIVE_LI_CLASSNAME);
 
         this.closeTab();
 
@@ -308,7 +307,7 @@ class FugitiveProfileScraper extends Scraper<FullFugitiveData> {
             name: profileBody.querySelector('h1.documentFirstHeading')?.textContent ?? '',
             posterURL:
                 profileBody
-                    .querySelector(wantedPosterQuery)
+                    .querySelector(WANTED_POSTER_QUERY)
                     ?.querySelector('a')
                     ?.getAttribute('href') ?? '',
             category: this.category,
