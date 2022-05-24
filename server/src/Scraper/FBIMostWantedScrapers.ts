@@ -4,13 +4,13 @@ import ScraperDatabase, {
     ScrapedDocument,
     ScrapedDocumentInsertionObject,
 } from './ScraperDatabase';
-import ScrapeUtils, { ParsedHTMLElement } from './ScrapeUtils';
 
 const FUGITIVE_LI_CLASSNAME = '.portal-type-person';
 const WANTED_POSTER_QUERY = 'p.Download';
 const LOAD_MORE_BUTTON_QUERY = 'button.load-more';
 
 const tenMostWantedDatabase = new ScraperDatabase<SimpleFugitiveData>('fbi-ten-most-wanted');
+const allFugitivesDatabase = new ScraperDatabase<SimpleFugitiveData>('all-fugitives');
 
 let tenMostWantedCache: SimpleFugitiveData[] =
     ScraperCache.initializeCache('fbi-ten-most-wanted.json', () => tenMostWantedCache) ?? [];
@@ -21,7 +21,7 @@ let allFugitivesCache: FullFugitiveData[] =
  * Scrapes the FBI's most wanted site for the ten most wanted fugitives
  * by the FBI.
  */
-class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
+class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData> {
     /**
      * Constructs a new scraper.
      */
@@ -58,7 +58,8 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
             };
         });
 
-        this.insertToDatabase(
+        this.saveToDatabase(
+            tenMostWantedDatabase,
             ...response.map(fugitiveData => {
                 return {
                     url: this.origin,
@@ -71,17 +72,8 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
         return response;
     }
 
-    /**
-     * The cached results of the scraper.
-     */
-    override get cache(): SimpleFugitiveData[] {
-        return tenMostWantedCache;
-    }
-
     async findInDatabase(): Promise<ScrapedDocument<SimpleFugitiveData>[] | null> {
-        console.log('Finding in database');
         const results = await tenMostWantedDatabase.findAll({});
-        console.log('Found results', results);
         const now = Date.now();
 
         if (results.length != 10) return null;
@@ -91,24 +83,8 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
                 return null;
             }
         }
-        console.log('Compiled fugitive data');
-        return results;
-    }
 
-    async insertToDatabase(
-        ...insertionObjects: ScrapedDocumentInsertionObject<SimpleFugitiveData>[]
-    ): Promise<void> {
-        await tenMostWantedDatabase.insert(
-            ...insertionObjects.map(insertion => {
-                const [timestamp, expires] = ScraperDatabase.lifespan(insertion.expiration);
-                return {
-                    timestamp,
-                    expires,
-                    url: insertion.url,
-                    data: insertion.data,
-                };
-            }),
-        );
+        return results;
     }
 }
 
@@ -117,7 +93,7 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
  * This is a very slow scraper since it opens many URLs to scrape each fugitive's
  * full profile.
  */
-class AllFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
+class AllFugitivesScraper extends Scraper<SimpleFugitiveData> {
     private static readonly batchSize = 10;
 
     /**
@@ -134,6 +110,9 @@ class AllFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
      * and their full profile.
      */
     override async scrape(): Promise<SimpleFugitiveData[] | null> {
+        const inDatabase = await this.findInDatabase();
+        if (inDatabase) return inDatabase.map(doc => doc.data);
+
         await this.openTab();
 
         while (
@@ -164,14 +143,32 @@ class AllFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
             };
         });
 
+        await allFugitivesDatabase.clear();
+        this.saveToDatabase(
+            allFugitivesDatabase,
+            ...response.map(fugitiveData => {
+                return {
+                    url: this.origin,
+                    data: fugitiveData,
+                    expiration: { minutes: 30 },
+                };
+            }),
+        );
+
         return response;
     }
 
-    /**
-     * The cached results of the scraper.
-     */
-    get cache() {
-        return allFugitivesCache;
+    override async findInDatabase() {
+        const results = await allFugitivesDatabase.findAll({});
+        const now = Date.now();
+
+        for (let i = 0; i < results.length; i++) {
+            if (results[i].expires < now) {
+                return null;
+            }
+        }
+
+        return results;
     }
 }
 
