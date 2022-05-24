@@ -20,6 +20,9 @@
     top: 100%;
     left: 0;
     background-color: rgb(60, 60, 60);
+    max-height: stretch;
+    height: auto;
+    overflow-y: scroll;
 }
 
 .dropdown-menu .dropdown-options .dropdown-option {

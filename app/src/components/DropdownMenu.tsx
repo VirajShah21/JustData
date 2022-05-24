@@ -28,7 +28,7 @@ function DropdownMenu(props: {
                 </div>
             </HStack>
             {showingDropdown && (
-                <VStack className='dropdown-options' height='auto'>
+                <VStack className='dropdown-options' justify='start'>
                     {props.options.map(option => (
                         <DropdownMenuOption
                             {...option}
