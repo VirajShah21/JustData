@@ -21,11 +21,7 @@ function JustSCOTUS() {
 
     async function pullCases() {
         try {
-            const cases = await SCOTUSKit.getCaseList(term ?? new Date().getFullYear() - 1);
-            const arr = [];
-            // Flatten the Year-to-CaseList map into an array of cases
-            for (const term in cases) if (cases.hasOwnProperty(term)) arr.push(...cases[term]);
-            setCaseList(arr);
+            setCaseList(await SCOTUSKit.getCaseList(term ?? new Date().getFullYear() - 1));
         } catch (err) {
             // TODO: Handle error
         }
