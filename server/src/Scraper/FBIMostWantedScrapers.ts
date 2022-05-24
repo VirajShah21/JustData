@@ -1,6 +1,10 @@
 import Scraper from './Scraper';
 import ScraperCache from './ScraperCache';
-import ScraperDatabase, { ScrapedDocument, ScrapedDocumentExpiration } from './ScraperDatabase';
+import ScraperDatabase, {
+    ScrapedDocument,
+    ScrapedDocumentExpiration,
+    ScrapedDocumentInsertionObject,
+} from './ScraperDatabase';
 import ScrapeUtils, { ParsedHTMLElement } from './ScrapeUtils';
 
 const fugitiveLIClassName = '.portal-type-person';
@@ -79,9 +83,15 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
             };
         });
 
-        response.map(data => {
-            this.insertToDatabase(this.origin, response, { minutes: 30 });
-        });
+        this.insertToDatabase(
+            ...response.map(fugitiveData => {
+                return {
+                    url: this.origin,
+                    data: fugitiveData,
+                    expiration: { minutes: 30 },
+                };
+            }),
+        );
 
         return response;
     }
@@ -111,17 +121,19 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData[]> {
     }
 
     async insertToDatabase(
-        url: string,
-        data: SimpleFugitiveData[],
-        expiration: ScrapedDocumentExpiration,
+        ...insertionObjects: ScrapedDocumentInsertionObject<SimpleFugitiveData>[]
     ): Promise<void> {
-        const [timestamp, expires] = ScraperDatabase.lifespan(expiration);
-        await database.insert({
-            timestamp,
-            url,
-            data,
-            expires,
-        });
+        await database.insert(
+            ...insertionObjects.map(insertion => {
+                const [timestamp, expires] = ScraperDatabase.lifespan(insertion.expiration);
+                return {
+                    timestamp,
+                    expires,
+                    url: insertion.url,
+                    data: insertion.data,
+                };
+            }),
+        );
     }
 }
 

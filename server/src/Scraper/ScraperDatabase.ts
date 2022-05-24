@@ -21,6 +21,12 @@ interface ScrapedDocumentExpiration {
     minutes: number;
 }
 
+interface ScrapedDocumentInsertionObject<T> {
+    url: string;
+    data: T;
+    expiration: ScrapedDocumentExpiration;
+}
+
 class ScraperDatabase<T> {
     private collection: string;
 
@@ -104,4 +110,4 @@ class ScraperDatabase<T> {
 }
 
 export default ScraperDatabase;
-export type { ScrapedDocument, ScrapedDocumentExpiration };
+export type { ScrapedDocument, ScrapedDocumentExpiration, ScrapedDocumentInsertionObject };
