@@ -1,7 +1,7 @@
 interface SimpleFugitiveData {
     name: string;
     mugshot: string;
-    posterURL: string;
+    profileURL: string;
 }
 
 interface FullFugitiveData extends SimpleFugitiveData {
