@@ -142,7 +142,7 @@ function AllFugitivesList() {
     }, []);
 
     return (
-        <VStack>
+        <VStack width='100%'>
             {isLoading && loadingText}
             <HStack className='fugitives-list'>
                 {fugitives.slice(pageSize * (page - 1), pageSize * page).map(fugitive => (
@@ -172,9 +172,7 @@ function AllFugitivesList() {
  * to the PDF containing the wanted poster from the FBI site.
  * @returns A single fugitive to be displayed in a fugitives list.
  */
-function FugitiveListItem(
-    props: (SimpleFugitiveData | FullFugitiveData) & { opensProfile?: boolean },
-) {
+function FugitiveListItem(props: SimpleFugitiveData & { opensProfile?: boolean }) {
     const [showingProfile, setShowingProfile] = useState(false);
 
     return (
