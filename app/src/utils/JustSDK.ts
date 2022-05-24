@@ -34,7 +34,7 @@ class FBIKit {
 }
 
 class PlacesKit {
-    static async search(query: string, location: string): Promise<YellowPagesSearchResult[]> {
+    static async search(query: string, location: string): Promise<YellowPagesSERP> {
         const response = await axios.get(
             `${JustSDK.hostname}/api/business/search?q=${query}&location=${location}`,
         );

@@ -21,7 +21,7 @@ function JustPlaces() {
 
     async function search() {
         try {
-            setSearchResults(await PlacesKit.search(searchQuery, searchLocation));
+            setSearchResults((await PlacesKit.search(searchQuery, searchLocation)).results);
             setShowingResults(true);
         } catch (err) {
             // TODO: Error handling
