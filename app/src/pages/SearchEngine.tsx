@@ -16,7 +16,7 @@ function SearchEngine() {
     useTitle('Just Search');
 
     async function search() {
-        setResults(await SERPKit.bing(searchValue));
+        setResults((await SERPKit.bing(searchValue)).results);
         if (!showingResults) setShowingResults(true);
     }
 

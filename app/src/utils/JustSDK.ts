@@ -70,7 +70,7 @@ class SecuritiesKit {
 }
 
 class SERPKit {
-    static async bing(query: string): Promise<SERPItem[]> {
+    static async bing(query: string): Promise<BingSearchResults> {
         const response = await axios.get(`${JustSDK.hostname}/api/serp?q=${encodeURI(query)}`);
         if (response.status === httpSuccess) return response.data;
         else throw new HTTPError(response.status);
