@@ -47,7 +47,7 @@ class PlacesKit {
 class SCOTUSKit {
     static async getCaseList(...terms: number[]) {
         const query =
-            terms.length === 1 ? `term=${terms[0]}` : `terms=${encodeURI(terms.toString())}`;
+            terms.length === 1 ? `term=${terms[0]}` : `terms=${encodeURI(JSON.stringify(terms))}`;
         const response = await axios.get(`${JustSDK.hostname}/api/supreme-court/cases?${query}`);
         console.log(response);
         if (response.status === httpSuccess) {
