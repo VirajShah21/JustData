@@ -2,13 +2,20 @@
 .fbi-most-wanted-page .features-bar {
     position: sticky;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.5);
     -webkit-backdrop-filter: blur(1rem);
     backdrop-filter: blur(1rem);
     box-sizing: border-box;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     z-index: 100;
+}
+
+.dark .fbi-most-wanted-page .features-bar {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.light .fbi-most-wanted-page .features-bar {
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .fbi-most-wanted-page .feature-container {
@@ -29,8 +36,7 @@
 /* This is setup such that the fugitive popover is present, but only
    displays the fugitive's name at the bottom of the image */
 .fbi-most-wanted-page .fugitives-list .fugitive-list-item .fugitive-popover {
-    background: rgba(0, 0, 0, 0.5);
-    -webkit-backdro-filter: blur(1rem);
+    -webkit-backdrop-filter: blur(1rem);
     backdrop-filter: blur(1rem);
     width: 100%;
     padding: 0.5rem;
@@ -38,6 +44,14 @@
     transition: 0.25s all;
     height: 2.5rem;
     overflow: hidden;
+}
+
+.dark .fbi-most-wanted-page .fugitives-list .fugitive-list-item .fugitive-popover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.light .fbi-most-wanted-page .fugitives-list .fugitive-list-item .fugitive-popover {
+    background: rgba(255, 255, 255, 0.5);
 }
 
 /* When the popover is hovered, all content becomes centered */
@@ -69,16 +83,33 @@
 
 .fbi-most-wanted-page .fugitives-list .fugitive-list-item .fugitive-popover .fugitive-poster-link {
     display: none;
-    color: white;
-    background: none;
     border: none;
     font-size: 0.75rem;
-    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 0.5rem;
     text-decoration: none;
     padding: 0.5rem;
     box-sizing: border-box;
     margin-top: 0.5rem;
+}
+
+.dark
+    .fbi-most-wanted-page
+    .fugitives-list
+    .fugitive-list-item
+    .fugitive-popover
+    .fugitive-poster-link {
+    color: var(--primary-text-dark);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.light
+    .fbi-most-wanted-page
+    .fugitives-list
+    .fugitive-list-item
+    .fugitive-popover
+    .fugitive-poster-link {
+    color: var(--primary-text-light);
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .fbi-most-wanted-page

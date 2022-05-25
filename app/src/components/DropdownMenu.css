@@ -4,8 +4,15 @@
 
 .dropdown-menu .dropdown-box {
     box-sizing: border-box;
-    background-color: rgb(40, 40, 40);
     padding: 0.5rem;
+}
+
+.dark .dropdown-menu .dropdown-box {
+    background-color: var(--secondary-bg-dark);
+}
+
+.light .dropdown-menu .dropdown-box {
+    background-color: var(--secondary-bg-light);
 }
 
 .dropdown-menu .dropdown-box .dropdown-chevron {
@@ -17,14 +24,30 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: rgb(60, 60, 60);
     max-height: 50vh;
     height: auto;
     overflow-y: scroll;
 }
 
+.dark .dropdown-menu .dropdown-options {
+    background-color: var(--secondary-bg-dark);
+    filter: brightness(125%);
+}
+
+.light .dropdown-menu .dropdown-options {
+    background-color: var(--secondary-bg-light);
+    filter: brightness(90%);
+}
+
 .dropdown-menu .dropdown-options .dropdown-option {
     box-sizing: border-box;
     padding: 0.5rem;
-    border-bottom: 1px solid black;
+}
+
+.dark .dropdown-menu .dropdown-options .dropdown-option {
+    border-bottom: 1px solid var(--primary-bg-dark);
+}
+
+.light .dropdown-menu .dropdown-options .dropdown-option {
+    border-bottom: 1px solid var(--primary-bg-light);
 }

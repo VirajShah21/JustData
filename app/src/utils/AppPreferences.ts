@@ -21,6 +21,11 @@ class AppPreferences {
     static set theme(theme: AppTheme) {
         localStorage.setItem('theme', theme);
         AppPreferences._theme = theme;
+        const body = document.querySelector('body');
+        if (body) {
+            body.classList.remove('light', 'dark');
+            body.classList.add(theme);
+        }
     }
 }
 

@@ -1,6 +1,4 @@
 .button-component {
-    background-color: rgb(40, 40, 40);
-    color: gray;
     font-size: 1rem;
     box-sizing: border-box;
     padding: 0.5rem;
@@ -8,6 +6,20 @@
     transition: 0.25s filter;
 }
 
-.button-component:hover {
+.dark .button-component {
+    background-color: var(--secondary-bg-dark);
+    color: var(--secondary-text-dark);
+}
+
+.light .button-component {
+    background-color: var(--secondary-bg-light);
+    color: var(--secondary-text-light);
+}
+
+.dark .button-component:hover {
     filter: brightness(150%);
+}
+
+.light .button-component:hover {
+    filter: brightness(75%);
 }

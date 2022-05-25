@@ -20,8 +20,15 @@
 
 #just-stocks .stock-search-ac-name {
     font-weight: bold;
-    color: gray;
     width: 20rem;
+}
+
+.dark #just-stocks .stock-search-ac-name {
+    color: var(--secondary-text-dark);
+}
+
+.light #just-stocks .stock-search-ac-name {
+    color: var(--secondary-text-light);
 }
 
 #just-stocks .stock-search-ac-price {
@@ -35,18 +42,39 @@
 #just-stocks .stock-search-ac-industry {
     width: 10rem;
     overflow: hidden;
-    color: gray;
+}
+
+.dark #just-stocks .stock-search-ac-industry {
+    color: var(--secondary-text-dark);
+}
+
+.light #just-stocks .stock-search-ac-industry {
+    color: var(--secondary-text-light);
 }
 
 #just-stocks .stock-search-ac-type {
     width: 5rem;
     overflow: hidden;
-    color: gray;
+}
+
+.dark #just-stocks .stock-search-ac-type {
+    color: var(--secondary-text-dark);
+}
+
+.light #just-stocks .stock-search-ac-type {
+    color: var(--secondary-text-light);
 }
 
 #just-stocks .stock-search-ac-exchange {
     width: 5rem;
-    color: gray;
+}
+
+.dark #just-stocks .stock-search-ac-exchange {
+    color: var(--secondary-text-dark);
+}
+
+.light #just-stocks .stock-search-ac-exchange {
+    color: var(--secondary-text-light);
 }
 
 /** END styles for autocomplete suggestions */

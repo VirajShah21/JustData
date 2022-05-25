@@ -7,16 +7,31 @@
 .page-controller button.page-controller-number-button {
     background: none;
     border: none;
-    color: gray;
     box-sizing: border-box;
     width: 2rem;
     height: 2rem;
     font-size: 1rem;
 }
 
+.dark .page-controller button.page-controller-number-button {
+    color: var(--secondary-text-dark);
+}
+
+.light .page-controller button.page-controller-number-button {
+    color: var(--secondary-text-light);
+}
+
 /* For the active pagination button */
 .page-controller button.page-controller-number-button.active {
-    background-color: rgb(50, 50, 50);
-    color: white;
     font-weight: bold;
+}
+
+.dark .page-controller button.page-controller-number-button.active {
+    background-color: var(--secondary-bg-dark);
+    color: var(--primary-text-dark);
+}
+
+.light .page-controller button.page-controller-number-button.active {
+    background-color: var(--secondary-bg-light);
+    color: var(--primary-text-light);
 }

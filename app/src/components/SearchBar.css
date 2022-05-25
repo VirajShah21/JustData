@@ -6,12 +6,24 @@
 }
 
 .search-bar-container .search-bar {
-    background-color: rgb(40, 40, 40);
+    background-color: var(--secondary-bg-dark);
     transition: 0.5s filter;
 }
 
-.search-bar-container .search-bar:hover {
+.dark .search-bar-container .search-bar {
+    background-color: var(--secondary-bg-dark);
+}
+
+.light .search-bar-container .search-bar {
+    background-color: var(--secondary-bg-light);
+}
+
+.dark .search-bar-container .search-bar:hover {
     filter: brightness(200%);
+}
+
+.light .search-bar-container .search-bar:hover {
+    filter: brightness(50%);
 }
 
 .search-bar-container .search-bar .search-icon-wrapper {
@@ -24,16 +36,30 @@
     font-size: 1rem;
     background: transparent;
     border: none;
-    color: white;
     outline: none;
     transition: 0.25s all;
+}
+
+.dark .search-bar-container .search-bar .search-bar-input {
+    color: var(--primary-text-dark);
+}
+
+.light .search-bar-container .search-bar .search-bar-input {
+    color: var(--primary-text-light);
 }
 
 .search-bar-container .search-bar .search-button {
     background-color: transparent;
     border: none;
-    color: white;
     transition: 0.5s background-color;
+}
+
+.dark .search-bar-container .search-bar .search-button {
+    color: var(--primary-text-dark);
+}
+
+.light .search-bar-container .search-bar .search-button {
+    color: var(--primary-text-light);
 }
 
 .search-bar-container .search-bar-autocomplete {
@@ -49,17 +75,30 @@
 .search-bar-container .search-bar-autocomplete .search-bar-suggestion {
     width: 100%;
     border: none;
-    color: white;
     font-size: 1rem;
     margin: 0;
     box-sizing: border-box;
     padding: 1rem;
-    background-color: rgb(40, 40, 40);
     transition: 0.5s filter;
-    border-top: 1px solid rgb(30, 30, 30);
     text-align: left;
 }
 
-.search-bar-container .search-bar-autocomplete .search-bar-suggestion:hover {
+.dark .search-bar-container .search-bar-autocomplete .search-bar-suggestion {
+    color: var(--primary-text-dark);
+    background-color: var(--secondary-bg-dark);
+    border-top: 1px solid var(--secondary-bg-dark);
+}
+
+.light .search-bar-container .search-bar-autocomplete .search-bar-suggestion {
+    color: var(--primary-text-light);
+    background-color: var(--secondary-bg-light);
+    border-top: 1px solid var(--secondary-bg-light);
+}
+
+.dark .search-bar-container .search-bar-autocomplete .search-bar-suggestion:hover {
     filter: brightness(150%);
+}
+
+.light .search-bar-container .search-bar-autocomplete .search-bar-suggestion:hover {
+    filter: brightness(75%);
 }

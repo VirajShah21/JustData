@@ -25,22 +25,41 @@
 
 .feature-button .feature-button-inside {
     box-sizing: border-box;
-    background: black;
-    color: white;
     font-size: 0.8rem;
     border-radius: 2rem;
     padding: 0.5rem 1rem;
 }
 
+.dark .feature-button .feature-button-inside {
+    background: var(--primary-bg-dark);
+    color: var(--primary-text-dark);
+}
+
+.light .feature-button .feature-button-inside {
+    background: var(--primary-bg-light);
+    color: var(--primary-text-light);
+}
+
 /* An active feature button has a gradient background */
 .feature-button.active .feature-button-inside {
     background: transparent;
-    color: black;
     transition: 0.5s color;
 }
 
-.feature-button.active .feature-button-inside:hover {
-    color: white;
+.dark .feature-button.active .feature-button-inside {
+    color: var(--primary-bg-dark);
+}
+
+.light .feature-button.active .feature-button-inside {
+    color: var(--primary-bg-light);
+}
+
+.dark .feature-button.active .feature-button-inside:hover {
+    color: var(--primary-text-dark);
+}
+
+.light .feature-button.active .feature-button-inside:hover {
+    color: var(--primary-text-light);
 }
 
 .feature-button .feature-button-inside .feature-button-icon {
