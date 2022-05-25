@@ -5,6 +5,7 @@ import FeatureButton from 'src/components/FeatureButton';
 import FugitiveProfile from 'src/components/FugitiveProfile';
 import PaginationController from 'src/components/PaginationController';
 import SearchBar from 'src/components/SearchBar';
+import TitleBar from 'src/components/TitleBar';
 import { useTitle } from 'src/HTMLHead';
 import { FBIKit } from 'src/utils/JustSDK';
 import './JustFugitives.css';
@@ -23,8 +24,6 @@ const features: Record<string, FBIMostWantedFeature> = {
     capitolViolence: 'capitol-violence',
 };
 const loadingText = 'Loading...';
-
-const httpSuccess = 200;
 
 /**
  * This is the webpage for the FBIs most wanted fugitives. It includes several features,
@@ -49,10 +48,9 @@ function JustFugitives() {
 
     return (
         <VStack width='100%' justify='start' className='fbi-most-wanted-page'>
-            <HStack>
-                <BrandButton />
+            <TitleBar>
                 <SearchBar />
-            </HStack>
+            </TitleBar>
             <HStack className='features-bar'>
                 <FeatureButton
                     label='Ten Most Wanted Fugitives'
@@ -184,9 +182,7 @@ function FugitiveListItem(props: SimpleFugitiveData & { opensProfile?: boolean }
                 <h3 className='fugitive-name'>{props.name}</h3>
                 {props.opensProfile ? (
                     <button
-                        onClick={() => {
-                            setShowingProfile(true);
-                        }}
+                        onClick={() => setShowingProfile(true)}
                         className='fugitive-poster-link'>
                         View Full Profile
                     </button>

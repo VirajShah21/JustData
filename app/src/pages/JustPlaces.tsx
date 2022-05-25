@@ -5,6 +5,7 @@ import BrandButton from 'src/components/BrandButton';
 import RatingComponent from 'src/components/RatingComponent';
 import SearchBar from 'src/components/SearchBar';
 import SearchResult from 'src/components/SearchResult';
+import TitleBar from 'src/components/TitleBar';
 import { useTitle } from 'src/HTMLHead';
 import { PlacesKit } from 'src/utils/JustSDK';
 import justPlacesPlaceholder from '../resources/images/backgrounds/places.png';
@@ -40,8 +41,7 @@ function JustPlaces() {
 
     return (
         <VStack className='just-places' justify='start'>
-            <HStack>
-                <BrandButton />
+            <TitleBar>
                 <SearchBar
                     value={searchQuery}
                     placeholder='What are you looking for?'
@@ -55,7 +55,7 @@ function JustPlaces() {
                     onSearch={search}
                     icon={<LocationIcon />}
                 />
-            </HStack>
+            </TitleBar>
             {!showingResults && (
                 <img
                     src={justPlacesPlaceholder}

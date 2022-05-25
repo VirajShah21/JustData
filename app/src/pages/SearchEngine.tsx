@@ -3,6 +3,7 @@ import { HStack, VStack } from 'reaction';
 import BrandButton from 'src/components/BrandButton';
 import SearchBar from 'src/components/SearchBar';
 import SearchResult from 'src/components/SearchResult';
+import TitleBar from 'src/components/TitleBar';
 import { useTitle } from 'src/HTMLHead';
 import { SERPKit } from 'src/utils/JustSDK';
 import background from '../resources/images/backgrounds/search.png';
@@ -32,15 +33,14 @@ function SearchEngine() {
 
     return (
         <VStack justify='start' className='search-engine'>
-            <HStack>
-                <BrandButton />
+            <TitleBar>
                 <SearchBar
                     value={searchValue}
                     placeholder='Search the Web'
                     onChange={e => setSearchValue(e.target.value)}
                     onSearch={search}
                 />
-            </HStack>
+            </TitleBar>
             {!showingResults && (
                 <img src={background} alt='Search Placeholder' className='search-placeholder' />
             )}
