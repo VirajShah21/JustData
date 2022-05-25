@@ -6,10 +6,17 @@
     top: 0;
     left: 0;
     z-index: 200;
-    background-color: rgba(0, 0, 0, 0.5);
     -webkit-backdrop-filter: blur(1rem);
     backdrop-filter: blur(1rem);
     font-family: monospace;
+}
+
+.dark .fugitive-profile {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.light .fugitive-profile {
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 /* The titlebar with the close button and title */
@@ -18,7 +25,14 @@
     height: 50px;
     border: none;
     background-color: red;
-    color: white;
+}
+
+.dark .fugitive-profile .fugitive-profile-titlebar .close-btn {
+    color: var(--primary-text-dark);
+}
+
+.light .fugitive-profile .fugitive-profile-titlebar .close-btn {
+    color: var(--primary-text-light);
 }
 
 .fugitive-profile .fugitive-profile-titlebar .fugitive-profile-title {
@@ -71,4 +85,12 @@
     font-size: 1.5rem;
     font-weight: bold;
     width: 75%;
+}
+
+.dark .fugitive-profile .fugitive-warning {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.light .fugitive-profile .fugitive-warning {
+    color: rgba(0, 0, 0, 0.75);
 }

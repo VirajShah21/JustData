@@ -19,7 +19,14 @@
     box-sizing: border-box;
     padding: 1rem;
     border-radius: 1rem;
+}
+
+.dark .search-result .search-result-inside {
     background-color: var(--secondary-bg-dark);
+}
+
+.light .search-result .search-result-inside {
+    background-color: var(--secondary-bg-light);
 }
 
 .search-result:hover .search-result-inside {

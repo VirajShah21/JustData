@@ -2,7 +2,14 @@
 .product-section-title {
     font-size: 1rem;
     font-weight: bold;
+}
+
+.dark .product-section-title {
     color: var(--secondary-text-dark);
+}
+
+.light .product-section-title {
+    color: var(--secondary-text-light);
 }
 
 /* The icon appearing to the left of the product section title */
@@ -14,7 +21,6 @@
 .product-result {
     width: 15%;
     background: transparent;
-    color: white;
     font-size: 1rem;
     border: none;
     border-radius: 0.5rem;
@@ -31,7 +37,15 @@
 }
 
 .product-result:hover img {
-    filter: brightness(150%);
-    background: rgb(50, 50, 50);
     border-radius: 100%;
+}
+
+.dark .product-result:hover img {
+    filter: brightness(150%);
+    background: var(--secondary-bg-dark);
+}
+
+.light .product-result:hover img {
+    filter: brightness(75%);
+    background: var(--secondary-bg-light);
 }
