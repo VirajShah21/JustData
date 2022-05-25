@@ -1,7 +1,6 @@
 import { LocationIcon } from '@primer/octicons-react';
 import { useState } from 'react';
 import { HStack, Spacer, VStack } from 'reaction';
-import BrandButton from 'src/components/BrandButton';
 import RatingComponent from 'src/components/RatingComponent';
 import SearchBar from 'src/components/SearchBar';
 import SearchResult from 'src/components/SearchResult';
@@ -11,6 +10,14 @@ import { PlacesKit } from 'src/utils/JustSDK';
 import justPlacesPlaceholder from '../resources/images/backgrounds/places.png';
 import yellowPagesIcon from '../resources/images/icons/yellow pages.png';
 import './JustPlaces.css';
+
+interface BusinessAgeBadgeProps {
+    age: number;
+}
+
+interface JustPlacesRatingProps {
+    rating: number;
+}
 
 /**
  * The page which displays the Just Places application.
@@ -100,14 +107,7 @@ function PlaceSearchResult(props: YellowPagesSearchResult) {
             </HStack>
             <HStack justify='between'>
                 {props.rating.yellowPages && (
-                    <HStack width='auto'>
-                        <img
-                            src={yellowPagesIcon}
-                            alt='Yellow Pages Rating'
-                            style={{ height: '2rem' }}
-                        />
-                        <RatingComponent rating={props.rating.yellowPages} color='yellow' />
-                    </HStack>
+                    <YellowPagesRating rating={props.rating.yellowPages} />
                 )}
             </HStack>
             <HStack justify='between'>
@@ -117,23 +117,42 @@ function PlaceSearchResult(props: YellowPagesSearchResult) {
                         Website
                     </a>
                 </VStack>
-                <VStack align='start'>
-                    <span>{props.address.street}</span>
-                    <span>
-                        {props.address.city}, {props.address.state} {props.address.zip}
-                    </span>
-                </VStack>
-                {props.age && (
-                    <HStack width='auto'>
-                        <VStack className='business-age'>{props.age}</VStack>
-                        <VStack className='business-age-label' align='start'>
-                            <span>Years in</span>
-                            <span>Business</span>
-                        </VStack>
-                    </HStack>
-                )}
+                <ResultAddress {...props.address} />
+                {props.age && <BusinessAgeBadge age={props.age} />}
             </HStack>
         </SearchResult>
+    );
+}
+
+function YellowPagesRating({ rating }: JustPlacesRatingProps) {
+    return (
+        <HStack width='auto'>
+            <img src={yellowPagesIcon} alt='Yellow Pages Rating' style={{ height: '2rem' }} />
+            <RatingComponent rating={rating} color='yellow' />
+        </HStack>
+    );
+}
+
+function ResultAddress({ street, city, state, zip }: YellowPagesAddress) {
+    return (
+        <HStack align='start'>
+            <span>{street}</span>
+            <span>
+                {city}, {state} {zip}
+            </span>
+        </HStack>
+    );
+}
+
+function BusinessAgeBadge({ age }: BusinessAgeBadgeProps) {
+    return (
+        <HStack width='auto'>
+            <VStack className='business-age'>{age}</VStack>
+            <VStack className='business-age-label' align='start'>
+                <span>Years in</span>
+                <span>Business</span>
+            </VStack>
+        </HStack>
     );
 }
 

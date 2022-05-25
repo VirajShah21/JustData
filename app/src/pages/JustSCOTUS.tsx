@@ -1,7 +1,6 @@
 import { PlusIcon, XIcon } from '@primer/octicons-react';
 import { useState } from 'react';
-import { HStack, Spacer, VStack } from 'reaction';
-import BrandButton from 'src/components/BrandButton';
+import { HStack, VStack } from 'reaction';
 import Button from 'src/components/Button';
 import DropdownMenu, { ValueLabelPair } from 'src/components/DropdownMenu';
 import SearchResult from 'src/components/SearchResult';

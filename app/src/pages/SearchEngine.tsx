@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { HStack, VStack } from 'reaction';
-import BrandButton from 'src/components/BrandButton';
+import { VStack } from 'reaction';
 import SearchBar from 'src/components/SearchBar';
 import SearchResult from 'src/components/SearchResult';
 import TitleBar from 'src/components/TitleBar';

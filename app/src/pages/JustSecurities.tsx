@@ -10,7 +10,6 @@ import { HStack, Spacer, VStack } from 'reaction';
 import TitleBar from 'src/components/TitleBar';
 import { useTitle } from 'src/HTMLHead';
 import { SecuritiesKit } from 'src/utils/JustSDK';
-import BrandButton from '../components/BrandButton';
 import FeatureButton from '../components/FeatureButton';
 import SearchBar from '../components/SearchBar';
 import './JustSecurities.css';

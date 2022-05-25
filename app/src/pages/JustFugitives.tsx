@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { HStack, VStack } from 'reaction';
-import BrandButton from 'src/components/BrandButton';
 import FeatureButton from 'src/components/FeatureButton';
-import FugitiveProfile from 'src/components/FugitiveProfile';
 import PaginationController from 'src/components/PaginationController';
 import SearchBar from 'src/components/SearchBar';
 import TitleBar from 'src/components/TitleBar';
 import { useTitle } from 'src/HTMLHead';
 import { FBIKit } from 'src/utils/JustSDK';
 import './JustFugitives.css';
+
+// TODO: Add ability to view full profile
 
 type FBIMostWantedFeature =
     | 'ten-most-wanted'
@@ -171,7 +171,7 @@ function AllFugitivesList() {
  * @returns A single fugitive to be displayed in a fugitives list.
  */
 function FugitiveListItem(props: SimpleFugitiveData & { opensProfile?: boolean }) {
-    const [showingProfile, setShowingProfile] = useState(false);
+    // const [showingProfile, setShowingProfile] = useState(false);
 
     return (
         <VStack
@@ -182,7 +182,7 @@ function FugitiveListItem(props: SimpleFugitiveData & { opensProfile?: boolean }
                 <h3 className='fugitive-name'>{props.name}</h3>
                 {props.opensProfile ? (
                     <button
-                        onClick={() => setShowingProfile(true)}
+                        // onClick={() => setShowingProfile(true)}
                         className='fugitive-poster-link'>
                         View Full Profile
                     </button>
@@ -193,12 +193,12 @@ function FugitiveListItem(props: SimpleFugitiveData & { opensProfile?: boolean }
                 )}
             </VStack>
 
-            {showingProfile && (
+            {/* {showingProfile && (
                 <FugitiveProfile
                     {...(props as FullFugitiveData)}
                     onClose={() => setShowingProfile(false)}
                 />
-            )}
+            )} */}
         </VStack>
     );
 }
