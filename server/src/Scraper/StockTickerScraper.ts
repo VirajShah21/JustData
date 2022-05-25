@@ -1,9 +1,5 @@
 import Scraper from './Scraper';
-import ScraperCache from './ScraperCache';
 import ScraperDatabase, { ScrapedDocument } from './ScraperDatabase';
-
-const cache: Record<string, StockTickerScraperResponse> =
-    ScraperCache.initializeCache('stock-ticker-scraper.json', () => cache) ?? {};
 
 const tickerSERPDatabase = new ScraperDatabase<StockTickerScraperResponse>(
     'securities-ticker-serp',
@@ -62,8 +58,6 @@ class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
                 return { symbol, name, lastPrice, industry, type, exchange };
             }),
         };
-
-        cache[this.query.toUpperCase()] = response;
 
         this.saveToDatabase(tickerSERPDatabase, {
             url: this.origin,

@@ -1,11 +1,7 @@
 import Logger from '../utils/Logger';
 import { sleep } from '../utils/TimeFunctions';
 import Scraper from './Scraper';
-import ScraperCache from './ScraperCache';
 import ScraperDatabase, { ScrapedDocument } from './ScraperDatabase';
-
-const listCache: Record<string, OyezCaseListItem[]> =
-    ScraperCache.initializeCache('oyez-case-list.json') ?? {};
 
 const caseListDatabase = new ScraperDatabase<OyezCaseListItem>('oyez-case-serp');
 
