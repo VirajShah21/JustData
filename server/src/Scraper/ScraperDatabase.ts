@@ -120,7 +120,6 @@ class ScraperDatabase<T> {
         return new Promise((resolve, reject) => {
             const uri =
                 'mongodb+srv://justdata-server:SwsY7crF2QornDcm@cluster0.uwko4cb.mongodb.net/?retryWrites=true&w=majority';
-            console.log('Using URI', uri);
             if (uri) {
                 Logger.info('Attempting to open connection to the scrapers database');
                 const client = new MongoClient(uri, {
