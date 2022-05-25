@@ -1,6 +1,7 @@
 import { PlusIcon, XIcon } from '@primer/octicons-react';
 import { useState } from 'react';
-import { HStack, VStack } from 'reaction';
+import { HStack, Spacer, VStack } from 'reaction';
+import BrandButton from 'src/components/BrandButton';
 import Button from 'src/components/Button';
 import DropdownMenu, { ValueLabelPair } from 'src/components/DropdownMenu';
 import SearchResult from 'src/components/SearchResult';
@@ -41,33 +42,39 @@ function JustSCOTUS() {
 
     return (
         <VStack justify='start' id='just-scotus'>
-            <HStack className='term-selection-bar'>
-                <HStack justify='start'>
-                    <DropdownMenu
-                        placeholder='Select a Term'
-                        options={scotusTerms}
-                        onChange={term => setSelectedTerm(parseInt(term.value, 10))}
-                    />
-                    <Button
-                        onClick={() =>
-                            setTerms(
-                                [selectedTerm, ...terms].filter(t => t !== undefined) as number[],
-                            )
-                        }>
-                        <PlusIcon />
-                        Add Term
-                    </Button>
-                    <Button onClick={pullCases}>Pull Cases</Button>
-                </HStack>
-                <HStack justify='end'>
-                    {terms.map(t => (
-                        <CaseTermBadge
-                            term={t}
-                            onRemove={() => {
-                                setTerms(terms.filter(currTerm => currTerm !== t));
-                            }}
+            <HStack>
+                <BrandButton />
+                <Spacer />
+                <HStack className='term-selection-bar'>
+                    <HStack justify='start'>
+                        <DropdownMenu
+                            placeholder='Select a Term'
+                            options={scotusTerms}
+                            onChange={term => setSelectedTerm(parseInt(term.value, 10))}
                         />
-                    ))}
+                        <Button
+                            onClick={() =>
+                                setTerms(
+                                    [selectedTerm, ...terms].filter(
+                                        t => t !== undefined,
+                                    ) as number[],
+                                )
+                            }>
+                            <PlusIcon />
+                            Add Term
+                        </Button>
+                        <Button onClick={pullCases}>Pull Cases</Button>
+                    </HStack>
+                    <HStack justify='end'>
+                        {terms.map(t => (
+                            <CaseTermBadge
+                                term={t}
+                                onRemove={() => {
+                                    setTerms(terms.filter(currTerm => currTerm !== t));
+                                }}
+                            />
+                        ))}
+                    </HStack>
                 </HStack>
             </HStack>
 
