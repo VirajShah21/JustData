@@ -11,7 +11,7 @@
 
 #just-scotus .case-term-badge .case-term {
     background: rgb(40, 40, 40);
-    color: gray;
+    color: var(--secondary-text-dark);
     box-sizing: border-box;
     padding: 0.5rem;
 }

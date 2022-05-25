@@ -1,6 +1,6 @@
 .button-component {
     background-color: rgb(40, 40, 40);
-    color: gray;
+    color: var(--secondary-text-dark);
     font-size: 1rem;
     box-sizing: border-box;
     padding: 0.5rem;

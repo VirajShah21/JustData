@@ -26,6 +26,6 @@
 }
 
 .search-engine .search-results .search-result .result-description {
-    color: gray;
+    color: var(--secondary-text-dark);
     margin-bottom: 0;
 }

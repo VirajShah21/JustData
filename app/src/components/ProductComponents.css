@@ -2,7 +2,7 @@
 .product-section-title {
     font-size: 1rem;
     font-weight: bold;
-    color: gray;
+    color: var(--secondary-text-dark);
 }
 
 /* The icon appearing to the left of the product section title */

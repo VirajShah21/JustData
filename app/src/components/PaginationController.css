@@ -7,7 +7,7 @@
 .page-controller button.page-controller-number-button {
     background: none;
     border: none;
-    color: gray;
+    color: var(--secondary-text-dark);
     box-sizing: border-box;
     width: 2rem;
     height: 2rem;

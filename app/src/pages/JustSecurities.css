@@ -20,7 +20,7 @@
 
 #just-stocks .stock-search-ac-name {
     font-weight: bold;
-    color: gray;
+    color: var(--secondary-text-dark);
     width: 20rem;
 }
 
@@ -35,18 +35,18 @@
 #just-stocks .stock-search-ac-industry {
     width: 10rem;
     overflow: hidden;
-    color: gray;
+    color: var(--secondary-text-dark);
 }
 
 #just-stocks .stock-search-ac-type {
     width: 5rem;
     overflow: hidden;
-    color: gray;
+    color: var(--secondary-text-dark);
 }
 
 #just-stocks .stock-search-ac-exchange {
     width: 5rem;
-    color: gray;
+    color: var(--secondary-text-dark);
 }
 
 /** END styles for autocomplete suggestions */
