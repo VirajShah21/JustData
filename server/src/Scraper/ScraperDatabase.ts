@@ -5,6 +5,7 @@ import {
     ServerApiVersion,
     Document as MongoDocument,
     WithId,
+    Filter,
 } from 'mongodb';
 import Logger from '../utils/Logger';
 
@@ -42,7 +43,7 @@ const MONTH_TO_MS = 2592000000;
 const YEAR_TO_MS = 31536000000;
 
 class ScraperDatabase<T> {
-    private collection: string;
+    private readonly collection: string;
 
     constructor(collection: string) {
         this.collection = collection;
@@ -61,7 +62,7 @@ class ScraperDatabase<T> {
         return result as WithId<ScrapedDocument<T>> | null;
     }
 
-    async find(filter: Record<string, unknown>): Promise<WithId<ScrapedDocument<T>> | null> {
+    async find(filter: Filter<ScrapedDocument<T>>): Promise<WithId<ScrapedDocument<T>> | null> {
         const [db, close] = await ScraperDatabase.openDatabase();
         const result = await db.collection(this.collection).findOne(filter);
         close();
@@ -74,7 +75,7 @@ class ScraperDatabase<T> {
         return result as WithId<ScrapedDocument<T>> | null;
     }
 
-    async findAll(filter: Record<string, unknown>): Promise<WithId<ScrapedDocument<T>>[]> {
+    async findAll(filter: Filter<ScrapedDocument<T>>): Promise<WithId<ScrapedDocument<T>>[]> {
         const [db, close] = await ScraperDatabase.openDatabase();
         const result = await db.collection(this.collection).find(filter).toArray();
         close();
@@ -88,13 +89,13 @@ class ScraperDatabase<T> {
         return toKeep as unknown as WithId<ScrapedDocument<T>>[];
     }
 
-    async insert(...data: Record<string, unknown>[]) {
+    async insert(...data: ScrapedDocument<T>[]) {
         const [db, close] = await ScraperDatabase.openDatabase();
         await db.collection(this.collection).insertMany(data);
         close();
     }
 
-    async update(id: ObjectId, data: Record<string, unknown>) {
+    async update(id: ObjectId, data: ScrapedDocument<T>) {
         const [db, close] = await ScraperDatabase.openDatabase();
         await db.collection(this.collection).updateOne({ _id: id }, { $set: data });
         close();
@@ -121,11 +122,9 @@ class ScraperDatabase<T> {
             const uri =
                 'mongodb+srv://justdata-server:SwsY7crF2QornDcm@cluster0.uwko4cb.mongodb.net/?retryWrites=true&w=majority';
             if (uri) {
-                Logger.info('Attempting to open connection to the scrapers database');
                 const client = new MongoClient(uri, {
                     serverApi: ServerApiVersion.v1,
                 });
-                Logger.info('Connected to the scrapers database');
                 client.connect(err => {
                     if (err) {
                         Logger.warn('Error connecting to the database');

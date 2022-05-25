@@ -217,7 +217,6 @@ function ProductSection(props: {
     return (
         <>
             <ProductSectionTitle icon={props.icon} label={props.title} />
-
             <HStack justify='start'>{props.children}</HStack>
         </>
     );

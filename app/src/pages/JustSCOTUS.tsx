@@ -1,10 +1,10 @@
 import { PlusIcon, XIcon } from '@primer/octicons-react';
 import { useState } from 'react';
-import { HStack, Spacer, VStack } from 'reaction';
-import BrandButton from 'src/components/BrandButton';
+import { HStack, VStack } from 'reaction';
 import Button from 'src/components/Button';
 import DropdownMenu, { ValueLabelPair } from 'src/components/DropdownMenu';
 import SearchResult from 'src/components/SearchResult';
+import TitleBar from 'src/components/TitleBar';
 import { useTitle } from 'src/HTMLHead';
 import { SCOTUSKit } from 'src/utils/JustSDK';
 import './JustSCOTUS.css';
@@ -42,9 +42,7 @@ function JustSCOTUS() {
 
     return (
         <VStack justify='start' id='just-scotus'>
-            <HStack>
-                <BrandButton />
-                <Spacer />
+            <TitleBar>
                 <HStack className='term-selection-bar'>
                     <HStack justify='start'>
                         <DropdownMenu
@@ -76,7 +74,7 @@ function JustSCOTUS() {
                         ))}
                     </HStack>
                 </HStack>
-            </HStack>
+            </TitleBar>
 
             <VStack justify='start' align='start' alignSelf='start'>
                 {caseList.map(CaseResult)}

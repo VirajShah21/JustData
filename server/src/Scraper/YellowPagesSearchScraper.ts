@@ -1,12 +1,6 @@
 import Scraper from './Scraper';
-import ScraperCache from './ScraperCache';
 import ScraperDatabase, { ScrapedDocument } from './ScraperDatabase';
 import { ParsedHTMLElement } from './ScrapeUtils';
-
-const cache: Record<
-    string,
-    Record<string, YellowPagesSearchResult[]>
-> = ScraperCache.initializeCache('yellow-pages-search.json') ?? {};
 
 const database = new ScraperDatabase<YellowPagesSERP>('yellow-pages-serp');
 
@@ -56,8 +50,6 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSERP> {
         this.closeTab();
 
         const results = listings.map(YellowPagesSearchScraper.extractListingData);
-
-        if (!cache.hasOwnProperty(this.location)) cache[this.location] = {};
 
         return {
             query: this.query,

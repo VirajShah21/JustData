@@ -7,9 +7,9 @@ import {
     TechnicalAnalysis,
 } from 'react-ts-tradingview-widgets';
 import { HStack, Spacer, VStack } from 'reaction';
+import TitleBar from 'src/components/TitleBar';
 import { useTitle } from 'src/HTMLHead';
 import { SecuritiesKit } from 'src/utils/JustSDK';
-import BrandButton from '../components/BrandButton';
 import FeatureButton from '../components/FeatureButton';
 import SearchBar from '../components/SearchBar';
 import './JustSecurities.css';
@@ -92,14 +92,13 @@ function JustSecurities() {
 
     return (
         <VStack width='100%' id='just-stocks'>
-            <HStack>
-                <BrandButton />
+            <TitleBar>
                 <StockSearchBar
                     onSearch={t => {
                         setTicker(t);
                     }}
                 />
-            </HStack>
+            </TitleBar>
             <HStack>
                 <FeatureButton
                     icon={<GraphIcon />}
