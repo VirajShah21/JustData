@@ -1,6 +1,19 @@
-import { ArchiveIcon, GraphIcon, LawIcon, SearchIcon } from '@primer/octicons-react';
+import {
+    ArchiveIcon,
+    BugIcon,
+    GearIcon,
+    GraphIcon,
+    LawIcon,
+    MarkGithubIcon,
+    QuestionIcon,
+    SearchIcon,
+    XIcon,
+} from '@primer/octicons-react';
 import React, { useEffect, useState } from 'react';
 import { HStack, Spacer, VStack } from 'reaction';
+import Button from 'src/components/Button';
+import DropdownMenu from 'src/components/DropdownMenu';
+import AppPreferences, { AppTheme } from 'src/utils/AppPreferences';
 import { ProductResult, ProductSectionTitle } from '../components/ProductComponents';
 import SearchBar from '../components/SearchBar';
 import justFugitivesLogo from '../resources/images/icons/Just Fugitives.png';
@@ -28,6 +41,11 @@ interface Product {
     product: string;
     icon: string;
     url: string;
+}
+
+interface PreferencesPopupProps {
+    onClose: () => void;
+    open: boolean;
 }
 
 const CATEGORY_REF_MAPPING = {
@@ -180,24 +198,56 @@ function LandingRight() {
                 searchDisabled
             />
 
-            <div style={{ height: '2rem' }} />
+            <VStack className='products-gallery' justify='start'>
+                {products.map(category => (
+                    <ProductSection
+                        key={category.category}
+                        title={CATEGORY_REF_MAPPING[category.category]}
+                        icon={category.icon}>
+                        {category.products.map(product => (
+                            <ProductResult
+                                key={product.product}
+                                icon={product.icon}
+                                label={product.product}
+                                url={product.url}
+                            />
+                        ))}
+                    </ProductSection>
+                ))}
+            </VStack>
 
-            {products.map(category => (
-                <ProductSection
-                    key={category.category}
-                    title={CATEGORY_REF_MAPPING[category.category]}
-                    icon={category.icon}>
-                    {category.products.map(product => (
-                        <ProductResult
-                            key={product.product}
-                            icon={product.icon}
-                            label={product.product}
-                            url={product.url}
-                        />
-                    ))}
-                </ProductSection>
-            ))}
+            <OptionsBar />
         </VStack>
+    );
+}
+
+function OptionsBar() {
+    const [prefsOpen, setPrefsOpen] = useState(false);
+
+    return (
+        <HStack justify='start' className='options-bar'>
+            <PreferencesPopup open={prefsOpen} onClose={() => setPrefsOpen(false)} />
+
+            <Button onClick={() => setPrefsOpen(true)}>
+                <GearIcon />
+                &nbsp; Preferences
+            </Button>
+
+            <Button>
+                <QuestionIcon />
+                &nbsp; Help
+            </Button>
+
+            <Button onClick={openGitHubRepo}>
+                <BugIcon />
+                &nbsp; Report an Issue
+            </Button>
+
+            <Button onClick={openGitHubIssues}>
+                <MarkGithubIcon />
+                &nbsp; View on GitHub
+            </Button>
+        </HStack>
     );
 }
 
@@ -220,6 +270,58 @@ function ProductSection(props: {
             <HStack justify='start'>{props.children}</HStack>
         </>
     );
+}
+
+function PreferencesPopup({ onClose, open }: PreferencesPopupProps) {
+    return (
+        <VStack
+            className='preferences-popup-overlay'
+            style={{ display: open ? undefined : 'none' }}>
+            <VStack className='preferences-popup' align='start'>
+                <HStack className='titlebar' justify='start'>
+                    <Button className='close-button' onClick={() => onClose()}>
+                        <XIcon />
+                    </Button>
+                    <h2 className='title'>Preferences</h2>
+                </HStack>
+                <VStack className='inner' justify='start'>
+                    <LightDarkModePreferences />
+                </VStack>
+            </VStack>
+        </VStack>
+    );
+}
+
+function LightDarkModePreferences() {
+    const [selected, setSelected] = useState<AppTheme>(AppPreferences.theme);
+    const options = [
+        { value: 'light', label: 'Light' },
+        { value: 'dark', label: 'Dark' },
+    ];
+
+    useEffect(() => {
+        AppPreferences.theme = selected;
+    }, [selected]);
+
+    return (
+        <HStack justify='start'>
+            <span>Light/Dark Mode</span>
+            &nbsp;
+            <DropdownMenu
+                options={options}
+                placeholder={options.find(o => o.value === selected)?.label}
+                onChange={opt => setSelected(opt.value as AppTheme)}
+            />
+        </HStack>
+    );
+}
+
+function openGitHubRepo() {
+    window.open('https://github.com/VirajShah21/JustData', '_blank');
+}
+
+function openGitHubIssues() {
+    window.open('https://github.com/VirajShah21/JustData/issues/new', '_blank');
 }
 
 export default LandingPage;
