@@ -129,7 +129,7 @@ class AllFugitivesScraper extends Scraper<SimpleFugitiveData> {
 
         const response: SimpleFugitiveData[] = listItems.map(li => {
             return {
-                name: li.querySelector('h3.title')?.textContent ?? 'Unidentified Person',
+                name: li.querySelector('p.name')?.textContent ?? 'Unidentified Person',
                 mugshot: li.querySelector('img')?.getAttribute('src') ?? '',
                 profileURL: li.querySelector('a')?.getAttribute('href') ?? '',
             };
