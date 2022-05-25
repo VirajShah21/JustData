@@ -68,7 +68,7 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData> {
         const results = await tenMostWantedDatabase.findAll({});
         const now = Date.now();
 
-        if (results.length != 10) return null;
+        if (results.length !== 10) return null;
 
         for (let i = 0; i < results.length; i++) {
             if (results[i].expires < now) {
