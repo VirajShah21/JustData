@@ -9,7 +9,7 @@
 }
 
 .brand-button .brand-button-brand {
-    background-color: black;
+    background-color: var(--primary-bg-dark);
     height: 100%;
     transition: 0.5s background-color, filter;
 }

@@ -26,7 +26,7 @@
     margin: 0.1rem;
     font-size: 0.8rem;
     background-color: rgba(255, 255, 255, 0.25);
-    color: black;
+    color: var(--primary-bg-dark);
     padding: 0.1rem 0.5rem;
     border-radius: 0.25rem;
 }
@@ -34,7 +34,7 @@
 .just-places .search-results .search-result .business-age {
     box-sizing: border-box;
     padding: 0.5rem 1rem;
-    background-color: black;
+    background-color: var(--primary-bg-dark);
     border-radius: 1rem;
     margin-right: 0.5rem;
 }

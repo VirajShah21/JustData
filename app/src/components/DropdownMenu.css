@@ -26,5 +26,5 @@
 .dropdown-menu .dropdown-options .dropdown-option {
     box-sizing: border-box;
     padding: 0.5rem;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--primary-bg-dark);
 }

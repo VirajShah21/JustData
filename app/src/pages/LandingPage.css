@@ -98,7 +98,7 @@
 
 .preferences-popup .close-button {
     background-color: red;
-    color: black;
+    color: var(--primary-bg-dark);
 }
 
 .preferences-popup .title {

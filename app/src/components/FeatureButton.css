@@ -25,8 +25,8 @@
 
 .feature-button .feature-button-inside {
     box-sizing: border-box;
-    background: black;
-    color: white;
+    background: var(--primary-bg-dark);
+    color: var(--primary-text-dark);
     font-size: 0.8rem;
     border-radius: 2rem;
     padding: 0.5rem 1rem;
@@ -35,7 +35,7 @@
 /* An active feature button has a gradient background */
 .feature-button.active .feature-button-inside {
     background: transparent;
-    color: black;
+    color: var(--primary-bg-dark);
     transition: 0.5s color;
 }
 
