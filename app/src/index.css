@@ -1,6 +1,18 @@
 :root {
     --primary-gradient-start: #cc208e;
     --primary-gradient-end: #7f00ff;
+
+    --primary-text-dark: white;
+    --secondary-text-dark: gray;
+
+    --primary-text-light: black;
+    --secondary-text-light: gray;
+
+    --primary-bg-dark: black;
+    --secondary-bg-dark: rgb(40, 40, 40);
+
+    --primary-bg-light: white;
+    --secondary-bg-dark: rgb(215, 215, 215);
 }
 
 /* Custom styles for text/images which are selected */
