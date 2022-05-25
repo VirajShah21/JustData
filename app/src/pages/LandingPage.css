@@ -47,12 +47,20 @@
 
 /* The attribution for the background image */
 .landing-left .bg-attribution {
-    font-size: 0.5rem;
-    color: white;
-    background: rgba(0, 0, 0, 0.5);
+    font-size: 0.75rem;
     -webkit-backdrop-filter: blur(1rem);
     backdrop-filter: blur(1rem);
-    padding: 0.5rem;
+    padding: 0.25rem;
+}
+
+.dark .landing-left .bg-attribution {
+    color: var(--primary-text-dark);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.light .landing-left .bg-attribution {
+    color: var(--primary-text-light);
+    background: rgba(255, 255, 255, 0.5);
 }
 
 .landing-divider {
@@ -88,17 +96,33 @@
 .preferences-popup {
     height: auto;
     width: auto;
-    background-color: rgba(0, 0, 0, 0.5);
     min-width: 50%;
     min-height: 50%;
-    border: 1px solid var(--secondary-bg-dark);
     -webkit-backdrop-filter: blur(1rem);
     backdrop-filter: blur(1rem);
+}
+
+.dark .preferences-popup {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--secondary-bg-dark);
+}
+
+.light .preferences-popup {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--secondary-bg-light);
 }
 
 .preferences-popup .close-button {
     background-color: red;
     color: var(--primary-bg-dark);
+}
+
+.dark .preferences-popup .close-button {
+    color: var(--primary-bg-dark);
+}
+
+.light .preferences-popup .close-button {
+    color: var(--primary-bg-light);
 }
 
 .preferences-popup .title {

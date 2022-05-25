@@ -10,8 +10,16 @@
 }
 
 #just-scotus .case-term-badge .case-term {
-    background: var(--secondary-bg-dark);
-    color: var(--secondary-text-dark);
     box-sizing: border-box;
     padding: 0.5rem;
+}
+
+.dark #just-scotus .case-term-badge .case-term {
+    background: var(--secondary-bg-dark);
+    color: var(--secondary-text-dark);
+}
+
+.light #just-scotus .case-term-badge .case-term {
+    background: var(--secondary-bg-light);
+    color: var(--secondary-text-light);
 }

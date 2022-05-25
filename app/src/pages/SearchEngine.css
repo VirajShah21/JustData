@@ -26,6 +26,13 @@
 }
 
 .search-engine .search-results .search-result .result-description {
-    color: var(--secondary-text-dark);
     margin-bottom: 0;
+}
+
+.dark .search-engine .search-results .search-result .result-description {
+    color: var(--secondary-text-dark);
+}
+
+.light .search-engine .search-results .search-result .result-description {
+    color: var(--secondary-text-light);
 }
