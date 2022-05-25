@@ -23,12 +23,7 @@ interface YellowPagesSearchResult {
     rating: YellowPagesListingRating;
     website?: string;
     phone: string;
-    address: {
-        street: string;
-        city: string;
-        state: string;
-        zip: string;
-    };
+    address: YellowPagesAddress;
     age?: number;
     openStatus: string;
 }
@@ -36,4 +31,11 @@ interface YellowPagesSearchResult {
 interface YellowPagesListingRating {
     yellowPages?: number;
     tripAdvisor?: number;
+}
+
+interface YellowPagesAddress {
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
 }
