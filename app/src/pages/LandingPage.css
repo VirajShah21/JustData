@@ -14,8 +14,15 @@
 }
 
 .landing-left {
-    background-image: url(../resources/images/backgrounds/landing-bg.jpg);
     background-size: cover;
+}
+
+.dark .landing-left {
+    background-image: url(../resources/images/backgrounds/landing-bg.jpg);
+}
+
+.light .landing-left {
+    background-image: url(../resources/images/backgrounds/landing-bg-light.png);
 }
 
 .landing-right {
