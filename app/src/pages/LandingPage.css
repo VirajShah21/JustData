@@ -20,6 +20,7 @@
 
 .landing-right {
     width: 100vw;
+    position: relative;
 }
 
 .landing-left .landing-left-overlay {
@@ -61,4 +62,51 @@
         var(--primary-gradient-start),
         var(--primary-gradient-end)
     );
+}
+
+.landing-right .products-gallery {
+    overflow-y: scroll;
+    padding-bottom: 3rem;
+}
+
+.landing-right .options-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.preferences-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    -webkit-backdrop-filter: blur(0.25rem);
+    backdrop-filter: blur(0.25rem);
+}
+
+.preferences-popup {
+    height: auto;
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    min-width: 50%;
+    min-height: 50%;
+    border: 1px solid rgb(40, 40, 40);
+    -webkit-backdrop-filter: blur(1rem);
+    backdrop-filter: blur(1rem);
+}
+
+.preferences-popup .close-button {
+    background-color: red;
+    color: black;
+}
+
+.preferences-popup .title {
+    margin: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.preferences-popup .inner {
+    padding: 1rem;
 }
