@@ -1,9 +1,5 @@
 import Scraper from './Scraper';
-import ScraperCache from './ScraperCache';
-import ScraperDatabase, {
-    ScrapedDocument,
-    ScrapedDocumentInsertionObject,
-} from './ScraperDatabase';
+import ScraperDatabase, { ScrapedDocument } from './ScraperDatabase';
 
 const FUGITIVE_LI_CLASSNAME = '.portal-type-person';
 // ! Keep this, as it will be useful later

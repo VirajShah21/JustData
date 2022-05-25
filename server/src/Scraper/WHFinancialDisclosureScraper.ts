@@ -1,5 +1,4 @@
 import Scraper from './Scraper';
-import { ScrapedDocument } from './ScraperDatabase';
 
 type WHFinancialDisclosures = {
     president: Record<number, string>;
