@@ -42,21 +42,8 @@ const WEEK_TO_MS = 604800000;
 const MONTH_TO_MS = 2592000000;
 const YEAR_TO_MS = 31536000000;
 
-interface ScraperDatabaseCache<T> {
-    get: {
-        id: ObjectId;
-        document: WithId<ScrapedDocument<T>>;
-    }[];
-    find: {
-        id: ObjectId;
-    }[];
-    findAll: {};
-}
-
 class ScraperDatabase<T> {
-    // TODO: Re-enable this
-    // private cache: ScraperDatabaseCache<T>;
-    private collection: string;
+    private readonly collection: string;
 
     constructor(collection: string) {
         this.collection = collection;
