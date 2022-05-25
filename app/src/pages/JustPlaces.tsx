@@ -2,7 +2,7 @@ import { LocationIcon } from '@primer/octicons-react';
 import { useState } from 'react';
 import { HStack, Spacer, VStack } from 'reaction';
 import BrandButton from 'src/components/BrandButton';
-import Rating from 'src/components/RatingComponent';
+import RatingComponent from 'src/components/RatingComponent';
 import SearchBar from 'src/components/SearchBar';
 import SearchResult from 'src/components/SearchResult';
 import { useTitle } from 'src/HTMLHead';
@@ -106,7 +106,7 @@ function PlaceSearchResult(props: YellowPagesSearchResult) {
                             alt='Yellow Pages Rating'
                             style={{ height: '2rem' }}
                         />
-                        <Rating rating={props.rating.yellowPages} color='yellow' />
+                        <RatingComponent rating={props.rating.yellowPages} color='yellow' />
                     </HStack>
                 )}
             </HStack>

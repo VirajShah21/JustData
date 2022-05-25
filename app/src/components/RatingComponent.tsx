@@ -13,7 +13,7 @@ const DEC_TO_PERCENT = 100;
  * - `outOf` - The denominator of the rating (max rating). (Default is 5)
  * @returns The rating component.
  */
-function Rating(props: { rating: number; color?: string; outOf?: number }) {
+function RatingComponent(props: { rating: number; color?: string; outOf?: number }) {
     const fills = [];
 
     for (let i = 1; i <= props.rating; i++) fills.push(1);
@@ -53,4 +53,4 @@ function RatingCircle(props: { fill: number; color?: string }) {
     );
 }
 
-export default Rating;
+export default RatingComponent;
