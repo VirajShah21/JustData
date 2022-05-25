@@ -1,9 +1,5 @@
 import Scraper from './Scraper';
-import ScraperCache from './ScraperCache';
-import ScraperDatabase, {
-    ScrapedDocument,
-    ScrapedDocumentInsertionObject,
-} from './ScraperDatabase';
+import ScraperDatabase, { ScrapedDocument } from './ScraperDatabase';
 
 const FUGITIVE_LI_CLASSNAME = '.portal-type-person';
 // ! Keep this, as it will be useful later
@@ -72,7 +68,7 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData> {
         const results = await tenMostWantedDatabase.findAll({});
         const now = Date.now();
 
-        if (results.length != 10) return null;
+        if (results.length !== 10) return null;
 
         for (let i = 0; i < results.length; i++) {
             if (results[i].expires < now) {

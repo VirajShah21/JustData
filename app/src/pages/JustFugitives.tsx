@@ -42,7 +42,7 @@ const httpSuccess = 200;
  *
  * @returns The page for the FBIs most wanted fugitives.
  */
-function FBIMostWanted() {
+function JustFugitives() {
     const [feature, setFeature] = useState<FBIMostWantedFeature>(features.tenMostWanted);
 
     useTitle('Just Fugitives');
@@ -207,4 +207,4 @@ function FugitiveListItem(props: SimpleFugitiveData & { opensProfile?: boolean }
     );
 }
 
-export default FBIMostWanted;
+export default JustFugitives;

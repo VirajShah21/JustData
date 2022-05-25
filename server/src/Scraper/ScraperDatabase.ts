@@ -33,6 +33,14 @@ interface ScrapedDocumentInsertionObject<T> {
     expiration: ScrapedDocumentExpiration;
 }
 
+const SEC_TO_MS = 1000;
+const MIN_TO_MS = 60000;
+const HOUR_TO_MS = 3600000;
+const DAY_TO_MS = 86400000;
+const WEEK_TO_MS = 604800000;
+const MONTH_TO_MS = 2592000000;
+const YEAR_TO_MS = 31536000000;
+
 class ScraperDatabase<T> {
     private collection: string;
 
@@ -112,7 +120,6 @@ class ScraperDatabase<T> {
         return new Promise((resolve, reject) => {
             const uri =
                 'mongodb+srv://justdata-server:SwsY7crF2QornDcm@cluster0.uwko4cb.mongodb.net/?retryWrites=true&w=majority';
-            console.log('Using URI', uri);
             if (uri) {
                 Logger.info('Attempting to open connection to the scrapers database');
                 const client = new MongoClient(uri, {
@@ -135,13 +142,13 @@ class ScraperDatabase<T> {
     static lifespan(expiration: ScrapedDocumentExpiration): [number, number] {
         let delta = 0; // Time frmo now to expiration
 
-        if (expiration.seconds) delta += expiration.seconds * 1000;
-        if (expiration.minutes) delta += expiration.minutes * 60000;
-        if (expiration.hours) delta += expiration.hours * 3600000;
-        if (expiration.days) delta += expiration.days * 86400000;
-        if (expiration.weeks) delta += expiration.weeks * 604800000;
-        if (expiration.months) delta += expiration.months * 2592000000;
-        if (expiration.years) delta += expiration.years * 31536000000;
+        if (expiration.seconds) delta += expiration.seconds * SEC_TO_MS;
+        if (expiration.minutes) delta += expiration.minutes * MIN_TO_MS;
+        if (expiration.hours) delta += expiration.hours * HOUR_TO_MS;
+        if (expiration.days) delta += expiration.days * DAY_TO_MS;
+        if (expiration.weeks) delta += expiration.weeks * WEEK_TO_MS;
+        if (expiration.months) delta += expiration.months * MONTH_TO_MS;
+        if (expiration.years) delta += expiration.years * YEAR_TO_MS;
 
         const now = Date.now();
 

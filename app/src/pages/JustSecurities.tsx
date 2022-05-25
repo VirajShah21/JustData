@@ -84,7 +84,7 @@ function StockSearchBar(props: { value?: string; onSearch: (value: string) => vo
 /**
  * @returns The Just Stocks product page.
  */
-function JustStocks() {
+function JustSecurities() {
     const [ticker, setTicker] = useState('AAPL');
     const [activeFeature, setActiveFeature] = useState<StocksFeature>('chart');
 
@@ -153,4 +153,4 @@ function getActiveFeature(feature: StocksFeature, ticker: string) {
     }
 }
 
-export default JustStocks;
+export default JustSecurities;

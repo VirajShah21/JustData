@@ -1,4 +1,3 @@
-import Logger from '../utils/Logger';
 import Scraper from './Scraper';
 import ScraperDatabase from './ScraperDatabase';
 

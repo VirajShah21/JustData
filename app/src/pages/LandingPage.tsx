@@ -1,5 +1,5 @@
 import { ArchiveIcon, GraphIcon, LawIcon, SearchIcon } from '@primer/octicons-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HStack, Spacer, VStack } from 'reaction';
 import { ProductResult, ProductSectionTitle } from '../components/ProductComponents';
 import SearchBar from '../components/SearchBar';
@@ -36,6 +36,66 @@ const CATEGORY_REF_MAPPING = {
     [ProductCategoryRef.CrimeAndJustice]: 'Crime and Justice',
     [ProductCategoryRef.WebSearch]: 'Web Search',
 };
+
+/**
+ * An array of `ProductCategory` objects.
+ *
+ * A product category defines a category (`enum ProductCategoryRef`), an icon
+ * associated with the product, and an array of the products which belong to
+ * the category (`interface Product`).
+ */
+const allProducts: ProductCategory[] = [
+    {
+        category: ProductCategoryRef.FinancialMarkets,
+        icon: <GraphIcon />,
+        products: [
+            {
+                product: 'Just Securities',
+                icon: justSecuritiesLogo,
+                url: 'stocks',
+            },
+        ],
+    },
+    {
+        category: ProductCategoryRef.USIntelligence,
+        icon: <ArchiveIcon />,
+        products: [
+            /* CIA World Factbook */
+        ],
+    },
+    {
+        category: ProductCategoryRef.CrimeAndJustice,
+        icon: <LawIcon />,
+        products: [
+            {
+                product: 'Just Fugitives',
+                icon: justFugitivesLogo,
+                url: 'most-wanted',
+            },
+            {
+                product: 'Just SCOTUS',
+                icon: justSCOTUSLogo,
+                url: 'scotus',
+            },
+        ],
+    },
+    {
+        category: ProductCategoryRef.WebSearch,
+        icon: <SearchIcon />,
+        products: [
+            {
+                product: 'Just Search',
+                icon: searchLogo,
+                url: 'search',
+            },
+            {
+                product: 'Just Places',
+                icon: justPlacesLogo,
+                url: 'places',
+            },
+        ],
+    },
+].sort((a, b) => a.category - b.category);
 
 /**
  * @returns The landing page for Just Data.
@@ -76,93 +136,47 @@ function LandingLeft() {
  * @returns The right side of the landing page.
  */
 function LandingRight() {
-    const allProducts: ProductCategory[] = [
-        {
-            category: ProductCategoryRef.FinancialMarkets,
-            icon: <GraphIcon />,
-            products: [
-                {
-                    product: 'Just Securities',
-                    icon: justSecuritiesLogo,
-                    url: 'stocks',
-                },
-            ],
-        },
-        {
-            category: ProductCategoryRef.USIntelligence,
-            icon: <ArchiveIcon />,
-            products: [
-                /* CIA World Factbook */
-            ],
-        },
-        {
-            category: ProductCategoryRef.CrimeAndJustice,
-            icon: <LawIcon />,
-            products: [
-                {
-                    product: 'Just Fugitives',
-                    icon: justFugitivesLogo,
-                    url: 'most-wanted',
-                },
-                {
-                    product: 'Just SCOTUS',
-                    icon: justSCOTUSLogo,
-                    url: 'scotus',
-                },
-            ],
-        },
-        {
-            category: ProductCategoryRef.WebSearch,
-            icon: <SearchIcon />,
-            products: [
-                {
-                    product: 'Just Search',
-                    icon: searchLogo,
-                    url: 'search',
-                },
-                {
-                    product: 'Just Places',
-                    icon: justPlacesLogo,
-                    url: 'places',
-                },
-            ],
-        },
-    ].sort((a, b) => a.category - b.category);
+    /**
+     * Performs a filter on all of the products to find which products
+     * match the search query. Then the `products` state is updated with
+     * the list of filtered categories and products.
+     */
+    function runProductSearch() {
+        setProducts(
+            allProducts
+                .map(category => {
+                    if (
+                        CATEGORY_REF_MAPPING[category.category]
+                            .toLowerCase()
+                            .includes(search.trim().toLowerCase())
+                    ) {
+                        return category;
+                    }
+                    return {
+                        ...category,
+                        products: category.products.filter(product => {
+                            return product.product
+                                .toLowerCase()
+                                .includes(search.trim().toLowerCase());
+                        }),
+                    };
+                })
+                .filter(category => category.products.length > 0),
+        );
+    }
 
     const [products, setProducts] = useState(allProducts);
     const [search, setSearch] = useState('');
+
+    // Whenever search is updated, it will run a product search
+    useEffect(runProductSearch, [search]);
 
     return (
         <VStack className='landing-right' justify='start'>
             <SearchBar
                 value={search}
                 placeholder='Search Our Products'
-                onChange={e => {
-                    const value = e.target.value;
-                    setSearch(value);
-
-                    setProducts(
-                        allProducts
-                            .map(category => {
-                                if (
-                                    CATEGORY_REF_MAPPING[category.category]
-                                        .toLowerCase()
-                                        .includes(value.trim().toLowerCase())
-                                ) {
-                                    return category;
-                                }
-                                return {
-                                    ...category,
-                                    products: category.products.filter(product => {
-                                        return product.product
-                                            .toLowerCase()
-                                            .includes(value.trim().toLowerCase());
-                                    }),
-                                };
-                            })
-                            .filter(category => category.products.length > 0),
-                    );
-                }}
+                onChange={e => setSearch(e.target.value)}
                 searchDisabled
             />
 
@@ -187,6 +201,14 @@ function LandingRight() {
     );
 }
 
+/**
+ * A react fragment which displays a category of products along with the products
+ * belonging in that category.
+ *
+ * @param props - The icon and title for the section. The `ProductSection` components
+ * should be passed as children.
+ * @returns A react fragment which displays a product section.
+ */
 function ProductSection(props: {
     icon: React.ReactElement;
     title: string;

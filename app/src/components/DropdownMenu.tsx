@@ -5,6 +5,17 @@ import './DropdownMenu.css';
 
 type ValueLabelPair = { value: string; label: string };
 
+/**
+ * A React component for a dropdown menu. It behaves pretty much the same as the built-in
+ * HTML `<select>` element, but is themed to match the Just Data design guidelines.
+ *
+ * @param props - Properties to define the behavior/appearance of the dropdown menu:
+ * - `options` - An array of `ValueLabelPair` objects (`{ value: string, label: string }`).
+ * - `placeholder` - Default text to display when no value is selected.
+ * - `default` - The default selected value-label pair.
+ * - `onChange` - A callback function to be called when the value changes.
+ * @returns The dropdown menu component.
+ */
 function DropdownMenu(props: {
     options: ValueLabelPair[];
     placeholder?: string;

@@ -3,6 +3,9 @@ import { HStack } from 'reaction';
 import ArrayUtils from '../utils/ArrayUtils';
 import './PaginationController.css';
 
+const MAX_PAGES_TO_SHOW = 10;
+const MIN_PREVIOUS_PAGES_TO_SHOW = 3;
+
 /**
  * @param props - Takes three non-optional props:
  * - `lastPage` - The last page of the pagination.
@@ -19,8 +22,10 @@ function PaginationController(props: {
     let start = 1;
     let stop: number;
 
-    if (props.currentPage > 5) start = props.currentPage - 3;
-    if (props.currentPage + 10 < props.lastPage) stop = start + 9;
+    if (props.currentPage > MAX_PAGES_TO_SHOW - MIN_PREVIOUS_PAGES_TO_SHOW)
+        start = props.currentPage - MIN_PREVIOUS_PAGES_TO_SHOW;
+    if (props.currentPage + MAX_PAGES_TO_SHOW < props.lastPage)
+        stop = start + MAX_PAGES_TO_SHOW - 1;
     else stop = props.lastPage;
 
     return (

@@ -8,6 +8,13 @@ import { SERPKit } from 'src/utils/JustSDK';
 import background from '../resources/images/backgrounds/search.png';
 import './SearchEngine.css';
 
+/**
+ * The page for the Just Search application. By default it displays an image
+ * but when a search is run, it will display the search results, along with
+ * relevant information.
+ *
+ * @returns The search engine page.
+ */
 function SearchEngine() {
     const [showingResults, setShowingResults] = useState(false);
     const [results, setResults] = useState<SERPItem[]>([]);
@@ -15,6 +22,9 @@ function SearchEngine() {
 
     useTitle('Just Search');
 
+    /**
+     * Performs a search using the `searchValue` state variable.
+     */
     async function search() {
         setResults((await SERPKit.bing(searchValue)).results);
         if (!showingResults) setShowingResults(true);
@@ -43,6 +53,16 @@ function SearchEngine() {
     );
 }
 
+/**
+ * A component for displaying a search engine result. This uses the
+ * `SearchResult` component to display the result.
+ *
+ * @param props - The props for each search result:
+ * - `title` - The page title for the search result
+ * - `url` - The URL which the result links to
+ * - `description` - The meta description for the webpage
+ * @returns The Just Search engine result.
+ */
 function EngineResult(props: { title: string; url: string; description: string }) {
     return (
         <SearchResult>
