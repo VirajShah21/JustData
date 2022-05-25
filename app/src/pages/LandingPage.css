@@ -91,7 +91,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     min-width: 50%;
     min-height: 50%;
-    border: 1px solid rgb(40, 40, 40);
+    border: 1px solid var(--secondary-bg-dark);
     -webkit-backdrop-filter: blur(1rem);
     backdrop-filter: blur(1rem);
 }
