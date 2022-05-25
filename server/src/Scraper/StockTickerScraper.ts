@@ -77,7 +77,7 @@ class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
     }
 
     async findInDatabase(): Promise<ScrapedDocument<StockTickerScraperResponse> | null> {
-        return await tickerSERPDatabase.find({
+        return tickerSERPDatabase.find({
             query: {
                 $eq: this.query,
             },
