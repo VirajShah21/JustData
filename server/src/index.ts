@@ -21,8 +21,6 @@ const PORT = process.env.PORT ?? DEV_PORT;
 
 const app = express();
 
-// const indexHTML = fs.readFileSync(path.join(__dirname, 'web/index.html'));
-
 ScrapeUtils.init();
 
 // Middleware which allows any origin to access this API.
@@ -112,9 +110,15 @@ app.get('/api/white-house/financial-disclosures', async (req, res) => {
     res.send(await scraper.scrape());
 });
 
-// app.get('*', (_, res) => {
-//     res.send(indexHTML);
-// });
+try {
+    const indexHTML = fs.readFileSync(path.join(__dirname, 'web/index.html'));
+    app.get('*', (_, res) => {
+        res.send(indexHTML);
+    });
+} catch (e) {
+    Logger.warn('Running in dev environment without client-side.');
+    Logger.info('To app in dev mode, use `yarn start` in `/app`');
+}
 
 app.listen(PORT, () => {
     Logger.info(`Server listening on port ${PORT}`);
