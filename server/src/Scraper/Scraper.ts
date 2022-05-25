@@ -96,7 +96,7 @@ abstract class Scraper<R> implements IScraper<R> {
         ...insertionObjects: ScrapedDocumentInsertionObject<R>[]
     ): Promise<void> {
         await database.insert(
-            ...insertionObjects.map(insertion => {
+            ...insertionObjects.map<ScrapedDocument<R>>(insertion => {
                 const [timestamp, expires] = ScraperDatabase.lifespan(insertion.expiration);
                 return {
                     timestamp,
