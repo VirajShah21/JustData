@@ -1,18 +1,15 @@
 # Design Guidelines
 
 - [Design Guidelines](#design-guidelines)
-  - [Title/Search Bar](#titlesearch-bar)
   - [Colors](#colors)
     - [Logo Colors](#logo-colors)
     - [Universal Theme Colors](#universal-theme-colors)
     - [Dark Theme Colors](#dark-theme-colors)
     - [Light Theme Colors](#light-theme-colors)
-
-## Title/Search Bar
-
-![Searchbar](searchbar.png)
-
-The brand button should be 50px by 50px. The search bar should also be 50px in height and consume all the horizontal space not taken up by any other elements.
+  - [Custom Elements](#custom-elements)
+    - [Button](#button)
+    - [Dropdown Menu](#dropdown-menu)
+    - [Input (Search Bar)](#input-search-bar)
 
 > Stuff about features bars should come here
 
@@ -57,3 +54,17 @@ For the full list of logo colors for each product, see [Product Logo Colors](pro
 | **Secondary Text**       | ![](https://www.thecolorapi.com/id?hex=808080&format=svg) | `#808080` | `128, 128, 128` |
 | **Primary Background**   | ![](https://www.thecolorapi.com/id?hex=FFF&format=svg)    | `#FFF`    | `255, 255, 255` |
 | **Secondary Background** | ![](https://www.thecolorapi.com/id?hex=F0F0F0&format=svg) | `#F0F0F0` | `240, 240, 240` |
+
+## Custom Elements
+
+### Button
+
+![](<Button Component.png>)
+
+### Dropdown Menu
+
+> TODO
+
+### Input (Search Bar)
+
+> TODO
