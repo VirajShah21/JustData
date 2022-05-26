@@ -6,7 +6,6 @@
 }
 
 .search-bar-container .search-bar {
-    background-color: var(--secondary-bg-dark);
     transition: 0.5s filter;
 }
 
@@ -23,7 +22,7 @@
 }
 
 .light .search-bar-container .search-bar:hover {
-    filter: brightness(50%);
+    filter: brightness(75%);
 }
 
 .search-bar-container .search-bar .search-icon-wrapper {
