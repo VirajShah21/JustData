@@ -3,7 +3,7 @@
 - [Design Guidelines](#design-guidelines)
   - [Title/Search Bar](#titlesearch-bar)
   - [Colors](#colors)
-    - [Primary Colors](#primary-colors)
+    - [Theme Colors](#theme-colors)
     - [Product Colors](#product-colors)
       - [Just Securities](#just-securities)
       - [Just Fugitives](#just-fugitives)
@@ -20,9 +20,11 @@ The brand button should be 50px by 50px. The search bar should also be 50px in h
 
 ## Colors
 
-### Primary Colors
+### Theme Colors
 
 **Logo Border**
+
+![](https://www.thecolorapi.com/id?hex=24B1E0&format=svg)
 
 -   <img src="https://via.placeholder.com/15/E34006/000000?text=+" /> `#E34006`
 -   <img src="https://via.placeholder.com/15/6930F0/000000?text=+" /> `#6930F0`
