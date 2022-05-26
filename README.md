@@ -22,7 +22,6 @@ Checkout the [live website](http://just-data.herokuapp.com/most-wanted) here.
 - [JustData](#justdata)
   - [What is Just Data?](#what-is-just-data)
   - [Services](#services)
-    - [APIs Coming Soon](#apis-coming-soon)
     - [API Ideas](#api-ideas)
   - [Contributing](#contributing)
     - [Scraping Rules](#scraping-rules)
@@ -42,27 +41,13 @@ In the future, the the web application will also allow users to create an accoun
 -   **Just Fugitives** – A fugitives database which allows for finding fugitives by name, biography, crimes, and other details. The application uses data pulled directly from the FBIs database of wanted fugitives.
 -   **Just Search** – A cross-engine search platform. Compiles data from multiple search engines and provides a unified search interface.
 
-### APIs Coming Soon
+### API Ideas
 
-Below is a list of APIs which have been developed but have no frontend service:
-
--   Oyez Case List
--   Yellow Pages SERP
-
-> The above APIs may be incomplete. They should be complete by Milestone v0.0.1 (Armadillo).
-
-APIs to develop by Milestone v0.0.1 (Armadillo):
-
--   Oyez case
--   Yellow Pages business
 -   Search Engines:
     -   Google SERP
     -   Yahoo Search SERP
     -   DuckDuckGo SERP
 -   Magic Search: Open a new tab with the best search engine result.
-
-### API Ideas
-
 -   Stack Overflow SERP/Answers :bulb:
 -   GitHub Code Search :octopus: :cat:
 -   IMDB TV/Movies :movie_camera:
