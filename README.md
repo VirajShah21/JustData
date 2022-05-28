@@ -2,22 +2,11 @@
 
 ![Data For All Banner](.README/data-for-all.png)
 
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
-
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=bugs)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
-
-<!-- [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=coverage)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData) -->
-
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=VirajShah21_JustData&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=VirajShah21_JustData)
-
-Checkout the [live website](http://just-data.herokuapp.com/most-wanted) here.
 
 - [JustData](#justdata)
   - [What is Just Data?](#what-is-just-data)
@@ -25,15 +14,25 @@ Checkout the [live website](http://just-data.herokuapp.com/most-wanted) here.
     - [API Ideas](#api-ideas)
   - [Contributing](#contributing)
     - [Scraping Rules](#scraping-rules)
+    - [Code Quality](#code-quality)
     - [Design Guidelines](#design-guidelines)
+    - [Build Instructions](#build-instructions)
 
 ## What is Just Data?
 
-Just Data is a data collection tool which scrapes the web to collect just data. The server provides a series of API endpoints which perform the scraping activities and caches the results. A client web application is provided to beautifully display the scraped data.
+Just Data is a data collection tool which scrapes the web to collect just data. The server provides
+a series of API endpoints which perform the scraping activities and caches the results. A client
+web application is provided to beautifully display the scraped data.
 
-The web application makes it simple to browse and visualize data from various sources, along with downloading the data for external use.
+The web application makes it simple to browse and visualize data from various sources, along with
+downloading the data for external use.
 
-In the future, the the web application will also allow users to create an account to use the APIs. This will allow for third-party applications to access data scraped from Just Data.
+In the future, the the web application will also allow users to create an account to use the APIs.
+This will allow for third-party applications to access data scraped from Just Data.
+
+The website is currenty hosted at [just-data.herokuapp.com](http://just-data.herokuapp.com/).
+Not all releases will be available on the server. Pre-releases will be held until a stable release
+is created.
 
 ## Services
 
@@ -80,12 +79,57 @@ Scraping websites for valuable information is perfectly legal, but it has its li
     5. When the data is attached to a currently incarcerated convicted felon, the above rules do not apply;
     6. When the data is attached to a fugitive or terrorist, the above rules do not apply.
 
+### Code Quality
+
+Upon any pull request to the `main` branch, a
+[SonarCloud](https://sonarcloud.io/project/overview?id=VirajShah21_JustData) analysis is run to
+ensure that all new code is written well and does not significantly increase technical debt.
+Sometimes is is okay to increase technical debt if the code changes are deemed worth it.
+
+Generally, when you make a pull request, and the quality gate fails, please go back and fix the
+issues with your code. These can be issues from code style to actual bugs or security vulnerabilities.
+
+Additionally, GitHub QL runs security scans on each pull request, and on merges to `main`. No
+server-side code should introduce any new security vulnerabilities.
+
 ### Design Guidelines
 
-A full list of design guidelines can be found [here](.README/design-guidelines.md).
+The full design guidelines document can be found [here](.README/design-guidelines.md).
 
-Specification include:
+In general, keep it sexy.
 
--   Colors
--   Sizing, Padding, and Margins
--   Font Sizes
+### Build Instructions
+
+> To avoid any issues, do not use `npm`, use `yarn` for everything (it's better).
+
+**When actively developing**, you will need to start the application server and API server
+separately:
+
+```bash
+cd app
+yarn start &
+
+cd ../server
+yarn start
+```
+
+The application server will automatically recompile the TSX/CSS files when changes are made.
+The API server, will need to be restarted for changes to take effect.
+
+**To build the application/server**, run:
+
+```bash
+cd app
+yarn build
+
+cd ../server
+yarn build
+```
+
+**To build/run a deployment**, run:
+
+```bash
+# Builds the entire app/server and packages it together
+source deploy.zsh # Also clean installs dependencies using yarn
+yarn start # Runs a single server which serves the application and the API
+```
