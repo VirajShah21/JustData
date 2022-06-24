@@ -1,85 +1,70 @@
 # Design Guidelines
 
 - [Design Guidelines](#design-guidelines)
-  - [Title/Search Bar](#titlesearch-bar)
   - [Colors](#colors)
-    - [Primary Colors](#primary-colors)
-    - [Product Colors](#product-colors)
-      - [Just Securities](#just-securities)
-      - [Just Fugitives](#just-fugitives)
-      - [Just Search](#just-search)
-      - [Just Places](#just-places)
-
-## Title/Search Bar
-
-![Searchbar](searchbar.png)
-
-The brand button should be 50px by 50px. The search bar should also be 50px in height and consume all the horizontal space not taken up by any other elements.
+    - [Logo Colors](#logo-colors)
+    - [Universal Theme Colors](#universal-theme-colors)
+    - [Dark Theme Colors](#dark-theme-colors)
+    - [Light Theme Colors](#light-theme-colors)
+  - [Custom Elements](#custom-elements)
+    - [Button](#button)
+    - [Dropdown Menu](#dropdown-menu)
+    - [Input (Search Bar)](#input-search-bar)
 
 > Stuff about features bars should come here
 
 ## Colors
 
-### Primary Colors
+> _Note: Superscripts are used to indicate that the color belongs to a gradient color set._
 
-**Logo Border**
+### Logo Colors
 
--   <img src="https://via.placeholder.com/15/E34006/000000?text=+" /> `#E34006`
--   <img src="https://via.placeholder.com/15/6930F0/000000?text=+" /> `#6930F0`
+The following are the colors used in the Just Data logo.
 
-**Logo Text**
+|                              | Color                                                     | Hex       | RGB            |
+| ---------------------------- | --------------------------------------------------------- | --------- | -------------- |
+| **Logo Border** <sup>1</sup> | ![](https://www.thecolorapi.com/id?hex=E34006&format=svg) | `#E34006` | `227, 64, 6`   |
+| **Logo Border** <sup>2</sup> | ![](https://www.thecolorapi.com/id?hex=6930F0&format=svg) | `#6930F0` | `105, 48, 240` |
+| **Logo Text** <sup>1</sup>   | ![](https://www.thecolorapi.com/id?hex=FF634D&format=svg) | `#FF634D` | `255, 99, 77`  |
+| **Logo Text** <sup>2</sup>   | ![](https://www.thecolorapi.com/id?hex=612FFF&format=svg) | `#612FFF` | `97, 47, 255`  |
 
--   <img src="https://via.placeholder.com/15/FF634D/000000?text=+" /> `#FF634D`
--   <img src="https://via.placeholder.com/15/612FFF/000000?text=+" /> `#612FFF`
+For the full list of logo colors for each product, see [Product Logo Colors](product-logo-colors.md).
 
-**Gradients**
+### Universal Theme Colors
 
--   <img src="https://via.placeholder.com/15/CC208E/000000?text=+" /> `#CC208E`
--   <img src="https://via.placeholder.com/15/7F00FF/000000?text=+" /> `#7F00FF`
+|                                   | Color                                                     | Hex       | RGB            |
+| --------------------------------- | --------------------------------------------------------- | --------- | -------------- |
+| **Primary Gradient** <sup>1</sup> | ![](https://www.thecolorapi.com/id?hex=CC208E&format=svg) | `#CC208E` | `204, 32, 142` |
+| **Primary Gradient** <sup>2</sup> | ![](https://www.thecolorapi.com/id?hex=7F00FF&format=svg) | `#7F00FF` | `127, 0, 255`  |
 
-### Product Colors
+### Dark Theme Colors
 
-#### Just Securities
+|                          | Color                                                     | Hex       | RGB             |
+| ------------------------ | --------------------------------------------------------- | --------- | --------------- |
+| **Primary Text**         | ![](https://www.thecolorapi.com/id?hex=FFF&format=svg)    | `#FFF`    | `255, 255, 255` |
+| **Secondary Text**       | ![](https://www.thecolorapi.com/id?hex=808080&format=svg) | `#808080` | `128, 128, 128` |
+| **Primary Background**   | ![](https://www.thecolorapi.com/id?hex=000&format=svg)    | `#000`    | `0, 0, 0`       |
+| **Secondary Background** | ![](https://www.thecolorapi.com/id?hex=282828&format=svg) | `#282828` | `40, 40, 40`    |
 
-**Border**
+### Light Theme Colors
 
--   <img src="https://via.placeholder.com/15/1EB100/000000?text=+" /> `#1EB100`
--   <img src="https://via.placeholder.com/15/FFFFFF/000000?text=+" /> `#FFFFFF`
--   <img src="https://via.placeholder.com/15/ED230D/000000?text=+" /> `#ED230D`
+|                          | Color                                                     | Hex       | RGB             |
+| ------------------------ | --------------------------------------------------------- | --------- | --------------- |
+| **Primary Text**         | ![](https://www.thecolorapi.com/id?hex=000&format=svg)    | `#000`    | `0, 0, 0`       |
+| **Secondary Text**       | ![](https://www.thecolorapi.com/id?hex=808080&format=svg) | `#808080` | `128, 128, 128` |
+| **Primary Background**   | ![](https://www.thecolorapi.com/id?hex=FFF&format=svg)    | `#FFF`    | `255, 255, 255` |
+| **Secondary Background** | ![](https://www.thecolorapi.com/id?hex=F0F0F0&format=svg) | `#F0F0F0` | `240, 240, 240` |
 
-**Text**
+## Custom Elements
 
--   <img src="https://via.placeholder.com/15/60D838/000000?text=+" /> `#60D838`
--   <img src="https://via.placeholder.com/15/89F94F/000000?text=+" /> `#89F94F`
--   <img src="https://via.placeholder.com/15/047101/000000?text=+" /> `#047101`
--   <img src="https://via.placeholder.com/15/89F94F/000000?text=+" /> `#89F94F`
+### Button
 
-#### Just Fugitives
+![](<Button Component.png>)
 
-**Border**
+### Dropdown Menu
 
--   <img src="https://via.placeholder.com/15/E34006/000000?text=+" /> `#E34006`
--   <img src="https://via.placeholder.com/15/41B0F6/000000?text=+" /> `#41B0F6`
+> TODO
 
-**Text**
+### Input (Search Bar)
 
--   <img src="https://via.placeholder.com/15/FF634D/000000?text=+" /> `#FF634D`
--   <img src="https://via.placeholder.com/15/00A1FE/000000?text=+" /> `#00A1FE`
-
-#### Just Search
-
-**Border and Text**
-
--   <img src="https://via.placeholder.com/15/ED230D/000000?text=+" /> `#ED230D`
--   <img src="https://via.placeholder.com/15/FF9400/000000?text=+" /> `#FF9400`
--   <img src="https://via.placeholder.com/15/FFFC67/000000?text=+" /> `#FFFC67`
--   <img src="https://via.placeholder.com/15/89F94F/000000?text=+" /> `#89F94F`
--   <img src="https://via.placeholder.com/15/41B0F6/000000?text=+" /> `#41B0F6`
--   <img src="https://via.placeholder.com/15/8721FF/000000?text=+" /> `#8721FF`
-
-#### Just Places
-
--   <img src="https://via.placeholder.com/15/FE594D/000000?text=+" /> `#FE594D`
--   <img src="https://via.placeholder.com/15/FF8EC6/000000?text=+" /> `#FF8EC6`
--   <img src="https://via.placeholder.com/15/FDBE2E/000000?text=+" /> `#FDBE2E`
--   <img src="https://via.placeholder.com/15/FE594D/000000?text=+" /> `#FE594D`
+> TODO
