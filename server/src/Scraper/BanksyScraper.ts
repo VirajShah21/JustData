@@ -10,7 +10,7 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
 
     constructor(prompt: string) {
         super('https://craiyon.com');
-        this.prompt = prompt;
+        this.prompt = prompt.trim().toLowerCase();
     }
 
     static status(prompt: string): 'never' | 'working' | 'done' {
@@ -26,28 +26,15 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
 
     async scrape(): Promise<BanksyScraperResults | null> {
         Logger.debug('Scraping on Banksy');
-        await this.openTab();
 
+        await this.openTab();
         await this.runSearch();
 
         let images = await this.findImages();
 
-        if (images !== null) {
-            Logger.debug(`Found ${images.length} images`);
-        } else {
-            Logger.debug('Initial check found no images');
-        }
-
         while (images === null) {
-            Logger.debug('Waiting for images to load');
             await sleep(10000);
-            Logger.debug('Waking up thread');
             images = await this.findImages();
-            if (images !== null) {
-                Logger.debug(`Found ${images.length} images`);
-            } else {
-                Logger.debug('Found no images');
-            }
         }
 
         this.closeTab();
