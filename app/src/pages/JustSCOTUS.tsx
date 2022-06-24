@@ -1,4 +1,5 @@
-import { PlusIcon, XIcon } from '@primer/octicons-react';
+import { IonIcon } from '@ionic/react';
+import { addOutline, closeOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import Button from 'src/components/Button';
@@ -58,7 +59,7 @@ function JustSCOTUS() {
                                     ) as number[],
                                 )
                             }>
-                            <PlusIcon />
+                            <IonIcon icon={addOutline} />
                             Add Term
                         </Button>
                         <Button onClick={pullCases}>Pull Cases</Button>
@@ -96,7 +97,7 @@ function CaseTermBadge(props: { term: number; onRemove: () => void }) {
     return (
         <HStack className='case-term-badge' width='auto'>
             <Button className='case-term-remove-btn' onClick={props.onRemove}>
-                <XIcon />
+                <IonIcon icon={closeOutline} />
             </Button>
             <span className='case-term'>
                 {props.term} - {props.term + 1}

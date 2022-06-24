@@ -1,4 +1,5 @@
-import { LocationIcon } from '@primer/octicons-react';
+import { IonIcon } from '@ionic/react';
+import { locationOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import { HStack, Spacer, VStack } from 'reaction';
 import RatingComponent from 'src/components/RatingComponent';
@@ -60,7 +61,7 @@ function JustPlaces() {
                     placeholder='Where are you looking for it?'
                     onChange={e => setSearchLocation(e.target.value)}
                     onSearch={search}
-                    icon={<LocationIcon />}
+                    icon={<IonIcon icon={locationOutline} />}
                 />
             </TitleBar>
             {!showingResults && (

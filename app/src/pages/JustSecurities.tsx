@@ -1,4 +1,10 @@
-import { GraphIcon, InfoIcon, LightBulbIcon, NumberIcon } from '@primer/octicons-react';
+import { IonIcon } from '@ionic/react';
+import {
+    analytics,
+    cashOutline,
+    informationCircleOutline,
+    trendingUpOutline,
+} from 'ionicons/icons';
 import { useState } from 'react';
 import {
     AdvancedRealTimeChart,
@@ -101,25 +107,25 @@ function JustSecurities() {
             </TitleBar>
             <HStack>
                 <FeatureButton
-                    icon={<GraphIcon />}
+                    icon={<IonIcon icon={trendingUpOutline} />}
                     label='Charts'
                     onClick={() => setActiveFeature('chart')}
                     active={activeFeature === 'chart'}
                 />
                 <FeatureButton
-                    icon={<LightBulbIcon />}
+                    icon={<IonIcon icon={analytics} />}
                     label='Analysis'
                     onClick={() => setActiveFeature('analysis')}
                     active={activeFeature === 'analysis'}
                 />
                 <FeatureButton
-                    icon={<NumberIcon />}
+                    icon={<IonIcon icon={cashOutline} />}
                     label='Fundamentals'
                     onClick={() => setActiveFeature('fundamentals')}
                     active={activeFeature === 'fundamentals'}
                 />
                 <FeatureButton
-                    icon={<InfoIcon />}
+                    icon={<IonIcon icon={informationCircleOutline} />}
                     label='Company Profile'
                     onClick={() => setActiveFeature('profile')}
                     active={activeFeature === 'profile'}

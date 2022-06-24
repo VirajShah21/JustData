@@ -1,4 +1,5 @@
-import { XIcon } from '@primer/octicons-react';
+import { IonIcon } from '@ionic/react';
+import { closeOutline } from 'ionicons/icons';
 import { HStack, Spacer, VStack } from 'reaction';
 import './FugitiveProfile.css';
 
@@ -52,7 +53,7 @@ function FugitiveProfile(props: FullFugitiveData & { onClose: () => void }) {
         <VStack className='fugitive-profile' justify='start'>
             <HStack justify='start' className='fugitive-profile-titlebar'>
                 <button className='close-btn' onClick={() => props.onClose()}>
-                    <XIcon size={25} />
+                    <IonIcon icon={closeOutline} />
                 </button>
                 <div className='fugitive-profile-title'>Fugitive Profile</div>
             </HStack>
