@@ -27,11 +27,11 @@ import searchLogo from '../resources/images/icons/search.png';
 import './LandingPage.css';
 
 enum ProductCategoryRef {
+    WebSearch,
+    ArtificialIntelligence,
     FinancialMarkets,
     USIntelligence,
     CrimeAndJustice,
-    WebSearch,
-    ArtificialIntelligence,
 }
 
 interface ProductCategory {
