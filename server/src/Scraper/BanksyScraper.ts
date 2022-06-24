@@ -1,9 +1,11 @@
 import Logger from '../utils/Logger';
 import { sleep } from '../utils/TimeFunctions';
 import Scraper from './Scraper';
-import { ScrapedDocument } from './ScraperDatabase';
+import ScraperDatabase, { ScrapedDocument } from './ScraperDatabase';
 
 const scraping: Record<string, 'working' | BanksyScraperResults> = {};
+
+const banksyDatabase = new ScraperDatabase<BanksyScraperResults>('banksy-art');
 
 export default class BanksyScraper extends Scraper<BanksyScraperResults> {
     private prompt: string;
@@ -27,6 +29,12 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
     async scrape(): Promise<BanksyScraperResults | null> {
         Logger.debug('Scraping on Banksy');
 
+        const dbResult = await this.findInDatabase();
+        if (dbResult && dbResult.data.images.length >= 9) {
+            scraping[this.prompt] = dbResult.data;
+            return dbResult.data;
+        }
+
         await this.openTab();
         await this.runSearch();
 
@@ -45,6 +53,13 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
         };
 
         scraping[this.prompt] = result;
+        this.saveToDatabase(banksyDatabase, {
+            url: this.origin,
+            data: result,
+            expiration: {
+                years: 1,
+            },
+        });
 
         return result;
     }
@@ -82,9 +97,9 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
         });
     }
 
-    findInDatabase(): Promise<
-        ScrapedDocument<BanksyScraperResults> | ScrapedDocument<BanksyScraperResults>[] | null
-    > {
-        throw new Error('Method not implemented.');
+    async findInDatabase(): Promise<ScrapedDocument<BanksyScraperResults> | null> {
+        const result = await banksyDatabase.find({ prompt: { $eq: this.prompt } });
+        if (result) return result;
+        return null;
     }
 }
