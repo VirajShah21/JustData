@@ -50,6 +50,8 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
             }
         }
 
+        this.closeTab();
+
         const result = {
             prompt: this.prompt,
             images,
@@ -58,6 +60,13 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
         scraping[this.prompt] = result;
 
         return result;
+    }
+
+    static start(prompt: string) {
+        if (scraping[prompt] === 'working') return;
+        scraping[prompt] = 'working';
+        const scraper = new BanksyScraper(prompt);
+        scraper.scrape();
     }
 
     async findImages(): Promise<string[] | null> {

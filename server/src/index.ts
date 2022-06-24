@@ -112,18 +112,17 @@ app.get('/api/white-house/financial-disclosures', async (req, res) => {
 });
 
 app.get('/api/banksy', async (req, res) => {
-    const promptQuery = req.query.prompt as string;
+    const { prompt } = req.query as { prompt: string };
 
-    Logger.debug('Prompt: ' + promptQuery);
-    Logger.debug('Status: ' + BanksyScraper.status(promptQuery));
-    if (BanksyScraper.status(promptQuery) === 'working') {
+    Logger.debug('Prompt: ' + prompt);
+    Logger.debug('Status: ' + BanksyScraper.status(prompt));
+    if (BanksyScraper.status(prompt) === 'working') {
         res.send(null);
-    } else if (BanksyScraper.status(promptQuery) === 'never') {
-        const scraper = new BanksyScraper(promptQuery);
-        scraper.scrape();
+    } else if (BanksyScraper.status(prompt) === 'never') {
+        BanksyScraper.start(prompt);
         res.send(null);
     } else {
-        res.send(BanksyScraper.getResults(promptQuery));
+        res.send(BanksyScraper.getResults(prompt));
     }
 });
 
