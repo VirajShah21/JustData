@@ -1,6 +1,7 @@
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
+import BanksyScraper from './Scraper/BanksyScraper';
 import BingSearchScraper from './Scraper/BingSearchScraper';
 import {
     AllFugitivesScraper,
@@ -110,6 +111,21 @@ app.get('/api/white-house/financial-disclosures', async (req, res) => {
     res.send(await scraper.scrape());
 });
 
+app.get('/api/banksy', async (req, res) => {
+    const { prompt } = req.query as { prompt: string };
+
+    Logger.debug('Prompt: ' + prompt);
+    Logger.debug('Status: ' + BanksyScraper.status(prompt));
+    if (BanksyScraper.status(prompt) === 'working') {
+        res.send(null);
+    } else if (BanksyScraper.status(prompt) === 'never') {
+        BanksyScraper.start(prompt);
+        res.send(null);
+    } else {
+        res.send(BanksyScraper.getResults(prompt));
+    }
+});
+
 try {
     const indexHTML = fs.readFileSync(path.join(__dirname, 'web/index.html'));
     app.get('*', (_, res) => {
@@ -118,6 +134,9 @@ try {
 } catch (e) {
     Logger.warn('Running in dev environment without client-side.');
     Logger.info('To app in dev mode, use `yarn start` in `/app`');
+    app.get('/', (_, res) => {
+        res.send('Server is up and running');
+    });
 }
 
 app.listen(PORT, () => {
