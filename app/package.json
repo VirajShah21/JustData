@@ -5,7 +5,6 @@
     "type": "module",
     "dependencies": {
         "@ionic/react": "^6.1.11",
-        "@primer/octicons-react": "^17.1.0",
         "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "^13.2.0",
         "@testing-library/user-event": "^13.5.0",
