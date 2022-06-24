@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { sleep } from './TimingFunctions';
 
 const httpSuccess = 200;
 
@@ -138,5 +139,23 @@ class SERPKit {
     }
 }
 
+class BanksyKit {
+    static async getBanksy(prompt: string): Promise<BanksyScraperResults> {
+        const url = `${JustSDK.hostname}/api/banksy?prompt=${encodeURI(prompt)}`;
+        let response = await axios.get(url);
+        console.log('Status', response.status, 'data', response.data);
+        while (response.status === httpSuccess && response.data === '') {
+            console.log('Waiting 5 seconds for new result');
+            await sleep(5000);
+            response = await axios.get(url);
+            console.log('Status', response.status, 'data', response.data);
+        }
+
+        if (response.status === httpSuccess) return response.data;
+
+        throw new HTTPError(response.status);
+    }
+}
+
 export default JustSDK;
-export { FBIKit, PlacesKit, SCOTUSKit, SERPKit, SecuritiesKit };
+export { FBIKit, PlacesKit, SCOTUSKit, SERPKit, SecuritiesKit, BanksyKit };
