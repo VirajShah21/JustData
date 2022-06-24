@@ -1,6 +1,7 @@
 import {
     ArchiveIcon,
     BugIcon,
+    DependabotIcon,
     GearIcon,
     GraphIcon,
     LawIcon,
@@ -16,6 +17,7 @@ import DropdownMenu from 'src/components/DropdownMenu';
 import AppPreferences, { AppTheme } from 'src/utils/AppPreferences';
 import { ProductResult, ProductSectionTitle } from '../components/ProductComponents';
 import SearchBar from '../components/SearchBar';
+import justBanksyLogo from '../resources/images/icons/Just Banksy.png';
 import justFugitivesLogo from '../resources/images/icons/Just Fugitives.png';
 import justPlacesLogo from '../resources/images/icons/Just Places.png';
 import justSCOTUSLogo from '../resources/images/icons/Just SCOTUS.png';
@@ -29,6 +31,7 @@ enum ProductCategoryRef {
     USIntelligence,
     CrimeAndJustice,
     WebSearch,
+    ArtificialIntelligence,
 }
 
 interface ProductCategory {
@@ -53,6 +56,7 @@ const CATEGORY_REF_MAPPING = {
     [ProductCategoryRef.USIntelligence]: 'United States Intelligence',
     [ProductCategoryRef.CrimeAndJustice]: 'Crime and Justice',
     [ProductCategoryRef.WebSearch]: 'Web Search',
+    [ProductCategoryRef.ArtificialIntelligence]: 'Artificial Intelligence',
 };
 
 /**
@@ -110,6 +114,17 @@ const allProducts: ProductCategory[] = [
                 product: 'Just Places',
                 icon: justPlacesLogo,
                 url: 'places',
+            },
+        ],
+    },
+    {
+        category: ProductCategoryRef.ArtificialIntelligence,
+        icon: <DependabotIcon />,
+        products: [
+            {
+                product: 'Just Banksy',
+                icon: justBanksyLogo,
+                url: 'banksy',
             },
         ],
     },

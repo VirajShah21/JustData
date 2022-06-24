@@ -1,3 +1,4 @@
+import JustBanksy from './pages/JustBanksy';
 import JustFugitives from './pages/JustFugitives';
 import JustPlaces from './pages/JustPlaces';
 import JustSCOTUS from './pages/JustSCOTUS';
@@ -29,6 +30,8 @@ function getPage(pathname: string) {
             return <JustPlaces />;
         case '/scotus':
             return <JustSCOTUS />;
+        case '/banksy':
+            return <JustBanksy />;
         default:
             return <div>404</div>;
     }
