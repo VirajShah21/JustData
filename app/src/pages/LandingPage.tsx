@@ -1,15 +1,15 @@
 import { IonIcon } from '@ionic/react';
 import {
-    briefcaseOutline,
+    briefcase,
     bugOutline,
     closeOutline,
     cogOutline,
     helpOutline,
-    informationOutline,
+    information,
     logoGithub,
     logoIonitron,
-    searchOutline,
-    walletOutline,
+    search,
+    trendingUp,
 } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import { HStack, Spacer, VStack } from 'reaction';
@@ -70,7 +70,7 @@ const CATEGORY_REF_MAPPING = {
 const allProducts: ProductCategory[] = [
     {
         category: ProductCategoryRef.FinancialMarkets,
-        icon: <IonIcon icon={walletOutline} />,
+        icon: <IonIcon icon={trendingUp} />,
         products: [
             {
                 product: 'Just Securities',
@@ -81,14 +81,14 @@ const allProducts: ProductCategory[] = [
     },
     {
         category: ProductCategoryRef.USIntelligence,
-        icon: <IonIcon icon={informationOutline} />,
+        icon: <IonIcon icon={information} />,
         products: [
             /* CIA World Factbook */
         ],
     },
     {
         category: ProductCategoryRef.CrimeAndJustice,
-        icon: <IonIcon icon={briefcaseOutline} />,
+        icon: <IonIcon icon={briefcase} />,
         products: [
             {
                 product: 'Just Fugitives',
@@ -104,7 +104,7 @@ const allProducts: ProductCategory[] = [
     },
     {
         category: ProductCategoryRef.WebSearch,
-        icon: <IonIcon icon={searchOutline} />,
+        icon: <IonIcon icon={search} />,
         products: [
             {
                 product: 'Just Search',

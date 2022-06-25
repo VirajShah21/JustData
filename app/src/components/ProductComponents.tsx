@@ -7,7 +7,7 @@ import './ProductComponents.css';
  */
 function ProductSectionTitle(props: { icon: JSX.Element; label: string }) {
     return (
-        <HStack className='product-section-title' justify='start' width='100%'>
+        <HStack className='product-section-title' justify='start' align='center' width='100%'>
             <span className='product-section-icon'>{props.icon}</span>
             <span className='product-section-label'>{props.label}</span>
         </HStack>
