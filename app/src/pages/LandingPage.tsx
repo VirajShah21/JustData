@@ -1,15 +1,16 @@
+import { IonIcon } from '@ionic/react';
 import {
-    ArchiveIcon,
-    BugIcon,
-    DependabotIcon,
-    GearIcon,
-    GraphIcon,
-    LawIcon,
-    MarkGithubIcon,
-    QuestionIcon,
-    SearchIcon,
-    XIcon,
-} from '@primer/octicons-react';
+    briefcase,
+    bugOutline,
+    closeOutline,
+    cogOutline,
+    helpOutline,
+    information,
+    logoGithub,
+    logoIonitron,
+    search,
+    trendingUp,
+} from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import { HStack, Spacer, VStack } from 'reaction';
 import Button from 'src/components/Button';
@@ -69,7 +70,7 @@ const CATEGORY_REF_MAPPING = {
 const allProducts: ProductCategory[] = [
     {
         category: ProductCategoryRef.FinancialMarkets,
-        icon: <GraphIcon />,
+        icon: <IonIcon icon={trendingUp} />,
         products: [
             {
                 product: 'Just Securities',
@@ -80,14 +81,14 @@ const allProducts: ProductCategory[] = [
     },
     {
         category: ProductCategoryRef.USIntelligence,
-        icon: <ArchiveIcon />,
+        icon: <IonIcon icon={information} />,
         products: [
             /* CIA World Factbook */
         ],
     },
     {
         category: ProductCategoryRef.CrimeAndJustice,
-        icon: <LawIcon />,
+        icon: <IonIcon icon={briefcase} />,
         products: [
             {
                 product: 'Just Fugitives',
@@ -103,7 +104,7 @@ const allProducts: ProductCategory[] = [
     },
     {
         category: ProductCategoryRef.WebSearch,
-        icon: <SearchIcon />,
+        icon: <IonIcon icon={search} />,
         products: [
             {
                 product: 'Just Search',
@@ -119,7 +120,7 @@ const allProducts: ProductCategory[] = [
     },
     {
         category: ProductCategoryRef.ArtificialIntelligence,
-        icon: <DependabotIcon />,
+        icon: <IonIcon icon={logoIonitron} />,
         products: [
             {
                 product: 'Just Banksy',
@@ -244,22 +245,22 @@ function OptionsBar() {
             <PreferencesPopup open={prefsOpen} onClose={() => setPrefsOpen(false)} />
 
             <Button onClick={() => setPrefsOpen(true)}>
-                <GearIcon />
+                <IonIcon icon={cogOutline} />
                 &nbsp; Preferences
             </Button>
 
             <Button>
-                <QuestionIcon />
+                <IonIcon icon={helpOutline} />
                 &nbsp; Help
             </Button>
 
             <Button onClick={openGitHubRepo}>
-                <BugIcon />
+                <IonIcon icon={bugOutline} />
                 &nbsp; Report an Issue
             </Button>
 
             <Button onClick={openGitHubIssues}>
-                <MarkGithubIcon />
+                <IonIcon icon={logoGithub} />
                 &nbsp; View on GitHub
             </Button>
         </HStack>
@@ -295,7 +296,7 @@ function PreferencesPopup({ onClose, open }: PreferencesPopupProps) {
             <VStack className='preferences-popup' align='start'>
                 <HStack className='titlebar' justify='start'>
                     <Button className='close-button' onClick={() => onClose()}>
-                        <XIcon />
+                        <IonIcon icon={closeOutline} />
                     </Button>
                     <h2 className='title'>Preferences</h2>
                 </HStack>

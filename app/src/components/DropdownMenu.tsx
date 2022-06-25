@@ -1,4 +1,5 @@
-import { ChevronDownIcon } from '@primer/octicons-react';
+import { IonIcon } from '@ionic/react';
+import { chevronDown } from 'ionicons/icons';
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import './DropdownMenu.css';
@@ -35,7 +36,7 @@ function DropdownMenu(props: {
             <HStack className='dropdown-box' width='auto'>
                 <div className='value-label'>{selected.label}</div>
                 <div className='dropdown-chevron'>
-                    <ChevronDownIcon />
+                    <IonIcon icon={chevronDown} />
                 </div>
             </HStack>
             {showingDropdown && (

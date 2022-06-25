@@ -1,4 +1,5 @@
-import { DotIcon } from '@primer/octicons-react';
+import { IonIcon } from '@ionic/react';
+import { ellipsisHorizontalOutline } from 'ionicons/icons';
 import { HStack } from 'reaction';
 import ArrayUtils from '../utils/ArrayUtils';
 import './PaginationController.css';
@@ -37,7 +38,7 @@ function PaginationController(props: {
                         active={props.currentPage === 1}
                         onClick={props.onPageChange}
                     />
-                    <DotIcon fill='gray' />
+                    <IonIcon icon={ellipsisHorizontalOutline} color='gray' />
                 </>
             )}
 
@@ -51,7 +52,7 @@ function PaginationController(props: {
 
             {stop !== props.lastPage && (
                 <>
-                    <DotIcon fill='gray' />
+                    <IonIcon icon={ellipsisHorizontalOutline} color='gray' />
                     <PaginationControllerNumberButton
                         page={props.lastPage}
                         active={props.currentPage === props.lastPage}
