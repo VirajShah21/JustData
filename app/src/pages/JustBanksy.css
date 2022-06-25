@@ -1,3 +1,7 @@
 .just-banksy .results {
     flex-wrap: wrap;
 }
+
+.just-banksy .background {
+    width: 100%;
+}
