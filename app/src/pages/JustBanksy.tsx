@@ -48,9 +48,9 @@ export default function JustBanksy() {
                     }}
                 />
 
-                <VStack grow={1} justify='center'>
+                <VStack grow={1} justify='start'>
                     {isSearching && <div>Searching for "{prompt}"</div>}
-                    {!isSearching && renderResults.length === 0 && (
+                    {!isSearching && results === null && (
                         <img src={background} alt='Banksy Background' className='background' />
                     )}
                     <HStack className='results'>{renderResults()}</HStack>
