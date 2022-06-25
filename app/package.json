@@ -18,7 +18,7 @@
         "react-dom": "^18.1.0",
         "react-scripts": "5.0.1",
         "react-ts-tradingview-widgets": "https://github.com/VirajShah21/react-ts-tradingview-widgets.git",
-        "reaction": "https://github.com/VirajShah21/Reaction",
+        "reaction": "https://github.com/VirajShah21/reaction",
         "typescript": "^4.6.4",
         "web-vitals": "^2.1.4"
     },

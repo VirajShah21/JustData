@@ -7251,9 +7251,9 @@ react@^18.1.0:
   dependencies:
     loose-envify "^1.1.0"
 
-"reaction@https://github.com/VirajShah21/Reaction":
+"reaction@https://github.com/VirajShah21/reaction":
   version "0.0.1"
-  resolved "https://github.com/VirajShah21/Reaction#a592aad1c20d3167a974e545ac729a6596a89791"
+  resolved "https://github.com/VirajShah21/reaction#f07146b2605742ce8ee4dd421a5b3cdcba755ad4"
 
 readable-stream@^2.0.1:
   version "2.3.7"
