@@ -1,10 +1,4 @@
-import { IonIcon } from '@ionic/react';
-import {
-    analytics,
-    cashOutline,
-    informationCircleOutline,
-    trendingUpOutline,
-} from 'ionicons/icons';
+import { analytics, cash, informationCircle, trendingUp } from 'ionicons/icons';
 import { useState } from 'react';
 import {
     AdvancedRealTimeChart,
@@ -13,10 +7,10 @@ import {
     TechnicalAnalysis,
 } from 'react-ts-tradingview-widgets';
 import { HStack, Spacer, VStack } from 'reaction';
-import TitleBar from 'src/components/TitleBar';
+import Sidebar, { SidebarNavigationButton } from 'src/components/Sidebar';
 import { useTitle } from 'src/HTMLHead';
+import logo from 'src/resources/images/icons/Just Securities.png';
 import { SecuritiesKit } from 'src/utils/JustSDK';
-import FeatureButton from '../components/FeatureButton';
 import SearchBar from '../components/SearchBar';
 import './JustSecurities.css';
 
@@ -97,42 +91,43 @@ function JustSecurities() {
     useTitle('Just Securities');
 
     return (
-        <VStack width='100%' id='just-stocks'>
-            <TitleBar>
+        <HStack height='100%'>
+            <Sidebar logo={logo}>
+                <SidebarNavigationButton
+                    ionicon={trendingUp}
+                    label='Charts'
+                    onClick={() => setActiveFeature('chart')}
+                    active={activeFeature === 'chart'}
+                />
+                <SidebarNavigationButton
+                    ionicon={analytics}
+                    label='Analysis'
+                    onClick={() => setActiveFeature('analysis')}
+                    active={activeFeature === 'analysis'}
+                />
+                <SidebarNavigationButton
+                    ionicon={cash}
+                    label='Fundamentals'
+                    onClick={() => setActiveFeature('fundamentals')}
+                    active={activeFeature === 'fundamentals'}
+                />
+                <SidebarNavigationButton
+                    ionicon={informationCircle}
+                    label='Company Profile'
+                    onClick={() => setActiveFeature('profile')}
+                    active={activeFeature === 'profile'}
+                />
+            </Sidebar>
+            <VStack width='100%' id='just-stocks'>
                 <StockSearchBar
                     onSearch={t => {
                         setTicker(t);
                     }}
                 />
-            </TitleBar>
-            <HStack>
-                <FeatureButton
-                    icon={<IonIcon icon={trendingUpOutline} />}
-                    label='Charts'
-                    onClick={() => setActiveFeature('chart')}
-                    active={activeFeature === 'chart'}
-                />
-                <FeatureButton
-                    icon={<IonIcon icon={analytics} />}
-                    label='Analysis'
-                    onClick={() => setActiveFeature('analysis')}
-                    active={activeFeature === 'analysis'}
-                />
-                <FeatureButton
-                    icon={<IonIcon icon={cashOutline} />}
-                    label='Fundamentals'
-                    onClick={() => setActiveFeature('fundamentals')}
-                    active={activeFeature === 'fundamentals'}
-                />
-                <FeatureButton
-                    icon={<IonIcon icon={informationCircleOutline} />}
-                    label='Company Profile'
-                    onClick={() => setActiveFeature('profile')}
-                    active={activeFeature === 'profile'}
-                />
-            </HStack>
-            {getActiveFeature(activeFeature, ticker)}
-        </VStack>
+
+                {getActiveFeature(activeFeature, ticker)}
+            </VStack>
+        </HStack>
     );
 }
 

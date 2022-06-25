@@ -11,6 +11,8 @@ import { PlacesKit } from 'src/utils/JustSDK';
 import justPlacesPlaceholder from '../resources/images/backgrounds/places.png';
 import yellowPagesIcon from '../resources/images/icons/yellow pages.png';
 import './JustPlaces.css';
+import logo from 'src/resources/images/icons/Just Places.png';
+import Sidebar from 'src/components/Sidebar';
 
 interface BusinessAgeBadgeProps {
     age: number;
@@ -48,33 +50,37 @@ function JustPlaces() {
     }
 
     return (
-        <VStack className='just-places' justify='start'>
-            <TitleBar>
-                <SearchBar
-                    value={searchQuery}
-                    placeholder='What are you looking for?'
-                    onChange={e => setSearchQuery(e.target.value)}
-                    searchDisabled
-                />
-                <SearchBar
-                    value={searchLocation}
-                    placeholder='Where are you looking for it?'
-                    onChange={e => setSearchLocation(e.target.value)}
-                    onSearch={search}
-                    icon={<IonIcon icon={locationOutline} />}
-                />
-            </TitleBar>
-            {!showingResults && (
-                <img
-                    src={justPlacesPlaceholder}
-                    alt='Just Places'
-                    className='just-places-placeholder'
-                />
-            )}
-            <VStack justify='start' align='start' className='search-results'>
-                {showingResults && results.map(result => <PlaceSearchResult {...result} />)}
+        <HStack height='100%'>
+            <Sidebar logo={logo}></Sidebar>
+            <VStack className='just-places' justify='start' width='100%'>
+                <HStack>
+                    <SearchBar
+                        value={searchQuery}
+                        placeholder='What are you looking for?'
+                        onChange={e => setSearchQuery(e.target.value)}
+                        searchDisabled
+                    />
+                    <SearchBar
+                        value={searchLocation}
+                        placeholder='Where are you looking for it?'
+                        onChange={e => setSearchLocation(e.target.value)}
+                        onSearch={search}
+                        icon={<IonIcon icon={locationOutline} />}
+                    />
+                </HStack>
+
+                {!showingResults && (
+                    <img
+                        src={justPlacesPlaceholder}
+                        alt='Just Places'
+                        className='just-places-placeholder'
+                    />
+                )}
+                <VStack justify='start' align='start' className='search-results'>
+                    {showingResults && results.map(result => <PlaceSearchResult {...result} />)}
+                </VStack>
             </VStack>
-        </VStack>
+        </HStack>
     );
 }
 
