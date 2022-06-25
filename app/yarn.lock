@@ -7253,7 +7253,7 @@ react@^18.1.0:
 
 "reaction@https://github.com/VirajShah21/reaction":
   version "0.0.1"
-  resolved "https://github.com/VirajShah21/reaction#f07146b2605742ce8ee4dd421a5b3cdcba755ad4"
+  resolved "https://github.com/VirajShah21/reaction#f468b2d97da7da5ba027902d324656be8638d809"
 
 readable-stream@^2.0.1:
   version "2.3.7"
