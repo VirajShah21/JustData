@@ -39,7 +39,7 @@ export default function JustBanksy() {
     return (
         <HStack height='100%'>
             <Sidebar logo={logo} />
-            <VStack justify='start' className='just-banksy' width='100%'>
+            <VStack justify='start' className='just-banksy' width='100%' scroll='vertical'>
                 <SearchBar
                     placeholder='Enter an Image Prompt'
                     onChange={e => setPrompt(e.target.value)}

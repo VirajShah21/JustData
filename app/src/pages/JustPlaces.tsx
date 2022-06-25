@@ -52,7 +52,7 @@ function JustPlaces() {
     return (
         <HStack height='100%'>
             <Sidebar logo={logo}></Sidebar>
-            <VStack className='just-places' justify='start' width='100%'>
+            <VStack className='just-places' justify='start' width='100%' scroll='vertical'>
                 <HStack>
                     <SearchBar
                         value={searchQuery}
