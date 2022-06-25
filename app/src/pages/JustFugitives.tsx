@@ -3,10 +3,13 @@ import { HStack, VStack } from 'reaction';
 import FeatureButton from 'src/components/FeatureButton';
 import PaginationController from 'src/components/PaginationController';
 import SearchBar from 'src/components/SearchBar';
+import Sidebar, { SidebarNavigationButton } from 'src/components/Sidebar';
 import TitleBar from 'src/components/TitleBar';
 import { useTitle } from 'src/HTMLHead';
 import { FBIKit } from 'src/utils/JustSDK';
 import './JustFugitives.css';
+import logo from 'src/resources/images/icons/Just Fugitives.png';
+import { list, skull, skullOutline } from 'ionicons/icons';
 
 // TODO: Add ability to view full profile
 
@@ -47,32 +50,37 @@ function JustFugitives() {
     useTitle('Just Fugitives');
 
     return (
-        <VStack width='100%' justify='start' className='fbi-most-wanted-page'>
-            <TitleBar>
-                <SearchBar />
-            </TitleBar>
-            <HStack className='features-bar'>
-                <FeatureButton
+        <HStack height='100%'>
+            <Sidebar logo={logo}>
+                <SidebarNavigationButton
+                    ionicon={list}
                     label='Ten Most Wanted Fugitives'
                     onClick={() => setFeature(features.tenMostWanted)}
                     active={feature === features.tenMostWanted}
                 />
-                <FeatureButton
+                <SidebarNavigationButton
+                    ionicon={skullOutline}
                     label='Fugitives'
                     onClick={() => setFeature(features.allFugitives)}
                     active={feature === features.allFugitives}
                 />
-                {/* <FeatureButton
+            </Sidebar>
+            <VStack width='100%' justify='start' className='fbi-most-wanted-page'>
+                <SearchBar />
+
+                <HStack className='features-bar'>
+                    {/* <FeatureButton
                     label='Capitol Violence'
                     onClick={() => setFeature(features.capitolViolence)}
                     active={feature === features.capitolViolence}
                 /> */}
-            </HStack>
-            <HStack className='feature-container'>
-                {feature === features.tenMostWanted && <TenMostWantedList />}
-                {feature === features.allFugitives && <AllFugitivesList />}
-            </HStack>
-        </VStack>
+                </HStack>
+                <HStack className='feature-container'>
+                    {feature === features.tenMostWanted && <TenMostWantedList />}
+                    {feature === features.allFugitives && <AllFugitivesList />}
+                </HStack>
+            </VStack>
+        </HStack>
     );
 }
 

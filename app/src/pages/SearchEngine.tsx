@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { VStack } from 'reaction';
+import { HStack, VStack } from 'reaction';
 import SearchBar from 'src/components/SearchBar';
 import SearchResult from 'src/components/SearchResult';
-import TitleBar from 'src/components/TitleBar';
+import Sidebar from 'src/components/Sidebar';
 import { useTitle } from 'src/HTMLHead';
+import logo from 'src/resources/images/icons/search.png';
 import { SERPKit } from 'src/utils/JustSDK';
 import background from '../resources/images/backgrounds/search.png';
 import './SearchEngine.css';
@@ -31,24 +32,26 @@ function SearchEngine() {
     }
 
     return (
-        <VStack justify='start' className='search-engine'>
-            <TitleBar>
+        <HStack height='100%'>
+            <Sidebar logo={logo}></Sidebar>
+            <VStack justify='start' className='search-engine' width='100%'>
                 <SearchBar
                     value={searchValue}
                     placeholder='Search the Web'
                     onChange={e => setSearchValue(e.target.value)}
                     onSearch={search}
                 />
-            </TitleBar>
-            {!showingResults && (
-                <img src={background} alt='Search Placeholder' className='search-placeholder' />
-            )}
-            {showingResults && (
-                <VStack className='search-results' align='start' justify='start'>
-                    {results.map(EngineResult)}
-                </VStack>
-            )}
-        </VStack>
+
+                {!showingResults && (
+                    <img src={background} alt='Search Placeholder' className='search-placeholder' />
+                )}
+                {showingResults && (
+                    <VStack className='search-results' align='start' justify='start'>
+                        {results.map(EngineResult)}
+                    </VStack>
+                )}
+            </VStack>
+        </HStack>
     );
 }
 

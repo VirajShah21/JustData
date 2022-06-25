@@ -4,7 +4,7 @@
     "private": true,
     "type": "module",
     "dependencies": {
-        "@primer/octicons-react": "^17.1.0",
+        "@ionic/react": "^6.1.11",
         "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "^13.2.0",
         "@testing-library/user-event": "^13.5.0",
@@ -13,11 +13,12 @@
         "@types/react": "^18.0.9",
         "@types/react-dom": "^18.0.3",
         "axios": "^0.27.2",
+        "ionicons": "^6.0.2",
         "react": "^18.1.0",
         "react-dom": "^18.1.0",
         "react-scripts": "5.0.1",
         "react-ts-tradingview-widgets": "https://github.com/VirajShah21/react-ts-tradingview-widgets.git",
-        "reaction": "https://github.com/VirajShah21/Reaction",
+        "reaction": "https://github.com/VirajShah21/reaction",
         "typescript": "^4.6.4",
         "web-vitals": "^2.1.4"
     },

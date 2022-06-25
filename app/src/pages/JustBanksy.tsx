@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import SearchBar from 'src/components/SearchBar';
-import TitleBar from 'src/components/TitleBar';
+import Sidebar from 'src/components/Sidebar';
+import logo from 'src/resources/images/icons/Just Banksy.png';
 import { BanksyKit } from 'src/utils/JustSDK';
 import './JustBanksy.css';
+import background from 'src/resources/images/backgrounds/banksy.png';
 
 export default function JustBanksy() {
     const [prompt, setPrompt] = useState('');
@@ -35,8 +37,9 @@ export default function JustBanksy() {
     }
 
     return (
-        <VStack justify='start' className='just-banksy'>
-            <TitleBar>
+        <HStack height='100%'>
+            <Sidebar logo={logo} />
+            <VStack justify='start' className='just-banksy' width='100%' scroll='vertical'>
                 <SearchBar
                     placeholder='Enter an Image Prompt'
                     onChange={e => setPrompt(e.target.value)}
@@ -44,11 +47,15 @@ export default function JustBanksy() {
                         runSearch();
                     }}
                 />
-            </TitleBar>
-            <VStack grow={1} justify='center'>
-                {isSearching && <div>Searching for "{prompt}"</div>}
-                <HStack className='results'>{renderResults()}</HStack>
+
+                <VStack grow={1} justify='start'>
+                    {isSearching && <div>Searching for "{prompt}"</div>}
+                    {!isSearching && results === null && (
+                        <img src={background} alt='Banksy Background' className='background' />
+                    )}
+                    <HStack className='results'>{renderResults()}</HStack>
+                </VStack>
             </VStack>
-        </VStack>
+        </HStack>
     );
 }

@@ -1,4 +1,5 @@
-import { SearchIcon, ArrowRightIcon } from '@primer/octicons-react';
+import { IonIcon } from '@ionic/react';
+import { searchOutline, arrowForwardOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import './SearchBar.css';
@@ -41,7 +42,9 @@ function SearchBar(props: {
     return (
         <div className='search-bar-container'>
             <HStack className='search-bar'>
-                <span className='search-icon-wrapper'>{props.icon ?? <SearchIcon />}</span>
+                <span className='search-icon-wrapper'>
+                    {props.icon ?? <IonIcon icon={searchOutline} />}
+                </span>
                 <input
                     type='text'
                     value={props.value}
@@ -61,7 +64,7 @@ function SearchBar(props: {
                         onClick={() => {
                             props.onSearch?.(props.value ?? '');
                         }}>
-                        <ArrowRightIcon size={25} />
+                        <IonIcon icon={arrowForwardOutline} />
                     </button>
                 )}
             </HStack>
