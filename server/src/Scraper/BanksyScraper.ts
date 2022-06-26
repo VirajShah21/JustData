@@ -48,8 +48,14 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
      * ready to be served.
      */
     static status(prompt: string): 'never' | 'working' | 'done' {
-        if (scraping[prompt] === undefined) return 'never';
-        if (scraping[prompt] === 'working') return 'working';
+        if (scraping[prompt] === undefined) {
+            return 'never';
+        }
+
+        if (scraping[prompt] === 'working') {
+            return 'working';
+        }
+
         return 'done';
     }
 
@@ -60,7 +66,10 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
      * @returns Reutrns the results object if they are available, otherwise `null` is returned.
      */
     static getResults(prompt: string): BanksyScraperResults | null {
-        if (typeof scraping[prompt] === 'object') return scraping[prompt] as BanksyScraperResults;
+        if (typeof scraping[prompt] === 'object') {
+            return scraping[prompt] as BanksyScraperResults;
+        }
+
         return null;
     }
 
@@ -134,7 +143,10 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
      * @param prompt - The prompt to scrape for.
      */
     static start(prompt: string) {
-        if (scraping[prompt] === 'working') return;
+        if (scraping[prompt] === 'working') {
+            return;
+        }
+
         scraping[prompt] = 'working';
         const scraper = new BanksyScraper(prompt);
         scraper.scrape();
@@ -154,7 +166,11 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
         if (this.tab === null) return null;
         return await this.tab!.evaluate(() => {
             let isLoading = document.body.textContent?.includes('This should not take long');
-            if (isLoading) return null;
+
+            if (isLoading) {
+                return null;
+            }
+
             return Array.from(document.getElementsByClassName('hover:ring-orange-400')).map(img =>
                 img.getAttribute('src'),
             ) as string[];
@@ -172,7 +188,9 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
             console.log('Found input', promptInput);
             promptInput.focus();
         });
+
         await this.tab!.keyboard.type(this.prompt);
+
         await this.tab!.evaluate(() => {
             const submitButton = Array.from(document.querySelectorAll('button')).find(
                 btn => btn.textContent?.trim().toLowerCase() === 'draw',
@@ -190,7 +208,11 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
      */
     async findInDatabase(): Promise<ScrapedDocument<BanksyScraperResults> | null> {
         const result = await banksyDatabase.find({ prompt: { $eq: this.prompt } });
-        if (result) return result;
+
+        if (result) {
+            return result;
+        }
+
         return null;
     }
 }

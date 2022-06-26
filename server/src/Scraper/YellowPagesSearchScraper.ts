@@ -100,7 +100,9 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSERP> {
             const streetContainer = addressContainer.querySelector('.street-address');
             const localityContainer = addressContainer.querySelector('.locality');
 
-            if (streetContainer) street = streetContainer.textContent;
+            if (streetContainer) {
+                street = streetContainer.textContent;
+            }
 
             if (localityContainer) {
                 const localityCommaSplit = localityContainer.textContent.split(',');
@@ -160,10 +162,15 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSERP> {
                         .find(cn => ['zero', 'one', 'two', 'three', 'four', 'five'].includes(cn)) +
                         ''
                 ];
+
             const halfRating = ypRatingContainer.classNames.split(' ').includes('half');
+
             if (wholeRating) {
-                if (halfRating) yellowPages = wholeRating + PARTIAL_RATING;
-                else yellowPages = wholeRating;
+                if (halfRating) {
+                    yellowPages = wholeRating + PARTIAL_RATING;
+                } else {
+                    yellowPages = wholeRating;
+                }
             }
         }
         if (taRatingContainer) {

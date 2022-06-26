@@ -28,20 +28,28 @@ class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
      */
     override async scrape(): Promise<StockTickerScraperResponse | null> {
         const inDatabase = await this.findInDatabase();
-        if (inDatabase) return inDatabase.data;
+        if (inDatabase) {
+            return inDatabase.data;
+        }
 
         await this.openTab();
 
         const table = await this.select('.lookup-table');
-        if (table.length === 0) return null;
+        if (table.length === 0) {
+            return null;
+        }
 
         this.closeTab();
 
         const tbody = table[0].querySelector('tbody');
-        if (!tbody) return null;
+        if (!tbody) {
+            return null;
+        }
 
         const rows = tbody.querySelectorAll('tr');
-        if (rows.length === 0) return null;
+        if (rows.length === 0) {
+            return null;
+        }
 
         const response = {
             query: this.query,

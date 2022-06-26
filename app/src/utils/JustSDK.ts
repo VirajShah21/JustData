@@ -16,6 +16,7 @@ class HTTPError extends Error {
     constructor(status: number) {
         super(`HTTP error: ${status}`);
         this.name = 'HTTPError';
+
         if (status === httpSuccess) {
             throw new Error('HTTPError: HTTP status code 200 is a success code.');
         }
@@ -44,8 +45,12 @@ class FBIKit {
      */
     static async requestTenMostWantedFugitives(): Promise<SimpleFugitiveData[]> {
         const response = await axios.get(`${JustSDK.hostname}/api/fbi/ten-most-wanted`);
-        if (response.status === httpSuccess) return response.data;
-        else throw new HTTPError(response.status);
+
+        if (response.status === httpSuccess) {
+            return response.data;
+        } else {
+            throw new HTTPError(response.status);
+        }
     }
 
     /**
@@ -54,8 +59,12 @@ class FBIKit {
      */
     static async requestAllFugitives(): Promise<FullFugitiveData[]> {
         const response = await axios.get(`${JustSDK.hostname}/api/fbi/all-fugitives`);
-        if (response.status === httpSuccess) return response.data;
-        else throw new HTTPError(response.status);
+
+        if (response.status === httpSuccess) {
+            return response.data;
+        } else {
+            throw new HTTPError(response.status);
+        }
     }
 }
 
@@ -74,8 +83,11 @@ class PlacesKit {
             `${JustSDK.hostname}/api/business/search?q=${query}&location=${location}`,
         );
 
-        if (response.status === httpSuccess) return response.data;
-        else throw new HTTPError(response.status);
+        if (response.status === httpSuccess) {
+            return response.data;
+        } else {
+            throw new HTTPError(response.status);
+        }
     }
 }
 
@@ -117,8 +129,11 @@ class SecuritiesKit {
             `${JustSDK.hostname}/api/stocks/ticker-search?q=${encodeURI(query)}`,
         );
 
-        if (response.status === httpSuccess) return response.data;
-        else throw new HTTPError(response.status);
+        if (response.status === httpSuccess) {
+            return response.data;
+        } else {
+            throw new HTTPError(response.status);
+        }
     }
 }
 
@@ -134,8 +149,12 @@ class SERPKit {
      */
     static async bing(query: string): Promise<BingSearchResults> {
         const response = await axios.get(`${JustSDK.hostname}/api/serp?q=${encodeURI(query)}`);
-        if (response.status === httpSuccess) return response.data;
-        else throw new HTTPError(response.status);
+
+        if (response.status === httpSuccess) {
+            return response.data;
+        } else {
+            throw new HTTPError(response.status);
+        }
     }
 }
 
@@ -151,7 +170,9 @@ class BanksyKit {
             console.log('Status', response.status, 'data', response.data);
         }
 
-        if (response.status === httpSuccess) return response.data;
+        if (response.status === httpSuccess) {
+            return response.data;
+        }
 
         throw new HTTPError(response.status);
     }

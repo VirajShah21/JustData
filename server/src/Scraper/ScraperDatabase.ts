@@ -141,13 +141,33 @@ class ScraperDatabase<T> {
     static lifespan(expiration: ScrapedDocumentExpiration): [number, number] {
         let delta = 0; // Time frmo now to expiration
 
-        if (expiration.seconds) delta += expiration.seconds * SEC_TO_MS;
-        if (expiration.minutes) delta += expiration.minutes * MIN_TO_MS;
-        if (expiration.hours) delta += expiration.hours * HOUR_TO_MS;
-        if (expiration.days) delta += expiration.days * DAY_TO_MS;
-        if (expiration.weeks) delta += expiration.weeks * WEEK_TO_MS;
-        if (expiration.months) delta += expiration.months * MONTH_TO_MS;
-        if (expiration.years) delta += expiration.years * YEAR_TO_MS;
+        if (expiration.seconds) {
+            delta += expiration.seconds * SEC_TO_MS;
+        }
+
+        if (expiration.minutes) {
+            delta += expiration.minutes * MIN_TO_MS;
+        }
+
+        if (expiration.hours) {
+            delta += expiration.hours * HOUR_TO_MS;
+        }
+
+        if (expiration.days) {
+            delta += expiration.days * DAY_TO_MS;
+        }
+
+        if (expiration.weeks) {
+            delta += expiration.weeks * WEEK_TO_MS;
+        }
+
+        if (expiration.months) {
+            delta += expiration.months * MONTH_TO_MS;
+        }
+
+        if (expiration.years) {
+            delta += expiration.years * YEAR_TO_MS;
+        }
 
         const now = Date.now();
 
