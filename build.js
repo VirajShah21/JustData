@@ -31,7 +31,8 @@ const clientDir = { cwd: './app' };
 const serverDir = { cwd: './server' };
 
 exec('which tsc', (_, __, stdout) => {
-    if (stdout.includes('tsc not found')) {
+    // Left side is for zsh right side is for bash
+    if (stdout.includes('tsc not found') || stdout.trim() === '') {
         console.warn('⚠️ tsc not found');
         console.warn('🛠 Globally installing tsc');
         exec('npm install -g typescript', () => {
