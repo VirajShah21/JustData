@@ -91,10 +91,13 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
      * which contains images encoded in a Data URI scheme.
      */
     async scrape(): Promise<BanksyScraperResults | null> {
+        const loadingWaitDelay = 5000;
+        const craiyonResultSize = 9;
+
         Logger.debug('Scraping on Banksy');
 
         const dbResult = await this.findInDatabase();
-        if (dbResult && dbResult.data.images.length >= 9) {
+        if (dbResult && dbResult.data.images.length >= craiyonResultSize) {
             scraping[this.prompt] = dbResult.data;
             return dbResult.data;
         }
@@ -105,7 +108,7 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
         let images = await this.findImages();
 
         while (images === null) {
-            await sleep(5000);
+            await sleep(loadingWaitDelay);
             images = await this.findImages();
         }
 

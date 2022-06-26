@@ -69,10 +69,12 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData> {
     }
 
     async findInDatabase(): Promise<ScrapedDocument<SimpleFugitiveData>[] | null> {
+        const exactResultSize = 10;
+
         const results = await tenMostWantedDatabase.findAll({});
         const now = Date.now();
 
-        if (results.length !== 10) {
+        if (results.length !== exactResultSize) {
             return null;
         }
 
