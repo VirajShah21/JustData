@@ -14,7 +14,7 @@ function handleErrors(err, stderr) {
 
     if (stderr.length > 0) {
         console.warn('⚠️ Something was written to stderr');
-        throw stderr;
+        console.error(stderr);
     }
 }
 
