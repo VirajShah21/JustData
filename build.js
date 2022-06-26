@@ -31,7 +31,7 @@ function build() {
     const clientDir = { cwd: './app' };
     const serverDir = { cwd: './server' };
 
-    exec('yarn install --production', clientDir, (installErr, installStdout, installStderr) => {
+    exec('yarn', clientDir, (installErr, installStdout, installStderr) => {
         handleErrors(installErr, installStderr);
         finished('Installing dependences for the client');
 
@@ -41,7 +41,7 @@ function build() {
         });
     });
 
-    exec('yarn install --production', serverDir, (installErr, installStdout, installStderr) => {
+    exec('yarn', serverDir, (installErr, installStdout, installStderr) => {
         handleErrors(installErr, installStderr);
         finished('Installing dependences for the server');
 
