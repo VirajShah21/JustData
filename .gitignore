@@ -106,5 +106,5 @@ dist
 # MacOS
 .DS_Store
 
-caches
-deployments
+# ReactJS built files
+build
