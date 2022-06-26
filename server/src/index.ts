@@ -1,4 +1,5 @@
 import express from 'express';
+import https from 'https';
 import path from 'path';
 import BanksyScraper from './Scraper/BanksyScraper';
 import BingSearchScraper from './Scraper/BingSearchScraper';
@@ -123,10 +124,17 @@ app.get('/api/banksy', async (req, res) => {
     }
 });
 
-app.get('*', (_, res) => {
+app.get('/*', (_, res) => {
     res.sendFile(path.resolve(__dirname, '../../app/build/index.html'));
 });
 
-app.listen(PORT, () => {
-    Logger.info(`Server listening on port ${PORT}`);
-});
+if (PORT === DEV_PORT) {
+    // On dev port, we are using HTTP
+    app.listen(PORT, () => {
+        Logger.info(`Server started at http://localhost:${PORT}`);
+    });
+} else {
+    https.createServer(app).listen(PORT, () => {
+        Logger.info(`Server started at https://just-data.onrender.com`);
+    });
+}
