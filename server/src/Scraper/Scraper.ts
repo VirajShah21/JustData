@@ -42,7 +42,10 @@ abstract class Scraper<R> implements IScraper<R> {
      * resolves.
      */
     protected async openTab() {
-        if (this.tab) this.tab.close();
+        if (this.tab) {
+            this.tab.close();
+        }
+
         this.tab = await ScrapeUtils.getPage(this.origin);
     }
 

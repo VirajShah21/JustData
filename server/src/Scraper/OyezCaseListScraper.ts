@@ -19,8 +19,11 @@ class OyezCaseListScraper extends Scraper<OyezCaseListItem> {
      */
     constructor(termStarts: number[]) {
         Logger.debug('Initializing scraper with terms: ' + termStarts);
-        if (termStarts.length === 0)
+
+        if (termStarts.length === 0) {
             throw new Error('At least one value for termStart must be provided');
+        }
+
         super('');
         this.termStarts = termStarts;
     }
@@ -156,8 +159,7 @@ class OyezTermCaseListScraper extends Scraper<OyezCaseListItem> {
 
     async findInDatabase() {
         const results = await caseListDatabase.findAll({ term: this.termStart });
-        if (results.length === 0) return null;
-        return results;
+        return results.length > 0 ? results : null;
     }
 }
 

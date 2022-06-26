@@ -31,8 +31,12 @@ function SearchEngine() {
     async function search() {
         setLoading(true);
         setResults((await SERPKit.bing(searchValue)).results);
+      
         setLoading(false);
-        if (!showingResults) setShowingResults(true);
+
+        if (!showingResults) {
+            setShowingResults(true);
+        }
     }
 
     return (
@@ -51,6 +55,7 @@ function SearchEngine() {
                 {!showingResults && (
                     <img src={background} alt='Search Placeholder' className='search-placeholder' />
                 )}
+
                 {showingResults && (
                     <VStack className='search-results' align='start' justify='start'>
                         {results.map(EngineResult)}

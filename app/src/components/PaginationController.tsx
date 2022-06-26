@@ -23,11 +23,15 @@ function PaginationController(props: {
     let start = 1;
     let stop: number;
 
-    if (props.currentPage > MAX_PAGES_TO_SHOW - MIN_PREVIOUS_PAGES_TO_SHOW)
+    if (props.currentPage > MAX_PAGES_TO_SHOW - MIN_PREVIOUS_PAGES_TO_SHOW) {
         start = props.currentPage - MIN_PREVIOUS_PAGES_TO_SHOW;
-    if (props.currentPage + MAX_PAGES_TO_SHOW < props.lastPage)
+    }
+
+    if (props.currentPage + MAX_PAGES_TO_SHOW < props.lastPage) {
         stop = start + MAX_PAGES_TO_SHOW - 1;
-    else stop = props.lastPage;
+    } else {
+        stop = props.lastPage;
+    }
 
     return (
         <HStack className='page-controller'>

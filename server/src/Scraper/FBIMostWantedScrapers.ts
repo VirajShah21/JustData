@@ -28,7 +28,11 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData> {
      */
     override async scrape(): Promise<SimpleFugitiveData[] | null> {
         const inDatabase = await this.findInDatabase();
-        if (inDatabase) return inDatabase.map(doc => doc.data);
+
+        if (inDatabase) {
+            return inDatabase.map(doc => doc.data);
+        }
+
         tenMostWantedDatabase.clear();
 
         await this.openTab();
@@ -68,7 +72,9 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData> {
         const results = await tenMostWantedDatabase.findAll({});
         const now = Date.now();
 
-        if (results.length !== 10) return null;
+        if (results.length !== 10) {
+            return null;
+        }
 
         for (let i = 0; i < results.length; i++) {
             if (results[i].expires < now) {
@@ -103,7 +109,10 @@ class AllFugitivesScraper extends Scraper<SimpleFugitiveData> {
      */
     override async scrape(): Promise<SimpleFugitiveData[] | null> {
         const inDatabase = await this.findInDatabase();
-        if (inDatabase) return inDatabase.map(doc => doc.data);
+
+        if (inDatabase) {
+            return inDatabase.map(doc => doc.data);
+        }
 
         await this.openTab();
 
@@ -153,7 +162,9 @@ class AllFugitivesScraper extends Scraper<SimpleFugitiveData> {
     override async findInDatabase() {
         const results = await allFugitivesDatabase.findAll({});
 
-        if (results.length === 0) return null;
+        if (results.length === 0) {
+            return null;
+        }
 
         return results;
     }

@@ -16,11 +16,22 @@ const DEC_TO_PERCENT = 100;
 function RatingComponent(props: { rating: number; color?: string; outOf?: number }) {
     const fills = [];
 
-    for (let i = 1; i <= props.rating; i++) fills.push(1);
-    if (props.rating % 1 !== 0) fills.push(props.rating % 1);
+    for (let i = 1; i <= props.rating; i++) {
+        fills.push(1);
+    }
+
+    if (props.rating % 1 !== 0) {
+        fills.push(props.rating % 1);
+    }
+
     if (Math.ceil(props.rating) < (props.outOf ?? DEFAULT_RATING_DENOMINATOR)) {
-        for (let i = Math.ceil(props.rating); i < (props.outOf ?? DEFAULT_RATING_DENOMINATOR); i++)
+        for (
+            let i = Math.ceil(props.rating);
+            i < (props.outOf ?? DEFAULT_RATING_DENOMINATOR);
+            i++
+        ) {
             fills.push(0);
+        }
     }
 
     return (

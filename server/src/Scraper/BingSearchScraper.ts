@@ -26,13 +26,18 @@ class BingSearchScraper extends Scraper<BingSearchResults> {
      */
     async scrape(): Promise<BingSearchResults | null> {
         const inDatabase = await this.findInDatabase();
-        if (inDatabase) return inDatabase.data;
+
+        if (inDatabase) {
+            return inDatabase.data;
+        }
 
         await this.openTab();
         const resultsContainers = await this.select('#b_results');
         this.closeTab();
 
-        if (resultsContainers.length === 0) return null;
+        if (resultsContainers.length === 0) {
+            return null;
+        }
 
         const resultsContainer = resultsContainers[0];
 
@@ -55,8 +60,11 @@ class BingSearchScraper extends Scraper<BingSearchResults> {
                 url = '#';
             }
 
-            if (descriptionP) description = descriptionP.innerHTML;
-            else description = 'No Description Found';
+            if (descriptionP) {
+                description = descriptionP.innerHTML;
+            } else {
+                description = 'No Description Found';
+            }
 
             return {
                 title,
@@ -87,7 +95,10 @@ class BingSearchScraper extends Scraper<BingSearchResults> {
             },
         });
 
-        if (doc) return doc;
+        if (doc) {
+            return doc;
+        }
+
         return null;
     }
 }

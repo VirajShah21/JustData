@@ -1,11 +1,16 @@
+/** Basic dropdown menu styling */
 .dropdown-menu {
+    /* Allows the dropdown to be absolutely positioned */
     position: relative;
 }
 
+/** The actual dropdown */
 .dropdown-menu .dropdown-box {
     box-sizing: border-box;
     padding: 0.5rem;
 }
+
+/** Light/Dark mode */
 
 .dark .dropdown-menu .dropdown-box {
     background-color: var(--secondary-bg-dark);
@@ -18,6 +23,8 @@
 .dropdown-menu .dropdown-box .dropdown-chevron {
     margin-left: 0.5rem;
 }
+
+/** The options dropdown */
 
 .dropdown-menu .dropdown-options {
     box-sizing: border-box;
@@ -38,6 +45,8 @@
     background-color: var(--secondary-bg-light);
     filter: brightness(90%);
 }
+
+/** The individual dropdown options */
 
 .dropdown-menu .dropdown-options .dropdown-option {
     box-sizing: border-box;

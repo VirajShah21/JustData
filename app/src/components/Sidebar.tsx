@@ -23,7 +23,7 @@ export default function Sidebar({ logo, children }: SidebarProps) {
             <SidebarNavigationButton
                 ionicon={home}
                 label='Home'
-                onClick={() => void (window.location.href = '/')}
+                onClick={() => (window.location.href = '/')}
             />
             {children}
         </VStack>

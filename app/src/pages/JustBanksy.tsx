@@ -26,7 +26,7 @@ export default function JustBanksy() {
     }
 
     function renderResults() {
-        if (results)
+        if (results) {
             return (
                 <>
                     {results.images.map(src => (
@@ -34,6 +34,8 @@ export default function JustBanksy() {
                     ))}
                 </>
             );
+        }
+
         return null;
     }
 
@@ -44,9 +46,7 @@ export default function JustBanksy() {
                 <SearchBar
                     placeholder='Enter an Image Prompt'
                     onChange={e => setPrompt(e.target.value)}
-                    onSearch={() => {
-                        runSearch();
-                    }}
+                    onSearch={runSearch}
                 />
 
                 <VStack grow={1} justify='start'>
