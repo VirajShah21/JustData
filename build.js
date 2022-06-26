@@ -7,14 +7,14 @@ const { exec } = require('child_process');
  * @param {string} stderr - The contents written to stderr.
  */
 function handleErrors(err, stderr) {
-    if (err) {
-        console.error(`❌ ${err}`);
-        throw err;
-    }
-
     if (stderr.length > 0) {
         console.warn('⚠️ Something was written to stderr');
         console.error(stderr);
+    }
+
+    if (err) {
+        console.error(`❌ ${err}`);
+        throw err;
     }
 }
 
