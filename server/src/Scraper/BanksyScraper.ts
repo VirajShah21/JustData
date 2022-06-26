@@ -163,8 +163,8 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
      * time is required.
      */
     async findImages(): Promise<string[] | null> {
-        if (this.tab === null) return null;
-        return await this.tab!.evaluate(() => {
+        if (this.tab === undefined) return null;
+        return await this.tab.evaluate(() => {
             let isLoading = document.body.textContent?.includes('This should not take long');
 
             if (isLoading) {
@@ -183,15 +183,19 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
      * and simulated keyboard events to enter the prompt and run the search.
      */
     async runSearch(): Promise<void> {
-        await this.tab!.evaluate(() => {
+        if (!this.tab) {
+            throw new Error('No tab found');
+        }
+
+        await this.tab.evaluate(() => {
             const promptInput = document.getElementById('prompt') as HTMLInputElement;
             console.log('Found input', promptInput);
             promptInput.focus();
         });
 
-        await this.tab!.keyboard.type(this.prompt);
+        await this.tab.keyboard.type(this.prompt);
 
-        await this.tab!.evaluate(() => {
+        await this.tab.evaluate(() => {
             const submitButton = Array.from(document.querySelectorAll('button')).find(
                 btn => btn.textContent?.trim().toLowerCase() === 'draw',
             ) as HTMLButtonElement;
