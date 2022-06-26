@@ -166,7 +166,10 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
      * time is required.
      */
     async findImages(): Promise<string[] | null> {
-        if (this.tab === undefined) return null;
+        if (this.tab === undefined) {
+            return null;
+        }
+
         return await this.tab.evaluate(() => {
             let isLoading = document.body.textContent?.includes('This should not take long');
 
