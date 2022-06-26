@@ -91,10 +91,13 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
      * which contains images encoded in a Data URI scheme.
      */
     async scrape(): Promise<BanksyScraperResults | null> {
+        const loadingWaitDelay = 5000;
+        const craiyonResultSize = 9;
+
         Logger.debug('Scraping on Banksy');
 
         const dbResult = await this.findInDatabase();
-        if (dbResult && dbResult.data.images.length >= 9) {
+        if (dbResult && dbResult.data.images.length >= craiyonResultSize) {
             scraping[this.prompt] = dbResult.data;
             return dbResult.data;
         }
@@ -105,7 +108,7 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
         let images = await this.findImages();
 
         while (images === null) {
-            await sleep(5000);
+            await sleep(loadingWaitDelay);
             images = await this.findImages();
         }
 
@@ -163,9 +166,12 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
      * time is required.
      */
     async findImages(): Promise<string[] | null> {
-        if (this.tab === undefined) return null;
-        return await this.tab.evaluate(() => {
-            let isLoading = document.body.textContent?.includes('This should not take long');
+        if (this.tab === undefined) {
+            return null;
+        }
+
+        return this.tab.evaluate(() => {
+            const isLoading = document.body.textContent?.includes('This should not take long');
 
             if (isLoading) {
                 return null;
@@ -189,7 +195,6 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
 
         await this.tab.evaluate(() => {
             const promptInput = document.getElementById('prompt') as HTMLInputElement;
-            console.log('Found input', promptInput);
             promptInput.focus();
         });
 

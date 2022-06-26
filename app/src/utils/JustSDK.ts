@@ -160,14 +160,14 @@ class SERPKit {
 
 class BanksyKit {
     static async getBanksy(prompt: string): Promise<BanksyScraperResults> {
+        const waitDelay = 5000;
         const url = `${JustSDK.hostname}/api/banksy?prompt=${encodeURI(prompt)}`;
+
         let response = await axios.get(url);
-        console.log('Status', response.status, 'data', response.data);
+
         while (response.status === httpSuccess && response.data === '') {
-            console.log('Waiting 5 seconds for new result');
-            await sleep(5000);
+            await sleep(waitDelay);
             response = await axios.get(url);
-            console.log('Status', response.status, 'data', response.data);
         }
 
         if (response.status === httpSuccess) {

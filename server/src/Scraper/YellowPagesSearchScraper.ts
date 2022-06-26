@@ -189,7 +189,7 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSERP> {
     }
 
     async findInDatabase(): Promise<ScrapedDocument<YellowPagesSERP> | null> {
-        const result = await database.find({
+        return await database.find({
             query: {
                 $eq: this.query,
             },
@@ -197,8 +197,6 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSERP> {
                 $eq: this.location,
             },
         });
-
-        return result;
     }
 }
 

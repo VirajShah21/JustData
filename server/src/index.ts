@@ -93,14 +93,12 @@ app.get('/api/serp', async (req, res) => {
     const { q } = req.query;
 
     // The correct SERP scraper will be assigned to this
-    let scraper: BingSearchScraper;
+    const scraper: BingSearchScraper = new BingSearchScraper(q as string);
 
     // Based on the engine, a correct scraper should be assigned
     // to `let scraper`
     // ! Since there is only a SERP scraper for Bing, that will also be the default scraper
     // TODO: Add Google and other search engines.
-
-    scraper = new BingSearchScraper(q as string);
 
     res.send(await scraper.scrape());
 });

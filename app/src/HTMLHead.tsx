@@ -1,5 +1,6 @@
 /**
- * Assigns a title to the HTML `<title>` element.
+ * Assigns a title to the HTML `<title>` element. If the HTML page does not include a
+ * `<title>` element, then an error will be thrown.
  *
  * @param title - The title of the page
  */

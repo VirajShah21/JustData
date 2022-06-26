@@ -31,7 +31,7 @@ function SearchEngine() {
     async function search() {
         setLoading(true);
         setResults((await SERPKit.bing(searchValue)).results);
-      
+
         setLoading(false);
 
         if (!showingResults) {
