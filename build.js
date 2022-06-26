@@ -27,25 +27,10 @@ function finished(task) {
     console.log(`✅ ${task}`);
 }
 
-const clientDir = { cwd: './app' };
-const serverDir = { cwd: './server' };
-
-exec('which tsc', (_, __, stdout) => {
-    // Left side is for zsh right side is for bash
-    if (stdout.includes('tsc not found') || stdout.trim() === '') {
-        console.warn('⚠️ tsc not found');
-        console.warn('🛠 Globally installing tsc');
-        console.log('✅ tsc is installed');
-        exec('npm install -g typescript', (err, stderr) => {
-            handleErrors(err, stderr);
-            build();
-        });
-    } else {
-        build();
-    }
-});
-
 function build() {
+    const clientDir = { cwd: './app' };
+    const serverDir = { cwd: './server' };
+
     exec('yarn install --production', clientDir, (installErr, installStdout, installStderr) => {
         handleErrors(installErr, installStderr);
         finished('Installing dependences for the client');
@@ -66,3 +51,5 @@ function build() {
         });
     });
 }
+
+build();
