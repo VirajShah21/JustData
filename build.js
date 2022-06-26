@@ -34,7 +34,7 @@ exec('yarn install --production', clientDir, (installErr, installStdout, install
     handleErrors(installErr, installStderr);
     finished('Installing dependences for the client');
 
-    exec('yarn build', clientDir, (err, stdout, stderr) => {
+    exec('yarn; yarn build', clientDir, (err, stdout, stderr) => {
         handleErrors(err, stderr);
         finished('Building client');
     });
@@ -44,7 +44,7 @@ exec('yarn install --production', serverDir, (installErr, installStdout, install
     handleErrors(installErr, installStderr);
     finished('Installing dependences for the server');
 
-    exec('yarn build', serverDir, (err, stdout, stderr) => {
+    exec('yarn; yarn build', serverDir, (err, stdout, stderr) => {
         handleErrors(err, stderr);
         finished('Building server');
     });
