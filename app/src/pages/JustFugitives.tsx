@@ -1,15 +1,14 @@
+import { list, skullOutline } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import { HStack, VStack } from 'reaction';
-import FeatureButton from 'src/components/FeatureButton';
+import LoadingAnimation from 'src/components/LoadingAnimation';
 import PaginationController from 'src/components/PaginationController';
 import SearchBar from 'src/components/SearchBar';
 import Sidebar, { SidebarNavigationButton } from 'src/components/Sidebar';
-import TitleBar from 'src/components/TitleBar';
 import { useTitle } from 'src/HTMLHead';
+import logo from 'src/resources/images/icons/Just Fugitives.png';
 import { FBIKit } from 'src/utils/JustSDK';
 import './JustFugitives.css';
-import logo from 'src/resources/images/icons/Just Fugitives.png';
-import { list, skull, skullOutline } from 'ionicons/icons';
 
 // TODO: Add ability to view full profile
 
@@ -68,13 +67,6 @@ function JustFugitives() {
             <VStack width='100%' justify='start' className='fbi-most-wanted-page'>
                 <SearchBar />
 
-                <HStack className='features-bar'>
-                    {/* <FeatureButton
-                    label='Capitol Violence'
-                    onClick={() => setFeature(features.capitolViolence)}
-                    active={feature === features.capitolViolence}
-                /> */}
-                </HStack>
                 <HStack className='feature-container'>
                     {feature === features.tenMostWanted && <TenMostWantedList />}
                     {feature === features.allFugitives && <AllFugitivesList />}
@@ -108,7 +100,7 @@ function TenMostWantedList() {
 
     return (
         <VStack>
-            {isLoading && loadingText}
+            {isLoading && <LoadingAnimation />}
             <HStack className='fugitives-list'>
                 {fugitives.map(fugitive => (
                     <FugitiveListItem {...fugitive} opensProfile={false} />
@@ -149,7 +141,7 @@ function AllFugitivesList() {
 
     return (
         <VStack width='100%'>
-            {isLoading && loadingText}
+            {isLoading && <LoadingAnimation />}
             <HStack className='fugitives-list'>
                 {fugitives.slice(pageSize * (page - 1), pageSize * page).map(fugitive => (
                     <FugitiveListItem {...fugitive} opensProfile={true} />
