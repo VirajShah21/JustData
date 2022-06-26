@@ -13,10 +13,10 @@
   - [Services](#services)
     - [API Ideas](#api-ideas)
   - [Contributing](#contributing)
+    - [Build Instructions](#build-instructions)
     - [Scraping Rules](#scraping-rules)
     - [Code Quality](#code-quality)
     - [Design Guidelines](#design-guidelines)
-    - [Build Instructions](#build-instructions)
 
 ## What is Just Data?
 
@@ -36,9 +36,17 @@ is created.
 
 ## Services
 
--   **Just Securities** – A cross-exchange securities information and data visualization application. Allows for searching stocks (NYSE/NASDAQ/foreign markets), funds (ETFs/mutual funds/index funds), crypto currencies, FOREX, and more.
--   **Just Fugitives** – A fugitives database which allows for finding fugitives by name, biography, crimes, and other details. The application uses data pulled directly from the FBIs database of wanted fugitives.
--   **Just Search** – A cross-engine search platform. Compiles data from multiple search engines and provides a unified search interface.
+-   **Just Securities** – A cross-exchange securities information and data visualization application.
+    Allows for searching stocks (NYSE/NASDAQ/foreign markets), funds (ETFs/mutual funds/index funds),
+    crypto currencies, FOREX, and more.
+-   **Just Fugitives** – A fugitives database which allows for finding fugitives by name,
+    biography,crimes, and other details. The application uses data pulled directly from the FBIs
+    database of wanted fugitives.
+-   **Just Search** – A cross-engine search platform. Compiles data from multiple search engines
+    and provides a unified search interface.
+-   **Just Places** – A search engine for businesses and places.
+-   **Just SCOTUS** – A data bank for the Supreme Court of the United States. Currently this only
+    includes a list of Supreme Court cases.
 
 ### API Ideas
 
@@ -53,6 +61,38 @@ is created.
 -   Yelp Business Search :office:
 
 ## Contributing
+
+### Build Instructions
+
+> To avoid any issues, do not use `npm`, use `yarn` for everything (it's better).
+
+**When actively developing**, you will need to start the application server and API server
+separately:
+
+**To serve the client**
+
+```bash
+cd app
+yarn start
+```
+
+**To start the server**
+
+```bash
+cd server
+yarn start:dev
+```
+
+The application server will automatically recompile the TSX/CSS files when changes are made.
+The API server, will need to be restarted for changes to take effect.
+
+**To test the production build**, you can need to build the entire project.
+Then you only need to start the server, and it will serve the frontend via `/app/build`.
+
+```bash
+node build.js
+node server/build
+```
 
 ### Scraping Rules
 
@@ -97,39 +137,3 @@ server-side code should introduce any new security vulnerabilities.
 The full design guidelines document can be found [here](.README/design-guidelines.md).
 
 In general, keep it sexy.
-
-### Build Instructions
-
-> To avoid any issues, do not use `npm`, use `yarn` for everything (it's better).
-
-**When actively developing**, you will need to start the application server and API server
-separately:
-
-```bash
-cd app
-yarn start &
-
-cd ../server
-yarn start
-```
-
-The application server will automatically recompile the TSX/CSS files when changes are made.
-The API server, will need to be restarted for changes to take effect.
-
-**To build the application/server**, run:
-
-```bash
-cd app
-yarn build
-
-cd ../server
-yarn build
-```
-
-**To build/run a deployment**, run:
-
-```bash
-# Builds the entire app/server and packages it together
-source deploy.zsh # Also clean installs dependencies using yarn
-yarn start # Runs a single server which serves the application and the API
-```
