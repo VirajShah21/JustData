@@ -32,7 +32,7 @@ app.use((_, res, next) => {
     next();
 });
 
-app.use(express.static(path.join(__dirname, 'web')));
+app.use(express.static(path.resolve(__dirname, '../../app/build')));
 
 app.get('/api/stocks/ticker-search', async (req, res) => {
     const { q } = req.query;
@@ -126,18 +126,9 @@ app.get('/api/banksy', async (req, res) => {
     }
 });
 
-try {
-    const indexHTML = fs.readFileSync(path.join(__dirname, 'web/index.html'));
-    app.get('*', (_, res) => {
-        res.send(indexHTML);
-    });
-} catch (e) {
-    Logger.warn('Running in dev environment without client-side.');
-    Logger.info('To app in dev mode, use `yarn start` in `/app`');
-    app.get('/', (_, res) => {
-        res.send('Server is up and running');
-    });
-}
+app.get('*', (_, res) => {
+    res.sendFile(path.resolve(__dirname, '../../app/build/index.html'));
+});
 
 app.listen(PORT, () => {
     Logger.info(`Server listening on port ${PORT}`);

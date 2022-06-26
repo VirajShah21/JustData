@@ -6,8 +6,12 @@
     "author": "Viraj Shah",
     "license": "MIT",
     "scripts": {
-        "start": "ts-node src/index.ts",
+        "start": "NODE_ENV=production ts-node src/index.ts",
+        "start:dev": "NODE_ENV=development ts-node src/index.ts",
         "build": "tsc"
+    },
+    "engines": {
+        "node": "14.17.0"
     },
     "dependencies": {
         "@types/express": "^4.17.13",
