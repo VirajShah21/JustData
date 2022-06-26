@@ -16,6 +16,14 @@ export interface SidebarNavigationButtonProps {
     onClick: () => void;
 }
 
+/**
+ * A sidebar component that displays the application logo and a list of navigation buttons.
+ *
+ * @param props.logo - The logo to appear in the sidebar.
+ * @param props.children - The navigation buttons to appear in the sidebar. Other components
+ * can also be added to the sidebar (which is contained within a `VStack`).
+ * @returns A sidebar component.
+ */
 export default function Sidebar({ logo, children }: SidebarProps) {
     return (
         <VStack justify='start' className='sidebar'>
@@ -30,6 +38,16 @@ export default function Sidebar({ logo, children }: SidebarProps) {
     );
 }
 
+/**
+ * A button that appears in the sidebar. It includes an icon and a label. When the button is
+ * active, the text will be bold.
+ *
+ * @param props.ionicon - The icon to appear on the left of the button.
+ * @param props.label - The label to appear to the right of the icon.
+ * @param props.onClick - The function to invoke when the button is clicked.
+ * @param props.active - Whether or not the button is active.
+ * @returns The sidebar navigation button.
+ */
 export function SidebarNavigationButton({
     ionicon,
     label,

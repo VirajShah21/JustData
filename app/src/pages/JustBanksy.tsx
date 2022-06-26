@@ -8,11 +8,17 @@ import './JustBanksy.css';
 import background from 'src/resources/images/backgrounds/banksy.png';
 import LoadingAnimation from 'src/components/LoadingAnimation';
 
+/**
+ * @returns A page that displays the JustBanksy app.
+ */
 export default function JustBanksy() {
     const [prompt, setPrompt] = useState('');
     const [isSearching, setIsSearching] = useState(false);
     const [results, setResults] = useState<BanksyScraperResults | null>(null);
 
+    /**
+     * Performs the search on the JustBanksy API.
+     */
     function runSearch() {
         setIsSearching(true);
         BanksyKit.getBanksy(prompt)
@@ -25,6 +31,9 @@ export default function JustBanksy() {
             });
     }
 
+    /**
+     * @returns The images to display in the results section.
+     */
     function renderResults() {
         if (results) {
             return (
