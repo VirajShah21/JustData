@@ -57,7 +57,7 @@ abstract class Scraper<R> implements IScraper<R> {
     protected async closeTab() {
         if (this.tab) {
             await this.tab.close();
-            this.tab = undefined;
+            this.tab = void 0;
         }
     }
 

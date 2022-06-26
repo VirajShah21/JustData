@@ -170,7 +170,7 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
             return null;
         }
 
-        return await this.tab.evaluate(() => {
+        return this.tab.evaluate(() => {
             const isLoading = document.body.textContent?.includes('This should not take long');
 
             if (isLoading) {

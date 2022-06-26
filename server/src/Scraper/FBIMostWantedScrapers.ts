@@ -78,13 +78,11 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData> {
             return null;
         }
 
-        for (let i = 0; i < results.length; i++) {
-            if (results[i].expires < now) {
-                return null;
-            }
+        if (results.every(result => result.expires >= now)) {
+            return results;
         }
 
-        return results;
+        return null;
     }
 }
 
