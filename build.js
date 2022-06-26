@@ -30,7 +30,7 @@ function finished(task) {
 const clientDir = { cwd: './app' };
 const serverDir = { cwd: './server' };
 
-exec('yarn install', clientDir, (installErr, installStdout, installStderr) => {
+exec('yarn install --production', clientDir, (installErr, installStdout, installStderr) => {
     handleErrors(installErr, installStderr);
     finished('Installing dependences for the client');
 
@@ -40,7 +40,7 @@ exec('yarn install', clientDir, (installErr, installStdout, installStderr) => {
     });
 });
 
-exec('yarn install', serverDir, (installErr, installStdout, installStderr) => {
+exec('yarn install --production', serverDir, (installErr, installStdout, installStderr) => {
     handleErrors(installErr, installStderr);
     finished('Installing dependences for the server');
 
