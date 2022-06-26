@@ -1,5 +1,4 @@
 import express from 'express';
-import fs from 'fs';
 import path from 'path';
 import BanksyScraper from './Scraper/BanksyScraper';
 import BingSearchScraper from './Scraper/BingSearchScraper';

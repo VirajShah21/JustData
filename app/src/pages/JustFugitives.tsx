@@ -1,15 +1,13 @@
+import { list, skullOutline } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import { HStack, VStack } from 'reaction';
-import FeatureButton from 'src/components/FeatureButton';
 import PaginationController from 'src/components/PaginationController';
 import SearchBar from 'src/components/SearchBar';
 import Sidebar, { SidebarNavigationButton } from 'src/components/Sidebar';
-import TitleBar from 'src/components/TitleBar';
 import { useTitle } from 'src/HTMLHead';
+import logo from 'src/resources/images/icons/Just Fugitives.png';
 import { FBIKit } from 'src/utils/JustSDK';
 import './JustFugitives.css';
-import logo from 'src/resources/images/icons/Just Fugitives.png';
-import { list, skull, skullOutline } from 'ionicons/icons';
 
 // TODO: Add ability to view full profile
 

@@ -5,14 +5,13 @@ import { HStack, Spacer, VStack } from 'reaction';
 import RatingComponent from 'src/components/RatingComponent';
 import SearchBar from 'src/components/SearchBar';
 import SearchResult from 'src/components/SearchResult';
-import TitleBar from 'src/components/TitleBar';
+import Sidebar from 'src/components/Sidebar';
 import { useTitle } from 'src/HTMLHead';
+import logo from 'src/resources/images/icons/Just Places.png';
 import { PlacesKit } from 'src/utils/JustSDK';
 import justPlacesPlaceholder from '../resources/images/backgrounds/places.png';
 import yellowPagesIcon from '../resources/images/icons/yellow pages.png';
 import './JustPlaces.css';
-import logo from 'src/resources/images/icons/Just Places.png';
-import Sidebar from 'src/components/Sidebar';
 
 interface BusinessAgeBadgeProps {
     age: number;
