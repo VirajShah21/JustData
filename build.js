@@ -36,7 +36,8 @@ exec('which tsc', (_, __, stdout) => {
         console.warn('⚠️ tsc not found');
         console.warn('🛠 Globally installing tsc');
         console.log('✅ tsc is installed');
-        exec('npm install -g typescript', () => {
+        exec('npm install -g typescript', (err, stderr) => {
+            handleErrors(err, stderr);
             build();
         });
     } else {
