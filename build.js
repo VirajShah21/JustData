@@ -30,22 +30,36 @@ function finished(task) {
 const clientDir = { cwd: './app' };
 const serverDir = { cwd: './server' };
 
-exec('yarn install --production', clientDir, (installErr, installStdout, installStderr) => {
-    handleErrors(installErr, installStderr);
-    finished('Installing dependences for the client');
-
-    exec('yarn; yarn build', clientDir, (err, stdout, stderr) => {
-        handleErrors(err, stderr);
-        finished('Building client');
-    });
+exec('which tsc', (_, __, stdout) => {
+    if (stdout.includes('tsc not found')) {
+        console.warn('⚠️ tsc not found');
+        console.warn('🛠 Globally installing tsc');
+        exec('npm install -g typescript', () => {
+            build();
+        });
+    } else {
+        build();
+    }
 });
 
-exec('yarn install --production', serverDir, (installErr, installStdout, installStderr) => {
-    handleErrors(installErr, installStderr);
-    finished('Installing dependences for the server');
+function build() {
+    exec('yarn install --production', clientDir, (installErr, installStdout, installStderr) => {
+        handleErrors(installErr, installStderr);
+        finished('Installing dependences for the client');
 
-    exec('yarn; yarn build', serverDir, (err, stdout, stderr) => {
-        handleErrors(err, stderr);
-        finished('Building server');
+        exec('yarn build', clientDir, (err, stdout, stderr) => {
+            handleErrors(err, stderr);
+            finished('Building client');
+        });
     });
-});
+
+    exec('yarn install --production', serverDir, (installErr, installStdout, installStderr) => {
+        handleErrors(installErr, installStderr);
+        finished('Installing dependences for the server');
+
+        exec('yarn build', serverDir, (err, stdout, stderr) => {
+            handleErrors(err, stderr);
+            finished('Building server');
+        });
+    });
+}
