@@ -27,7 +27,7 @@ export default function JustBanksy() {
                 setResults(results);
             })
             .catch(err => {
-                console.error(err);
+                // TODO: Handle error
             });
     }
 

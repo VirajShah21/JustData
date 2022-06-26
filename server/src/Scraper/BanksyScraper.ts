@@ -192,7 +192,6 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
 
         await this.tab.evaluate(() => {
             const promptInput = document.getElementById('prompt') as HTMLInputElement;
-            console.log('Found input', promptInput);
             promptInput.focus();
         });
 

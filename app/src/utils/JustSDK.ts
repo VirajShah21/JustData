@@ -164,13 +164,10 @@ class BanksyKit {
         const url = `${JustSDK.hostname}/api/banksy?prompt=${encodeURI(prompt)}`;
 
         let response = await axios.get(url);
-        console.log('Status', response.status, 'data', response.data);
 
         while (response.status === httpSuccess && response.data === '') {
-            console.log('Waiting 5 seconds for new result');
             await sleep(waitDelay);
             response = await axios.get(url);
-            console.log('Status', response.status, 'data', response.data);
         }
 
         if (response.status === httpSuccess) {
