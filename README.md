@@ -105,31 +105,27 @@ In general, keep it sexy.
 **When actively developing**, you will need to start the application server and API server
 separately:
 
+**To serve the client**
+
 ```bash
 cd app
-yarn start &
-
-cd ../server
 yarn start
+```
+
+**To start the server**
+
+```bash
+cd server
+yarn start:dev
 ```
 
 The application server will automatically recompile the TSX/CSS files when changes are made.
 The API server, will need to be restarted for changes to take effect.
 
-**To build the application/server**, run:
+**To test the production build**, you can need to build the entire project.
+Then you only need to start the server, and it will serve the frontend via `/app/build`.
 
 ```bash
-cd app
-yarn build
-
-cd ../server
-yarn build
-```
-
-**To build/run a deployment**, run:
-
-```bash
-# Builds the entire app/server and packages it together
-source deploy.zsh # Also clean installs dependencies using yarn
-yarn start # Runs a single server which serves the application and the API
+node build.js
+node server/build
 ```
