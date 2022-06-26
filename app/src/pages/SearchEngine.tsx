@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
+import LoadingAnimation from 'src/components/LoadingAnimation';
 import SearchBar from 'src/components/SearchBar';
 import SearchResult from 'src/components/SearchResult';
 import Sidebar from 'src/components/Sidebar';
@@ -20,6 +21,7 @@ function SearchEngine() {
     const [showingResults, setShowingResults] = useState(false);
     const [results, setResults] = useState<SERPItem[]>([]);
     const [searchValue, setSearchValue] = useState('');
+    const [loading, setLoading] = useState(false);
 
     useTitle('Just Search');
 
@@ -27,7 +29,9 @@ function SearchEngine() {
      * Performs a search using the `searchValue` state variable.
      */
     async function search() {
+        setLoading(true);
         setResults((await SERPKit.bing(searchValue)).results);
+        setLoading(false);
         if (!showingResults) setShowingResults(true);
     }
 
@@ -41,6 +45,8 @@ function SearchEngine() {
                     onChange={e => setSearchValue(e.target.value)}
                     onSearch={search}
                 />
+
+                {loading && <LoadingAnimation />}
 
                 {!showingResults && (
                     <img src={background} alt='Search Placeholder' className='search-placeholder' />

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import Button from 'src/components/Button';
 import DropdownMenu, { ValueLabelPair } from 'src/components/DropdownMenu';
+import LoadingAnimation from 'src/components/LoadingAnimation';
 import SearchResult from 'src/components/SearchResult';
 import TitleBar from 'src/components/TitleBar';
 import { useTitle } from 'src/HTMLHead';
@@ -27,6 +28,7 @@ function JustSCOTUS() {
     const [selectedTerm, setSelectedTerm] = useState<number>();
     const [terms, setTerms] = useState<number[]>([]);
     const [caseList, setCaseList] = useState<OyezCaseListItem[]>([]);
+    const [loading, setLoading] = useState(false);
 
     useTitle('Just SCOTUS');
 
@@ -34,11 +36,13 @@ function JustSCOTUS() {
      * Pulls the cases for the selected terms.
      */
     async function pullCases() {
+        setLoading(true);
         try {
             setCaseList(await SCOTUSKit.getCaseList(...terms));
         } catch (err) {
             // TODO: Handle error
         }
+        setLoading(false);
     }
 
     return (
@@ -78,6 +82,7 @@ function JustSCOTUS() {
             </TitleBar>
 
             <VStack justify='start' align='start' alignSelf='start'>
+                {loading && <LoadingAnimation />}
                 {caseList.map(CaseResult)}
             </VStack>
         </VStack>
