@@ -6,6 +6,7 @@ import logo from 'src/resources/images/icons/Just Banksy.png';
 import { BanksyKit } from 'src/utils/JustSDK';
 import './JustBanksy.css';
 import background from 'src/resources/images/backgrounds/banksy.png';
+import LoadingAnimation from 'src/components/LoadingAnimation';
 
 export default function JustBanksy() {
     const [prompt, setPrompt] = useState('');
@@ -49,7 +50,12 @@ export default function JustBanksy() {
                 />
 
                 <VStack grow={1} justify='start'>
-                    {isSearching && <div>Searching for "{prompt}"</div>}
+                    {isSearching && (
+                        <VStack>
+                            <LoadingAnimation />
+                            <div>Creating original images of "{prompt}"</div>
+                        </VStack>
+                    )}
                     {!isSearching && results === null && (
                         <img src={background} alt='Banksy Background' className='background' />
                     )}

@@ -2,6 +2,7 @@ import { IonIcon } from '@ionic/react';
 import { locationOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import { HStack, Spacer, VStack } from 'reaction';
+import LoadingAnimation from 'src/components/LoadingAnimation';
 import RatingComponent from 'src/components/RatingComponent';
 import SearchBar from 'src/components/SearchBar';
 import SearchResult from 'src/components/SearchResult';
@@ -33,6 +34,7 @@ function JustPlaces() {
 
     // The search results (this is populated when the server responsds with the search results)
     const [results, setSearchResults] = useState<YellowPagesSearchResult[]>([]);
+    const [loading, setLoading] = useState(false);
 
     // Allows the page to know if search results are provided
     const [showingResults, setShowingResults] = useState(false);
@@ -41,7 +43,9 @@ function JustPlaces() {
 
     async function search() {
         try {
+            setLoading(true);
             setSearchResults((await PlacesKit.search(searchQuery, searchLocation)).results);
+            setLoading(false);
             setShowingResults(true);
         } catch (err) {
             // TODO: Error handling
@@ -68,6 +72,7 @@ function JustPlaces() {
                     />
                 </HStack>
 
+                {loading && <LoadingAnimation />}
                 {!showingResults && (
                     <img
                         src={justPlacesPlaceholder}
