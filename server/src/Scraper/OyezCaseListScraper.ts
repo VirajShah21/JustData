@@ -64,7 +64,7 @@ class OyezCaseListScraper extends Scraper<OyezCaseListItem> {
 class OyezTermCaseListScraper extends Scraper<OyezCaseListItem> {
     private static readonly loadDelay = 500;
 
-    private termStart: number;
+    private readonly termStart: number;
 
     /**
      * Constructs a scraper for the specified term start.

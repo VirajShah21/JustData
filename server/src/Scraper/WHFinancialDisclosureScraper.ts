@@ -41,18 +41,21 @@ class WHFinancialDisclosureScraper extends Scraper<WHFinancialDisclosures> {
         const vpReports: Record<number, string> = {};
 
         links.forEach(link => {
+            const presidentLinkTextYearIndex = 1;
+            const vpLinkTextYearIndex = 2;
+
             const text = link.textContent.trim();
 
             // The presidents link
             if (text.indexOf('President') === 0) {
-                const year = parseInt(text.split(' ')[1], 10);
+                const year = parseInt(text.split(' ')[presidentLinkTextYearIndex], 10);
                 const url = link.getAttribute('href') ?? '#';
                 presidentsReports[year] = url;
             }
 
             // The VP link
             if (text.indexOf('Vice President') === 0) {
-                const year = parseInt(text.split(' ')[2], 10);
+                const year = parseInt(text.split(' ')[vpLinkTextYearIndex], 10);
                 const url = link.getAttribute('href') ?? '#';
                 vpReports[year] = url;
             }

@@ -22,11 +22,11 @@ export default function JustBanksy() {
     function runSearch() {
         setIsSearching(true);
         BanksyKit.getBanksy(prompt)
-            .then(results => {
+            .then(response => {
                 setIsSearching(false);
-                setResults(results);
+                setResults(response);
             })
-            .catch(err => {
+            .catch(() => {
                 // TODO: Handle error
             });
     }
