@@ -43,7 +43,7 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSERP> {
      */
     async scrape(): Promise<YellowPagesSERP | null> {
         const inDatabase = await this.findInDatabase();
-        // if (inDatabase) return inDatabase.;
+        if (inDatabase) return inDatabase.data;
 
         await this.openTab();
         const listings = await this.select('.srp-listing');
@@ -65,13 +65,12 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSERP> {
      * @param listing - The element for which a single rating is contained within.
      * @returns All of the details for the specified Yellow Pages listing.
      */
-    private static extractListingData(listing: ParsedHTMLElement) {
+    private static extractListingData(listing: ParsedHTMLElement): YellowPagesSearchResult {
         const categoriesContainer = listing.querySelector('.categories');
         const ratingsContainer = listing.querySelector('.ratings');
         const websiteContainer = listing.querySelector('a.track-visit-website');
         const ageContainer = listing.querySelector('.years-in-business')?.querySelector('.count');
         const openStatusContainer = listing.querySelector('.open-status');
-        const addressContainer = listing.querySelector('.adr');
 
         const business =
             listing.querySelector('h2.n')?.querySelector('.business-name')?.textContent.trim() ??
@@ -79,10 +78,6 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSERP> {
         const categories: string[] = [];
         let ypRating: number | undefined;
         let taRating: number | undefined;
-        let street: string | undefined;
-        let city: string | undefined;
-        let state: string | undefined;
-        let zip: string | undefined;
 
         if (categoriesContainer) {
             categoriesContainer
@@ -96,26 +91,6 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSERP> {
             taRating = ratings.tripAdvisor;
         }
 
-        if (addressContainer) {
-            const streetContainer = addressContainer.querySelector('.street-address');
-            const localityContainer = addressContainer.querySelector('.locality');
-
-            if (streetContainer) {
-                street = streetContainer.textContent;
-            }
-
-            if (localityContainer) {
-                const localityCommaSplit = localityContainer.textContent.split(',');
-                const afterCommaSplit = localityCommaSplit[1].split(' ');
-                city = localityCommaSplit[0].trim();
-                state = afterCommaSplit
-                    .slice(0, afterCommaSplit.length - 1)
-                    .join(' ')
-                    .trim();
-                zip = afterCommaSplit[afterCommaSplit.length - 1].trim();
-            }
-        }
-
         return {
             business,
             categories,
@@ -125,15 +100,42 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSERP> {
             },
             website: websiteContainer?.getAttribute('href'),
             phone: listing.querySelector('.phone')?.textContent ?? 'n/a',
-            address: {
-                street: street ?? 'Unknown Street',
-                city: city ?? 'Unknown City',
-                state: state ?? 'Unknown State',
-                zip: zip ?? 'Unknown Zip',
-            },
+            address: YellowPagesSearchScraper.extractListingAddress(listing),
             age: ageContainer ? parseInt(ageContainer.textContent, 10) : undefined,
             openStatus: openStatusContainer?.textContent ?? 'Hours Unknown',
         };
+    }
+
+    private static extractListingAddress(listing: ParsedHTMLElement): YellowPagesAddress {
+        const addressContainer = listing.querySelector('.adr');
+        const address: YellowPagesAddress = {
+            street: '',
+            city: '',
+            state: '',
+            zip: '',
+        };
+
+        if (addressContainer) {
+            const streetContainer = addressContainer.querySelector('.street-address');
+            const localityContainer = addressContainer.querySelector('.locality');
+
+            if (streetContainer) {
+                address.street = streetContainer.textContent;
+            }
+
+            if (localityContainer) {
+                const localityCommaSplit = localityContainer.textContent.split(',');
+                const afterCommaSplit = localityCommaSplit[1].split(' ');
+                address.city = localityCommaSplit[0].trim();
+                address.state = afterCommaSplit
+                    .slice(0, afterCommaSplit.length - 1)
+                    .join(' ')
+                    .trim();
+                address.zip = afterCommaSplit[afterCommaSplit.length - 1].trim();
+            }
+        }
+
+        return address;
     }
 
     /**
@@ -189,7 +191,7 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSERP> {
     }
 
     async findInDatabase(): Promise<ScrapedDocument<YellowPagesSERP> | null> {
-        return await database.find({
+        return database.find({
             query: {
                 $eq: this.query,
             },

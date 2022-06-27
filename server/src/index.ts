@@ -104,7 +104,7 @@ app.get('/api/serp', async (req, res) => {
     res.send(await scraper.scrape());
 });
 
-app.get('/api/white-house/financial-disclosures', async (req, res) => {
+app.get('/api/white-house/financial-disclosures', async (_, res) => {
     const scraper = new WHFinancialDisclosureScraper();
     res.send(await scraper.scrape());
 });

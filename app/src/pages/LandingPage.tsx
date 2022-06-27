@@ -8,7 +8,7 @@ import {
     information,
     logoGithub,
     logoIonitron,
-    search,
+    search as searchIcon,
     trendingUp,
 } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
@@ -104,7 +104,7 @@ const allProducts: ProductCategory[] = [
     },
     {
         category: ProductCategoryRef.WebSearch,
-        icon: <IonIcon icon={search} />,
+        icon: <IonIcon icon={searchIcon} />,
         products: [
             {
                 product: 'Just Search',
