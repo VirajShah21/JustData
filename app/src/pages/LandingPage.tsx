@@ -186,6 +186,7 @@ function LandingRight() {
                     ) {
                         return category;
                     }
+
                     return {
                         ...category,
                         products: category.products.filter(product => {
@@ -237,6 +238,13 @@ function LandingRight() {
     );
 }
 
+/**
+ * A simple transparent bar that is displayed at the bottom of the landing page.
+ * It includes a button for: preferences, help, issue reporting, and view on
+ * GitHub.
+ *
+ * @returns The options bar at the bottom of the landing page.
+ */
 function OptionsBar() {
     const [prefsOpen, setPrefsOpen] = useState(false);
 
@@ -288,6 +296,12 @@ function ProductSection(props: {
     );
 }
 
+/**
+ * @param onClose - A function to call when the preferences popup is closed.
+ * @param open - Whether the preferences popup is open or not. If true, the popup
+ * will be displayed; if false, the popup will be hidden.
+ * @returns The preferences popup window.
+ */
 function PreferencesPopup({ onClose, open }: PreferencesPopupProps) {
     return (
         <VStack
@@ -308,6 +322,11 @@ function PreferencesPopup({ onClose, open }: PreferencesPopupProps) {
     );
 }
 
+/**
+ * A component which allows the user to toggle between light and dark mode.
+ *
+ * @returns A fragment of the preferences popup.
+ */
 function LightDarkModePreferences() {
     const [selected, setSelected] = useState<AppTheme>(AppPreferences.theme);
     const options = [
@@ -332,10 +351,16 @@ function LightDarkModePreferences() {
     );
 }
 
+/**
+ * Opens the JustData Github page.
+ */
 function openGitHubRepo() {
     window.open('https://github.com/VirajShah21/JustData', '_blank');
 }
 
+/**
+ * Opens the JustData issues tab on Github.
+ */
 function openGitHubIssues() {
     window.open('https://github.com/VirajShah21/JustData/issues/new', '_blank');
 }
