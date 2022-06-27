@@ -5,6 +5,7 @@ const FUGITIVE_LI_CLASSNAME = '.portal-type-person';
 // ! Keep this, as it will be useful later
 const WANTED_POSTER_QUERY = 'p.Download';
 const LOAD_MORE_BUTTON_QUERY = 'button.load-more';
+const NO_PERSON = 'Unidentified fugitive';
 
 const tenMostWantedDatabase = new ScraperDatabase<SimpleFugitiveData>('fbi-ten-most-wanted');
 const allFugitivesDatabase = new ScraperDatabase<SimpleFugitiveData>('all-fugitives');
@@ -45,8 +46,7 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData> {
 
         const response = li.map((item, index) => {
             const imgSrc = item.querySelector('a')?.querySelector('img')?.getAttribute('src') ?? '';
-            const fugitiveName =
-                item.querySelector('h3.title')?.textContent ?? 'Unidentified Person';
+            const fugitiveName = item.querySelector('h3.title')?.textContent ?? NO_PERSON;
             return {
                 name: fugitiveName,
                 mugshot: imgSrc,
@@ -138,7 +138,7 @@ class AllFugitivesScraper extends Scraper<SimpleFugitiveData> {
 
         const response: SimpleFugitiveData[] = listItems.map(li => {
             return {
-                name: li.querySelector('p.name')?.textContent ?? 'Unidentified Person',
+                name: li.querySelector('p.name')?.textContent ?? NO_PERSON,
                 mugshot: li.querySelector('img')?.getAttribute('src') ?? '',
                 profileURL: li.querySelector('a')?.getAttribute('href') ?? '',
             };
