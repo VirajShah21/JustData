@@ -6,10 +6,12 @@ import Button from 'src/components/Button';
 import DropdownMenu, { ValueLabelPair } from 'src/components/DropdownMenu';
 import LoadingAnimation from 'src/components/LoadingAnimation';
 import SearchResult from 'src/components/SearchResult';
+import Sidebar from 'src/components/Sidebar';
 import TitleBar from 'src/components/TitleBar';
 import { useTitle } from 'src/HTMLHead';
 import { SCOTUSKit } from 'src/utils/JustSDK';
 import './JustSCOTUS.css';
+import logo from 'src/resources/images/icons/Just SCOTUS.png';
 
 /**
  * The application container for the Just SCOTUS application.
@@ -46,8 +48,10 @@ function JustSCOTUS() {
     }
 
     return (
-        <VStack justify='start' id='just-scotus'>
-            <TitleBar>
+        <HStack justify='start' id='just-scotus' height='100%'>
+            <Sidebar logo={logo} />
+
+            <VStack width='100%'>
                 <HStack className='term-selection-bar'>
                     <HStack justify='start'>
                         <DropdownMenu
@@ -79,13 +83,13 @@ function JustSCOTUS() {
                         ))}
                     </HStack>
                 </HStack>
-            </TitleBar>
 
-            <VStack justify='start' align='start' alignSelf='start'>
-                {loading && <LoadingAnimation />}
-                {caseList.map(CaseResult)}
+                <VStack justify='start' align='start' alignSelf='start'>
+                    {loading && <LoadingAnimation />}
+                    {caseList.map(CaseResult)}
+                </VStack>
             </VStack>
-        </VStack>
+        </HStack>
     );
 }
 
