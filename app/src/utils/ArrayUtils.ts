@@ -17,6 +17,14 @@ class ArrayUtils {
         }
         return result;
     }
+
+    /**
+     * @param arr - The array to search.
+     * @returns A random element from the array.
+     */
+    static random<T>(arr: T[]): T {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
 }
 
 export default ArrayUtils;

@@ -73,7 +73,7 @@ function JustPlaces() {
                 </HStack>
 
                 {loading && <LoadingAnimation />}
-                {!showingResults && (
+                {!showingResults && !loading && (
                     <img
                         src={justPlacesPlaceholder}
                         alt='Just Places'
