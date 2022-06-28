@@ -35,7 +35,19 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
      */
     constructor(prompt: string) {
         super('https://craiyon.com');
-        this.prompt = prompt.trim().toLowerCase();
+        this.prompt = BanksyScraper.sanitizePrompt(prompt);
+    }
+
+    /**
+     * Sanitizes the prompt to avoid duplicate prompts with minor variations.
+     * Sanitization includes trimming whitespace from the front and back of the string along with
+     * converting the string to lowercase.
+     *
+     * @param prompt - The prompt to sanitize
+     * @returns A sanitized version of the prompt
+     */
+    private static sanitizePrompt(prompt: string): string {
+        return prompt.trim().toLowerCase();
     }
 
     /**
@@ -48,11 +60,13 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
      * ready to be served.
      */
     static status(prompt: string): 'never' | 'working' | 'done' {
-        if (scraping[prompt] === undefined) {
+        const sanitizedPrompt = BanksyScraper.sanitizePrompt(prompt);
+
+        if (scraping[sanitizedPrompt] === undefined) {
             return 'never';
         }
 
-        if (scraping[prompt] === 'working') {
+        if (scraping[sanitizedPrompt] === 'working') {
             return 'working';
         }
 
@@ -66,8 +80,10 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
      * @returns Reutrns the results object if they are available, otherwise `null` is returned.
      */
     static getResults(prompt: string): BanksyScraperResults | null {
-        if (typeof scraping[prompt] === 'object') {
-            return scraping[prompt] as BanksyScraperResults;
+        const sanitizedPrompt = BanksyScraper.sanitizePrompt(prompt);
+
+        if (typeof scraping[sanitizedPrompt] === 'object') {
+            return scraping[sanitizedPrompt] as BanksyScraperResults;
         }
 
         return null;
@@ -91,13 +107,14 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
      * which contains images encoded in a Data URI scheme.
      */
     async scrape(): Promise<BanksyScraperResults | null> {
+        Logger.info(`Scraping Craiyon for image with prompt: ${this.prompt}`);
         const loadingWaitDelay = 5000;
         const craiyonResultSize = 9;
-
-        Logger.debug('Scraping on Banksy');
+        let errorEncountered = false;
 
         const dbResult = await this.findInDatabase();
         if (dbResult && dbResult.data.images.length >= craiyonResultSize) {
+            Logger.info(`Found results for "${this.prompt}" in database.`);
             scraping[this.prompt] = dbResult.data;
             return dbResult.data;
         }
@@ -109,26 +126,41 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
 
         while (images === null) {
             await sleep(loadingWaitDelay);
+            const err = await this.checkError();
+            if (err) {
+                Logger.warn('Craiyon is too busy. Error was thrown');
+                errorEncountered = true;
+                break;
+            }
+            Logger.info('Checking again if Craiyon generated any images');
             images = await this.findImages();
         }
+        Logger.info(`Found images: ${Array.isArray(images) ? images.length : null}`);
 
         this.closeTab();
 
-        const result = {
-            prompt: this.prompt,
-            images,
-        };
+        if (!errorEncountered && images) {
+            const result = {
+                prompt: this.prompt,
+                images,
+            };
 
-        scraping[this.prompt] = result;
-        this.saveToDatabase(banksyDatabase, {
-            url: this.origin,
-            data: result,
-            expiration: {
-                years: 1,
-            },
-        });
+            scraping[this.prompt] = result;
+            this.saveToDatabase(banksyDatabase, {
+                url: this.origin,
+                data: result,
+                expiration: {
+                    years: 1,
+                },
+            });
 
-        return result;
+            return result;
+        }
+
+        Logger.warn(`An error was encountered. Rescraping... images = ${images}`);
+
+        this.scrape();
+        return null;
     }
 
     /**
@@ -181,6 +213,23 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
                 img.getAttribute('src'),
             ) as string[];
         });
+    }
+
+    /**
+     * Checks if an error has been thrown by Craiyon. A list of errors is not documented
+     * on the Craiyon website, so errors can only be checked for after they are encountered.
+     * Currently, the only known error is "Too much traffic, please try again in 15 seconds".
+     *
+     * @returns A promise that resolves to `true` if an error occurred on Craiyon.
+     * If no error occured on Craiyon, then the promise will resolve to `false`.
+     */
+    async checkError(): Promise<boolean> {
+        return this.tab?.evaluate(
+            () =>
+                document.body.textContent?.includes(
+                    'Too much traffic, please try again in 15 seconds.',
+                ) ?? false,
+        ) as Promise<boolean>;
     }
 
     /**
