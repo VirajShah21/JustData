@@ -26,7 +26,7 @@ class ScrapeUtils {
             .launch({
                 args: ['--no-sandbox'],
                 // * To debug a scraper, set headless to false:
-                // headless: false,
+                headless: false,
             })
             .then(chrome => {
                 Logger.info('Successfully launched a virtual Chrome instance');

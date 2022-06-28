@@ -101,7 +101,7 @@ function ImageGenerator() {
     }
 
     return (
-        <VStack justify='start' className='just-banksy' alignSelf='stretch' scroll='vertical'>
+        <VStack justify='start' width='100%' className='just-banksy' scroll='vertical'>
             <SearchBar
                 placeholder='Enter an Image Prompt'
                 onChange={e => setPrompt(e.target.value)}

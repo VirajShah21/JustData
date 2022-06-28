@@ -112,8 +112,6 @@ app.get('/api/white-house/financial-disclosures', async (_, res) => {
 app.get('/api/banksy', async (req, res) => {
     const { prompt } = req.query as { prompt: string };
 
-    Logger.debug('Prompt: ' + prompt);
-    Logger.debug('Status: ' + BanksyScraper.status(prompt));
     if (BanksyScraper.status(prompt) === 'working') {
         res.send(null);
     } else if (BanksyScraper.status(prompt) === 'never') {
