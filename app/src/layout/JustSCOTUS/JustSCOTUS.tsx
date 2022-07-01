@@ -2,23 +2,22 @@ import { IonIcon } from '@ionic/react';
 import { addOutline, closeOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
-import Button from 'src/components/Button';
-import DropdownMenu, { ValueLabelPair } from 'src/components/DropdownMenu';
+import logo from 'src/assets/images/icons/Just SCOTUS.png';
 import LoadingAnimation from 'src/components/LoadingAnimation';
-import SearchResult from 'src/components/SearchResult';
-import Sidebar from 'src/components/Sidebar';
-import TitleBar from 'src/components/TitleBar';
+import SearchResult from 'src/components/ui/SearchResult';
+import Button from 'src/components/ui/Button';
+import DropdownMenu, { ValueLabelPair } from 'src/components/ui/DropdownMenu';
+import Sidebar from 'src/components/ui/Sidebar';
 import { useTitle } from 'src/HTMLHead';
 import { SCOTUSKit } from 'src/utils/JustSDK';
 import './JustSCOTUS.css';
-import logo from 'src/resources/images/icons/Just SCOTUS.png';
 
 /**
  * The application container for the Just SCOTUS application.
  *
  * @returns The Just SCOTUS page.
  */
-function JustSCOTUS() {
+export default function JustSCOTUS() {
     // Generates the options for the term selection dropdown menu
     // This uses values from the first SCOTUS case till the current term
     const scotusTerms: ValueLabelPair[] = [];
@@ -133,5 +132,3 @@ function CaseResult(props: OyezCaseListItem) {
         </SearchResult>
     );
 }
-
-export default JustSCOTUS;

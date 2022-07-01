@@ -1,0 +1,8 @@
+.just-banksy .results {
+    flex-wrap: wrap;
+    margin-top: 1em;
+}
+
+.just-banksy .background {
+    width: 100%;
+}

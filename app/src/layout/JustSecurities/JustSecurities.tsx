@@ -7,11 +7,11 @@ import {
     TechnicalAnalysis,
 } from 'react-ts-tradingview-widgets';
 import { HStack, Spacer, VStack } from 'reaction';
-import Sidebar, { SidebarNavigationButton } from 'src/components/Sidebar';
+import logo from 'src/assets/images/icons/Just Securities.png';
+import Sidebar, { SidebarNavigationButton } from 'src/components/ui/Sidebar';
 import { useTitle } from 'src/HTMLHead';
-import logo from 'src/resources/images/icons/Just Securities.png';
 import { SecuritiesKit } from 'src/utils/JustSDK';
-import SearchBar from '../components/SearchBar';
+import SearchBar from 'src/components/ui/SearchBar';
 import './JustSecurities.css';
 
 type StocksFeature = 'chart' | 'analysis' | 'fundamentals' | 'profile';

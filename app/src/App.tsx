@@ -1,10 +1,10 @@
-import JustBanksy from './pages/JustBanksy';
-import JustFugitives from './pages/JustFugitives';
-import JustPlaces from './pages/JustPlaces';
-import JustSCOTUS from './pages/JustSCOTUS';
-import JustSecurities from './pages/JustSecurities';
-import LandingPage from './pages/LandingPage';
-import SearchEngine from './pages/SearchEngine';
+import JustBanksy from './layout/JustBanksy/JustBanksy';
+import JustFugitives from './layout/JustFugitives/JustFugitives';
+import JustPlaces from './layout/JustPlaces/JustPlaces';
+import JustSCOTUS from './layout/JustSCOTUS/JustSCOTUS';
+import JustSecurities from './layout/JustSecurities/JustSecurities';
+import LandingPage from './layout/LandingPage/LandingPage';
+import SearchEngine from './layout/JustSearch/SearchEngine';
 
 function App(): JSX.Element {
     return <>{getPage(window.location.pathname)}</>;
