@@ -17,7 +17,7 @@ import './JustSCOTUS.css';
  *
  * @returns The Just SCOTUS page.
  */
-function JustSCOTUS() {
+export default function JustSCOTUS() {
     // Generates the options for the term selection dropdown menu
     // This uses values from the first SCOTUS case till the current term
     const scotusTerms: ValueLabelPair[] = [];
@@ -132,5 +132,3 @@ function CaseResult(props: OyezCaseListItem) {
         </SearchResult>
     );
 }
-
-export default JustSCOTUS;

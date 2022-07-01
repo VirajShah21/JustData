@@ -6,19 +6,3 @@
 .just-banksy .background {
     width: 100%;
 }
-
-.banksy-statement-generator .statement-generator-phrase {
-    font-family: monospace;
-    color: gray;
-    box-sizing: border-box;
-    padding: 0.5em;
-    font-size: 1.25em;
-}
-
-.dark .banksy-statement-generator .statement-generator-phrase.active {
-    color: yellow;
-}
-
-.light .banksy-statement-generator .statement-generator-phrase.active {
-    color: orangered;
-}
