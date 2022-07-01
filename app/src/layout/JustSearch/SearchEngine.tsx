@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
+import background from 'src/assets/images/backgrounds/search.png';
+import logo from 'src/assets/images/icons/search.png';
 import LoadingAnimation from 'src/components/LoadingAnimation';
-import SearchBar from 'src/components/SearchBar';
-import SearchResult from 'src/components/SearchResult';
-import Sidebar from 'src/components/Sidebar';
+import SearchResult from 'src/components/ui/SearchResult';
+import SearchBar from 'src/components/ui/SearchBar';
+import Sidebar from 'src/components/ui/Sidebar';
 import { useTitle } from 'src/HTMLHead';
-import logo from 'src/resources/images/icons/search.png';
 import { SERPKit } from 'src/utils/JustSDK';
-import background from '../resources/images/backgrounds/search.png';
 import './SearchEngine.css';
 
 /**
@@ -41,7 +41,7 @@ function SearchEngine() {
 
     return (
         <HStack height='100%'>
-            <Sidebar logo={logo}></Sidebar>
+            <Sidebar logo={logo} />
             <VStack justify='start' className='search-engine' width='100%'>
                 <SearchBar
                     value={searchValue}

@@ -1,7 +1,7 @@
 import { IonIcon } from '@ionic/react';
 import { ellipsisHorizontalOutline } from 'ionicons/icons';
 import { HStack } from 'reaction';
-import ArrayUtils from '../utils/ArrayUtils';
+import ArrayUtils from 'src/utils/ArrayUtils';
 import './PaginationController.css';
 
 const MAX_PAGES_TO_SHOW = 10;

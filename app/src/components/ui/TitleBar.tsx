@@ -1,5 +1,5 @@
 import { HStack } from 'reaction';
-import BrandButton from './BrandButton';
+import BrandButton from '../BrandButton';
 
 /**
  * This is the react component for the titlebar. Regardless of the assigned

@@ -1,5 +1,5 @@
 import { IonIcon } from '@ionic/react';
-import { home } from 'ionicons/icons';
+import { home, homeOutline } from 'ionicons/icons';
 import { ReactNode } from 'react';
 import { HStack, VStack } from 'reaction';
 import './Sidebar.css';
@@ -10,7 +10,7 @@ export interface SidebarProps {
 }
 
 export interface SidebarNavigationButtonProps {
-    ionicon: string;
+    ionicon: string | { default: string; active: string };
     label: string;
     active?: boolean;
     onClick: () => void;
@@ -29,7 +29,7 @@ export default function Sidebar({ logo, children }: SidebarProps) {
         <VStack justify='start' className='sidebar'>
             <img src={logo} alt='Product Brand' className='sidebar-brand' />
             <SidebarNavigationButton
-                ionicon={home}
+                ionicon={homeOutline}
                 label='Home'
                 onClick={() => (window.location.href = '/')}
             />
@@ -58,10 +58,22 @@ export function SidebarNavigationButton({
         return `sidebar-navigation-button ${active ? ' active' : ''}`.trim();
     }
 
+    function GetIcon() {
+        if (typeof ionicon === 'string') {
+            return <IonIcon className='sidebar-navigation-button-icon' icon={ionicon} />;
+        }
+
+        if (active) {
+            return <IonIcon className='sidebar-navigation-button-icon' icon={ionicon.active} />;
+        }
+
+        return <IonIcon className='sidebar-navigation-button-icon' icon={ionicon.default} />;
+    }
+
     return (
         <button className={getClassName()} onClick={onClick}>
             <HStack justify='start'>
-                <IonIcon className='sidebar-navigation-button-icon' icon={ionicon} />
+                <GetIcon />
                 {label}
             </HStack>
         </button>

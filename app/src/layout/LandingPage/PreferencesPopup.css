@@ -1,0 +1,51 @@
+.preferences-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    -webkit-backdrop-filter: blur(0.25rem);
+    backdrop-filter: blur(0.25rem);
+}
+
+.preferences-popup {
+    height: auto;
+    width: auto;
+    min-width: 50%;
+    min-height: 50%;
+    -webkit-backdrop-filter: blur(1rem);
+    backdrop-filter: blur(1rem);
+}
+
+.dark .preferences-popup {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--secondary-bg-dark);
+}
+
+.light .preferences-popup {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--secondary-bg-light);
+}
+
+.preferences-popup .close-button {
+    background-color: red;
+    color: var(--primary-bg-dark);
+}
+
+.dark .preferences-popup .close-button {
+    color: var(--primary-bg-dark);
+}
+
+.light .preferences-popup .close-button {
+    color: var(--primary-bg-light);
+}
+
+.preferences-popup .title {
+    margin: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.preferences-popup .inner {
+    padding: 1rem;
+}

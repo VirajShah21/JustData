@@ -1,16 +1,7 @@
-import { albumsOutline, imagesOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
-import LoadingAnimation from 'src/components/LoadingAnimation';
-import SearchBar from 'src/components/SearchBar';
-import Sidebar, { SidebarNavigationButton } from 'src/components/Sidebar';
-import background from 'src/resources/images/backgrounds/banksy.png';
-import logo from 'src/resources/images/icons/Just Banksy.png';
 import ArrayUtils from 'src/utils/ArrayUtils';
-import { BanksyKit } from 'src/utils/JustSDK';
-import './JustBanksy.css';
-
-type JustBanksyFeatures = 'image-generator' | 'prepared-statements';
+import './PreparedStatements.css';
 
 interface StatementGeneratorProps {
     onChange: (prompt: string) => void;
@@ -22,109 +13,7 @@ interface StatementGeneratorPhraseProps {
     active: boolean;
 }
 
-/**
- * @returns A page that displays the JustBanksy app.
- */
-export default function JustBanksy() {
-    const [feature, setFeature] = useState<JustBanksyFeatures>('image-generator');
-
-    function ActiveFeature() {
-        if (feature === 'image-generator') {
-            return <ImageGenerator />;
-        }
-
-        if (feature === 'prepared-statements') {
-            return <PreparedStatements />;
-        }
-
-        setFeature('image-generator');
-        return <ImageGenerator />;
-    }
-
-    return (
-        <HStack height='100%'>
-            <Sidebar logo={logo}>
-                <SidebarNavigationButton
-                    ionicon={imagesOutline}
-                    label='Image Generator'
-                    onClick={() => setFeature('image-generator')}
-                    active={feature === 'image-generator'}
-                />
-                <SidebarNavigationButton
-                    ionicon={albumsOutline}
-                    label='Prepared Statements'
-                    onClick={() => setFeature('prepared-statements')}
-                    active={feature === 'prepared-statements'}
-                />
-            </Sidebar>
-
-            <ActiveFeature />
-        </HStack>
-    );
-}
-
-function ImageGenerator() {
-    const [prompt, setPrompt] = useState('');
-    const [isSearching, setIsSearching] = useState(false);
-    const [results, setResults] = useState<BanksyScraperResults | null>(null);
-
-    /**
-     * Performs the search on the JustBanksy API.
-     */
-    function runSearch() {
-        setIsSearching(true);
-        BanksyKit.getBanksy(prompt)
-            .then(response => {
-                setIsSearching(false);
-                setResults(response);
-            })
-            .catch(() => {
-                // TODO: Handle error
-            });
-    }
-
-    /**
-     * @returns The images to display in the results section.
-     */
-    function renderResults() {
-        if (results) {
-            return (
-                <>
-                    {results.images.map(src => (
-                        <img src={src} />
-                    ))}
-                </>
-            );
-        }
-
-        return null;
-    }
-
-    return (
-        <VStack justify='start' className='just-banksy' alignSelf='stretch' scroll='vertical'>
-            <SearchBar
-                placeholder='Enter an Image Prompt'
-                onChange={e => setPrompt(e.target.value)}
-                onSearch={runSearch}
-            />
-
-            <VStack grow={1} justify='start'>
-                {isSearching && (
-                    <VStack>
-                        <LoadingAnimation />
-                        <div>Creating original images of "{prompt}"</div>
-                    </VStack>
-                )}
-                {!isSearching && results === null && (
-                    <img src={background} alt='Banksy Background' className='background' />
-                )}
-                <HStack className='results'>{renderResults()}</HStack>
-            </VStack>
-        </VStack>
-    );
-}
-
-function PreparedStatements() {
+export default function PreparedStatements() {
     const [prompt, setPrompt] = useState('');
 
     return (
