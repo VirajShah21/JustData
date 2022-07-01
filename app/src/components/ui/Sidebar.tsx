@@ -10,7 +10,7 @@ export interface SidebarProps {
 }
 
 export interface SidebarNavigationButtonProps {
-    ionicon: string;
+    ionicon: string | { default: string; active: string };
     label: string;
     active?: boolean;
     onClick: () => void;
@@ -58,10 +58,22 @@ export function SidebarNavigationButton({
         return `sidebar-navigation-button ${active ? ' active' : ''}`.trim();
     }
 
+    function GetIcon() {
+        if (typeof ionicon === 'string') {
+            return <IonIcon className='sidebar-navigation-button-icon' icon={ionicon} />;
+        }
+
+        if (active) {
+            return <IonIcon className='sidebar-navigation-button-icon' icon={ionicon.active} />;
+        }
+
+        return <IonIcon className='sidebar-navigation-button-icon' icon={ionicon.default} />;
+    }
+
     return (
         <button className={getClassName()} onClick={onClick}>
             <HStack justify='start'>
-                <IonIcon className='sidebar-navigation-button-icon' icon={ionicon} />
+                <GetIcon />
                 {label}
             </HStack>
         </button>
