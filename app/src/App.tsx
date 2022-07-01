@@ -3,7 +3,7 @@ import JustFugitives from './layout/JustFugitives/JustFugitives';
 import JustPlaces from './layout/JustPlaces/JustPlaces';
 import JustSCOTUS from './layout/JustSCOTUS/JustSCOTUS';
 import JustSecurities from './layout/JustSecurities/JustSecurities';
-import LandingPage from './layout/LandingPage';
+import LandingPage from './layout/LandingPage/LandingPage';
 import SearchEngine from './layout/JustSearch/SearchEngine';
 
 function App(): JSX.Element {
