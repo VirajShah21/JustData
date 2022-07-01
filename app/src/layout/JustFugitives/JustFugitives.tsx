@@ -1,4 +1,4 @@
-import { list, skullOutline } from 'ionicons/icons';
+import { list, listOutline, skull, skullOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import logo from 'src/assets/images/icons/Just Fugitives.png';
@@ -51,13 +51,13 @@ export default function JustFugitives() {
         <HStack height='100%'>
             <Sidebar logo={logo}>
                 <SidebarNavigationButton
-                    ionicon={list}
+                    ionicon={{ default: listOutline, active: list }}
                     label='Ten Most Wanted Fugitives'
                     onClick={() => setFeature(features.tenMostWanted)}
                     active={feature === features.tenMostWanted}
                 />
                 <SidebarNavigationButton
-                    ionicon={skullOutline}
+                    ionicon={{ default: skullOutline, active: skull }}
                     label='Fugitives'
                     onClick={() => setFeature(features.allFugitives)}
                     active={feature === features.allFugitives}

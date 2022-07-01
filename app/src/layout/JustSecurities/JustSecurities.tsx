@@ -1,4 +1,13 @@
-import { analytics, cash, informationCircle, trendingUp } from 'ionicons/icons';
+import {
+    analytics,
+    analyticsOutline,
+    cash,
+    cashOutline,
+    informationCircle,
+    informationCircleOutline,
+    trendingUp,
+    trendingUpOutline,
+} from 'ionicons/icons';
 import { useState } from 'react';
 import {
     AdvancedRealTimeChart,
@@ -94,25 +103,25 @@ function JustSecurities() {
         <HStack height='100%'>
             <Sidebar logo={logo}>
                 <SidebarNavigationButton
-                    ionicon={trendingUp}
+                    ionicon={{ default: trendingUpOutline, active: trendingUp }}
                     label='Charts'
                     onClick={() => setActiveFeature('chart')}
                     active={activeFeature === 'chart'}
                 />
                 <SidebarNavigationButton
-                    ionicon={analytics}
+                    ionicon={{ default: analyticsOutline, active: analytics }}
                     label='Analysis'
                     onClick={() => setActiveFeature('analysis')}
                     active={activeFeature === 'analysis'}
                 />
                 <SidebarNavigationButton
-                    ionicon={cash}
+                    ionicon={{ default: cashOutline, active: cash }}
                     label='Fundamentals'
                     onClick={() => setActiveFeature('fundamentals')}
                     active={activeFeature === 'fundamentals'}
                 />
                 <SidebarNavigationButton
-                    ionicon={informationCircle}
+                    ionicon={{ default: informationCircleOutline, active: informationCircle }}
                     label='Company Profile'
                     onClick={() => setActiveFeature('profile')}
                     active={activeFeature === 'profile'}

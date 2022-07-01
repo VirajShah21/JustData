@@ -41,7 +41,7 @@ function SearchEngine() {
 
     return (
         <HStack height='100%'>
-            <Sidebar logo={logo}></Sidebar>
+            <Sidebar logo={logo} />
             <VStack justify='start' className='search-engine' width='100%'>
                 <SearchBar
                     value={searchValue}
