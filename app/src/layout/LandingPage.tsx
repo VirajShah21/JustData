@@ -13,18 +13,18 @@ import {
 } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import { HStack, Spacer, VStack } from 'reaction';
-import Button from 'src/components/Button';
-import DropdownMenu from 'src/components/DropdownMenu';
+import Button from 'src/components/ui/Button';
+import DropdownMenu from 'src/components/ui/DropdownMenu';
 import AppPreferences, { AppTheme } from 'src/utils/AppPreferences';
 import { ProductResult, ProductSectionTitle } from '../components/ProductComponents';
-import SearchBar from '../components/SearchBar';
-import justBanksyLogo from '../resources/images/icons/Just Banksy.png';
-import justFugitivesLogo from '../resources/images/icons/Just Fugitives.png';
-import justPlacesLogo from '../resources/images/icons/Just Places.png';
-import justSCOTUSLogo from '../resources/images/icons/Just SCOTUS.png';
-import justSecuritiesLogo from '../resources/images/icons/Just Securities.png';
-import logo from '../resources/images/icons/logo.png';
-import searchLogo from '../resources/images/icons/search.png';
+import SearchBar from 'src/components/ui/SearchBar';
+import justBanksyLogo from 'src/assets/images/icons/Just Banksy.png';
+import justFugitivesLogo from 'src/assets/images/icons/Just Fugitives.png';
+import justPlacesLogo from 'src/assets/images/icons/Just Places.png';
+import justSCOTUSLogo from 'src/assets/images/icons/Just SCOTUS.png';
+import justSecuritiesLogo from 'src/assets/images/icons/Just Securities.png';
+import logo from 'src/assets/images/icons/logo.png';
+import searchLogo from 'src/assets/images/icons/search.png';
 import './LandingPage.css';
 
 enum ProductCategoryRef {

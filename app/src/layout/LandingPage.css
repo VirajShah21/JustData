@@ -18,11 +18,11 @@
 }
 
 .dark .landing-left {
-    background-image: url(../resources/images/backgrounds/landing-bg.jpg);
+    background-image: url(src/assets/images/backgrounds/landing-bg.jpg);
 }
 
 .light .landing-left {
-    background-image: url(../resources/images/backgrounds/landing-bg-light.png);
+    background-image: url(src/assets/images/backgrounds/landing-bg-light.png);
 }
 
 .landing-right {

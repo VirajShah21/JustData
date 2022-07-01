@@ -1,4 +1,4 @@
-import logo from 'src/resources/images/icons/logo-alt.png';
+import logo from 'src/assets/images/icons/logo-alt.png';
 import './LoadingAnimation.css';
 
 /**

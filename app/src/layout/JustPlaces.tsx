@@ -2,16 +2,16 @@ import { IonIcon } from '@ionic/react';
 import { locationOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import { HStack, Spacer, VStack } from 'reaction';
+import justPlacesPlaceholder from 'src/assets/images/backgrounds/places.png';
+import logo from 'src/assets/images/icons/Just Places.png';
+import yellowPagesIcon from 'src/assets/images/icons/yellow pages.png';
 import LoadingAnimation from 'src/components/LoadingAnimation';
 import RatingComponent from 'src/components/RatingComponent';
-import SearchBar from 'src/components/SearchBar';
 import SearchResult from 'src/components/SearchResult';
-import Sidebar from 'src/components/Sidebar';
+import SearchBar from 'src/components/ui/SearchBar';
+import Sidebar from 'src/components/ui/Sidebar';
 import { useTitle } from 'src/HTMLHead';
-import logo from 'src/resources/images/icons/Just Places.png';
 import { PlacesKit } from 'src/utils/JustSDK';
-import justPlacesPlaceholder from '../resources/images/backgrounds/places.png';
-import yellowPagesIcon from '../resources/images/icons/yellow pages.png';
 import './JustPlaces.css';
 
 interface BusinessAgeBadgeProps {

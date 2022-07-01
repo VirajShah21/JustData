@@ -2,11 +2,11 @@ import { list, skullOutline } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import LoadingAnimation from 'src/components/LoadingAnimation';
-import PaginationController from 'src/components/PaginationController';
-import SearchBar from 'src/components/SearchBar';
-import Sidebar, { SidebarNavigationButton } from 'src/components/Sidebar';
+import PaginationController from 'src/components/ui/PaginationController';
+import SearchBar from 'src/components/ui/SearchBar';
+import Sidebar, { SidebarNavigationButton } from 'src/components/ui/Sidebar';
 import { useTitle } from 'src/HTMLHead';
-import logo from 'src/resources/images/icons/Just Fugitives.png';
+import logo from 'src/assets/images/icons/Just Fugitives.png';
 import { FBIKit } from 'src/utils/JustSDK';
 import './JustFugitives.css';
 
