@@ -3,7 +3,7 @@ import { HStack, VStack } from 'reaction';
 import LoadingAnimation from 'src/components/LoadingAnimation';
 import PaginationController from 'src/components/ui/PaginationController';
 import { FBIKit } from 'src/utils/JustSDK';
-import FugitiveListItem from './FugitiveListItem';
+import FugitiveListItem from '../../components/JustFugitives/FugitiveListItem';
 
 /**
  * This is a feature of the FBIs most wanted service. It displays a list of all the fugitives.

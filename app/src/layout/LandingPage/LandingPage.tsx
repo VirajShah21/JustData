@@ -5,7 +5,7 @@ import { ProductResult, ProductSectionTitle } from 'src/components/LandingPage/P
 import SearchBar from 'src/components/ui/SearchBar';
 import './LandingPage.css';
 import { OptionsBar } from './OptionsBar';
-import { allProducts, CATEGORY_REF_MAPPING } from './ProductManager';
+import { allProducts, CATEGORY_REF_MAPPING } from '../../utils/ProductManager';
 
 /**
  * @returns The landing page for Just Data.

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import LoadingAnimation from 'src/components/LoadingAnimation';
 import { FBIKit } from 'src/utils/JustSDK';
-import FugitiveListItem from './FugitiveListItem';
+import FugitiveListItem from '../../components/JustFugitives/FugitiveListItem';
 
 /**
  * This React component displays a list of the ten most wanted fugitives. It simply

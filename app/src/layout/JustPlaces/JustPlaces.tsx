@@ -10,7 +10,7 @@ import Sidebar from 'src/components/ui/Sidebar';
 import { useTitle } from 'src/HTMLHead';
 import { PlacesKit } from 'src/utils/JustSDK';
 import './JustPlaces.css';
-import { PlaceSearchResult } from './PlaceSearchResult';
+import { PlaceSearchResult } from '../../components/JustPlaces/PlaceSearchResult';
 
 /**
  * The page which displays the Just Places application.
