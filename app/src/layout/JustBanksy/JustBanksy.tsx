@@ -1,4 +1,4 @@
-import { albumsOutline, imagesOutline } from 'ionicons/icons';
+import { albums, albumsOutline, images, imagesOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import { HStack } from 'reaction';
 import logo from 'src/assets/images/icons/Just Banksy.png';
@@ -32,13 +32,13 @@ export default function JustBanksy() {
         <HStack height='100%'>
             <Sidebar logo={logo}>
                 <SidebarNavigationButton
-                    ionicon={imagesOutline}
+                    ionicon={{ default: imagesOutline, active: images }}
                     label='Image Generator'
                     onClick={() => setFeature('image-generator')}
                     active={feature === 'image-generator'}
                 />
                 <SidebarNavigationButton
-                    ionicon={albumsOutline}
+                    ionicon={{ default: albumsOutline, active: albums }}
                     label='Prepared Statements'
                     onClick={() => setFeature('prepared-statements')}
                     active={feature === 'prepared-statements'}

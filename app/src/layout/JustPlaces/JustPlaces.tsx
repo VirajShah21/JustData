@@ -44,7 +44,7 @@ export default function JustPlaces() {
 
     return (
         <HStack height='100%'>
-            <Sidebar logo={logo}></Sidebar>
+            <Sidebar logo={logo} />
             <VStack className='just-places' justify='start' width='100%' scroll='vertical'>
                 <HStack>
                     <SearchBar

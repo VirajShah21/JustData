@@ -1,5 +1,5 @@
 import { IonIcon } from '@ionic/react';
-import { home } from 'ionicons/icons';
+import { home, homeOutline } from 'ionicons/icons';
 import { ReactNode } from 'react';
 import { HStack, VStack } from 'reaction';
 import './Sidebar.css';
@@ -29,7 +29,7 @@ export default function Sidebar({ logo, children }: SidebarProps) {
         <VStack justify='start' className='sidebar'>
             <img src={logo} alt='Product Brand' className='sidebar-brand' />
             <SidebarNavigationButton
-                ionicon={home}
+                ionicon={homeOutline}
                 label='Home'
                 onClick={() => (window.location.href = '/')}
             />
