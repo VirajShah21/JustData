@@ -16,7 +16,7 @@ import { HStack, Spacer, VStack } from 'reaction';
 import Button from 'src/components/ui/Button';
 import DropdownMenu from 'src/components/ui/DropdownMenu';
 import AppPreferences, { AppTheme } from 'src/utils/AppPreferences';
-import { ProductResult, ProductSectionTitle } from '../components/ProductComponents';
+import { ProductResult, ProductSectionTitle } from 'src/components/LandingPage/ProductComponents';
 import SearchBar from 'src/components/ui/SearchBar';
 import justBanksyLogo from 'src/assets/images/icons/Just Banksy.png';
 import justFugitivesLogo from 'src/assets/images/icons/Just Fugitives.png';

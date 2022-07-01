@@ -3,7 +3,7 @@ import { HStack, VStack } from 'reaction';
 import background from 'src/assets/images/backgrounds/search.png';
 import logo from 'src/assets/images/icons/search.png';
 import LoadingAnimation from 'src/components/LoadingAnimation';
-import SearchResult from 'src/components/SearchResult';
+import SearchResult from 'src/components/ui/SearchResult';
 import SearchBar from 'src/components/ui/SearchBar';
 import Sidebar from 'src/components/ui/Sidebar';
 import { useTitle } from 'src/HTMLHead';

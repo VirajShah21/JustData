@@ -1,6 +1,6 @@
 import { HStack, Spacer, VStack } from 'reaction';
-import RatingComponent from 'src/components/RatingComponent';
-import SearchResult from 'src/components/SearchResult';
+import RatingComponent from 'src/components/JustPlaces/RatingComponent';
+import SearchResult from 'src/components/ui/SearchResult';
 import yellowPagesIcon from 'src/assets/images/icons/yellow pages.png';
 
 interface BusinessAgeBadgeProps {

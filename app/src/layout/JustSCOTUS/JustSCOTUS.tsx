@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import logo from 'src/assets/images/icons/Just SCOTUS.png';
 import LoadingAnimation from 'src/components/LoadingAnimation';
-import SearchResult from 'src/components/SearchResult';
+import SearchResult from 'src/components/ui/SearchResult';
 import Button from 'src/components/ui/Button';
 import DropdownMenu, { ValueLabelPair } from 'src/components/ui/DropdownMenu';
 import Sidebar from 'src/components/ui/Sidebar';
