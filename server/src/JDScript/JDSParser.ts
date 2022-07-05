@@ -3,7 +3,17 @@ import fs from 'fs';
 
 export type JDSParseWarning = 'PaddedLineWarning';
 export type JDSParseError = 'MissingColonError' | 'UnknownCommandError' | 'ArgumentError';
-export type JDSCommand = 'origin';
+export type JDSCommand =
+    | 'origin'
+    | 'field'
+    | 'var'
+    | 'open'
+    | 'close'
+    | 'select'
+    | 'select_all'
+    | 'select_from'
+    | 'select_all_from'
+    | 'save_selection';
 export type JDSAssembly = JDSInstruction[];
 
 export interface JDSInstruction {
@@ -21,6 +31,60 @@ export interface JDSCommandDefinition {
 const commandDefinitions: JDSCommandDefinition[] = [
     {
         command: 'origin',
+        minArgs: 1,
+        maxArgs: 1,
+        argTypes: ['string'],
+    },
+    {
+        command: 'field',
+        minArgs: 2,
+        maxArgs: 2,
+        argTypes: ['string', 'string'],
+    },
+    {
+        command: 'var',
+        minArgs: 2,
+        maxArgs: 2,
+        argTypes: ['string', 'string'],
+    },
+    {
+        command: 'open',
+        minArgs: 0,
+        maxArgs: 0,
+        argTypes: [],
+    },
+    {
+        command: 'close',
+        minArgs: 0,
+        maxArgs: 0,
+        argTypes: [],
+    },
+    {
+        command: 'select',
+        minArgs: 1,
+        maxArgs: 1,
+        argTypes: ['string'],
+    },
+    {
+        command: 'select_all',
+        minArgs: 1,
+        maxArgs: 1,
+        argTypes: ['string'],
+    },
+    {
+        command: 'select_from',
+        minArgs: 2,
+        maxArgs: 2,
+        argTypes: ['string', 'string'],
+    },
+    {
+        command: 'select_all_from',
+        minArgs: 2,
+        maxArgs: 2,
+        argTypes: ['string', 'string'],
+    },
+    {
+        command: 'save_selection',
         minArgs: 1,
         maxArgs: 1,
         argTypes: ['string'],
