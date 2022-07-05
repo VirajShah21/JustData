@@ -1,5 +1,48 @@
 # JDScript Documentation
 
+- [JDScript Documentation](#jdscript-documentation)
+  - [Getting Started](#getting-started)
+  - [Commands](#commands)
+  - [Command Documentation](#command-documentation)
+    - [field](#field)
+      - [Syntax](#syntax)
+      - [Description](#description)
+      - [Arguments](#arguments)
+    - [var](#var)
+      - [Syntax](#syntax-1)
+      - [Description](#description-1)
+      - [Arguments](#arguments-1)
+    - [open](#open)
+      - [Syntax](#syntax-2)
+      - [Description](#description-2)
+    - [close](#close)
+      - [Syntax](#syntax-3)
+      - [Description](#description-3)
+    - [select](#select)
+      - [Syntax](#syntax-4)
+      - [Description](#description-4)
+      - [Arguments](#arguments-2)
+    - [select_all](#select_all)
+      - [Syntax](#syntax-5)
+      - [Description](#description-5)
+      - [Arguments](#arguments-3)
+    - [select_from](#select_from)
+      - [Syntax](#syntax-6)
+      - [Description](#description-6)
+      - [Arguments](#arguments-4)
+    - [select_all_from](#select_all_from)
+      - [Syntax](#syntax-7)
+      - [Description](#description-7)
+      - [Arguments](#arguments-5)
+    - [save_selection](#save_selection)
+      - [Syntax](#syntax-8)
+      - [Description](#description-8)
+      - [Arguments](#arguments-6)
+    - [attr](#attr)
+      - [Syntax](#syntax-9)
+      - [Description](#description-9)
+      - [Arguments](#arguments-7)
+
 ## Getting Started
 
 JDScript (Just Data Script) is a scripting language designed to scrape websites. The JDScript
@@ -52,7 +95,7 @@ You can use a single unit of time or multiple units of time and order does not m
 -   `save_selection` – Saves the selected element to a variable.
 -   `attr` – Gets the attribute of a selected element.
 
-## Commmand Documentation
+## Command Documentation
 
 ### field
 
@@ -62,7 +105,7 @@ You can use a single unit of time or multiple units of time and order does not m
 field: [name] [value]
 ```
 
-### Description
+#### Description
 
 Assigns a field name and value to the scraper. The field name cannot be changed. For mutable
 values, use `var` instead.
@@ -229,3 +272,8 @@ last selected element.
 
 If the `selection` or last selected element is a `Collection` or `NodeList` then the `attr` command
 is applied to each element and returned as a string.
+
+#### Arguments
+
+-   `name: string` – The name of the attribute to retrieve.
+-   `selection?: string` – The name of the variable that contains the element.
