@@ -1,5 +1,4 @@
 import DynamicScraper from '../Scraper/DynamicScraper';
-import { ParsedHTMLElement } from '../Scraper/ScrapeUtils';
 import { JDSAssembly, JDSCommand, JDSParserIssue, parseScript } from './JDSParser';
 
 type ExecutorFunction = (
