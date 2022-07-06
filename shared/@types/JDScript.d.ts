@@ -3,18 +3,18 @@ interface JDSIssue {
     readonly message: string;
     readonly line: number;
     readonly column: number;
-    readonly error?: JDSError;
-    readonly warning?: JDSWarning;
+    readonly error?: JDSCompilerError;
+    readonly warning?: JDSCompilerWarning;
 }
 
 interface JDSWarning extends JDSIssue {
     readonly name: 'JDSWarning';
-    readonly warning: JDSWarning;
+    readonly warning: JDSCompilerWarning;
 }
 
 interface JDSError extends JDSIssue {
     readonly name: 'JDSError';
-    readonly error: JDSError;
+    readonly error: JDSCompilerError;
 }
 
 interface PlaygroundScriptUploadResponse {
@@ -34,8 +34,10 @@ interface PlaygroundStepResponse {
     vars?: Record<string, string | number | boolean> | null;
 }
 
-type JDSParseWarning = 'PaddedLineWarning';
-type JDSParseError = 'MissingColonError' | 'UnknownCommandError' | 'ArgumentError';
+type JDSCompilerWarning = 'WhitespaceWarning';
+
+type JDSCompilerError = 'MissingColonError' | 'UnknownCommandError' | 'ArgumentError';
+
 type JDSCommand =
     | 'origin'
     | 'field'
@@ -47,6 +49,7 @@ type JDSCommand =
     | 'select_from'
     | 'select_all_from'
     | 'save_selection';
+
 type JDSAssembly = JDSInstruction[];
 
 interface JDSInstruction {

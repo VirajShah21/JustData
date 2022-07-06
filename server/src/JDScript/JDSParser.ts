@@ -145,7 +145,7 @@ export function validateLine(line: string, lineNumber = 0): JDSIssue[] {
     if (line[0] === ' ') {
         issues.push({
             name: 'JDSWarning',
-            warning: 'ParserWarning',
+            warning: 'WhitespaceWarning',
             message: 'Line should not start with space',
             line: lineNumber,
             column: 1,
@@ -156,7 +156,7 @@ export function validateLine(line: string, lineNumber = 0): JDSIssue[] {
     if (line[line.length - 1] === ' ') {
         issues.push({
             name: 'JDSWarning',
-            warning: 'ParserWarning',
+            warning: 'WhitespaceWarning',
             message: 'Line should not end with space',
             line: lineNumber,
             column: line.length,
