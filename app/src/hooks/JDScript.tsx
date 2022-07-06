@@ -7,6 +7,7 @@ export interface ScriptPlayground {
     readonly uploaded: boolean;
     readonly running: boolean;
     readonly id: string | null;
+    readonly assembly: JDSAssembly;
     upload: () => void;
     run: () => void;
 }
@@ -15,7 +16,7 @@ export function useScriptPlayground(): ScriptPlayground {
     const [script, setScript] = useState(exampleScripts.WordOfTheDay.join('\n'));
     const [uploaded, setUploaded] = useState(false);
     const [running, setRunning] = useState(false);
-    const [assembly, setAssembly] = useState([]);
+    const [assemblyCode, setAssemblyCode] = useState<JDSAssembly>([]);
     const [instanceId, setInstanceId] = useState<string>();
 
     return {
@@ -40,10 +41,15 @@ export function useScriptPlayground(): ScriptPlayground {
             return instanceId ?? null;
         },
 
+        get assembly() {
+            return assemblyCode;
+        },
+
         async upload() {
-            const { id } = await JDScriptKit.uploadScriptToPlayground(script);
-            if (id) {
+            const { id, assembly } = await JDScriptKit.uploadScriptToPlayground(script);
+            if (id && assembly) {
                 setInstanceId(id);
+                setAssemblyCode(assembly);
                 setUploaded(true);
             }
         },

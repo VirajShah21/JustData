@@ -4,6 +4,7 @@ import { HStack, VStack } from 'reaction';
 import Button from 'src/components/ui/Button';
 import { ScriptPlayground } from 'src/hooks/JDScript';
 import { JDScriptKit } from 'src/utils/JustSDK';
+import './PlaygroundRunner.css';
 
 export interface PlaygroundRunnerProps {
     playground: ScriptPlayground;
@@ -11,7 +12,7 @@ export interface PlaygroundRunnerProps {
 
 export default function PlaygroundRunner({ playground }: PlaygroundRunnerProps) {
     return (
-        <VStack>
+        <VStack className='playground-runner'>
             <HStack>
                 <Button
                     onClick={() => {
@@ -39,9 +40,16 @@ export default function PlaygroundRunner({ playground }: PlaygroundRunnerProps) 
                     </VStack>
                 </Button>
             </HStack>
-            <VStack>
-                {playground.script.split('\n').map(line => (
-                    <code>{line}</code>
+            <VStack className='assembly-decoder' scroll='both'>
+                {playground.assembly.map(instruction => (
+                    <HStack justify='start'>
+                        <code className='assembly-code assembly-command'>
+                            {instruction.command}
+                        </code>
+                        {instruction.arguments.map(argument => (
+                            <code className={`assembly-code assembly-arg`}>{argument}</code>
+                        ))}
+                    </HStack>
                 ))}
             </VStack>
         </VStack>

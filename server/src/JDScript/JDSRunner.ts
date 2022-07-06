@@ -1,5 +1,5 @@
 import DynamicScraper from '../Scraper/DynamicScraper';
-import { JDSAssembly, JDSCommand, JDSParserIssue, parseScript, validateScript } from './JDSParser';
+import { JDSParserIssue, parseScript, validateScript } from './JDSParser';
 
 type ExecutorFunction = (
     scraper: DynamicScraper,
