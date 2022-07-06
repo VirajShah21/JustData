@@ -91,12 +91,14 @@ const commandDefinitions: JDSCommandDefinition[] = [
     },
 ];
 
-export abstract class JDSParserIssue extends Error {
+export abstract class JDSParserIssue {
+    readonly name: string;
+    readonly message: string;
     readonly line: number;
     readonly column: number;
 
     constructor(name: string, message: string, line: number, column: number) {
-        super(message);
+        this.message = message;
         this.name = name;
         this.line = line;
         this.column = column;
@@ -308,12 +310,6 @@ export function validateScript(script: string): (JDSParserError | JDSParserWarni
 }
 
 export function parseLine(line: string, lineNumber = 0): JDSInstruction {
-    const issues = validateLine(line, lineNumber);
-
-    if (issues.length > 0) {
-        throw issues;
-    }
-
     return {
         command: parseCommand(line) as JDSCommand,
         arguments: parseArgs(line),
@@ -321,12 +317,6 @@ export function parseLine(line: string, lineNumber = 0): JDSInstruction {
 }
 
 export function parseScript(script: string): JDSAssembly {
-    const issues = validateScript(script);
-
-    if (issues.length > 0) {
-        throw issues;
-    }
-
     return script
         .split('\n')
         .filter(line => line.trim().length > 0)

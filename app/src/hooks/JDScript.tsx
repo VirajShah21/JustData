@@ -6,6 +6,7 @@ export interface ScriptPlayground {
     script: string;
     readonly uploaded: boolean;
     readonly running: boolean;
+    readonly id: string | null;
     upload: () => void;
     run: () => void;
 }
@@ -32,6 +33,10 @@ export function useScriptPlayground(): ScriptPlayground {
 
         get running() {
             return running;
+        },
+
+        get id() {
+            return instanceId ?? null;
         },
 
         async upload() {

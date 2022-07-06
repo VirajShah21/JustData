@@ -1,5 +1,5 @@
 import DynamicScraper from '../Scraper/DynamicScraper';
-import { JDSAssembly, JDSCommand, JDSParserIssue, parseScript } from './JDSParser';
+import { JDSAssembly, JDSCommand, JDSParserIssue, parseScript, validateScript } from './JDSParser';
 
 type ExecutorFunction = (
     scraper: DynamicScraper,
@@ -40,21 +40,16 @@ export async function executeAssembly(assembly: JDSAssembly) {
     }
 }
 
-export function executeScript(script: string) {
-    let assembly: JDSAssembly;
+export function executeScript(script: string): JDSParserIssue[] | 0 {
+    let issues = validateScript(script);
 
-    try {
-        assembly = parseScript(script);
-    } catch (e) {
-        (e as JDSParserIssue[]).forEach(issue => {
-            if (issue.name === 'JDSParserWarning') {
-                console.warn(issue.toString());
-            } else {
-                console.error(issue.toString());
-            }
-        });
-        return;
+    if (issues.length > 0) {
+        return issues;
     }
 
+    let assembly = parseScript(script);
+
     executeAssembly(assembly);
+
+    return 0;
 }

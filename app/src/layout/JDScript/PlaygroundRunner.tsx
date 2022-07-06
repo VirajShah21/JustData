@@ -3,6 +3,7 @@ import { handRight, playSkipForward, returnDownForward } from 'ionicons/icons';
 import { HStack, VStack } from 'reaction';
 import Button from 'src/components/ui/Button';
 import { ScriptPlayground } from 'src/hooks/JDScript';
+import { JDScriptKit } from 'src/utils/JustSDK';
 
 export interface PlaygroundRunnerProps {
     playground: ScriptPlayground;
@@ -12,7 +13,14 @@ export default function PlaygroundRunner({ playground }: PlaygroundRunnerProps) 
     return (
         <VStack>
             <HStack>
-                <Button>
+                <Button
+                    onClick={() => {
+                        if (playground.id) {
+                            JDScriptKit.stepScriptInPlayground(playground.id);
+                        } else {
+                            alert('Error: Not in sync with server');
+                        }
+                    }}>
                     <VStack>
                         <IonIcon icon={returnDownForward} size='large' color='primary' />
                         Step

@@ -144,10 +144,13 @@ app.post('/api/jds/playground/upload', (req, res) => {
 });
 
 app.get('/api/jds/playground/step', async (req, res) => {
+    Logger.debug('API call received: Step playground instance');
     const { id } = req.query;
+    Logger.debug(`Provided ID: ${id}`);
 
     if (typeof id === 'string') {
         const instance = await JDSPlayground.stepPlaygroundScript(id);
+        Logger.debug('Found instance');
         res.send({
             success: true,
             id: id,

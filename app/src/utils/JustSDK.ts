@@ -196,11 +196,14 @@ export class JDScriptKit {
     }
 
     static async stepScriptInPlayground(id: string): Promise<PlaygroundStepResponse> {
+        console.log('Called step');
         const response = await axios.get(
             `${JustSDK.hostname}/api/jds/playground/step?id=${encodeURI(id)}`,
         );
+        console.log('Found response', response);
 
         if (response.status === httpSuccess) {
+            console.log('Found data', response.data);
             return response.data;
         }
 
