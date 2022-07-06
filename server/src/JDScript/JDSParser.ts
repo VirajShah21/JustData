@@ -64,38 +64,6 @@ const commandDefinitions: JDSCommandDefinition[] = [
     },
 ];
 
-export abstract class JDSParserIssue {
-    readonly name: string;
-    readonly message: string;
-    readonly line: number;
-    readonly column: number;
-
-    constructor(name: string, message: string, line: number, column: number) {
-        this.message = message;
-        this.name = name;
-        this.line = line;
-        this.column = column;
-    }
-}
-
-export class JDSParserWarning extends JDSParserIssue {
-    readonly warning: JDSParseWarning;
-
-    constructor(warning: JDSParseWarning, message: string, line: number, column: number) {
-        super('JDSParserWarning', message, line, column);
-        this.warning = warning;
-    }
-}
-
-export class JDSParserError extends JDSParserIssue {
-    readonly error: JDSParseError;
-
-    constructor(error: JDSParseError, message: string, line: number, column: number) {
-        super('JDSParserError', message, line, column);
-        this.error = error;
-    }
-}
-
 export function parseCommand(line: string): string {
     const endCommand = line.indexOf(': ');
 
@@ -163,8 +131,8 @@ export function parseArgs(line: string): (string | number | boolean)[] {
     });
 }
 
-export function validateLine(line: string, lineNumber = 0): (JDSParserError | JDSParserWarning)[] {
-    const issues = [];
+export function validateLine(line: string, lineNumber = 0): JDSIssue[] {
+    const issues: JDSIssue[] = [];
 
     const indexOfFirstSpace = line.indexOf(' ');
     const indexOfFirstColon = line.indexOf(':');
@@ -175,76 +143,70 @@ export function validateLine(line: string, lineNumber = 0): (JDSParserError | JD
 
     // Check if the line begins with a space
     if (line[0] === ' ') {
-        issues.push(
-            new JDSParserWarning(
-                'PaddedLineWarning',
-                'Line should not start with space',
-                lineNumber,
-                1,
-            ),
-        );
+        issues.push({
+            name: 'JDSWarning',
+            warning: 'ParserWarning',
+            message: 'Line should not start with space',
+            line: lineNumber,
+            column: 1,
+        });
     }
 
     // Check if the line ends with a space
     if (line[line.length - 1] === ' ') {
-        issues.push(
-            new JDSParserWarning(
-                'PaddedLineWarning',
-                'Line should not end with space',
-                lineNumber,
-                line.length,
-            ),
-        );
+        issues.push({
+            name: 'JDSWarning',
+            warning: 'ParserWarning',
+            message: 'Line should not end with space',
+            line: lineNumber,
+            column: line.length,
+        });
     }
 
     // Checks if the command ends with a colon
     if (indexOfFirstSpace > 0 && indexOfFirstColon !== indexOfFirstSpace - 1) {
-        issues.push(
-            new JDSParserError(
-                'MissingColonError',
-                'Missing colon directly after command and before arguments list',
-                lineNumber,
-                indexOfFirstSpace + 1,
-            ),
-        );
+        issues.push({
+            name: 'JDSError',
+            error: 'MissingColonError',
+            message: 'Missing colon directly after command and before arguments list',
+            line: lineNumber,
+            column: indexOfFirstSpace + 1,
+        });
     }
 
     // Check if the command exists
     if (!commandDefinition) {
-        issues.push(
-            new JDSParserError(
-                'UnknownCommandError',
-                `Command doesn't exist: ${command}`,
-                lineNumber,
-                1,
-            ),
-        );
+        issues.push({
+            name: 'JDSError',
+            error: 'UnknownCommandError',
+            message: `Command doesn't exist: ${command}`,
+            line: lineNumber,
+            column: 1,
+        });
     }
 
     // Check if the arguments list
     if (commandDefinition) {
         // Check if the minimum number of arguments is met
         if (args.length < commandDefinition.minArgs) {
-            issues.push(
-                new JDSParserError(
-                    'ArgumentError',
-                    `Expected at least ${commandDefinition.minArgs} arguments but found only ${args.length} arguments.`,
-                    lineNumber,
-                    line.length,
-                ),
-            );
+            issues.push({
+                name: 'JDSError',
+                error: 'ArgumentError',
+                message: `Expected at least ${commandDefinition.minArgs} arguments but found only ${args.length} arguments.`,
+                line: lineNumber,
+                column: line.length,
+            });
         }
 
         // Check if the arguments list excedes the maxiumum allowed
         if (args.length > commandDefinition.maxArgs) {
-            issues.push(
-                new JDSParserError(
-                    'ArgumentError',
-                    `Expected at most ${commandDefinition.maxArgs} arguments but found ${args.length} arguments`,
-                    lineNumber,
-                    indexOfFirstColon + 1,
-                ),
-            );
+            issues.push({
+                name: 'JDSError',
+                error: 'ArgumentError',
+                message: `Expected at most ${commandDefinition.maxArgs} arguments but found ${args.length} arguments`,
+                line: lineNumber,
+                column: indexOfFirstColon + 1,
+            });
         }
 
         // Ensure the arguments are of the correct type
@@ -253,16 +215,15 @@ export function validateLine(line: string, lineNumber = 0): (JDSParserError | JD
             const actual = typeof arg;
 
             if (expected !== actual) {
-                issues.push(
-                    new JDSParserError(
-                        'ArgumentError',
-                        `Expected argument #${
-                            i + 1
-                        } for ${command} to be of type ${expected} but found ${actual} instead.`,
-                        lineNumber,
-                        line.indexOf(new String(arg) as string) + 1,
-                    ),
-                );
+                issues.push({
+                    name: 'JDSError',
+                    error: 'ArgumentError',
+                    message: `Expected argument #${
+                        i + 1
+                    } for ${command} to be of type ${expected} but found ${actual} instead.`,
+                    line: lineNumber,
+                    column: line.indexOf(new String(arg) as string) + 1,
+                });
             }
         });
     }
@@ -270,7 +231,7 @@ export function validateLine(line: string, lineNumber = 0): (JDSParserError | JD
     return issues;
 }
 
-export function validateScript(script: string): (JDSParserError | JDSParserWarning)[] {
+export function validateScript(script: string): JDSIssue[] {
     const issues = [];
 
     const lines = script.split('\n').filter(line => line.trim().length > 0);
