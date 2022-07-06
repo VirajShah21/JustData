@@ -12,16 +12,13 @@ export interface PlaygroundRunnerProps {
 
 export default function PlaygroundRunner({ playground }: PlaygroundRunnerProps) {
     return (
-        <VStack className='playground-runner'>
+        <VStack justify='around' className='playground-runner'>
+            {playground.screenshotUrl && (
+                <img src={playground.screenshotUrl} alt='Screenshot of browser' />
+            )}
+
             <HStack>
-                <Button
-                    onClick={() => {
-                        if (playground.id) {
-                            JDScriptKit.stepScriptInPlayground(playground.id);
-                        } else {
-                            alert('Error: Not in sync with server');
-                        }
-                    }}>
+                <Button onClick={playground.step}>
                     <VStack>
                         <IonIcon icon={returnDownForward} size='large' color='primary' />
                         Step
@@ -40,7 +37,7 @@ export default function PlaygroundRunner({ playground }: PlaygroundRunnerProps) 
                     </VStack>
                 </Button>
             </HStack>
-            <VStack className='assembly-decoder' scroll='both'>
+            <VStack height='auto' scroll='both' className='assembly-decoder'>
                 {playground.assembly.map(instruction => (
                     <HStack justify='start'>
                         <code className='assembly-code assembly-command'>

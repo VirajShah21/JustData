@@ -8,7 +8,9 @@ export interface ScriptPlayground {
     readonly running: boolean;
     readonly id: string | null;
     readonly assembly: JDSAssembly;
+    readonly screenshotUrl: string | null;
     upload: () => void;
+    step: () => void;
     run: () => void;
 }
 
@@ -18,6 +20,7 @@ export function useScriptPlayground(): ScriptPlayground {
     const [running, setRunning] = useState(false);
     const [assemblyCode, setAssemblyCode] = useState<JDSAssembly>([]);
     const [instanceId, setInstanceId] = useState<string>();
+    const [screenshotId, setScreenshotId] = useState<string>();
 
     return {
         get script() {
@@ -45,12 +48,29 @@ export function useScriptPlayground(): ScriptPlayground {
             return assemblyCode;
         },
 
+        get screenshotUrl() {
+            if (instanceId && screenshotId) {
+                return JDScriptKit.playgroundScreenshotUrl(instanceId, screenshotId);
+            } else {
+                return null;
+            }
+        },
+
         async upload() {
             const { id, assembly } = await JDScriptKit.uploadScriptToPlayground(script);
             if (id && assembly) {
                 setInstanceId(id);
                 setAssemblyCode(assembly);
                 setUploaded(true);
+            }
+        },
+
+        async step() {
+            if (instanceId) {
+                const { screenshot } = await JDScriptKit.stepScriptInPlayground(instanceId);
+                setScreenshotId(screenshot ?? undefined);
+            } else {
+                alert('Error: Not in sync with server');
             }
         },
 
