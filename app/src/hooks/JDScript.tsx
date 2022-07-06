@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import exampleScripts from 'src/assets/json/jdscript_examples.json';
+import { JDScriptKit } from 'src/utils/JustSDK';
 
 export interface ScriptPlayground {
     script: string;
@@ -13,6 +14,7 @@ export function useScriptPlayground(): ScriptPlayground {
     const [script, setScript] = useState(exampleScripts.WordOfTheDay.join('\n'));
     const [uploaded, setUploaded] = useState(false);
     const [running, setRunning] = useState(false);
+    const [instanceId, setInstanceId] = useState<string>();
 
     return {
         get script() {
@@ -32,12 +34,13 @@ export function useScriptPlayground(): ScriptPlayground {
             return running;
         },
 
-        upload() {
+        async upload() {
+            const { id } = await JDScriptKit.uploadScriptToPlayground(script);
+            setInstanceId(id);
             setUploaded(true);
         },
 
         run() {
-            setUploaded(true);
             setRunning(true);
         },
     };

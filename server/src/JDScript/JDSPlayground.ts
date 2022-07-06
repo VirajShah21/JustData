@@ -1,5 +1,5 @@
 import DynamicScraper from '../Scraper/DynamicScraper';
-import { JDSAssembly } from './JDSParser';
+import { JDSAssembly, parseScript } from './JDSParser';
 import { executors } from './JDSRunner';
 
 export interface PlaygroundInstance {
@@ -43,8 +43,4 @@ let nextId = 9999;
 function instanceId(): string {
     nextId++;
     return `${nextId}`;
-}
-
-function parseScript(script: string): JDSAssembly {
-    throw new Error('Function not implemented.');
 }

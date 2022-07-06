@@ -26,7 +26,7 @@ export default function JDScript() {
 export function JDScriptPlayground() {
     const playground = useScriptPlayground();
 
-    if (playground.running) {
+    if (!playground.running) {
         return <ScriptEditor playground={playground} />;
     }
 
