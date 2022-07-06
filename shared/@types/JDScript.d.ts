@@ -1,10 +1,10 @@
-abstract interface JDSIssue {
+interface JDSIssue {
     readonly name: 'JDSWarning' | 'JDSError';
     readonly message: string;
     readonly line: number;
     readonly column: number;
-    readonly error?: string;
-    readonly warning?: string;
+    readonly error?: JDSError;
+    readonly warning?: JDSWarning;
 }
 
 interface JDSWarning extends JDSIssue {
