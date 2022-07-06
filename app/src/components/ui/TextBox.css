@@ -1,0 +1,16 @@
+.text-box {
+    border: none;
+    outline: none;
+    padding: 0.5em;
+    font-size: 1em;
+}
+
+.dark .text-box {
+    background-color: var(--secondary-bg-dark);
+    color: var(--primary-text-dark);
+}
+
+.light .text-box {
+    background-color: var(--secondary-bg-light);
+    color: var(--primary-text-light);
+}

@@ -5,6 +5,7 @@ import JustSCOTUS from './layout/JustSCOTUS/JustSCOTUS';
 import JustSecurities from './layout/JustSecurities/JustSecurities';
 import LandingPage from './layout/LandingPage/LandingPage';
 import SearchEngine from './layout/JustSearch/SearchEngine';
+import JDScript from './layout/JDScript/JDScript';
 
 function App(): JSX.Element {
     return <>{getPage(window.location.pathname)}</>;
@@ -32,6 +33,8 @@ function getPage(pathname: string) {
             return <JustSCOTUS />;
         case '/banksy':
             return <JustBanksy />;
+        case '/jd-script':
+            return <JDScript />;
         default:
             return <div>404</div>;
     }

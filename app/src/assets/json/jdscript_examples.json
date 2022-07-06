@@ -1,0 +1,8 @@
+{
+    "WordOfTheDay": [
+        "origin: https://www.merriam-webster.com/word-of-the-day",
+        "open",
+        "select: h1",
+        "close"
+    ]
+}
