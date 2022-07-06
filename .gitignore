@@ -108,3 +108,6 @@ dist
 
 # ReactJS built files
 build
+
+# Server cache
+server/caches
