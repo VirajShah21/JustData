@@ -39,14 +39,11 @@ export default function PlaygroundRunner({ playground }: PlaygroundRunnerProps) 
                     </VStack>
                 </Button>
             </HStack>
-            <pre>
+            <VStack>
                 {playground.script.split('\n').map(line => (
-                    <code>
-                        {line}
-                        <br />
-                    </code>
+                    <code>{line}</code>
                 ))}
-            </pre>
+            </VStack>
         </VStack>
     );
 }

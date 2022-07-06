@@ -1,33 +1,6 @@
 import path from 'path';
 import fs from 'fs';
 
-export type JDSParseWarning = 'PaddedLineWarning';
-export type JDSParseError = 'MissingColonError' | 'UnknownCommandError' | 'ArgumentError';
-export type JDSCommand =
-    | 'origin'
-    | 'field'
-    | 'var'
-    | 'open'
-    | 'close'
-    | 'select'
-    | 'select_all'
-    | 'select_from'
-    | 'select_all_from'
-    | 'save_selection';
-export type JDSAssembly = JDSInstruction[];
-
-export interface JDSInstruction {
-    command: JDSCommand;
-    arguments: (string | number | boolean)[];
-}
-
-export interface JDSCommandDefinition {
-    command: JDSCommand;
-    minArgs: number;
-    maxArgs: number;
-    argTypes: ('string' | 'number' | 'boolean')[];
-}
-
 const commandDefinitions: JDSCommandDefinition[] = [
     {
         command: 'origin',

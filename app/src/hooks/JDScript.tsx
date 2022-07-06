@@ -15,6 +15,7 @@ export function useScriptPlayground(): ScriptPlayground {
     const [script, setScript] = useState(exampleScripts.WordOfTheDay.join('\n'));
     const [uploaded, setUploaded] = useState(false);
     const [running, setRunning] = useState(false);
+    const [assembly, setAssembly] = useState([]);
     const [instanceId, setInstanceId] = useState<string>();
 
     return {
@@ -41,8 +42,10 @@ export function useScriptPlayground(): ScriptPlayground {
 
         async upload() {
             const { id } = await JDScriptKit.uploadScriptToPlayground(script);
-            setInstanceId(id);
-            setUploaded(true);
+            if (id) {
+                setInstanceId(id);
+                setUploaded(true);
+            }
         },
 
         run() {

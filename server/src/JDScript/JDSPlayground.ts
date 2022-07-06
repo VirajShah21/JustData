@@ -1,6 +1,6 @@
 import DynamicScraper from '../Scraper/DynamicScraper';
 import Logger from '../utils/Logger';
-import { JDSAssembly, parseScript } from './JDSParser';
+import { parseScript } from './JDSParser';
 import { executors } from './JDSRunner';
 
 export interface PlaygroundInstance {

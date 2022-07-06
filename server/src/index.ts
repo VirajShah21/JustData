@@ -134,6 +134,7 @@ app.post('/api/jds/playground/upload', (req, res) => {
         res.send({
             success: true,
             id: instance.id,
+            assembly: instance.assembly,
         });
     } else {
         res.send({
