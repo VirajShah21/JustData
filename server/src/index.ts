@@ -13,6 +13,8 @@ import StockTickerScraper from './Scraper/StockTickerScraper';
 import WHFinancialDisclosureScraper from './Scraper/WHFinancialDisclosureScraper';
 import YellowPagesSearchScraper from './Scraper/YellowPagesSearchScraper';
 import Logger from './utils/Logger';
+import bodyParser from 'body-parser';
+import * as JDSPlayground from './JDScript/JDSPlayground';
 
 // DEV_PORT is 3001 because react-scripts takes 3000
 const DEV_PORT = 3001;
@@ -33,6 +35,8 @@ app.use((_, res, next) => {
 });
 
 app.use(express.static(path.resolve(__dirname, '../../app/build')));
+
+app.use(bodyParser.json());
 
 app.get('/api/stocks/ticker-search', async (req, res) => {
     const { q } = req.query;
@@ -119,6 +123,51 @@ app.get('/api/banksy', async (req, res) => {
         res.send(null);
     } else {
         res.send(BanksyScraper.getResults(prompt));
+    }
+});
+
+app.post('/api/jds/playground/upload', (req, res) => {
+    const { script } = req.body;
+
+    if (typeof script === 'string') {
+        const instance = JDSPlayground.newInstance(script);
+        res.send({
+            success: true,
+            id: instance.id,
+        });
+    } else {
+        res.send({
+            success: false,
+            error: `Invalid ID: ${script}`,
+        });
+    }
+});
+
+app.get('/api/jds/playground/step', async (req, res) => {
+    const { id } = req.query;
+
+    if (typeof id === 'string') {
+        const instance = await JDSPlayground.stepPlaygroundScript(id);
+        res.send({
+            success: true,
+            id: id,
+            origin: instance.scraper.getOrigin(),
+            fields: instance.scraper.getFields(),
+            vars: instance.scraper.getVars(),
+            screenshot: await instance.scraper.generatePlaygroundScreenshot(instance.id),
+        });
+    } else {
+        res.send('Error: The provided id is not a string.');
+    }
+});
+
+app.get('/api/jds/playground/screenshot', async (req, res) => {
+    const { id, screenshot } = req.query;
+
+    if (typeof id === 'string' && typeof screenshot === 'string') {
+        res.sendFile(path.resolve(`/caches/jdscript/playground/${id}/${screenshot}.png`));
+    } else {
+        res.send('Error: The provided id or screenshot is not a string');
     }
 });
 

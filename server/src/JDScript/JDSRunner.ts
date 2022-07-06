@@ -6,7 +6,7 @@ type ExecutorFunction = (
     args: (string | number | boolean)[],
 ) => Promise<void>;
 
-const executors: Record<JDSCommand, ExecutorFunction> = {
+export const executors: Record<JDSCommand, ExecutorFunction> = {
     origin: async (scraper, [origin]) => scraper.setOrigin(origin as string),
     field: async (scraper, [name, value]) => scraper.updateField(name as string, value as string),
     var: async (scraper, [name, value]) => scraper.updateVar(name as string, value),

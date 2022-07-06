@@ -178,5 +178,41 @@ class BanksyKit {
     }
 }
 
+export class JDScriptKit {
+    static async uploadScriptToPlayground(script: string): Promise<PlaygroundScriptUploadResponse> {
+        const response = await axios({
+            method: 'POST',
+            url: `${JustSDK.hostname}/api/jds/playground/upload`,
+            data: {
+                script,
+            },
+        });
+
+        if (response.status === httpSuccess) {
+            return response.data;
+        }
+
+        throw new HTTPError(response.status);
+    }
+
+    static async stepScriptInPlayground(id: string): Promise<PlaygroundStepResponse> {
+        const response = await axios.get(
+            `${JustSDK.hostname}/api/jds/playground/step?id=${encodeURI(id)}`,
+        );
+
+        if (response.status === httpSuccess) {
+            return response.data;
+        }
+
+        throw new HTTPError(response.status);
+    }
+
+    static playgroundScreenshotUrl(id: string, screenshot: string): string {
+        return `${JustSDK.hostname}/api/jds/playground/screenshot?id=${encodeURI(
+            id,
+        )}&screenshot=${encodeURI(screenshot)}`;
+    }
+}
+
 export default JustSDK;
 export { FBIKit, PlacesKit, SCOTUSKit, SERPKit, SecuritiesKit, BanksyKit };

@@ -1,3 +1,4 @@
+import path from 'path';
 import Scraper from './Scraper';
 import { ScrapedDocument } from './ScraperDatabase';
 import { ParsedHTMLElement } from './ScrapeUtils';
@@ -89,6 +90,33 @@ export default class DynamicScraper extends Scraper<unknown> {
         this.selections[name] = this.lastSelected;
     }
 
+    async generatePlaygroundScreenshot(instanceId: string): Promise<string | null> {
+        if (this.tab) {
+            const id = screenshotId();
+            await this.tab.screenshot({
+                path: path.resolve(`./caches/jdscript/playground/${instanceId}/${id}.png`),
+            });
+            return id;
+        }
+        return null;
+    }
+
+    getOrigin(): string {
+        return this.origin;
+    }
+
+    getFields(): Record<string, string> {
+        return this.fields;
+    }
+
+    getVars(): Record<string, string | number | boolean> {
+        return this.vars;
+    }
+
+    getSelections(): Record<string, ParsedHTMLElement | ParsedHTMLElement[] | null> {
+        return this.selections;
+    }
+
     scrape(): Promise<unknown> {
         throw new Error('Dynamic Scraping does not support scraping');
     }
@@ -96,4 +124,11 @@ export default class DynamicScraper extends Scraper<unknown> {
     findInDatabase(): Promise<ScrapedDocument<unknown> | ScrapedDocument<unknown>[] | null> {
         throw new Error('Dynamic Scraping does not support database access');
     }
+}
+
+let nextScreenshotId = 9999;
+
+function screenshotId() {
+    nextScreenshotId++;
+    return `${nextScreenshotId}`;
 }
