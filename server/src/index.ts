@@ -13,6 +13,9 @@ import StockTickerScraper from './Scraper/StockTickerScraper';
 import WHFinancialDisclosureScraper from './Scraper/WHFinancialDisclosureScraper';
 import YellowPagesSearchScraper from './Scraper/YellowPagesSearchScraper';
 import Logger from './utils/Logger';
+import bodyParser from 'body-parser';
+import * as JDSPlayground from './JDScript/JDSPlayground';
+import fs from 'fs';
 
 // DEV_PORT is 3001 because react-scripts takes 3000
 const DEV_PORT = 3001;
@@ -33,6 +36,8 @@ app.use((_, res, next) => {
 });
 
 app.use(express.static(path.resolve(__dirname, '../../app/build')));
+
+app.use(bodyParser.json());
 
 app.get('/api/stocks/ticker-search', async (req, res) => {
     const { q } = req.query;
@@ -122,6 +127,55 @@ app.get('/api/banksy', async (req, res) => {
     }
 });
 
+app.post('/api/jds/playground/upload', (req, res) => {
+    const { script } = req.body;
+
+    if (typeof script === 'string') {
+        const instance = JDSPlayground.newInstance(script);
+        res.send({
+            success: true,
+            id: instance.id,
+            assembly: instance.assembly,
+        });
+    } else {
+        res.send({
+            success: false,
+            error: `Invalid ID: ${script}`,
+        });
+    }
+});
+
+app.get('/api/jds/playground/step', async (req, res) => {
+    Logger.debug('API call received: Step playground instance');
+    const { id } = req.query;
+    Logger.debug(`Provided ID: ${id}`);
+
+    if (typeof id === 'string') {
+        const instance = await JDSPlayground.stepPlaygroundScript(id);
+        Logger.debug('Found instance');
+        res.send({
+            success: true,
+            id: id,
+            origin: instance.scraper.getOrigin(),
+            fields: instance.scraper.getFields(),
+            vars: instance.scraper.getVars(),
+            screenshot: await instance.scraper.generatePlaygroundScreenshot(instance.id),
+        });
+    } else {
+        res.send('Error: The provided id is not a string.');
+    }
+});
+
+app.get('/api/jds/playground/screenshot', async (req, res) => {
+    const { id, screenshot } = req.query;
+
+    if (typeof id === 'string' && typeof screenshot === 'string') {
+        res.sendFile(path.resolve(`./caches/jds-playground-${id}-${screenshot}.png`));
+    } else {
+        res.send('Error: The provided id or screenshot is not a string');
+    }
+});
+
 app.get('/*', (_, res) => {
     res.sendFile(path.resolve(__dirname, '../../app/build/index.html'));
 });
@@ -135,4 +189,11 @@ if (PORT === DEV_PORT) {
     https.createServer(app).listen(PORT, () => {
         Logger.info(`Server started at https://just-data.onrender.com`);
     });
+}
+
+// Setup caches directory
+
+if (!fs.existsSync(path.resolve('./caches'))) {
+    Logger.info('Creating caches directory');
+    fs.mkdirSync(path.resolve('./caches'));
 }
