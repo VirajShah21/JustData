@@ -15,6 +15,7 @@ import YellowPagesSearchScraper from './Scraper/YellowPagesSearchScraper';
 import Logger from './utils/Logger';
 import bodyParser from 'body-parser';
 import * as JDSPlayground from './JDScript/JDSPlayground';
+import fs from 'fs';
 
 // DEV_PORT is 3001 because react-scripts takes 3000
 const DEV_PORT = 3001;
@@ -169,7 +170,7 @@ app.get('/api/jds/playground/screenshot', async (req, res) => {
     const { id, screenshot } = req.query;
 
     if (typeof id === 'string' && typeof screenshot === 'string') {
-        res.sendFile(path.resolve(`/caches/jdscript/playground/${id}/${screenshot}.png`));
+        res.sendFile(path.resolve(`./caches/jds-playground-${id}-${screenshot}.png`));
     } else {
         res.send('Error: The provided id or screenshot is not a string');
     }
@@ -188,4 +189,11 @@ if (PORT === DEV_PORT) {
     https.createServer(app).listen(PORT, () => {
         Logger.info(`Server started at https://just-data.onrender.com`);
     });
+}
+
+// Setup caches directory
+
+if (!fs.existsSync(path.resolve('./caches'))) {
+    Logger.info('Creating caches directory');
+    fs.mkdirSync(path.resolve('./caches'));
 }

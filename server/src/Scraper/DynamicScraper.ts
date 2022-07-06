@@ -94,7 +94,7 @@ export default class DynamicScraper extends Scraper<unknown> {
         if (this.tab) {
             const id = screenshotId();
             await this.tab.screenshot({
-                path: path.resolve(`./caches/jdscript/playground/${instanceId}/${id}.png`),
+                path: path.resolve(`./caches/jds-playground-${instanceId}-${id}.png`),
             });
             return id;
         }
