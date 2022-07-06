@@ -1,7 +1,18 @@
+.playground-runner {
+    box-sizing: border-box;
+    padding: 1em;
+}
+
+.playground-runner .playground-screenshot {
+    max-height: 50vh;
+}
+
 .playground-runner .assembly-decoder .assembly-code {
     box-sizing: border-box;
     padding: 0.5em;
     margin: 0.25em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .dark .playground-runner .assembly-decoder .assembly-code.assembly-command {

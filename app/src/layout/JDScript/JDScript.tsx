@@ -16,9 +16,7 @@ export default function JDScript() {
                 />
             </Sidebar>
 
-            <VStack grow={1}>
-                <JDScriptPlayground />
-            </VStack>
+            <JDScriptPlayground />
         </HStack>
     );
 }
