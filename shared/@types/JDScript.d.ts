@@ -1,3 +1,22 @@
+abstract interface JDSIssue {
+    readonly name: 'JDSWarning' | 'JDSError';
+    readonly message: string;
+    readonly line: number;
+    readonly column: number;
+    readonly error?: string;
+    readonly warning?: string;
+}
+
+interface JDSWarning extends JDSIssue {
+    readonly name: 'JDSWarning';
+    readonly warning: JDSWarning;
+}
+
+interface JDSError extends JDSIssue {
+    readonly name: 'JDSError';
+    readonly error: JDSError;
+}
+
 interface PlaygroundScriptUploadResponse {
     success: boolean;
     id: string | null;
