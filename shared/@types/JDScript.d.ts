@@ -42,14 +42,11 @@ type JDSCommand = 'origin' | 'field' | 'var' | 'open' | 'close' | 'select' | 'se
 
 type JDSAssembly = JDSInstruction[];
 
+type JDSPrimitiveType = string | number | boolean;
+
+type ValidJDSArgumentType = JDSPrimitiveType | JDSPrimitiveType[];
+
 interface JDSInstruction {
     command: JDSCommand;
-    arguments: (string | number | boolean)[];
-}
-
-interface JDSCommandDefinition {
-    command: JDSCommand;
-    minArgs: number;
-    maxArgs: number;
-    argTypes: ('string' | 'number' | 'boolean')[];
+    arguments: Record<string, ValidJDSArgumentType>;
 }
