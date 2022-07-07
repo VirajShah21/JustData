@@ -1,8 +1,7 @@
 {
     "WordOfTheDay": [
-        "origin: https://www.merriam-webster.com/word-of-the-day",
-        "open",
-        "select: h1 word",
+        "open origin=https://www.merriam-webster.com/word-of-the-day",
+        "select $=h1 var=word",
         "close"
     ]
 }

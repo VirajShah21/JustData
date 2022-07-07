@@ -49,8 +49,10 @@ export default function PlaygroundRunner({ playground }: PlaygroundRunnerProps) 
                         <code className='assembly-code assembly-command'>
                             {instruction.command}
                         </code>
-                        {instruction.arguments.map(argument => (
-                            <code className={`assembly-code assembly-arg`}>{argument}</code>
+                        {Object.keys(instruction.arguments).map(name => (
+                            <code className={`assembly-code assembly-arg`} data-argname={name}>
+                                {instruction.arguments[name]}
+                            </code>
                         ))}
                     </HStack>
                 ))}
