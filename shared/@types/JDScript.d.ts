@@ -38,7 +38,7 @@ type JDSCompilerWarning = 'WhitespaceWarning';
 
 type JDSCompilerError = 'MissingColonError' | 'UnknownCommandError' | 'ArgumentError';
 
-type JDSCommand = 'origin' | 'field' | 'var' | 'open' | 'close' | 'select' | 'select_list';
+type JDSCommand = 'field' | 'var' | 'open' | 'close' | 'select';
 
 type JDSAssembly = JDSInstruction[];
 

@@ -4,8 +4,8 @@ import { ScrapedDocument } from './ScraperDatabase';
 import { ParsedHTMLElement } from './ScrapeUtils';
 
 export default class DynamicScraper extends Scraper<unknown> {
-    fields: Record<string, string>;
-    vars: Record<string, string | number | boolean>;
+    fields: Record<string, ValidJDSArgumentType>;
+    vars: Record<string, ValidJDSArgumentType>;
     selected: Record<string, ParsedHTMLElement | null>;
     selectedLists: Record<string, ParsedHTMLElement[]> = {};
     selectedTables: Record<string, Record<string, ParsedHTMLElement | null>[]>;
@@ -23,28 +23,28 @@ export default class DynamicScraper extends Scraper<unknown> {
         this.origin = origin;
     }
 
-    updateField(name: string, value: string) {
+    updateField(name: string, value: ValidJDSArgumentType) {
         this.fields[name] = value;
         const replacer = `{{${name}}}`;
+        const valueAsString = `${value}`;
         while (this.origin.includes(replacer)) {
-            this.origin = this.origin.replace(replacer, value);
+            this.origin = this.origin.replace(replacer, valueAsString);
         }
     }
 
-    updateVar(name: string, value: string | number | boolean) {
+    updateVar(name: string, value: ValidJDSArgumentType) {
         this.vars[name] = value;
     }
 
-    async tabAction(action: 'open' | 'close') {
-        if (action === 'open') {
+    async tabAction(origin?: string) {
+        if (origin) {
             if (this.tab) {
                 await this.closeTab();
             }
+            this.origin = origin;
             await this.openTab();
-        } else {
-            if (this.tab) {
-                await this.closeTab();
-            }
+        } else if (this.tab) {
+            await this.closeTab();
         }
     }
 
