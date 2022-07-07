@@ -15,12 +15,6 @@ const commandDefinitions: JDSCommandDefinition[] = [
         argTypes: ['string', 'string'],
     },
     {
-        command: 'var',
-        minArgs: 2,
-        maxArgs: 2,
-        argTypes: ['string', 'string'],
-    },
-    {
         command: 'open',
         minArgs: 0,
         maxArgs: 0,
@@ -34,30 +28,12 @@ const commandDefinitions: JDSCommandDefinition[] = [
     },
     {
         command: 'select',
-        minArgs: 1,
-        maxArgs: 1,
-        argTypes: ['string'],
-    },
-    {
-        command: 'select_all',
-        minArgs: 1,
-        maxArgs: 1,
-        argTypes: ['string'],
-    },
-    {
-        command: 'select_from',
         minArgs: 2,
-        maxArgs: 2,
-        argTypes: ['string', 'string'],
+        maxArgs: 3,
+        argTypes: ['string', 'string', 'string'],
     },
     {
-        command: 'select_all_from',
-        minArgs: 2,
-        maxArgs: 2,
-        argTypes: ['string', 'string'],
-    },
-    {
-        command: 'save_selection',
+        command: 'select_list',
         minArgs: 1,
         maxArgs: 1,
         argTypes: ['string'],

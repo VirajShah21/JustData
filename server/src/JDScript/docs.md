@@ -26,22 +26,6 @@
       - [Syntax](#syntax-5)
       - [Description](#description-5)
       - [Arguments](#arguments-3)
-    - [select_from](#select_from)
-      - [Syntax](#syntax-6)
-      - [Description](#description-6)
-      - [Arguments](#arguments-4)
-    - [select_all_from](#select_all_from)
-      - [Syntax](#syntax-7)
-      - [Description](#description-7)
-      - [Arguments](#arguments-5)
-    - [save_selection](#save_selection)
-      - [Syntax](#syntax-8)
-      - [Description](#description-8)
-      - [Arguments](#arguments-6)
-    - [attr](#attr)
-      - [Syntax](#syntax-9)
-      - [Description](#description-9)
-      - [Arguments](#arguments-7)
 
 ## Getting Started
 
@@ -175,18 +159,17 @@ command will do nothing.
 #### Syntax
 
 ```
-select: [query_selector]
+select: [query_selector] [var]
 ```
 
 #### Description
 
-Uses a query selector to select an element from the interactive webpage. The element will be
-converted to a static node. This means any changes to the element on the live site will not
-impact the selected element, and vice versa.
+Uses a query selectory to select an element from the browser and save it to a variable.
 
 #### Arguments
 
 -   `query_selector: string` – The query selector to use to select the element.
+-   `var: string` – The name of the variable to save the selected element to.
 
 ### select_all
 
@@ -205,75 +188,3 @@ impact the selected elements, and vice versa.
 #### Arguments
 
 -   `query_selector: string` – The query selector to use to select the elements.
-
-### select_from
-
-#### Syntax
-
-```
-select_from: [selection] [query_selector]
-```
-
-#### Description
-
-Uses a query selector to select an element from a static node that has been copied to memory.
-
-#### Arguments
-
--   `selection: string` – The name of the variable that contains the static node.
--   `query_selector: string` – The query selector to use to select the element.
-
-### select_all_from
-
-#### Syntax
-
-```
-select_all_from: [selection] [query_selector]
-```
-
-#### Description
-
-Uses a query selector to select all elements from a static node that has been copied to memory.
-
-#### Arguments
-
--   `selection: string` – The name of the variable that contains the static node.
--   `query_selector: string` – The query selector to use to select the elements.
-
-### save_selection
-
-#### Syntax
-
-```
-save_selection: [name]
-```
-
-#### Description
-
-Saves the last selected element to a local variable.
-
-#### Arguments
-
--   `name: string` – The name of the variable to save the selected element to.
-
-### attr
-
-#### Syntax
-
-```
-attr: [name] [selection?]
-```
-
-#### Description
-
-Retrieves the value of an element's attribute. If a `selection` is provided, then the command will
-use the selected element as its target. If no `selection` is defined, then the command uses the
-last selected element.
-
-If the `selection` or last selected element is a `Collection` or `NodeList` then the `attr` command
-is applied to each element and returned as a string.
-
-#### Arguments
-
--   `name: string` – The name of the attribute to retrieve.
--   `selection?: string` – The name of the variable that contains the element.
