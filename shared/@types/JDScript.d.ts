@@ -30,8 +30,8 @@ interface PlaygroundStepResponse {
     error?: Error;
     screenshot?: string | null;
     origin?: string | null;
-    fields?: Record<string, string | number | boolean> | null;
-    vars?: Record<string, string | number | boolean> | null;
+    fields?: Record<string, ValidJDSArgumentType> | null;
+    vars?: Record<string, ValidJDSArgumentType> | null;
 }
 
 type JDSCompilerWarning = 'WhitespaceWarning';

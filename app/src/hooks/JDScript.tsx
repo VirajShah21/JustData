@@ -9,6 +9,8 @@ export interface ScriptPlayground {
     readonly id: string | null;
     readonly assembly: JDSAssembly;
     readonly screenshotUrl: string | null;
+    readonly vars: Record<string, ValidJDSArgumentType>;
+    readonly fields: Record<string, ValidJDSArgumentType>;
     upload: () => void;
     step: () => void;
     run: () => void;
@@ -21,6 +23,8 @@ export function useScriptPlayground(): ScriptPlayground {
     const [assemblyCode, setAssemblyCode] = useState<JDSAssembly>([]);
     const [instanceId, setInstanceId] = useState<string>();
     const [screenshotId, setScreenshotId] = useState<string>();
+    const [vars, setVars] = useState<Record<string, ValidJDSArgumentType>>({});
+    const [fields, setFields] = useState<Record<string, ValidJDSArgumentType>>({});
 
     return {
         get script() {
@@ -56,6 +60,14 @@ export function useScriptPlayground(): ScriptPlayground {
             }
         },
 
+        get vars() {
+            return vars;
+        },
+
+        get fields() {
+            return fields;
+        },
+
         async upload() {
             const { id, assembly } = await JDScriptKit.uploadScriptToPlayground(script);
             if (id && assembly) {
@@ -67,8 +79,17 @@ export function useScriptPlayground(): ScriptPlayground {
 
         async step() {
             if (instanceId) {
-                const { screenshot } = await JDScriptKit.stepScriptInPlayground(instanceId);
+                const { screenshot, vars, fields } = await JDScriptKit.stepScriptInPlayground(
+                    instanceId,
+                );
                 setScreenshotId(screenshot ?? undefined);
+                if (vars) {
+                    setVars(vars);
+                }
+
+                if (fields) {
+                    setFields(fields);
+                }
             } else {
                 alert('Error: Not in sync with server');
             }
