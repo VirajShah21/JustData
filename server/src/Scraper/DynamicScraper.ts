@@ -4,90 +4,62 @@ import { ScrapedDocument } from './ScraperDatabase';
 import { ParsedHTMLElement } from './ScrapeUtils';
 
 export default class DynamicScraper extends Scraper<unknown> {
-    private fields: Record<string, string>;
-    private vars: Record<string, string | number | boolean>;
-    private lastSelected: ParsedHTMLElement | ParsedHTMLElement[] | null;
-    private selections: Record<string, ParsedHTMLElement | ParsedHTMLElement[] | null>;
+    fields: Record<string, ValidJDSArgumentType>;
+    vars: Record<string, ValidJDSArgumentType | undefined>;
+    selected: Record<string, ParsedHTMLElement | null>;
+    selectedLists: Record<string, ParsedHTMLElement[]> = {};
+    selectedTables: Record<string, Record<string, ParsedHTMLElement | null>[]>;
 
     constructor(origin: string) {
         super(origin);
         this.fields = {};
         this.vars = {};
-        this.lastSelected = null;
-        this.selections = {};
+        this.selected = {};
+        this.selectedLists = {};
+        this.selectedTables = {};
     }
 
     setOrigin(origin: string) {
         this.origin = origin;
     }
 
-    updateField(name: string, value: string) {
+    updateField(name: string, value: ValidJDSArgumentType) {
         this.fields[name] = value;
         const replacer = `{{${name}}}`;
+        const valueAsString = `${value}`;
         while (this.origin.includes(replacer)) {
-            this.origin = this.origin.replace(replacer, value);
+            this.origin = this.origin.replace(replacer, valueAsString);
         }
     }
 
-    updateVar(name: string, value: string | number | boolean) {
+    updateVar(name: string, value: ValidJDSArgumentType) {
         this.vars[name] = value;
     }
 
-    async tabAction(action: 'open' | 'close') {
-        if (action === 'open') {
+    async tabAction(origin?: string) {
+        if (origin) {
             if (this.tab) {
                 await this.closeTab();
             }
+            this.origin = origin;
             await this.openTab();
-        } else {
-            if (this.tab) {
-                await this.closeTab();
-            }
+        } else if (this.tab) {
+            await this.closeTab();
         }
     }
 
-    async execSelect(selector: string) {
-        const all = await this.select(selector);
-        this.lastSelected = all.length > 0 ? all[0] : null;
-    }
+    async execSelect(selector: string, varname: string) {
+        const selected = await this.select(selector);
 
-    async execSelectAll(selector: string) {
-        this.lastSelected = await this.select(selector);
-    }
-
-    async selectFrom(selection: string, querySelector: string) {
-        const root = this.selections[selection];
-        if (root) {
-            if (Array.isArray(root)) {
-                this.lastSelected = root
-                    .map(parent => parent.querySelector(querySelector))
-                    .filter(node => node !== null) as ParsedHTMLElement[];
-            } else {
-                this.lastSelected = root.querySelector(querySelector);
-            }
+        if (selected.length > 0) {
+            this.selected[varname] = selected[0];
         } else {
-            this.lastSelected = null;
+            this.selected[varname] = null;
         }
     }
 
-    async selectAllFrom(selection: string, querySelector: string) {
-        const root = this.selections[selection];
-        if (root) {
-            if (Array.isArray(root)) {
-                this.lastSelected = root
-                    .map(parent => parent.querySelectorAll(querySelector))
-                    .flat()
-                    .filter(node => node !== null);
-            } else {
-                this.lastSelected = root.querySelectorAll(querySelector);
-            }
-        } else {
-            this.lastSelected = null;
-        }
-    }
-
-    saveSelection(name: string) {
-        this.selections[name] = this.lastSelected;
+    async execSelectList(selector: string, varname: string) {
+        this.selectedLists[varname] = await this.select(selector);
     }
 
     async generatePlaygroundScreenshot(instanceId: string): Promise<string | null> {
@@ -101,20 +73,15 @@ export default class DynamicScraper extends Scraper<unknown> {
         return null;
     }
 
+    async getAttributes(selector: string, attr: string): Promise<(string | undefined)[]> {
+        const selected = await this.select(selector);
+        return selected.map(
+            s => s.getAttribute(attr) ?? (s[attr as keyof ParsedHTMLElement] as string),
+        );
+    }
+
     getOrigin(): string {
         return this.origin;
-    }
-
-    getFields(): Record<string, string> {
-        return this.fields;
-    }
-
-    getVars(): Record<string, string | number | boolean> {
-        return this.vars;
-    }
-
-    getSelections(): Record<string, ParsedHTMLElement | ParsedHTMLElement[] | null> {
-        return this.selections;
     }
 
     scrape(): Promise<unknown> {

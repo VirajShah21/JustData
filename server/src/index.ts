@@ -157,8 +157,8 @@ app.get('/api/jds/playground/step', async (req, res) => {
             success: true,
             id: id,
             origin: instance.scraper.getOrigin(),
-            fields: instance.scraper.getFields(),
-            vars: instance.scraper.getVars(),
+            fields: instance.scraper.fields,
+            vars: instance.scraper.vars,
             screenshot: await instance.scraper.generatePlaygroundScreenshot(instance.id),
         });
     } else {

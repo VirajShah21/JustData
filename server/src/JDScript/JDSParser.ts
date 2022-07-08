@@ -1,276 +1,146 @@
-import path from 'path';
-import fs from 'fs';
-
-const commandDefinitions: JDSCommandDefinition[] = [
-    {
-        command: 'origin',
-        minArgs: 1,
-        maxArgs: 1,
-        argTypes: ['string'],
-    },
-    {
-        command: 'field',
-        minArgs: 2,
-        maxArgs: 2,
-        argTypes: ['string', 'string'],
-    },
-    {
-        command: 'var',
-        minArgs: 2,
-        maxArgs: 2,
-        argTypes: ['string', 'string'],
-    },
-    {
-        command: 'open',
-        minArgs: 0,
-        maxArgs: 0,
-        argTypes: [],
-    },
-    {
-        command: 'close',
-        minArgs: 0,
-        maxArgs: 0,
-        argTypes: [],
-    },
-    {
-        command: 'select',
-        minArgs: 1,
-        maxArgs: 1,
-        argTypes: ['string'],
-    },
-    {
-        command: 'select_all',
-        minArgs: 1,
-        maxArgs: 1,
-        argTypes: ['string'],
-    },
-    {
-        command: 'select_from',
-        minArgs: 2,
-        maxArgs: 2,
-        argTypes: ['string', 'string'],
-    },
-    {
-        command: 'select_all_from',
-        minArgs: 2,
-        maxArgs: 2,
-        argTypes: ['string', 'string'],
-    },
-    {
-        command: 'save_selection',
-        minArgs: 1,
-        maxArgs: 1,
-        argTypes: ['string'],
-    },
-];
-
-export abstract class JDSParserIssue {
-    readonly name: string;
-    readonly message: string;
-    readonly line: number;
-    readonly column: number;
-
-    constructor(name: string, message: string, line: number, column: number) {
-        this.message = message;
-        this.name = name;
-        this.line = line;
-        this.column = column;
-    }
-}
-
-export class JDSParserWarning extends JDSParserIssue {
-    readonly warning: JDSParseWarning;
-
-    constructor(warning: JDSParseWarning, message: string, line: number, column: number) {
-        super('JDSParserWarning', message, line, column);
-        this.warning = warning;
-    }
-}
-
-export class JDSParserError extends JDSParserIssue {
-    readonly error: JDSParseError;
-
-    constructor(error: JDSParseError, message: string, line: number, column: number) {
-        super('JDSParserError', message, line, column);
-        this.error = error;
-    }
-}
+const VALID_COMMANDS: JDSCommand[] = ['field', 'var', 'open', 'close', 'select', 'attr'];
 
 export function parseCommand(line: string): string {
-    const endCommand = line.indexOf(': ');
-
-    if (endCommand >= 0) {
-        return line.substring(0, endCommand);
+    const space = line.indexOf(' ');
+    if (space > 0) {
+        return line.substring(0, space);
     }
-
     return line;
 }
 
-export function parseArgs(line: string): (string | number | boolean)[] {
-    const argsStart = line.indexOf(': ') + 1;
-    const argsString = line.substring(argsStart);
-
-    let currString = '';
-    let inString = false;
-    let inArg = false;
-    let quotation = '';
-
-    let args = [];
-
-    for (let i = 0; i < argsString.length; i++) {
-        const char = argsString[i];
-        if (!inArg) {
-            if ((!inString && char === '"') || char === "'") {
-                quotation = char;
-                inString = true;
-                inArg = true;
-            } else if (char !== ' ') {
-                currString = char;
-                inArg = true;
+export function parseArgs(line: string): Record<string, ValidJDSArgumentType> {
+    function setArg(key: string, value: JDSPrimitiveType) {
+        if (args[key] !== undefined) {
+            if (Array.isArray(args[key])) {
+                (args[key] as unknown[]).push(value);
+            } else {
+                args[key] = [args[key] as JDSPrimitiveType, value];
             }
         } else {
-            if (inString && char === quotation) {
-                quotation = '';
-                inArg = false;
-                inString = false;
-                args.push(currString);
-                currString = '';
-            } else if (inString) {
-                currString += char;
-            } else if (char === ' ') {
-                inArg = false;
+            args[key] = value;
+        }
+    }
+
+    const command = parseCommand(line);
+
+    if (command === line) {
+        return {};
+    }
+
+    const args: Record<string, ValidJDSArgumentType> = {};
+
+    let inArgKey = false;
+    let inArgValue = false;
+    let inString = false;
+    let singleQuotes = false;
+    let captured = '';
+    let currArgKey = '';
+
+    for (let i = command.length + 1; i < line.length; i++) {
+        if (!inArgKey && !inArgValue) {
+            if (line[i] !== ' ') {
+                inArgKey = true;
+                captured += line[i];
+            }
+        } else if (inArgKey) {
+            if (line[i] === ' ') {
+                if (captured[0] === '!') {
+                    setArg(captured.substring(1), false);
+                } else {
+                    setArg(captured, true);
+                }
+                inArgKey = false;
+                captured = '';
+            } else if (line[i] === '=') {
+                currArgKey = captured;
+                inArgKey = false;
+                inArgValue = true;
+                captured = '';
             } else {
-                currString += char;
+                captured += line[i];
+            }
+        } else if (inArgValue) {
+            if (!inString && captured === '' && (line[i] === '"' || line[i] === "'")) {
+                inString = true;
+                singleQuotes = line[i] === "'";
+            } else if (inString && line[i] === (singleQuotes ? "'" : '"')) {
+                setArg(currArgKey, captured);
+                inString = false;
+                captured = '';
+            } else if (!inString && line[i] === ' ') {
+                if (captured === 'true' || captured === 'false') {
+                    setArg(currArgKey, captured === 'true');
+                } else if (!isNaN(+captured)) {
+                    setArg(currArgKey, +captured);
+                } else {
+                    setArg(currArgKey, captured);
+                }
+                captured = '';
+                inArgValue = false;
+            } else {
+                captured += line[i];
             }
         }
     }
 
-    if (currString.length > 0) {
-        args.push(currString);
+    if (inArgValue) {
+        setArg(currArgKey, captured);
     }
 
-    return args.map(arg => {
-        if (arg === 'true' || arg === 'false') {
-            return arg === 'true';
+    if (inArgKey) {
+        if (captured[0] === '!') {
+            setArg(captured.substring(1), false);
+        } else {
+            setArg(captured, true);
         }
+    }
 
-        const asNum = +arg;
-        if (!isNaN(asNum)) {
-            return asNum;
-        }
-
-        return arg;
-    });
+    return args;
 }
 
-export function validateLine(line: string, lineNumber = 0): (JDSParserError | JDSParserWarning)[] {
-    const issues = [];
-
-    const indexOfFirstSpace = line.indexOf(' ');
-    const indexOfFirstColon = line.indexOf(':');
+export function validateLine(line: string, lineNumber = 0): JDSIssue[] {
+    const issues: JDSIssue[] = [];
 
     const command = parseCommand(line);
-    const commandDefinition = commandDefinitions.find(def => def.command === command);
-    const args = parseArgs(line);
 
     // Check if the line begins with a space
     if (line[0] === ' ') {
-        issues.push(
-            new JDSParserWarning(
-                'PaddedLineWarning',
-                'Line should not start with space',
-                lineNumber,
-                1,
-            ),
-        );
+        issues.push({
+            name: 'JDSWarning',
+            warning: 'WhitespaceWarning',
+            message: 'Line should not start with space',
+            line: lineNumber,
+            column: 1,
+        });
     }
 
     // Check if the line ends with a space
     if (line[line.length - 1] === ' ') {
-        issues.push(
-            new JDSParserWarning(
-                'PaddedLineWarning',
-                'Line should not end with space',
-                lineNumber,
-                line.length,
-            ),
-        );
-    }
-
-    // Checks if the command ends with a colon
-    if (indexOfFirstSpace > 0 && indexOfFirstColon !== indexOfFirstSpace - 1) {
-        issues.push(
-            new JDSParserError(
-                'MissingColonError',
-                'Missing colon directly after command and before arguments list',
-                lineNumber,
-                indexOfFirstSpace + 1,
-            ),
-        );
+        issues.push({
+            name: 'JDSWarning',
+            warning: 'WhitespaceWarning',
+            message: 'Line should not end with space',
+            line: lineNumber,
+            column: line.length,
+        });
     }
 
     // Check if the command exists
-    if (!commandDefinition) {
-        issues.push(
-            new JDSParserError(
-                'UnknownCommandError',
-                `Command doesn't exist: ${command}`,
-                lineNumber,
-                1,
-            ),
-        );
-    }
-
-    // Check if the arguments list
-    if (commandDefinition) {
-        // Check if the minimum number of arguments is met
-        if (args.length < commandDefinition.minArgs) {
-            issues.push(
-                new JDSParserError(
-                    'ArgumentError',
-                    `Expected at least ${commandDefinition.minArgs} arguments but found only ${args.length} arguments.`,
-                    lineNumber,
-                    line.length,
-                ),
-            );
-        }
-
-        // Check if the arguments list excedes the maxiumum allowed
-        if (args.length > commandDefinition.maxArgs) {
-            issues.push(
-                new JDSParserError(
-                    'ArgumentError',
-                    `Expected at most ${commandDefinition.maxArgs} arguments but found ${args.length} arguments`,
-                    lineNumber,
-                    indexOfFirstColon + 1,
-                ),
-            );
-        }
-
-        // Ensure the arguments are of the correct type
-        args.forEach((arg, i) => {
-            const expected = commandDefinition.argTypes[i];
-            const actual = typeof arg;
-
-            if (expected !== actual) {
-                issues.push(
-                    new JDSParserError(
-                        'ArgumentError',
-                        `Expected argument #${
-                            i + 1
-                        } for ${command} to be of type ${expected} but found ${actual} instead.`,
-                        lineNumber,
-                        line.indexOf(new String(arg) as string) + 1,
-                    ),
-                );
-            }
+    // Safe type-conversion to check if `string` is actually a `JDSCommand`
+    if (!VALID_COMMANDS.includes(command as JDSCommand)) {
+        issues.push({
+            name: 'JDSError',
+            error: 'UnknownCommandError',
+            message: `Command doesn't exist: ${command}`,
+            line: lineNumber,
+            column: 1,
         });
     }
 
     return issues;
 }
 
-export function validateScript(script: string): (JDSParserError | JDSParserWarning)[] {
+export function validateScript(script: string): JDSIssue[] {
     const issues = [];
 
     const lines = script.split('\n').filter(line => line.trim().length > 0);

@@ -1,24 +1,32 @@
 import DynamicScraper from '../Scraper/DynamicScraper';
-import { JDSParserIssue, parseScript, validateScript } from './JDSParser';
+import { parseScript, validateScript } from './JDSParser';
 
 type ExecutorFunction = (
     scraper: DynamicScraper,
-    args: (string | number | boolean)[],
+    args: Record<string, ValidJDSArgumentType>,
 ) => Promise<void>;
 
 export const executors: Record<JDSCommand, ExecutorFunction> = {
-    origin: async (scraper, [origin]) => scraper.setOrigin(origin as string),
-    field: async (scraper, [name, value]) => scraper.updateField(name as string, value as string),
-    var: async (scraper, [name, value]) => scraper.updateVar(name as string, value),
-    open: async scraper => await scraper.tabAction('open'),
+    field: async (scraper, args) =>
+        Object.keys(args).forEach(key => scraper.updateField(key, args[key])),
+    var: async (scraper, args) =>
+        Object.keys(args).forEach(key => scraper.updateVar(key, args[key])),
+    open: async (scraper, { origin }) => {
+        if (origin && typeof origin === 'string') {
+            await scraper.tabAction(origin);
+        }
+    },
     close: async scraper => await scraper.tabAction('close'),
-    select: async (scraper, [query]) => await scraper.execSelect(query as string),
-    select_all: async (scraper, [query]) => await scraper.execSelectAll(query as string),
-    select_from: async (scraper, [selection, query]) =>
-        await scraper.selectFrom(selection as string, query as string),
-    select_all_from: async (scraper, [selection, query]) =>
-        await scraper.selectFrom(selection as string, query as string),
-    save_selection: async (scraper, [name]) => await scraper.saveSelection(name as string),
+    select: async (scraper, { format = 'Node', query, key }) => {
+        if (typeof query === 'string' && typeof key === 'string') {
+            await scraper.execSelect(query, key);
+        }
+    },
+    attr: async (scraper, { format = 'Node', query, prop, key }) => {
+        if (typeof query === 'string' && typeof prop === 'string' && typeof key === 'string') {
+            scraper.vars[key] = (await scraper.getAttributes(query, prop))[0];
+        }
+    },
 };
 
 export class JDSRuntimeError extends Error {
@@ -40,7 +48,7 @@ export async function executeAssembly(assembly: JDSAssembly) {
     }
 }
 
-export function executeScript(script: string): JDSParserIssue[] | 0 {
+export function executeScript(script: string): JDSIssue[] | 0 {
     let issues = validateScript(script);
 
     if (issues.length > 0) {
