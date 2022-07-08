@@ -21,6 +21,48 @@ export function parseArgs(line: string): Record<string, ValidJDSArgumentType> {
         }
     }
 
+    function handleArgumentKeyChar(char: string) {
+        if (char === ' ') {
+            if (captured[0] === '!') {
+                setArg(captured.substring(1), false);
+            } else {
+                setArg(captured, true);
+            }
+            inArgKey = false;
+            captured = '';
+        } else if (char === '=') {
+            currArgKey = captured;
+            inArgKey = false;
+            inArgValue = true;
+            captured = '';
+        } else {
+            captured += char;
+        }
+    }
+
+    function handleArgumentValueChar(char: string) {
+        if (!inString && captured === '' && (char === '"' || char === "'")) {
+            inString = true;
+            singleQuotes = char === "'";
+        } else if (inString && char === (singleQuotes ? "'" : '"')) {
+            setArg(currArgKey, captured);
+            inString = false;
+            captured = '';
+        } else if (!inString && char === ' ') {
+            if (captured === 'true' || captured === 'false') {
+                setArg(currArgKey, captured === 'true');
+            } else if (!isNaN(+captured)) {
+                setArg(currArgKey, +captured);
+            } else {
+                setArg(currArgKey, captured);
+            }
+            captured = '';
+            inArgValue = false;
+        } else {
+            captured += char;
+        }
+    }
+
     const command = parseCommand(line);
 
     if (command === line) {
@@ -43,43 +85,9 @@ export function parseArgs(line: string): Record<string, ValidJDSArgumentType> {
                 captured += line[i];
             }
         } else if (inArgKey) {
-            if (line[i] === ' ') {
-                if (captured[0] === '!') {
-                    setArg(captured.substring(1), false);
-                } else {
-                    setArg(captured, true);
-                }
-                inArgKey = false;
-                captured = '';
-            } else if (line[i] === '=') {
-                currArgKey = captured;
-                inArgKey = false;
-                inArgValue = true;
-                captured = '';
-            } else {
-                captured += line[i];
-            }
+            handleArgumentKeyChar(line[i]);
         } else if (inArgValue) {
-            if (!inString && captured === '' && (line[i] === '"' || line[i] === "'")) {
-                inString = true;
-                singleQuotes = line[i] === "'";
-            } else if (inString && line[i] === (singleQuotes ? "'" : '"')) {
-                setArg(currArgKey, captured);
-                inString = false;
-                captured = '';
-            } else if (!inString && line[i] === ' ') {
-                if (captured === 'true' || captured === 'false') {
-                    setArg(currArgKey, captured === 'true');
-                } else if (!isNaN(+captured)) {
-                    setArg(currArgKey, +captured);
-                } else {
-                    setArg(currArgKey, captured);
-                }
-                captured = '';
-                inArgValue = false;
-            } else {
-                captured += line[i];
-            }
+            handleArgumentValueChar(line[i]);
         } else {
             // TODO: Add parser details
             throw new Error('Parsing error');
@@ -88,14 +96,10 @@ export function parseArgs(line: string): Record<string, ValidJDSArgumentType> {
 
     if (inArgValue) {
         setArg(currArgKey, captured);
-    }
-
-    if (inArgKey) {
-        if (captured[0] === '!') {
-            setArg(captured.substring(1), false);
-        } else {
-            setArg(captured, true);
-        }
+    } else if (inArgKey && captured[0] === '!') {
+        setArg(captured.substring(1), false);
+    } else if (inArgKey) {
+        setArg(captured, true);
     }
 
     return args;

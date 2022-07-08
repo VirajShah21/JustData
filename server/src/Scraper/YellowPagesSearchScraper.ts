@@ -43,7 +43,9 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSERP> {
      */
     async scrape(): Promise<YellowPagesSERP | null> {
         const inDatabase = await this.findInDatabase();
-        if (inDatabase) return inDatabase.data;
+        if (inDatabase) {
+            return inDatabase.data;
+        }
 
         await this.openTab();
         const listings = await this.select('.srp-listing');
