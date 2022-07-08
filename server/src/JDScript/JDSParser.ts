@@ -80,6 +80,9 @@ export function parseArgs(line: string): Record<string, ValidJDSArgumentType> {
             } else {
                 captured += line[i];
             }
+        } else {
+            // TODO: Add parser details
+            throw new Error('Parsing error');
         }
     }
 
