@@ -37,7 +37,7 @@ export class JDSRuntimeError extends Error {
 }
 
 export async function executeAssembly(assembly: JDSAssembly) {
-    let scraper: DynamicScraper = new DynamicScraper('');
+    const scraper: DynamicScraper = new DynamicScraper('');
 
     for (let i = 0; i < assembly.length; i++) {
         const instruction = assembly[i];
@@ -49,13 +49,13 @@ export async function executeAssembly(assembly: JDSAssembly) {
 }
 
 export function executeScript(script: string): JDSIssue[] | 0 {
-    let issues = validateScript(script);
+    const issues = validateScript(script);
 
     if (issues.length > 0) {
         return issues;
     }
 
-    let assembly = parseScript(script);
+    const assembly = parseScript(script);
 
     executeAssembly(assembly);
 
