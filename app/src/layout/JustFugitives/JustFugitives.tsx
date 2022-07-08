@@ -4,7 +4,7 @@ import { HStack, VStack } from 'reaction';
 import logo from 'src/assets/images/icons/Just Fugitives.png';
 import SearchBar from 'src/components/ui/SearchBar';
 import Sidebar, { SidebarNavigationButton } from 'src/components/ui/Sidebar';
-import { useTitle } from 'src/HTMLHead';
+import { useTitle } from 'src/hooks/meta';
 import AllFugitivesList from './AllFugitivesList';
 import './JustFugitives.css';
 import TenMostWantedList from './TenMostWantedList';

@@ -7,7 +7,7 @@ import logo from 'src/assets/images/icons/Just Places.png';
 import LoadingAnimation from 'src/components/LoadingAnimation';
 import SearchBar from 'src/components/ui/SearchBar';
 import Sidebar from 'src/components/ui/Sidebar';
-import { useTitle } from 'src/HTMLHead';
+import { useTitle } from 'src/hooks/meta';
 import { PlacesKit } from 'src/utils/JustSDK';
 import './JustPlaces.css';
 import { PlaceSearchResult } from '../../components/JustPlaces/PlaceSearchResult';

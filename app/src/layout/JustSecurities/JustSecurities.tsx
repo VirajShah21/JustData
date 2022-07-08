@@ -18,7 +18,7 @@ import {
 import { HStack, Spacer, VStack } from 'reaction';
 import logo from 'src/assets/images/icons/Just Securities.png';
 import Sidebar, { SidebarNavigationButton } from 'src/components/ui/Sidebar';
-import { useTitle } from 'src/HTMLHead';
+import { useTitle } from 'src/hooks/meta';
 import { SecuritiesKit } from 'src/utils/JustSDK';
 import SearchBar from 'src/components/ui/SearchBar';
 import './JustSecurities.css';
