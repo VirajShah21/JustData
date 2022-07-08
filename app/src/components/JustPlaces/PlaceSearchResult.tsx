@@ -36,7 +36,7 @@ export function PlaceSearchResult(props: YellowPagesSearchResult) {
             </HStack>
             <HStack className='categories' justify='start'>
                 {props.categories.map(category => (
-                    <span>{category}</span>
+                    <span key={category}>{category}</span>
                 ))}
             </HStack>
             <HStack justify='between'>

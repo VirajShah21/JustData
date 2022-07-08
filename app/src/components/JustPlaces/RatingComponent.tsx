@@ -36,8 +36,8 @@ function RatingComponent(props: { rating: number; color?: string; outOf?: number
 
     return (
         <HStack width='auto' className='rating'>
-            {fills.map(fill => (
-                <RatingCircle fill={fill} color={props.color} />
+            {fills.map((fill, i) => (
+                <RatingCircle key={i} fill={fill} color={props.color} />
             ))}
         </HStack>
     );

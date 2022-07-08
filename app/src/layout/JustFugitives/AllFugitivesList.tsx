@@ -39,7 +39,7 @@ export default function AllFugitivesList() {
             {isLoading && <LoadingAnimation />}
             <HStack className='fugitives-list'>
                 {fugitives.slice(pageSize * (page - 1), pageSize * page).map(fugitive => (
-                    <FugitiveListItem {...fugitive} opensProfile={true} />
+                    <FugitiveListItem key={fugitive.name} {...fugitive} opensProfile={true} />
                 ))}
             </HStack>
             <PaginationController
