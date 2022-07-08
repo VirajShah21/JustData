@@ -1,4 +1,4 @@
-const VALID_COMMANDS = ['origin', 'field', 'var', 'open', 'close', 'select', 'select_list'];
+const VALID_COMMANDS: JDSCommand[] = ['field', 'var', 'open', 'close', 'select', 'attr'];
 
 export function parseCommand(line: string): string {
     const space = line.indexOf(' ');
@@ -126,7 +126,8 @@ export function validateLine(line: string, lineNumber = 0): JDSIssue[] {
     }
 
     // Check if the command exists
-    if (!VALID_COMMANDS.includes(command)) {
+    // Safe type-conversion to check if `string` is actually a `JDSCommand`
+    if (!VALID_COMMANDS.includes(command as JDSCommand)) {
         issues.push({
             name: 'JDSError',
             error: 'UnknownCommandError',

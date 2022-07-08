@@ -5,7 +5,7 @@ import { ParsedHTMLElement } from './ScrapeUtils';
 
 export default class DynamicScraper extends Scraper<unknown> {
     fields: Record<string, ValidJDSArgumentType>;
-    vars: Record<string, ValidJDSArgumentType>;
+    vars: Record<string, ValidJDSArgumentType | undefined>;
     selected: Record<string, ParsedHTMLElement | null>;
     selectedLists: Record<string, ParsedHTMLElement[]> = {};
     selectedTables: Record<string, Record<string, ParsedHTMLElement | null>[]>;
@@ -71,6 +71,13 @@ export default class DynamicScraper extends Scraper<unknown> {
             return id;
         }
         return null;
+    }
+
+    async getAttributes(selector: string, attr: string): Promise<(string | undefined)[]> {
+        const selected = await this.select(selector);
+        return selected.map(
+            s => s.getAttribute(attr) ?? (s[attr as keyof ParsedHTMLElement] as string),
+        );
     }
 
     getOrigin(): string {

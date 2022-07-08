@@ -17,9 +17,14 @@ export const executors: Record<JDSCommand, ExecutorFunction> = {
         }
     },
     close: async scraper => await scraper.tabAction('close'),
-    select: async (scraper, { format = 'Node', $, alias }) => {
-        if (typeof $ === 'string' && typeof alias === 'string') {
-            await scraper.execSelect($, alias);
+    select: async (scraper, { format = 'Node', query, key }) => {
+        if (typeof query === 'string' && typeof key === 'string') {
+            await scraper.execSelect(query, key);
+        }
+    },
+    attr: async (scraper, { format = 'Node', query, prop, key }) => {
+        if (typeof query === 'string' && typeof prop === 'string' && typeof key === 'string') {
+            scraper.vars[key] = (await scraper.getAttributes(query, prop))[0];
         }
     },
 };
