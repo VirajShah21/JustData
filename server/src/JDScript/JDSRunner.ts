@@ -16,7 +16,7 @@ export const executors: Record<JDSCommand, ExecutorFunction> = {
             await scraper.tabAction(origin);
         }
     },
-    close: async scraper => await scraper.tabAction('close'),
+    close: async scraper => scraper.tabAction('close'),
     select: async (scraper, { query, key }) => {
         if (typeof query === 'string' && typeof key === 'string') {
             await scraper.execSelect(query, key);
@@ -39,8 +39,7 @@ export class JDSRuntimeError extends Error {
 export async function executeAssembly(assembly: JDSAssembly) {
     const scraper: DynamicScraper = new DynamicScraper('');
 
-    for (let i = 0; i < assembly.length; i++) {
-        const instruction = assembly[i];
+    for (const instruction of assembly) {
         const command = instruction.command;
         const args = instruction.arguments;
 

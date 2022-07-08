@@ -166,5 +166,5 @@ export function parseScript(script: string): JDSAssembly {
     return script
         .split('\n')
         .filter(line => line.trim().length > 0)
-        .map((line, i) => parseLine(line));
+        .map(line => parseLine(line));
 }

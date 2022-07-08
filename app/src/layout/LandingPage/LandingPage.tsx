@@ -126,7 +126,7 @@ function ProductSection(props: {
     icon: React.ReactElement;
     title: string;
     children?: React.ReactNode;
-}) {
+}): JSX.Element {
     return (
         <>
             <ProductSectionTitle icon={props.icon} label={props.title} />
