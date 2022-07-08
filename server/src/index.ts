@@ -154,8 +154,8 @@ app.get('/api/jds/playground/step', async (req, res) => {
         const instance = await JDSPlayground.stepPlaygroundScript(id);
         Logger.debug('Found instance');
         res.send({
+            id,
             success: true,
-            id: id,
             origin: instance.scraper.getOrigin(),
             fields: instance.scraper.fields,
             vars: instance.scraper.vars,
