@@ -16,6 +16,12 @@ export interface ScriptPlayground {
     run: () => void;
 }
 
+/**
+ * Subscribes a script to a JDS playground runtime on the server.
+ *
+ * @returns An object that contains relevant state variables and methods to perform actions on
+ * the server-side instance of the script playground.
+ */
 export function useScriptPlayground(): ScriptPlayground {
     const [script, setScript] = useState(exampleScripts.WordOfTheDay.join('\n'));
     const [uploaded, setUploaded] = useState(false);
@@ -68,6 +74,9 @@ export function useScriptPlayground(): ScriptPlayground {
             return fields;
         },
 
+        /**
+         * Upload the specified script (`this.script`) to the server.
+         */
         async upload() {
             const { id, assembly } = await JDScriptKit.uploadScriptToPlayground(script);
             if (id && assembly) {
@@ -77,6 +86,9 @@ export function useScriptPlayground(): ScriptPlayground {
             }
         },
 
+        /**
+         * Increment the instruction pointer of the script.
+         */
         async step() {
             if (instanceId) {
                 const { screenshot, vars, fields } = await JDScriptKit.stepScriptInPlayground(
@@ -95,6 +107,9 @@ export function useScriptPlayground(): ScriptPlayground {
             }
         },
 
+        /**
+         * Run the script on the server.
+         */
         run() {
             setRunning(true);
         },

@@ -13,6 +13,15 @@ interface StatementGeneratorPhraseProps {
     active: boolean;
 }
 
+/**
+ * This is an advanced component that has two sections. An image container that displays and image
+ * defined by the prompt. The second section is a list of phrases that can be used to generate the
+ * prompt. When the user selects a phrase, the prompt is changed, thus updating the image to match
+ * the new prompt.
+ *
+ * @returns A component that displays a generated image and a combination of phrases that
+ * allows the user to select which phrases to use.
+ */
 export default function PreparedStatements() {
     const [prompt, setPrompt] = useState('');
 
@@ -27,6 +36,10 @@ export default function PreparedStatements() {
     );
 }
 
+/**
+ * @param props.onChange - A function that is called when the prompt is changed.
+ * @returns A sequence of phrases that can be clicked to generate a new prompt.
+ */
 function StatementGenerator({ onChange }: StatementGeneratorProps) {
     function synthesizePrompt() {
         return `${imageType} ${subject} ${accessory} ${clothing} ${verb} ${location}`;
@@ -135,6 +148,12 @@ function StatementGenerator({ onChange }: StatementGeneratorProps) {
     );
 }
 
+/**
+ * @param props.text - The text to display as the "phrase".
+ * @param props.onClick - A callback that should be invoked when the phrase is clicked.
+ * @param props.active - Whether or not the phrase is currently selected.
+ * @returns A phrase that can be clicked.
+ */
 function StatementGeneratorPhrase({ text, onClick, active }: StatementGeneratorPhraseProps) {
     return (
         <div

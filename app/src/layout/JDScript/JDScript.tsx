@@ -5,6 +5,9 @@ import { useScriptPlayground } from 'src/hooks/JDScript';
 import PlaygroundRunner from './PlaygroundRunner';
 import ScriptEditor from './ScriptEditor';
 
+/**
+ * @returns The JDScript application
+ */
 export default function JDScript() {
     return (
         <HStack height='100vh'>
@@ -21,6 +24,9 @@ export default function JDScript() {
     );
 }
 
+/**
+ * @returns The JDScript playground component
+ */
 export function JDScriptPlayground() {
     const playground = useScriptPlayground();
 

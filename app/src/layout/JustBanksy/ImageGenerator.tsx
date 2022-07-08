@@ -5,6 +5,9 @@ import LoadingAnimation from 'src/components/LoadingAnimation';
 import SearchBar from 'src/components/ui/SearchBar';
 import { BanksyKit } from 'src/utils/JustSDK';
 
+/**
+ * @returns The image generator for the JustBanksy product.
+ */
 export default function ImageGenerator() {
     const [prompt, setPrompt] = useState('');
     const [isSearching, setIsSearching] = useState(false);

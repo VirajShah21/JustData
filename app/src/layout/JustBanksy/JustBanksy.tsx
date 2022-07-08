@@ -18,6 +18,9 @@ export enum JustBanksyFeature {
 export default function JustBanksy() {
     const [feature, setFeature] = useState<JustBanksyFeature>(JustBanksyFeature.IMAGE_GENERATOR);
 
+    /**
+     * @returns A component that displays the correct feature in the JustBanksy app
+     */
     function ActiveFeature() {
         if (feature === JustBanksyFeature.IMAGE_GENERATOR) {
             return <ImageGenerator />;

@@ -16,6 +16,10 @@ export interface PlaygroundRunnerProps {
     playground: ScriptPlayground;
 }
 
+/**
+ * @param props.playground - The playground subscription returned by `useScriptPlayground`
+ * @returns The playground runner and dev tools for JDScript
+ */
 export default function PlaygroundRunner({ playground }: PlaygroundRunnerProps) {
     const [devTool, setDevTool] = useState<JDSDevTool>(JDSDevTool.SCREENSHOT);
 
