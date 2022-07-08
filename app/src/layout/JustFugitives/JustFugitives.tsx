@@ -24,7 +24,6 @@ const features: Record<string, FBIMostWantedFeature> = {
     allFugitives: 'fugitives',
     capitolViolence: 'capitol-violence',
 };
-const loadingText = 'Loading...';
 
 /**
  * This is the webpage for the FBIs most wanted fugitives. It includes several features,

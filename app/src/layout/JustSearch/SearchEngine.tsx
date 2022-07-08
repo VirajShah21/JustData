@@ -58,7 +58,14 @@ function SearchEngine() {
 
                 {showingResults && (
                     <VStack className='search-results' align='start' justify='start'>
-                        {results.map(EngineResult)}
+                        {results.map((result, i) => (
+                            <EngineResult
+                                key={result.url}
+                                title={result.title}
+                                url={result.url}
+                                description={result.description}
+                            />
+                        ))}
                     </VStack>
                 )}
             </VStack>

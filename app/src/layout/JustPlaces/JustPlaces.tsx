@@ -71,7 +71,10 @@ export default function JustPlaces() {
                     />
                 )}
                 <VStack justify='start' align='start' className='search-results'>
-                    {showingResults && results.map(result => <PlaceSearchResult {...result} />)}
+                    {showingResults &&
+                        results.map(result => (
+                            <PlaceSearchResult key={`${result.business}`} {...result} />
+                        ))}
                 </VStack>
             </VStack>
         </HStack>
