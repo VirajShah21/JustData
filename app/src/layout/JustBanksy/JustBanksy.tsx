@@ -7,24 +7,30 @@ import ImageGenerator from './ImageGenerator';
 import './JustBanksy.css';
 import PreparedStatements from './PreparedStatements';
 
-type JustBanksyFeatures = 'image-generator' | 'prepared-statements';
+export enum JustBanksyFeature {
+    IMAGE_GENERATOR,
+    PREPARED_STATEMENTS,
+}
 
 /**
  * @returns A page that displays the JustBanksy app.
  */
 export default function JustBanksy() {
-    const [feature, setFeature] = useState<JustBanksyFeatures>('image-generator');
+    const [feature, setFeature] = useState<JustBanksyFeature>(JustBanksyFeature.IMAGE_GENERATOR);
 
+    /**
+     * @returns A component that displays the correct feature in the JustBanksy app
+     */
     function ActiveFeature() {
-        if (feature === 'image-generator') {
+        if (feature === JustBanksyFeature.IMAGE_GENERATOR) {
             return <ImageGenerator />;
         }
 
-        if (feature === 'prepared-statements') {
+        if (feature === JustBanksyFeature.PREPARED_STATEMENTS) {
             return <PreparedStatements />;
         }
 
-        setFeature('image-generator');
+        setFeature(JustBanksyFeature.IMAGE_GENERATOR);
         return <ImageGenerator />;
     }
 
@@ -34,14 +40,14 @@ export default function JustBanksy() {
                 <SidebarNavigationButton
                     ionicon={{ default: imagesOutline, active: images }}
                     label='Image Generator'
-                    onClick={() => setFeature('image-generator')}
-                    active={feature === 'image-generator'}
+                    onClick={() => setFeature(JustBanksyFeature.IMAGE_GENERATOR)}
+                    active={feature === JustBanksyFeature.IMAGE_GENERATOR}
                 />
                 <SidebarNavigationButton
                     ionicon={{ default: albumsOutline, active: albums }}
                     label='Prepared Statements'
-                    onClick={() => setFeature('prepared-statements')}
-                    active={feature === 'prepared-statements'}
+                    onClick={() => setFeature(JustBanksyFeature.PREPARED_STATEMENTS)}
+                    active={feature === JustBanksyFeature.PREPARED_STATEMENTS}
                 />
             </Sidebar>
 

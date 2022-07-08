@@ -17,7 +17,7 @@ export function newInstance(script: string): PlaygroundInstance {
     const id = instanceId();
     const instance = {
         id,
-        script: script,
+        script,
         assembly: parseScript(script),
         scraper: new DynamicScraper(''),
         instruction: 0,

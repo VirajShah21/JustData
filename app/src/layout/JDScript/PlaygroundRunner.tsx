@@ -6,32 +6,40 @@ import Button from 'src/components/ui/Button';
 import { ScriptPlayground } from 'src/hooks/JDScript';
 import './PlaygroundRunner.css';
 
+export enum JDSDevTool {
+    SCREENSHOT,
+    DATA_INSPECTOR,
+    SELECTIONS,
+}
+
 export interface PlaygroundRunnerProps {
     playground: ScriptPlayground;
 }
 
+/**
+ * @param props.playground - The playground subscription returned by `useScriptPlayground`
+ * @returns The playground runner and dev tools for JDScript
+ */
 export default function PlaygroundRunner({ playground }: PlaygroundRunnerProps) {
-    const [devTool, setDevTool] = useState<'screenshot' | 'data-inspector' | 'selections'>(
-        'screenshot',
-    );
+    const [devTool, setDevTool] = useState<JDSDevTool>(JDSDevTool.SCREENSHOT);
 
     return (
         <HStack width='100%' justify='around' className='playground-runner'>
             <VStack className='playground-controls'>
                 <HStack justify='start'>
-                    <Button onClick={() => setDevTool('screenshot')}>
+                    <Button onClick={() => setDevTool(JDSDevTool.SCREENSHOT)}>
                         <HStack>
                             <IonIcon icon={image} />
                             Screenshot
                         </HStack>
                     </Button>
-                    <Button onClick={() => setDevTool('data-inspector')}>
+                    <Button onClick={() => setDevTool(JDSDevTool.DATA_INSPECTOR)}>
                         <HStack>
                             <IonIcon icon={layers} />
                             Data Inspector
                         </HStack>
                     </Button>
-                    <Button onClick={() => setDevTool('selections')}>
+                    <Button onClick={() => setDevTool(JDSDevTool.SELECTIONS)}>
                         <HStack>
                             <IonIcon icon={copy} />
                             Selections
@@ -39,7 +47,7 @@ export default function PlaygroundRunner({ playground }: PlaygroundRunnerProps) 
                     </Button>
                 </HStack>
 
-                {devTool === 'screenshot' && playground.screenshotUrl && (
+                {devTool === JDSDevTool.SCREENSHOT && playground.screenshotUrl && (
                     <img
                         src={playground.screenshotUrl}
                         alt='Screenshot of browser'
@@ -47,7 +55,7 @@ export default function PlaygroundRunner({ playground }: PlaygroundRunnerProps) 
                     />
                 )}
 
-                {devTool === 'data-inspector' && (
+                {devTool === JDSDevTool.DATA_INSPECTOR && (
                     <VStack>
                         <table className='data-table'>
                             <thead>
@@ -80,7 +88,7 @@ export default function PlaygroundRunner({ playground }: PlaygroundRunnerProps) 
                     </VStack>
                 )}
 
-                {devTool === 'selections' && <VStack></VStack>}
+                {devTool === JDSDevTool.SELECTIONS && <VStack></VStack>}
 
                 <HStack>
                     <Button onClick={playground.step}>

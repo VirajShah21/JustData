@@ -45,6 +45,9 @@ export default class DynamicScraper extends Scraper<unknown> {
             await this.openTab();
         } else if (this.tab) {
             await this.closeTab();
+        } else {
+            // TODO: Add runtime error details
+            throw new Error('Cannot close a tab that hasn not been opened yet');
         }
     }
 

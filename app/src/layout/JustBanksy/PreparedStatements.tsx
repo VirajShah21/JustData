@@ -13,6 +13,15 @@ interface StatementGeneratorPhraseProps {
     active: boolean;
 }
 
+/**
+ * This is an advanced component that has two sections. An image container that displays and image
+ * defined by the prompt. The second section is a list of phrases that can be used to generate the
+ * prompt. When the user selects a phrase, the prompt is changed, thus updating the image to match
+ * the new prompt.
+ *
+ * @returns A component that displays a generated image and a combination of phrases that
+ * allows the user to select which phrases to use.
+ */
 export default function PreparedStatements() {
     const [prompt, setPrompt] = useState('');
 
@@ -27,7 +36,15 @@ export default function PreparedStatements() {
     );
 }
 
+/**
+ * @param props.onChange - A function that is called when the prompt is changed.
+ * @returns A sequence of phrases that can be clicked to generate a new prompt.
+ */
 function StatementGenerator({ onChange }: StatementGeneratorProps) {
+    function synthesizePrompt() {
+        return `${imageType} ${subject} ${accessory} ${clothing} ${verb} ${location}`;
+    }
+
     const imageTypes = ['A photo of', 'An oil painting of', 'A doodle of'];
     const subjects = [
         'fuzzy panda',
@@ -55,7 +72,10 @@ function StatementGenerator({ onChange }: StatementGeneratorProps) {
                     <StatementGeneratorPhrase
                         text={type}
                         active={imageType === type}
-                        onClick={() => setImageType(type)}
+                        onClick={() => {
+                            setImageType(type);
+                            onChange(synthesizePrompt());
+                        }}
                     />
                 ))}
             </HStack>
@@ -65,7 +85,10 @@ function StatementGenerator({ onChange }: StatementGeneratorProps) {
                     <StatementGeneratorPhrase
                         text={currSubject}
                         active={subject === currSubject}
-                        onClick={() => setSubject(currSubject)}
+                        onClick={() => {
+                            setSubject(currSubject);
+                            onChange(synthesizePrompt());
+                        }}
                     />
                 ))}
             </HStack>
@@ -75,7 +98,10 @@ function StatementGenerator({ onChange }: StatementGeneratorProps) {
                     <StatementGeneratorPhrase
                         text={currAccessory}
                         active={currAccessory === accessory}
-                        onClick={() => setAccessory(currAccessory)}
+                        onClick={() => {
+                            setAccessory(currAccessory);
+                            onChange(synthesizePrompt());
+                        }}
                     />
                 ))}
             </HStack>
@@ -85,7 +111,10 @@ function StatementGenerator({ onChange }: StatementGeneratorProps) {
                     <StatementGeneratorPhrase
                         text={currClothing}
                         active={currClothing === clothing}
-                        onClick={() => setClothing(currClothing)}
+                        onClick={() => {
+                            setClothing(currClothing);
+                            onChange(synthesizePrompt());
+                        }}
                     />
                 ))}
             </HStack>
@@ -95,7 +124,10 @@ function StatementGenerator({ onChange }: StatementGeneratorProps) {
                     <StatementGeneratorPhrase
                         text={currVerb}
                         active={currVerb === verb}
-                        onClick={() => setVerb(currVerb)}
+                        onClick={() => {
+                            setVerb(currVerb);
+                            onChange(synthesizePrompt());
+                        }}
                     />
                 ))}
             </HStack>
@@ -105,7 +137,10 @@ function StatementGenerator({ onChange }: StatementGeneratorProps) {
                     <StatementGeneratorPhrase
                         text={currLocation}
                         active={currLocation === location}
-                        onClick={() => setLocation(currLocation)}
+                        onClick={() => {
+                            setLocation(currLocation);
+                            onChange(synthesizePrompt());
+                        }}
                     />
                 ))}
             </HStack>
@@ -113,6 +148,12 @@ function StatementGenerator({ onChange }: StatementGeneratorProps) {
     );
 }
 
+/**
+ * @param props.text - The text to display as the "phrase".
+ * @param props.onClick - A callback that should be invoked when the phrase is clicked.
+ * @param props.active - Whether or not the phrase is currently selected.
+ * @returns A phrase that can be clicked.
+ */
 function StatementGeneratorPhrase({ text, onClick, active }: StatementGeneratorPhraseProps) {
     return (
         <div
