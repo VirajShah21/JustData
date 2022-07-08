@@ -1,5 +1,5 @@
 import { flask, flaskOutline } from 'ionicons/icons';
-import { HStack, VStack } from 'reaction';
+import { HStack } from 'reaction';
 import Sidebar, { SidebarNavigationButton } from 'src/components/ui/Sidebar';
 import { useScriptPlayground } from 'src/hooks/JDScript';
 import PlaygroundRunner from './PlaygroundRunner';

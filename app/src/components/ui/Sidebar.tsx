@@ -1,5 +1,5 @@
 import { IonIcon } from '@ionic/react';
-import { home, homeOutline } from 'ionicons/icons';
+import { homeOutline } from 'ionicons/icons';
 import { ReactNode } from 'react';
 import { HStack, VStack } from 'reaction';
 import './Sidebar.css';

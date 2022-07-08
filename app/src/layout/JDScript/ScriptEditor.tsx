@@ -3,7 +3,7 @@ import { cloudUpload, play, trash } from 'ionicons/icons';
 import { HStack, VStack } from 'reaction';
 import Button from 'src/components/ui/Button';
 import TextBox from 'src/components/ui/TextBox';
-import { ScriptPlayground, useScriptPlayground } from 'src/hooks/JDScript';
+import { ScriptPlayground } from 'src/hooks/JDScript';
 import './ScriptEditor.css';
 
 export interface ScriptEditorProps {
