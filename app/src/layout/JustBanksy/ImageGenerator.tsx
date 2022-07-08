@@ -35,8 +35,8 @@ export default function ImageGenerator() {
         if (results) {
             return (
                 <>
-                    {results.images.map(src => (
-                        <img src={src} />
+                    {results.images.map((src, i) => (
+                        <img src={src} alt={`Result #${i}`} />
                     ))}
                 </>
             );
