@@ -152,7 +152,7 @@ export function validateScript(script: string): JDSIssue[] {
     return issues;
 }
 
-export function parseLine(line: string, lineNumber = 0): JDSInstruction {
+export function parseLine(line: string): JDSInstruction {
     return {
         command: parseCommand(line) as JDSCommand,
         arguments: parseArgs(line),
@@ -163,5 +163,5 @@ export function parseScript(script: string): JDSAssembly {
     return script
         .split('\n')
         .filter(line => line.trim().length > 0)
-        .map((line, i) => parseLine(line, i + 1));
+        .map((line, i) => parseLine(line));
 }

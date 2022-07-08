@@ -28,6 +28,10 @@ export default function PreparedStatements() {
 }
 
 function StatementGenerator({ onChange }: StatementGeneratorProps) {
+    function synthesizePrompt() {
+        return `${imageType} ${subject} ${accessory} ${clothing} ${verb} ${location}`;
+    }
+
     const imageTypes = ['A photo of', 'An oil painting of', 'A doodle of'];
     const subjects = [
         'fuzzy panda',
@@ -55,7 +59,10 @@ function StatementGenerator({ onChange }: StatementGeneratorProps) {
                     <StatementGeneratorPhrase
                         text={type}
                         active={imageType === type}
-                        onClick={() => setImageType(type)}
+                        onClick={() => {
+                            setImageType(type);
+                            onChange(synthesizePrompt());
+                        }}
                     />
                 ))}
             </HStack>
@@ -65,7 +72,10 @@ function StatementGenerator({ onChange }: StatementGeneratorProps) {
                     <StatementGeneratorPhrase
                         text={currSubject}
                         active={subject === currSubject}
-                        onClick={() => setSubject(currSubject)}
+                        onClick={() => {
+                            setSubject(currSubject);
+                            onChange(synthesizePrompt());
+                        }}
                     />
                 ))}
             </HStack>
@@ -75,7 +85,10 @@ function StatementGenerator({ onChange }: StatementGeneratorProps) {
                     <StatementGeneratorPhrase
                         text={currAccessory}
                         active={currAccessory === accessory}
-                        onClick={() => setAccessory(currAccessory)}
+                        onClick={() => {
+                            setAccessory(currAccessory);
+                            onChange(synthesizePrompt());
+                        }}
                     />
                 ))}
             </HStack>
@@ -85,7 +98,10 @@ function StatementGenerator({ onChange }: StatementGeneratorProps) {
                     <StatementGeneratorPhrase
                         text={currClothing}
                         active={currClothing === clothing}
-                        onClick={() => setClothing(currClothing)}
+                        onClick={() => {
+                            setClothing(currClothing);
+                            onChange(synthesizePrompt());
+                        }}
                     />
                 ))}
             </HStack>
@@ -95,7 +111,10 @@ function StatementGenerator({ onChange }: StatementGeneratorProps) {
                     <StatementGeneratorPhrase
                         text={currVerb}
                         active={currVerb === verb}
-                        onClick={() => setVerb(currVerb)}
+                        onClick={() => {
+                            setVerb(currVerb);
+                            onChange(synthesizePrompt());
+                        }}
                     />
                 ))}
             </HStack>
@@ -105,7 +124,10 @@ function StatementGenerator({ onChange }: StatementGeneratorProps) {
                     <StatementGeneratorPhrase
                         text={currLocation}
                         active={currLocation === location}
-                        onClick={() => setLocation(currLocation)}
+                        onClick={() => {
+                            setLocation(currLocation);
+                            onChange(synthesizePrompt());
+                        }}
                     />
                 ))}
             </HStack>
