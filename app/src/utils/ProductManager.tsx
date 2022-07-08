@@ -5,6 +5,7 @@ import {
     briefcase,
     logoIonitron,
     search as searchIcon,
+    logoJavascript,
 } from 'ionicons/icons';
 import justBanksyLogo from 'src/assets/images/icons/Just Banksy.png';
 import justFugitivesLogo from 'src/assets/images/icons/Just Fugitives.png';
@@ -31,6 +32,7 @@ export enum ProductCategoryRef {
     FinancialMarkets,
     USIntelligence,
     CrimeAndJustice,
+    DeveloperTools,
 }
 
 export const CATEGORY_REF_MAPPING = {
@@ -39,6 +41,7 @@ export const CATEGORY_REF_MAPPING = {
     [ProductCategoryRef.CrimeAndJustice]: 'Crime and Justice',
     [ProductCategoryRef.WebSearch]: 'Web Search',
     [ProductCategoryRef.ArtificialIntelligence]: 'Artificial Intelligence',
+    [ProductCategoryRef.DeveloperTools]: 'Developer Tools',
 };
 
 /**
@@ -107,6 +110,17 @@ export const allProducts: ProductCategory[] = [
                 product: 'Just Banksy',
                 icon: justBanksyLogo,
                 url: 'banksy',
+            },
+        ],
+    },
+    {
+        category: ProductCategoryRef.DeveloperTools,
+        icon: <IonIcon icon={logoJavascript} />,
+        products: [
+            {
+                product: 'JD Script',
+                icon: '',
+                url: 'jd-script',
             },
         ],
     },

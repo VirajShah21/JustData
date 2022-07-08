@@ -1,0 +1,7 @@
+{
+    "WordOfTheDay": [
+        "open origin=https://www.merriam-webster.com/word-of-the-day",
+        "attr query=h1 prop=textContent key=word",
+        "close"
+    ]
+}
