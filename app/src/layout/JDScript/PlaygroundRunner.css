@@ -1,11 +1,17 @@
+/** Styling for the JDScript playground when running/debugging code */
+
 .playground-runner {
     box-sizing: border-box;
     padding: 1em;
 }
 
+/** The screenshot devtool */
+
 .playground-runner .playground-screenshot {
     max-height: 50vh;
 }
+
+/** Code display styles */
 
 .playground-runner .assembly-decoder .assembly-code {
     box-sizing: border-box;
@@ -29,6 +35,7 @@
     position: relative;
 }
 
+/* Displays the argument name as a small little label on top of the argument data */
 .playground-runner .assembly-decoder .assembly-code.assembly-arg::before {
     content: attr(data-argname);
     position: absolute;

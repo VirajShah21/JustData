@@ -29,15 +29,28 @@ export const executors: Record<JDSCommand, ExecutorFunction> = {
     },
 };
 
+/**
+ * A runtime error encountered during execution of JDScript code.
+ */
 export class JDSRuntimeError extends Error {
+    /**
+     * Constructs an instance of a JDSRuntimeError
+     *
+     * @param message - The error message.
+     */
     constructor(message: string) {
         super(message);
         this.name = 'JDSRuntimeError';
     }
 }
 
+/**
+ * Executes compiled JDScript code.
+ *
+ * @param assembly - The JDScript assembly object to execute.
+ */
 export async function executeAssembly(assembly: JDSAssembly) {
-    const scraper: DynamicScraper = new DynamicScraper('');
+    const scraper: DynamicScraper = new DynamicScraper();
 
     for (const instruction of assembly) {
         const command = instruction.command;
@@ -47,6 +60,13 @@ export async function executeAssembly(assembly: JDSAssembly) {
     }
 }
 
+/**
+ * Executes a JDScript.
+ *
+ * @param script - The JDScript script to run.
+ * @returns If the script has compiled successfully, the script is executed and returns 0. If the
+ * script cannot be compiled, then an array of errors/warnings will be returned instead.
+ */
 export function executeScript(script: string): JDSIssue[] | 0 {
     const issues = validateScript(script);
 

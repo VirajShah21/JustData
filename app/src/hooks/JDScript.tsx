@@ -33,31 +33,53 @@ export function useScriptPlayground(): ScriptPlayground {
     const [fields, setFields] = useState<Record<string, ValidJDSArgumentType>>({});
 
     return {
+        /**
+         * The plaintext of the JDScript file.
+         */
         get script() {
             return script;
         },
 
+        /**
+         * Updates the state of the script and updates uploaded state to false.
+         */
         set script(value: string) {
             setScript(value);
             setUploaded(false);
         },
 
+        /**
+         * True if the current script is uploaded to the server.
+         */
         get uploaded() {
             return uploaded;
         },
 
+        /**
+         * Checks
+         */
         get running() {
             return running;
         },
 
+        /**
+         * Get the ID of the current script instance from the server.
+         */
         get id() {
             return instanceId ?? null;
         },
 
+        /**
+         * Retrieves the assembly code of the current script if the script has been uploaded to the
+         * server.
+         */
         get assembly() {
             return assemblyCode;
         },
 
+        /**
+         * Gets the URL of the current screenshot image of the web scraper.
+         */
         get screenshotUrl() {
             if (instanceId && screenshotId) {
                 return JDScriptKit.playgroundScreenshotUrl(instanceId, screenshotId);
@@ -66,10 +88,16 @@ export function useScriptPlayground(): ScriptPlayground {
             }
         },
 
+        /**
+         * Gets an object containing evey variable in the JDS instance.
+         */
         get vars() {
             return vars;
         },
 
+        /**
+         * Gets an object containing every field in the JDS instance.
+         */
         get fields() {
             return fields;
         },

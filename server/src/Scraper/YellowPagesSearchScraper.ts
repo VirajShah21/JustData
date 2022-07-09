@@ -108,6 +108,13 @@ class YellowPagesSearchScraper extends Scraper<YellowPagesSERP> {
         };
     }
 
+    /**
+     * Extracts the address of a listing.
+     *
+     * @param listing - The element that contains the listing information.
+     * @returns An object mapping address fields to their values. This is used to derive the full
+     * address for the business listing.
+     */
     private static extractListingAddress(listing: ParsedHTMLElement): YellowPagesAddress {
         const addressContainer = listing.querySelector('.adr');
         const address: YellowPagesAddress = {

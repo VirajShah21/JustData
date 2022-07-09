@@ -50,8 +50,13 @@ export const CATEGORY_REF_MAPPING = {
  * A product category defines a category (`enum ProductCategoryRef`), an icon
  * associated with the product, and an array of the products which belong to
  * the category (`interface Product`).
+ *
+ * The array is sorted in the order defined by the enum `ProductCategoryRef`. To modify
+ * the order than the categories are displayed, you should modify the `ProductCategoryRef`
+ * enum.
  */
 export const allProducts: ProductCategory[] = [
+    // Financial markets products
     {
         category: ProductCategoryRef.FinancialMarkets,
         icon: <IonIcon icon={trendingUp} />,
@@ -63,6 +68,7 @@ export const allProducts: ProductCategory[] = [
             },
         ],
     },
+    // US intelligence produces
     {
         category: ProductCategoryRef.USIntelligence,
         icon: <IonIcon icon={information} />,
@@ -70,6 +76,7 @@ export const allProducts: ProductCategory[] = [
             /* CIA World Factbook */
         ],
     },
+    // Crime and Justice products
     {
         category: ProductCategoryRef.CrimeAndJustice,
         icon: <IonIcon icon={briefcase} />,
@@ -86,6 +93,7 @@ export const allProducts: ProductCategory[] = [
             },
         ],
     },
+    // Web search products
     {
         category: ProductCategoryRef.WebSearch,
         icon: <IonIcon icon={searchIcon} />,
@@ -102,6 +110,7 @@ export const allProducts: ProductCategory[] = [
             },
         ],
     },
+    // AI products
     {
         category: ProductCategoryRef.ArtificialIntelligence,
         icon: <IonIcon icon={logoIonitron} />,
@@ -113,6 +122,7 @@ export const allProducts: ProductCategory[] = [
             },
         ],
     },
+    // Developer tool products
     {
         category: ProductCategoryRef.DeveloperTools,
         icon: <IonIcon icon={logoJavascript} />,

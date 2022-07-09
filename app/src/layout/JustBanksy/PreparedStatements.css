@@ -1,3 +1,4 @@
+/* For every phrase in a prompt */
 .banksy-statement-generator .statement-generator-phrase {
     font-family: monospace;
     color: gray;
@@ -5,6 +6,8 @@
     padding: 0.5em;
     font-size: 1.25em;
 }
+
+/** Active phrases (in light/dark mode) */
 
 .dark .banksy-statement-generator .statement-generator-phrase.active {
     color: yellow;

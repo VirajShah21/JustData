@@ -9,11 +9,25 @@ type WHFinancialDisclosures = {
     }[];
 };
 
+/**
+ * A scraper for financial disclosures of White House employees.
+ * ! Warning: This scraper does not work properly just yet.
+ * ! This needs to be debugged
+ * ! Improvements should be made to allow scraping of all WhiteHouse employees
+ */
 class WHFinancialDisclosureScraper extends Scraper<WHFinancialDisclosures> {
+    /**
+     * Constructs an instance of the scraper.
+     */
     constructor() {
         super('https://www.whitehouse.gov/disclosures/financial-disclosures/');
     }
 
+    /**
+     * Scrapes financial disclosures for the president and vice president.
+     *
+     * @returns The scraped data.
+     */
     async scrape(): Promise<WHFinancialDisclosures> {
         await this.openTab();
         const links = (await this.select('body'))[0].querySelectorAll('a').filter(a => {

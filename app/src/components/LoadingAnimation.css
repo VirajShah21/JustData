@@ -1,3 +1,4 @@
+/* Keyframe animation to make the loading animation rotate */
 @keyframes rotate {
     from {
         transform: rotate(0deg);
@@ -8,6 +9,7 @@
     }
 }
 
+/* Defines the sizing and animation of the loading icon */
 .loading-animation {
     animation-name: rotate;
     animation-duration: 1s;
