@@ -47,12 +47,12 @@ export function OptionsBar() {
  * Opens the JustData Github page.
  */
 function openGitHubRepo() {
-    window.open('https://github.com/VirajShah21/JustData', '_blank');
+    window.open('https://github.com/VirajShah21/JustData', '_blank', 'noopener');
 }
 
 /**
  * Opens the JustData issues tab on Github.
  */
 function openGitHubIssues() {
-    window.open('https://github.com/VirajShah21/JustData/issues/new', '_blank');
+    window.open('https://github.com/VirajShah21/JustData/issues/new', '_blank', 'noopener');
 }
