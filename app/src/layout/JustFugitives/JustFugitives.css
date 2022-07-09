@@ -1,5 +1,0 @@
-/* The fugitives list wrapper */
-.fbi-most-wanted-page .fugitives-list {
-    flex-wrap: wrap;
-    overflow-y: scroll;
-}

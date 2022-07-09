@@ -37,7 +37,7 @@ export default function AllFugitivesList() {
     return (
         <VStack width='100%'>
             {isLoading && <LoadingAnimation />}
-            <HStack className='fugitives-list'>
+            <HStack scroll='vertical' wrap>
                 {fugitives.slice(pageSize * (page - 1), pageSize * page).map(fugitive => (
                     <FugitiveListItem key={fugitive.name} {...fugitive} opensProfile={true} />
                 ))}

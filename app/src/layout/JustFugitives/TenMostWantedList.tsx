@@ -33,7 +33,7 @@ export default function TenMostWantedList() {
                     <LoadingAnimation />
                 </VStack>
             )}
-            <HStack className='fugitives-list'>
+            <HStack scroll='vertical' wrap>
                 {fugitives.map(fugitive => (
                     <FugitiveListItem key={fugitive.name} {...fugitive} opensProfile={false} />
                 ))}
