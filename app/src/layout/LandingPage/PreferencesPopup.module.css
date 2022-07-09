@@ -21,12 +21,12 @@
     backdrop-filter: blur(1rem);
 }
 
-.dark .popup {
+[data-theme='dark'] .popup {
     background-color: rgba(0, 0, 0, 0.5);
     border: 1px solid var(--secondary-bg-dark);
 }
 
-.light .popup {
+[data-theme='light'] .popup {
     background-color: rgba(255, 255, 255, 0.5);
     border: 1px solid var(--secondary-bg-light);
 }
@@ -38,11 +38,11 @@
     color: var(--primary-bg-dark);
 }
 
-.dark .popup .close_btn {
+[data-theme='dark'] .popup .close_btn {
     color: var(--primary-bg-dark);
 }
 
-.light .popup .close_btn {
+[data-theme='light'] .popup .close_btn {
     color: var(--primary-bg-light);
 }
 

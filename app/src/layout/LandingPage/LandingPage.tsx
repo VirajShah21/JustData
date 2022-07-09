@@ -3,7 +3,6 @@ import { HStack, Spacer, VStack } from 'reaction';
 import logo from 'src/assets/images/icons/logo.png';
 import { ProductResult, ProductSectionTitle } from 'src/components/LandingPage/ProductComponents';
 import SearchBar from 'src/components/ui/SearchBar';
-import './LandingPage.css';
 import { OptionsBar } from './OptionsBar';
 import { allProducts, CATEGORY_REF_MAPPING } from '../../utils/ProductManager';
 import styles from './LandingPage.module.css';
