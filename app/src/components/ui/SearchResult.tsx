@@ -10,7 +10,7 @@ import styles from './SearchResult.module.css';
 function SearchResult(props: { children: JSX.Element | JSX.Element[]; className?: string }) {
     return (
         <VStack
-            className={`${styles.result} ${styles.className ?? ''}`.trim()}
+            className={`${styles.result} ${props.className ?? ''}`.trim()}
             width='50%'
             align='start'
             height='auto'>

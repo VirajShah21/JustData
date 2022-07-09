@@ -93,7 +93,7 @@ function SearchEngine() {
  */
 function EngineResult(props: { title: string; url: string; description: string }) {
     return (
-        <SearchResult className={styles.result}>
+        <SearchResult>
             <h3 className={styles.result_title}>
                 <a href={props.url} className='text-gradient-primary'>
                     {props.title}

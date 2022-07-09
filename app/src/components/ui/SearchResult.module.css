@@ -28,11 +28,11 @@
     border-radius: 1rem;
 }
 
-.dark .result .inner {
+[data-theme='dark'] .result .inner {
     background-color: var(--secondary-bg-dark);
 }
 
-.light .result .inner {
+[data-theme='light'] .result .inner {
     background-color: var(--secondary-bg-light);
 }
 
