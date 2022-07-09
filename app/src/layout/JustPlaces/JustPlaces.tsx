@@ -62,7 +62,12 @@ export default function JustPlaces() {
                     />
                 </HStack>
 
-                {loading && <LoadingAnimation />}
+                {loading && (
+                    <VStack>
+                        <LoadingAnimation />
+                    </VStack>
+                )}
+
                 {!showingResults && !loading && (
                     <img
                         src={justPlacesPlaceholder}
