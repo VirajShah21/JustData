@@ -13,24 +13,24 @@
     }
 }
 
-.landing-left {
+.brand_container {
     background-size: cover;
 }
 
-.dark .landing-left {
+[data-theme='dark'] .brand_container {
     background-image: url(src/assets/images/backgrounds/landing-bg.jpg);
 }
 
-.light .landing-left {
+[data-theme='light'] .brand_container {
     background-image: url(src/assets/images/backgrounds/landing-bg-light.png);
 }
 
-.landing-right {
+.product_gallery {
     width: 100vw;
     position: relative;
 }
 
-.landing-left .landing-left-overlay {
+.brand_container .brand_overlay {
     -webkit-backdrop-filter: blur(2.5rem);
     backdrop-filter: blur(2.5rem);
     transition: 0.5s backdrop-filter;
@@ -43,34 +43,34 @@
 
 /* When the left side is hovered, the blur should be
    removed */
-.landing-left .landing-left-overlay:hover {
+.brand_container .brand_overlay:hover {
     -webkit-backdrop-filter: blur(0);
     backdrop-filter: blur(0);
 }
 
-.landing-left .landing-brand {
+.brand_container .brand {
     width: 50%;
 }
 
 /* The attribution for the background image */
-.landing-left .bg-attribution {
+.brand_container .bg_attribution {
     font-size: 0.75rem;
     -webkit-backdrop-filter: blur(1rem);
     backdrop-filter: blur(1rem);
     padding: 0.25rem;
 }
 
-.dark .landing-left .bg-attribution {
+[data-theme='dark'] .brand_container .bg_attribution {
     color: var(--primary-text-dark);
     background: rgba(0, 0, 0, 0.5);
 }
 
-.light .landing-left .bg-attribution {
+[data-theme='light'] .brand_container .bg_attribution {
     color: var(--primary-text-light);
     background: rgba(255, 255, 255, 0.5);
 }
 
-.landing-divider {
+.vertical_divider {
     width: 0.25rem;
     background-image: linear-gradient(
         to bottom,
@@ -79,7 +79,7 @@
     );
 }
 
-.landing-right .products-gallery {
+.product_gallery .product_list {
     overflow-y: scroll;
     padding-bottom: 3rem;
 }

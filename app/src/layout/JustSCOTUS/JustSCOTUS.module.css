@@ -1,27 +1,27 @@
 /** Styles for the JustSCOTUS case term selections */
 
-#just-scotus .term-selection-bar {
+.term_selection_bar {
     box-sizing: border-box;
     padding: 0.5rem;
 }
 
-#just-scotus .case-term-badge {
+.term_badge {
     box-sizing: border-box;
     margin-left: 1rem;
     height: auto;
 }
 
-#just-scotus .case-term-badge .case-term {
+.term_badge .case_term {
     box-sizing: border-box;
     padding: 0.5rem;
 }
 
-.dark #just-scotus .case-term-badge .case-term {
+[data-theme='dark'] .term_badge .case_term {
     background: var(--secondary-bg-dark);
     color: var(--secondary-text-dark);
 }
 
-.light #just-scotus .case-term-badge .case-term {
+[data-theme='light'] .term_badge .case_term {
     background: var(--secondary-bg-light);
     color: var(--secondary-text-light);
 }

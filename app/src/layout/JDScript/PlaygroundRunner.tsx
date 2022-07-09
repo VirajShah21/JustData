@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import Button from 'src/components/ui/Button';
 import { ScriptPlayground } from 'src/hooks/JDScript';
-import './PlaygroundRunner.css';
+import styles from './PlaygroundRunner.module.css';
 
 export enum JDSDevTool {
     SCREENSHOT,
@@ -24,8 +24,8 @@ export default function PlaygroundRunner({ playground }: PlaygroundRunnerProps) 
     const [devTool, setDevTool] = useState<JDSDevTool>(JDSDevTool.SCREENSHOT);
 
     return (
-        <HStack width='100%' justify='around' className='playground-runner'>
-            <VStack className='playground-controls'>
+        <HStack width='100%' justify='around' className={styles.playground_runner}>
+            <VStack>
                 <HStack justify='start'>
                     <Button onClick={() => setDevTool(JDSDevTool.SCREENSHOT)}>
                         <HStack>
@@ -51,13 +51,13 @@ export default function PlaygroundRunner({ playground }: PlaygroundRunnerProps) 
                     <img
                         src={playground.screenshotUrl}
                         alt='Screenshot of browser'
-                        className='playground-screenshot'
+                        className={styles.screenshot}
                     />
                 )}
 
                 {devTool === JDSDevTool.DATA_INSPECTOR && (
                     <VStack>
-                        <table className='data-table'>
+                        <table>
                             <thead>
                                 <th>Variable</th>
                                 <th>Value</th>
@@ -71,7 +71,7 @@ export default function PlaygroundRunner({ playground }: PlaygroundRunnerProps) 
                                 ))}
                             </tbody>
                         </table>
-                        <table className='data-table'>
+                        <table>
                             <thead>
                                 <th>Field</th>
                                 <th>Value</th>
@@ -118,14 +118,16 @@ export default function PlaygroundRunner({ playground }: PlaygroundRunnerProps) 
                 </HStack>
             </VStack>
 
-            <VStack className='assembly-decoder' scroll='both' width='35%'>
+            <VStack className={styles.assembly_decoder} scroll='both' width='35%'>
                 {playground.assembly.map(instruction => (
                     <HStack justify='start'>
-                        <code className='assembly-code assembly-command'>
+                        <code className={`${styles.assembly_code} ${styles.assembly_command}`}>
                             {instruction.command}
                         </code>
                         {Object.keys(instruction.arguments).map(name => (
-                            <code className={`assembly-code assembly-arg`} data-argname={name}>
+                            <code
+                                className={`${styles.assembly_code} ${styles.assembly_arg}`}
+                                data-argname={name}>
                                 {instruction.arguments[name]}
                             </code>
                         ))}

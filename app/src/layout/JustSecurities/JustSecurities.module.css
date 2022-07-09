@@ -1,11 +1,11 @@
 /* Sets width constraints on the autocomplete suggestions
    width. This will replace any overflowing text with ellipsis */
-#just-stocks .stock-search-ac-ticker,
-#just-stocks .stock-search-ac-name,
-#just-stocks .stock-search-ac-price,
-#just-stocks .stock-search-ac-industry,
-#just-stocks .stock-search-ac-type,
-#just-stocks .stock-search-ac-exchange {
+.autocomplete_ticker,
+.autocomplete_name,
+.autocomplete_price,
+.autocomplete_industry,
+.autocomplete_type,
+.autocomplete_exchange {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -13,85 +13,68 @@
 
 /** BEGIN styles for autocomplete suggestions */
 
-#just-stocks .stock-search-ac-ticker {
+.autocomplete_ticker {
     font-weight: bold;
     width: 6rem;
 }
 
-#just-stocks .stock-search-ac-name {
+.autocomplete_name {
     font-weight: bold;
     width: 20rem;
 }
 
-.dark #just-stocks .stock-search-ac-name {
+[data-theme='dark'] .autocomplete_name {
     color: var(--secondary-text-dark);
 }
 
-.light #just-stocks .stock-search-ac-name {
+[data-theme='light'] .autocomplete_name {
     color: var(--secondary-text-light);
 }
 
-#just-stocks .stock-search-ac-price {
+.autocomplete_price {
     width: 6rem;
 }
 
-#just-stocks .stock-search-ac-price::before {
+.autocomplete_price::before {
     content: '$';
 }
 
-#just-stocks .stock-search-ac-industry {
+.autocomplete_industry {
     width: 10rem;
     overflow: hidden;
 }
 
-.dark #just-stocks .stock-search-ac-industry {
+[data-theme='dark'] .autocomplete_industry {
     color: var(--secondary-text-dark);
 }
 
-.light #just-stocks .stock-search-ac-industry {
+[data-theme='light'] .autocomplete_industry {
     color: var(--secondary-text-light);
 }
 
-#just-stocks .stock-search-ac-type {
+.autocomplete_type {
     width: 5rem;
     overflow: hidden;
 }
 
-.dark #just-stocks .stock-search-ac-type {
+[data-theme='dark'] .autocomplete_type {
     color: var(--secondary-text-dark);
 }
 
-.light #just-stocks .stock-search-ac-type {
+[data-theme='light'] .autocomplete_type {
     color: var(--secondary-text-light);
 }
 
-#just-stocks .stock-search-ac-exchange {
+.autocomplete_exchange {
     width: 5rem;
 }
 
-.dark #just-stocks .stock-search-ac-exchange {
+[data-theme='dark'] .autocomplete_exchange {
     color: var(--secondary-text-dark);
 }
 
-.light #just-stocks .stock-search-ac-exchange {
+[data-theme='light'] .autocomplete_exchange {
     color: var(--secondary-text-light);
 }
 
 /** END styles for autocomplete suggestions */
-
-/** BEGIN overrides for the TradingView widgets */
-
-#tradingview_widget_wrapper {
-    width: 100%;
-    flex-grow: 1;
-}
-
-#tradingview_widget_wrapper div:nth-child(1) {
-    height: 100%;
-}
-
-#tradingview_widget_wrapper div:nth-child(2) {
-    display: none;
-}
-
-/** END overrides for the TradingView widgets */

@@ -1,10 +1,10 @@
 /* Placeholder image for the web search page */
-.search-engine .search-placeholder {
+.search_engine .placeholder_image {
     max-height: calc(100% - 60px);
 }
 
 /* Search results list */
-.search-engine .search-results {
+.search_engine .results {
     box-sizing: border-box;
     padding: 2rem;
     padding-left: 50px;
@@ -14,30 +14,30 @@
 
 /** Style overrides for each search result */
 
-.search-engine .search-results .search-result .result-title {
+.search_engine .results .result .result_title {
     margin: 0;
     font-weight: 300;
     font-size: 1.5rem;
 }
 
-.search-engine .search-results .search-result .result-title a {
+.search_engine .results .result .result_title a {
     text-decoration: none;
     color: inherit;
 }
 
 /* Brighten the result title on hover */
-.search-engine .search-results .search-result:hover .result-title {
+.search_engine .results .result:hover .result_title {
     filter: brightness(150%);
 }
 
-.search-engine .search-results .search-result .result-description {
+.search_engine .results .result .result_description {
     margin-bottom: 0;
 }
 
-.dark .search-engine .search-results .search-result .result-description {
+[data-theme='dark'] .search_engine .results .result .result_description {
     color: var(--secondary-text-dark);
 }
 
-.light .search-engine .search-results .search-result .result-description {
+[data-theme='light'] .search_engine .results .result .result_description {
     color: var(--secondary-text-light);
 }

@@ -4,7 +4,7 @@ import { HStack, VStack } from 'reaction';
 import Button from 'src/components/ui/Button';
 import TextBox from 'src/components/ui/TextBox';
 import { ScriptPlayground } from 'src/hooks/JDScript';
-import './ScriptEditor.css';
+import styles from './ScriptEditor.module.css';
 
 export interface ScriptEditorProps {
     playground: ScriptPlayground;
@@ -54,11 +54,11 @@ export default function ScriptEditor({ playground }: ScriptEditorProps) {
     }
 
     return (
-        <HStack className='script-editor'>
+        <HStack className={styles.script_editor}>
             <TextBox
                 value={playground.script}
                 onChange={script => (playground.script = script)}
-                className='text-editor'
+                className={styles.text_editor}
             />
             <VStack align='stretch'>
                 <UploadButton />

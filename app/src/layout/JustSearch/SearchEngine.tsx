@@ -8,7 +8,7 @@ import SearchBar from 'src/components/ui/SearchBar';
 import Sidebar from 'src/components/ui/Sidebar';
 import { useTitle } from 'src/hooks/meta';
 import { SERPKit } from 'src/utils/JustSDK';
-import './SearchEngine.css';
+import styles from './SearchEngine.module.css';
 
 /**
  * The page for the Just Search application. By default it displays an image
@@ -42,7 +42,7 @@ function SearchEngine() {
     return (
         <HStack height='100%'>
             <Sidebar logo={logo} />
-            <VStack justify='start' className='search-engine' width='100%'>
+            <VStack justify='start' className={styles.search_engine} width='100%'>
                 <SearchBar
                     value={searchValue}
                     placeholder='Search the Web'
@@ -57,11 +57,15 @@ function SearchEngine() {
                 )}
 
                 {!loading && !showingResults && (
-                    <img src={background} alt='Search Placeholder' className='search-placeholder' />
+                    <img
+                        src={background}
+                        alt='Search Placeholder'
+                        className={styles.placeholder_image}
+                    />
                 )}
 
                 {showingResults && (
-                    <VStack className='search-results' align='start' justify='start'>
+                    <VStack className={styles.results} align='start' justify='start'>
                         {results.map((result, i) => (
                             <EngineResult
                                 key={result.url}
@@ -89,8 +93,8 @@ function SearchEngine() {
  */
 function EngineResult(props: { title: string; url: string; description: string }) {
     return (
-        <SearchResult>
-            <h3 className='result-title'>
+        <SearchResult className={styles.result}>
+            <h3 className={styles.result_title}>
                 <a href={props.url} className='text-gradient-primary'>
                     {props.title}
                 </a>
@@ -101,7 +105,7 @@ function EngineResult(props: { title: string; url: string; description: string }
                 </a>
             </div>
             <p
-                className='result-description'
+                className={styles.result_description}
                 dangerouslySetInnerHTML={{ __html: props.description }}></p>
         </SearchResult>
     );

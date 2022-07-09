@@ -1,10 +1,10 @@
 /** Basic styling for JustBanksy product */
 
-.just-banksy .results {
+.results {
     flex-wrap: wrap;
     margin-top: 1em;
 }
 
-.just-banksy .background {
+.background {
     width: 100%;
 }

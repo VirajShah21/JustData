@@ -1,4 +1,4 @@
-.script-editor .text-editor {
+.script_editor .text_editor {
     /* Minimum dimensions for the text editor */
     min-height: 50vh;
     min-width: 50%;

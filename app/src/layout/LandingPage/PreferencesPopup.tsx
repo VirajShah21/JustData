@@ -5,7 +5,7 @@ import { HStack, VStack } from 'reaction';
 import Button from 'src/components/ui/Button';
 import DropdownMenu from 'src/components/ui/DropdownMenu';
 import AppPreferences, { AppTheme } from 'src/utils/AppPreferences';
-import './PreferencesPopup.css';
+import styles from './PreferencesPopup.module.css';
 
 interface PreferencesPopupProps {
     onClose: () => void;
@@ -20,17 +20,15 @@ interface PreferencesPopupProps {
  */
 export default function PreferencesPopup({ onClose, open }: PreferencesPopupProps) {
     return (
-        <VStack
-            className='preferences-popup-overlay'
-            style={{ display: open ? undefined : 'none' }}>
-            <VStack className='preferences-popup' align='start'>
-                <HStack className='titlebar' justify='start'>
-                    <Button className='close-button' onClick={() => onClose()}>
+        <VStack className={styles.overlay} style={{ display: open ? undefined : 'none' }}>
+            <VStack className={styles.popup} align='start'>
+                <HStack justify='start'>
+                    <Button className={styles.close_btn} onClick={() => onClose()}>
                         <IonIcon icon={closeOutline} />
                     </Button>
-                    <h2 className='title'>Preferences</h2>
+                    <h2 className={styles.title}>Preferences</h2>
                 </HStack>
-                <VStack className='inner' justify='start'>
+                <VStack className={styles.inner} justify='start'>
                     <LightDarkModePreferences />
                 </VStack>
             </VStack>

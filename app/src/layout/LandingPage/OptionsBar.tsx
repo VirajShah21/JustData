@@ -3,7 +3,7 @@ import { bugOutline, cogOutline, helpOutline, logoGithub } from 'ionicons/icons'
 import { useState } from 'react';
 import { HStack } from 'reaction';
 import Button from 'src/components/ui/Button';
-import './OptionsBar.css';
+import styles from './OptionsBar.module.css';
 import PreferencesPopup from './PreferencesPopup';
 
 /**
@@ -17,7 +17,7 @@ export function OptionsBar() {
     const [prefsOpen, setPrefsOpen] = useState(false);
 
     return (
-        <HStack justify='start' className='options-bar'>
+        <HStack justify='start' className={styles.options_bar}>
             <PreferencesPopup open={prefsOpen} onClose={() => setPrefsOpen(false)} />
 
             <Button onClick={() => setPrefsOpen(true)}>
