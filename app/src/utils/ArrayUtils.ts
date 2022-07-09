@@ -19,6 +19,7 @@ class ArrayUtils {
     }
 
     /**
+     * Select a random element from an array. This is unsafe to use for cryptography.
      * @param arr - The array to search.
      * @returns A random element from the array.
      */
