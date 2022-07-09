@@ -50,9 +50,13 @@ function SearchEngine() {
                     onSearch={search}
                 />
 
-                {loading && <LoadingAnimation />}
+                {loading && (
+                    <VStack>
+                        <LoadingAnimation />
+                    </VStack>
+                )}
 
-                {!showingResults && (
+                {!loading && !showingResults && (
                     <img src={background} alt='Search Placeholder' className='search-placeholder' />
                 )}
 

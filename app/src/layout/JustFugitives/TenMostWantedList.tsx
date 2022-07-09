@@ -28,7 +28,11 @@ export default function TenMostWantedList() {
 
     return (
         <VStack>
-            {isLoading && <LoadingAnimation />}
+            {isLoading && (
+                <VStack>
+                    <LoadingAnimation />
+                </VStack>
+            )}
             <HStack className='fugitives-list'>
                 {fugitives.map(fugitive => (
                     <FugitiveListItem key={fugitive.name} {...fugitive} opensProfile={false} />
