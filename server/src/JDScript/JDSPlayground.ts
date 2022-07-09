@@ -11,7 +11,9 @@ export interface PlaygroundInstance {
     instruction: number;
 }
 
-export const playgroundInstances: Record<string, PlaygroundInstance> = {};
+// Using a map object because we access values using user-controlled input
+// that opens the door to vulnerabilities.
+export const playgroundInstances: Map<string, PlaygroundInstance> = new Map();
 
 export function newInstance(script: string): PlaygroundInstance {
     const id = instanceId();
@@ -22,7 +24,7 @@ export function newInstance(script: string): PlaygroundInstance {
         scraper: new DynamicScraper(''),
         instruction: 0,
     };
-    playgroundInstances[id] = instance;
+    playgroundInstances.set(id, instance);
     Logger.debug(`Created new playground. Instance ID: ${id}`);
     return instance;
 }
@@ -30,18 +32,22 @@ export function newInstance(script: string): PlaygroundInstance {
 export async function stepPlaygroundScript(id: string): Promise<PlaygroundInstance> {
     Logger.debug(`Executing next instruction in playground instance #${id}`);
 
-    const instance = playgroundInstances[id];
+    const instance = playgroundInstances.get(id);
 
-    await executors[instance.assembly[instance.instruction].command](
-        instance.scraper,
-        instance.assembly[instance.instruction].arguments,
-    );
+    if (instance) {
+        await executors[instance.assembly[instance.instruction].command](
+            instance.scraper,
+            instance.assembly[instance.instruction].arguments,
+        );
 
-    Logger.debug(`Executed instruction (id=${id}). Instruction: ${instance.instruction}`);
+        Logger.debug(`Executed instruction (id=${id}). Instruction: ${instance.instruction}`);
 
-    instance.instruction++;
+        instance.instruction++;
 
-    return instance;
+        return instance;
+    }
+
+    throw new Error(`No instance found with given id ${id}`);
 }
 
 let nextId = 9999;
