@@ -1,7 +1,9 @@
+/* Placeholder image for the web search page */
 .search-engine .search-placeholder {
     max-height: calc(100% - 60px);
 }
 
+/* Search results list */
 .search-engine .search-results {
     box-sizing: border-box;
     padding: 2rem;
@@ -9,6 +11,8 @@
     padding-bottom: 1rem;
     overflow-y: scroll;
 }
+
+/** Style overrides for each search result */
 
 .search-engine .search-results .search-result .result-title {
     margin: 0;
@@ -21,6 +25,7 @@
     color: inherit;
 }
 
+/* Brighten the result title on hover */
 .search-engine .search-results .search-result:hover .result-title {
     filter: brightness(150%);
 }

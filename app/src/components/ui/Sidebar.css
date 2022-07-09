@@ -1,3 +1,5 @@
+/** Styles for the sidebar component */
+
 .sidebar {
     width: 25%;
     min-width: 10em;
@@ -14,11 +16,15 @@
     border-color: var(--secondary-bg-light);
 }
 
+/** The current product brand logo */
+
 .sidebar .sidebar-brand {
     width: 50%;
     max-width: 10em;
     margin: 2em;
 }
+
+/** Navigation buttons that appear in the sidebar */
 
 .sidebar .sidebar-navigation-button {
     box-sizing: border-box;

@@ -1,3 +1,7 @@
+/**
+ ** The style for the circles that make up the rating component
+ **/
+
 .rating .rating-circle {
     border-radius: 100%;
     width: 1rem;

@@ -1,19 +1,26 @@
+/* The search result container */
 .search-result {
     box-sizing: border-box;
     padding: 0;
     margin-bottom: 1rem;
     border-radius: 1rem;
+    /* A psuedo-border for the search result */
     background: linear-gradient(
         to right,
         var(--primary-gradient-start),
         var(--primary-gradient-end)
     );
+    /* adds a cool animation when the search item is hovered */
     transition: 0.25s all;
 }
 
 .search-result:hover {
+    /* Enable the psuedo-border by adding padding */
     padding: 0.5rem;
 }
+
+/** Sets a background to the search results to hide the background
+ ** The background covers the psuedo-border */
 
 .search-result .search-result-inside {
     box-sizing: border-box;

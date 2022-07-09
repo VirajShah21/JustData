@@ -1,5 +1,7 @@
 .script-editor .text-editor {
+    /* Minimum dimensions for the text editor */
     min-height: 50vh;
     min-width: 50%;
+    /* Monospace font since editing code */
     font-family: monospace;
 }

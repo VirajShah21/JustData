@@ -1,3 +1,4 @@
+/* Overlay behind the preferences popup */
 .preferences-popup-overlay {
     position: fixed;
     top: 0;
@@ -8,6 +9,9 @@
     backdrop-filter: blur(0.25rem);
 }
 
+/** Styles for the preferences popup window */
+
+/* The actual popup element (window box) */
 .preferences-popup {
     height: auto;
     width: auto;
@@ -26,6 +30,8 @@
     background-color: rgba(255, 255, 255, 0.5);
     border: 1px solid var(--secondary-bg-light);
 }
+
+/** Styles for the close button on the popup window */
 
 .preferences-popup .close-button {
     background-color: red;

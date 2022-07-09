@@ -1,6 +1,9 @@
+/* The placeholder image for just places */
 .just-places .just-places-placeholder {
     max-height: calc(100% - 60px);
 }
+
+/** Overrides for the search results components */
 
 .just-places .search-results {
     width: 100%;
@@ -18,6 +21,7 @@
     font-weight: 400;
 }
 
+/* Brighten the font gradient on hover */
 .just-places .search-results .search-result:hover h3 {
     filter: brightness(150%);
 }

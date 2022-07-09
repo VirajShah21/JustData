@@ -17,6 +17,8 @@
     overflow: hidden;
 }
 
+/** The popover when the fugitive is hovered */
+
 .dark .fbi-most-wanted-page .fugitives-list .fugitive-list-item .fugitive-popover {
     background: rgba(0, 0, 0, 0.5);
 }
