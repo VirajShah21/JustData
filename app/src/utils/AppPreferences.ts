@@ -34,8 +34,7 @@ class AppPreferences {
         AppPreferences._theme = theme;
         const body = document.querySelector('body');
         if (body) {
-            body.classList.remove('light', 'dark');
-            body.classList.add(theme);
+            body.dataset.theme = theme;
         }
     }
 }

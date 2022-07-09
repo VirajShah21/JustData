@@ -1,5 +1,5 @@
 import { VStack } from 'reaction';
-import './FugitiveListItem.css';
+import styles from './FugitiveListItem.module.css';
 
 /**
  * @param props - The data associated with the fugitive. This can be either the simple
@@ -20,19 +20,19 @@ export default function FugitiveListItem(props: SimpleFugitiveData & { opensProf
 
     return (
         <VStack
-            className='fugitive-list-item'
+            className={styles.fugitive_list_item}
             style={{ backgroundImage: `url(${props.mugshot})` }}
             justify='end'>
-            <VStack className='fugitive-popover' justify='start'>
-                <h3 className='fugitive-name'>{props.name}</h3>
+            <VStack className={styles.popover} justify='start'>
+                <h3 className={styles.name}>{props.name}</h3>
                 {props.opensProfile ? (
                     <button
                         // onClick={() => setShowingProfile(true)}
-                        className='fugitive-poster-link'>
+                        className={styles.poster_link}>
                         View Full Profile
                     </button>
                 ) : (
-                    <a href={props.profileURL} className='fugitive-poster-link'>
+                    <a href={props.profileURL} className={styles.poster_link}>
                         Wanted Poster
                     </a>
                 )}

@@ -1,5 +1,5 @@
 import { HStack } from 'reaction';
-import './RatingComponent.css';
+import styles from './RatingComponent.module.css';
 
 const DEFAULT_RATING_DENOMINATOR = 5;
 const DEC_TO_PERCENT = 100;
@@ -35,7 +35,7 @@ function RatingComponent(props: { rating: number; color?: string; outOf?: number
     }
 
     return (
-        <HStack width='auto' className='rating'>
+        <HStack width='auto' className={styles.rating}>
             {fills.map((fill, i) => (
                 <RatingCircle key={i} fill={fill} color={props.color} />
             ))}
@@ -56,9 +56,9 @@ function RatingCircle(props: { fill: number; color?: string }) {
     const color = props.color ?? 'yellow';
 
     return (
-        <div className='rating-circle' style={{ borderColor: color }}>
+        <div className={styles.rating_circle} style={{ borderColor: color }}>
             <div
-                className='rating-circle-fill'
+                className={styles.rating_circle_fill}
                 style={{ backgroundColor: color, width: `${props.fill * DEC_TO_PERCENT}%` }}></div>
         </div>
     );

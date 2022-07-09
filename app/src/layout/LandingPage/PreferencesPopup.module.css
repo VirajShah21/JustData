@@ -1,5 +1,5 @@
 /* Overlay behind the preferences popup */
-.preferences-popup-overlay {
+.overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -12,7 +12,7 @@
 /** Styles for the preferences popup window */
 
 /* The actual popup element (window box) */
-.preferences-popup {
+.popup {
     height: auto;
     width: auto;
     min-width: 50%;
@@ -21,37 +21,37 @@
     backdrop-filter: blur(1rem);
 }
 
-.dark .preferences-popup {
+[data-theme='dark'] .popup {
     background-color: rgba(0, 0, 0, 0.5);
     border: 1px solid var(--secondary-bg-dark);
 }
 
-.light .preferences-popup {
+[data-theme='light'] .popup {
     background-color: rgba(255, 255, 255, 0.5);
     border: 1px solid var(--secondary-bg-light);
 }
 
 /** Styles for the close button on the popup window */
 
-.preferences-popup .close-button {
+.popup .close_btn {
     background-color: red;
     color: var(--primary-bg-dark);
 }
 
-.dark .preferences-popup .close-button {
+[data-theme='dark'] .popup .close_btn {
     color: var(--primary-bg-dark);
 }
 
-.light .preferences-popup .close-button {
+[data-theme='light'] .popup .close_btn {
     color: var(--primary-bg-light);
 }
 
-.preferences-popup .title {
+.popup .title {
     margin: 0;
     margin-left: 1rem;
     margin-right: 1rem;
 }
 
-.preferences-popup .inner {
+.popup .inner {
     padding: 1rem;
 }

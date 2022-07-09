@@ -1,0 +1,80 @@
+/* Sets width constraints on the autocomplete suggestions
+   width. This will replace any overflowing text with ellipsis */
+.autocomplete_ticker,
+.autocomplete_name,
+.autocomplete_price,
+.autocomplete_industry,
+.autocomplete_type,
+.autocomplete_exchange {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/** BEGIN styles for autocomplete suggestions */
+
+.autocomplete_ticker {
+    font-weight: bold;
+    width: 6rem;
+}
+
+.autocomplete_name {
+    font-weight: bold;
+    width: 20rem;
+}
+
+[data-theme='dark'] .autocomplete_name {
+    color: var(--secondary-text-dark);
+}
+
+[data-theme='light'] .autocomplete_name {
+    color: var(--secondary-text-light);
+}
+
+.autocomplete_price {
+    width: 6rem;
+}
+
+.autocomplete_price::before {
+    content: '$';
+}
+
+.autocomplete_industry {
+    width: 10rem;
+    overflow: hidden;
+}
+
+[data-theme='dark'] .autocomplete_industry {
+    color: var(--secondary-text-dark);
+}
+
+[data-theme='light'] .autocomplete_industry {
+    color: var(--secondary-text-light);
+}
+
+.autocomplete_type {
+    width: 5rem;
+    overflow: hidden;
+}
+
+[data-theme='dark'] .autocomplete_type {
+    color: var(--secondary-text-dark);
+}
+
+[data-theme='light'] .autocomplete_type {
+    color: var(--secondary-text-light);
+}
+
+.autocomplete_exchange {
+    width: 5rem;
+}
+
+[data-theme='dark'] .autocomplete_exchange {
+    color: var(--secondary-text-dark);
+}
+
+[data-theme='light'] .autocomplete_exchange {
+    color: var(--secondary-text-light);
+}
+
+/** END styles for autocomplete suggestions */

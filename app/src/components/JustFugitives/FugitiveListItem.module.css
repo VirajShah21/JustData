@@ -1,4 +1,4 @@
-.fbi-most-wanted-page .fugitives-list .fugitive-list-item {
+.fugitive_list_item {
     height: 20rem;
     width: 20rem;
     background-size: cover;
@@ -6,7 +6,7 @@
 
 /* This is setup such that the fugitive popover is present, but only
    displays the fugitive's name at the bottom of the image */
-.fbi-most-wanted-page .fugitives-list .fugitive-list-item .fugitive-popover {
+.fugitive_list_item .popover {
     -webkit-backdrop-filter: blur(1rem);
     backdrop-filter: blur(1rem);
     width: 100%;
@@ -19,25 +19,25 @@
 
 /** The popover when the fugitive is hovered */
 
-.dark .fbi-most-wanted-page .fugitives-list .fugitive-list-item .fugitive-popover {
+[data-theme='dark'] .fugitive_list_item .popover {
     background: rgba(0, 0, 0, 0.5);
 }
 
-.light .fbi-most-wanted-page .fugitives-list .fugitive-list-item .fugitive-popover {
+[data-theme='light'] .fugitive_list_item .popover {
     background: rgba(255, 255, 255, 0.5);
 }
 
 /* When the popover is hovered, all content becomes centered */
-.fbi-most-wanted-page .fugitives-list .fugitive-list-item .fugitive-popover:hover {
+.fugitive_list_item .popover:hover {
     justify-content: center !important;
 }
 
 /* Expands the popover to the full height of the image */
-.fbi-most-wanted-page .fugitives-list .fugitive-list-item:hover .fugitive-popover {
+.fugitive_list_item:hover .popover {
     height: 100%;
 }
 
-.fbi-most-wanted-page .fugitives-list .fugitive-list-item .fugitive-popover h3.fugitive-name {
+.fugitive_list_item .popover .name {
     width: 100%;
     padding: 0 1rem;
     white-space: nowrap;
@@ -47,14 +47,14 @@
     margin: 0;
 }
 
-.fbi-most-wanted-page .fugitives-list .fugitive-list-item:hover .fugitive-popover h3.fugitive-name {
+.fugitive_list_item:hover .popover .name {
     font-weight: 600;
     white-space: normal;
     overflow: visible;
     text-align: center;
 }
 
-.fbi-most-wanted-page .fugitives-list .fugitive-list-item .fugitive-popover .fugitive-poster-link {
+.fugitive_list_item .popover .poster_link {
     display: none;
     border: none;
     font-size: 0.75rem;
@@ -65,30 +65,16 @@
     margin-top: 0.5rem;
 }
 
-.dark
-    .fbi-most-wanted-page
-    .fugitives-list
-    .fugitive-list-item
-    .fugitive-popover
-    .fugitive-poster-link {
+[data-theme='dark'] .fugitive_list_item .popover .poster_link {
     color: var(--primary-text-dark);
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.light
-    .fbi-most-wanted-page
-    .fugitives-list
-    .fugitive-list-item
-    .fugitive-popover
-    .fugitive-poster-link {
+[data-theme='light'] .fugitive_list_item .popover .poster_link {
     color: var(--primary-text-light);
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-.fbi-most-wanted-page
-    .fugitives-list
-    .fugitive-list-item:hover
-    .fugitive-popover
-    .fugitive-poster-link {
+.fugitive_list_item:hover .popover .poster_link {
     display: block;
 }

@@ -17,11 +17,12 @@ import {
 } from 'react-ts-tradingview-widgets';
 import { HStack, Spacer, VStack } from 'reaction';
 import logo from 'src/assets/images/icons/Just Securities.png';
+import SearchBar from 'src/components/ui/SearchBar';
 import Sidebar, { SidebarNavigationButton } from 'src/components/ui/Sidebar';
 import { useTitle } from 'src/hooks/meta';
 import { SecuritiesKit } from 'src/utils/JustSDK';
-import SearchBar from 'src/components/ui/SearchBar';
-import './JustSecurities.css';
+import styles from './JustSecurities.module.css';
+import './TradingViewOverrides.css';
 
 type StocksFeature = 'chart' | 'analysis' | 'fundamentals' | 'profile';
 
@@ -68,13 +69,13 @@ function StockSearchBar(props: { value?: string; onSearch: (value: string) => vo
             suggestions={searchSuggestions.map(result => ({
                 value: result.symbol,
                 children: [
-                    <div className='stock-search-ac-ticker'>{result.symbol}</div>,
-                    <div className='stock-search-ac-name'>{result.name}</div>,
-                    <div className='stock-search-ac-price'>{result.lastPrice}</div>,
+                    <div className={styles.autocomplete_ticker}>{result.symbol}</div>,
+                    <div className={styles.autocomplete_name}>{result.name}</div>,
+                    <div className={styles.autocomplete_price}>{result.lastPrice}</div>,
                     <Spacer />,
-                    <div className='stock-search-ac-industry'>{result.industry}</div>,
-                    <div className='stock-search-ac-type'>{result.type}</div>,
-                    <div className='stock-search-ac-exchange'>{result.exchange}</div>,
+                    <div className={styles.autocomplete_industry}>{result.industry}</div>,
+                    <div className={styles.autocomplete_type}>{result.type}</div>,
+                    <div className={styles.autocomplete_exchange}>{result.exchange}</div>,
                 ],
             }))}
             onChange={e => {

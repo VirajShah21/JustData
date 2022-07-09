@@ -1,32 +1,32 @@
 /** Basic dropdown menu styling */
-.dropdown-menu {
+.dropdown_menu {
     /* Allows the dropdown to be absolutely positioned */
     position: relative;
 }
 
 /** The actual dropdown */
-.dropdown-menu .dropdown-box {
+.dropdown_menu .dropdown_box {
     box-sizing: border-box;
     padding: 0.5rem;
 }
 
 /** Light/Dark mode */
 
-.dark .dropdown-menu .dropdown-box {
+[data-theme='dark'] .dropdown_menu .dropdown_box {
     background-color: var(--secondary-bg-dark);
 }
 
-.light .dropdown-menu .dropdown-box {
+[data-theme='light'] .dropdown_menu .dropdown_box {
     background-color: var(--secondary-bg-light);
 }
 
-.dropdown-menu .dropdown-box .dropdown-chevron {
+.dropdown_menu .dropdown_box .dropdown_chevron {
     margin-left: 0.5rem;
 }
 
 /** The options dropdown */
 
-.dropdown-menu .dropdown-options {
+.dropdown_menu .dropdown_options {
     box-sizing: border-box;
     position: absolute;
     top: 100%;
@@ -36,27 +36,27 @@
     overflow-y: scroll;
 }
 
-.dark .dropdown-menu .dropdown-options {
+[data-theme='dark'] .dropdown_menu .dropdown_options {
     background-color: var(--secondary-bg-dark);
     filter: brightness(125%);
 }
 
-.light .dropdown-menu .dropdown-options {
+[data-theme='light'] .dropdown_menu .dropdown_options {
     background-color: var(--secondary-bg-light);
     filter: brightness(90%);
 }
 
 /** The individual dropdown options */
 
-.dropdown-menu .dropdown-options .dropdown-option {
+.dropdown_menu .dropdown_options .dropdown_option {
     box-sizing: border-box;
     padding: 0.5rem;
 }
 
-.dark .dropdown-menu .dropdown-options .dropdown-option {
+[data-theme='dark'] .dropdown_menu .dropdown_options .dropdown_option {
     border-bottom: 1px solid var(--primary-bg-dark);
 }
 
-.light .dropdown-menu .dropdown-options .dropdown-option {
+[data-theme='light'] .dropdown_menu .dropdown_options .dropdown_option {
     border-bottom: 1px solid var(--primary-bg-light);
 }

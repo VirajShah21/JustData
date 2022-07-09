@@ -2,7 +2,7 @@ import { IonIcon } from '@ionic/react';
 import { chevronDown } from 'ionicons/icons';
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
-import './DropdownMenu.css';
+import styles from './DropdownMenu.module.css';
 
 type ValueLabelPair = { value: string; label: string };
 
@@ -30,17 +30,17 @@ function DropdownMenu(props: {
 
     return (
         <VStack
-            className='dropdown-menu'
+            className={styles.dropdown_menu}
             height='auto'
             onClick={() => setShowingDropdown(!showingDropdown)}>
-            <HStack className='dropdown-box' width='auto'>
-                <div className='value-label'>{selected.label}</div>
-                <div className='dropdown-chevron'>
+            <HStack className={styles.dropdown_box} width='auto'>
+                <div>{selected.label}</div>
+                <div className={styles.dropdown_chevron}>
                     <IonIcon icon={chevronDown} />
                 </div>
             </HStack>
             {showingDropdown && (
-                <VStack className='dropdown-options' justify='start'>
+                <VStack className={styles.dropdown_options} justify='start'>
                     {props.options.map(option => (
                         <DropdownMenuOption
                             {...option}
@@ -61,7 +61,7 @@ function DropdownMenuOption(
 ) {
     return (
         <span
-            className='dropdown-option'
+            className={styles.dropdown_option}
             onClick={() => props.onClick({ value: props.value, label: props.label })}>
             {props.label}
         </span>

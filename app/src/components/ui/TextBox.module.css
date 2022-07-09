@@ -1,18 +1,18 @@
 /** JustData textbox UI */
 
-.text-box {
+.textbox {
     border: none;
     outline: none;
     padding: 0.5em;
     font-size: 1em;
 }
 
-.dark .text-box {
+[data-theme='dark'] .textbox {
     background-color: var(--secondary-bg-dark);
     color: var(--primary-text-dark);
 }
 
-.light .text-box {
+[data-theme='light'] .textbox {
     background-color: var(--secondary-bg-light);
     color: var(--primary-text-light);
 }

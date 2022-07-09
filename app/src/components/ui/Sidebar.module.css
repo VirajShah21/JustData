@@ -6,19 +6,19 @@
     border-right: 1px solid;
 }
 
-.dark .sidebar {
+[data-theme='dark'] .sidebar {
     background-color: var(--primary-bg-dark);
     border-color: var(--secondary-bg-dark);
 }
 
-.light .sidebar {
+[data-theme='light'] .sidebar {
     background-color: var(--primary-bg-light);
     border-color: var(--secondary-bg-light);
 }
 
 /** The current product brand logo */
 
-.sidebar .sidebar-brand {
+.sidebar .brand {
     width: 50%;
     max-width: 10em;
     margin: 2em;
@@ -26,33 +26,33 @@
 
 /** Navigation buttons that appear in the sidebar */
 
-.sidebar .sidebar-navigation-button {
+.sidebar .nav_btn {
     box-sizing: border-box;
     width: 100%;
     font-size: 1em;
     border: none;
 }
 
-.sidebar .sidebar-navigation-button.active {
+.sidebar .nav_btn.active {
     font-weight: bolder;
 }
 
-.dark .sidebar .sidebar-navigation-button {
+[data-theme='dark'] .sidebar .nav_btn {
     background-color: var(--secondary-bg-dark);
     color: var(--secondary-text-dark);
     padding: 0;
 }
 
-.sidebar .sidebar-navigation-button .sidebar-navigation-button-icon {
+.sidebar .nav_btn .nav_btn_icon {
     font-size: 1.5em;
     margin-right: 1em;
     padding: 0.5em;
 }
 
-.dark .sidebar .sidebar-navigation-button .sidebar-navigation-button-icon {
+[data-theme='dark'] .sidebar .nav_btn .nav_btn_icon {
     backdrop-filter: brightness(150%);
 }
 
-.light .sidebar .sidebar-navigation-button .sidebar-navigation-button-icon {
+[data-theme='light'] .sidebar .nav_btn .nav_btn_icon {
     backdrop-filter: brightness(75%);
 }

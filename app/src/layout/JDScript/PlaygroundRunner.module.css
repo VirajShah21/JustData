@@ -1,19 +1,19 @@
 /** Styling for the JDScript playground when running/debugging code */
 
-.playground-runner {
+.playground_runner {
     box-sizing: border-box;
     padding: 1em;
 }
 
 /** The screenshot devtool */
 
-.playground-runner .playground-screenshot {
+.playground_runner .screenshot {
     max-height: 50vh;
 }
 
 /** Code display styles */
 
-.playground-runner .assembly-decoder .assembly-code {
+.playground_runner .assembly_decoder .assembly_code {
     box-sizing: border-box;
     padding: 0.5em;
     margin: 0.25em;
@@ -21,22 +21,22 @@
     text-overflow: ellipsis;
 }
 
-.dark .playground-runner .assembly-decoder .assembly-code.assembly-command {
+[data-theme='dark'] .playground_runner .assembly_decoder .assembly_code.assembly_command {
     background: var(--secondary-bg-light);
     color: var(--primary-text-light);
 }
 
-.light .playground-runner .assembly-decoder .assembly-code.assembly-command {
+[data-theme='light'] .playground_runner .assembly_decoder .assembly_code.assembly_command {
     background: var(--secondary-bg-dark);
     color: var(--primary-text-dark);
 }
 
-.playground-runner .assembly-decoder .assembly-code.assembly-arg {
+.playground_runner .assembly_decoder .assembly_code.assembly_arg {
     position: relative;
 }
 
 /* Displays the argument name as a small little label on top of the argument data */
-.playground-runner .assembly-decoder .assembly-code.assembly-arg::before {
+.playground_runner .assembly_decoder .assembly_code.assembly_arg::before {
     content: attr(data-argname);
     position: absolute;
     top: 0;
@@ -44,16 +44,16 @@
     font-size: 0.5em;
 }
 
-.playground-runner .assembly-decoder .assembly-code.assembly-arg:hover:before {
+.playground_runner .assembly_decoder .assembly_code.assembly_arg:hover:before {
     color: white;
 }
 
-.dark .playground-runner .assembly-decoder .assembly-code.assembly-arg {
+[data-theme='dark'] .playground_runner .assembly_decoder .assembly_code.assembly_arg {
     background: var(--secondary-bg-dark);
     color: var(--secondary-text-dark);
 }
 
-.light .playground-runner .assembly-decoder .assembly-code.assembly-arg {
+[data-theme='light'] .playground_runner .assembly_decoder .assembly_code.assembly_arg {
     background: var(--secondary-bg-light);
     color: var(--secondary-text-light);
 }

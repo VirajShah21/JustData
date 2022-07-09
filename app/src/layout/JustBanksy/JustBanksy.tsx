@@ -4,7 +4,6 @@ import { HStack } from 'reaction';
 import logo from 'src/assets/images/icons/Just Banksy.png';
 import Sidebar, { SidebarNavigationButton } from 'src/components/ui/Sidebar';
 import ImageGenerator from './ImageGenerator';
-import './JustBanksy.css';
 import PreparedStatements from './PreparedStatements';
 
 export enum JustBanksyFeature {

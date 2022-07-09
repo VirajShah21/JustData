@@ -14,7 +14,11 @@ root.render(
 );
 
 // When the page loads, set the appropriate color theme
-document.querySelector('body')?.classList.add(AppPreferences.theme);
+document.querySelector('body')!.dataset.theme = AppPreferences.theme;
+
+// TODO: Remove this after done converting to CSS modules
+// This only exists for old CSS format support
+document.querySelector('body')!.classList.add(AppPreferences.theme);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

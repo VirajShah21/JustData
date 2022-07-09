@@ -3,9 +3,9 @@ import { HStack, Spacer, VStack } from 'reaction';
 import logo from 'src/assets/images/icons/logo.png';
 import { ProductResult, ProductSectionTitle } from 'src/components/LandingPage/ProductComponents';
 import SearchBar from 'src/components/ui/SearchBar';
-import './LandingPage.css';
 import { OptionsBar } from './OptionsBar';
 import { allProducts, CATEGORY_REF_MAPPING } from '../../utils/ProductManager';
+import styles from './LandingPage.module.css';
 
 /**
  * @returns The landing page for Just Data.
@@ -13,9 +13,9 @@ import { allProducts, CATEGORY_REF_MAPPING } from '../../utils/ProductManager';
 function LandingPage() {
     return (
         <HStack height='100%' className='landing-page'>
-            <LandingLeft />
-            <VStack className='landing-divider'>&nbsp;</VStack>
-            <LandingRight />
+            <BrandContainer />
+            <VStack className={styles.vertical_divider}>&nbsp;</VStack>
+            <ProductGallery />
         </HStack>
     );
 }
@@ -24,14 +24,14 @@ function LandingPage() {
  * @returns The left side of the landing page. This incldues a logo and a
  * sleek background.
  */
-function LandingLeft() {
+function BrandContainer() {
     return (
-        <VStack className='landing-left'>
-            <VStack className='landing-left-overlay'>
+        <VStack className={styles.brand_container}>
+            <VStack className={styles.brand_overlay}>
                 <Spacer />
-                <img src={logo} alt='Just Data' className='landing-brand' />
+                <img src={logo} alt='Just Data' className={styles.brand} />
                 <Spacer />
-                <span className='bg-attribution' style={{ alignSelf: 'start' }}>
+                <span className={styles.bg_attribution} style={{ alignSelf: 'start' }}>
                     Photo by Maximalfocus on Unsplash
                 </span>
             </VStack>
@@ -45,7 +45,7 @@ function LandingLeft() {
  *
  * @returns The right side of the landing page.
  */
-function LandingRight() {
+function ProductGallery() {
     /**
      * Performs a filter on all of the products to find which products
      * match the search query. Then the `products` state is updated with
@@ -83,7 +83,7 @@ function LandingRight() {
     useEffect(runProductSearch, [search]);
 
     return (
-        <VStack className='landing-right' justify='start'>
+        <VStack className={styles.product_gallery} justify='start'>
             <SearchBar
                 value={search}
                 placeholder='Search Our Products'
@@ -91,7 +91,7 @@ function LandingRight() {
                 searchDisabled
             />
 
-            <VStack className='products-gallery' justify='start'>
+            <VStack className={styles.product_list} justify='start'>
                 {products.map(category => (
                     <ProductSection
                         key={category.category}

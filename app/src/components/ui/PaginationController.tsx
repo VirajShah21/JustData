@@ -2,7 +2,7 @@ import { IonIcon } from '@ionic/react';
 import { ellipsisHorizontalOutline } from 'ionicons/icons';
 import { HStack } from 'reaction';
 import ArrayUtils from 'src/utils/ArrayUtils';
-import './PaginationController.css';
+import styles from './PaginationController.module.css';
 
 const MAX_PAGES_TO_SHOW = 10;
 const MIN_PREVIOUS_PAGES_TO_SHOW = 3;
@@ -34,7 +34,7 @@ function PaginationController(props: {
     }
 
     return (
-        <HStack className='page-controller'>
+        <HStack className={styles.pagination}>
             {start !== 1 && (
                 <>
                     <PaginationControllerNumberButton
@@ -82,7 +82,7 @@ function PaginationControllerNumberButton(props: {
 }) {
     return (
         <button
-            className={`page-controller-number-button${props.active ? ' active' : ''}`}
+            className={`${styles.pagination_button} ${props.active ? ' active' : ''}`.trim()}
             onClick={() => props.onClick(props.page)}>
             {props.page}
         </button>

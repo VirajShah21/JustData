@@ -1,4 +1,4 @@
-import './TextBox.css';
+import styles from './TextBox.module.css';
 
 export interface TextBoxProps {
     value: string;
@@ -18,7 +18,7 @@ export interface TextBoxProps {
  */
 export default function TextBox({ value, onChange, placeholder, className }: TextBoxProps) {
     function getClassName() {
-        return className ? `text-box ${className}` : 'text-box';
+        return className ? `${styles.textbox} ${className}` : styles.textbox;
     }
 
     return (

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import ArrayUtils from 'src/utils/ArrayUtils';
-import './PreparedStatements.css';
+import styles from './PreparedStatements.module.css';
 
 interface StatementGeneratorProps {
     onChange: (prompt: string) => void;
@@ -73,7 +73,7 @@ function StatementGenerator({ onChange }: StatementGeneratorProps) {
     const [location, setLocation] = useState(ArrayUtils.random(locations));
 
     return (
-        <VStack height='auto' className='banksy-statement-generator'>
+        <VStack height='auto' className={styles.statement_generator}>
             <HStack justify='start'>
                 {imageTypes.map(type => (
                     <StatementGeneratorPhrase
@@ -165,7 +165,7 @@ function StatementGeneratorPhrase({ text, onClick, active }: StatementGeneratorP
     return (
         <div
             onClick={() => onClick(text)}
-            className={active ? 'statement-generator-phrase active' : 'statement-generator-phrase'}>
+            className={active ? `${styles.phrase} ${styles.active}` : styles.phrase}>
             {text}
         </div>
     );

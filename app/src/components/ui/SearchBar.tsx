@@ -2,7 +2,7 @@ import { IonIcon } from '@ionic/react';
 import { searchOutline, arrowForwardOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
-import './SearchBar.css';
+import styles from './SearchBar.module.css';
 
 const suggestionBlurDelay = 250;
 
@@ -40,16 +40,16 @@ function SearchBar(props: {
     const [showingSuggestions, setShowingSuggestions] = useState(false);
 
     return (
-        <div className='search-bar-container'>
-            <HStack className='search-bar'>
-                <span className='search-icon-wrapper'>
+        <div className={styles.search_bar_container}>
+            <HStack className={styles.search_bar}>
+                <span className={styles.search_icon_wrapper}>
                     {props.icon ?? <IonIcon icon={searchOutline} />}
                 </span>
                 <input
                     type='text'
                     value={props.value}
                     placeholder={props.placeholder}
-                    className='search-bar-input'
+                    className={styles.search_input}
                     onChange={props.onChange}
                     onFocus={() => setShowingSuggestions(true)}
                     onBlur={() =>
@@ -60,7 +60,7 @@ function SearchBar(props: {
                 />
                 {!props.searchDisabled && (
                     <button
-                        className='search-button'
+                        className={styles.search_button}
                         onClick={() => {
                             props.onSearch?.(props.value ?? '');
                         }}>
@@ -69,8 +69,8 @@ function SearchBar(props: {
                 )}
             </HStack>
             {showingSuggestions && props.suggestions && (
-                <div className='search-bar-autocomplete'>
-                    <VStack className='search-bar-autocomplete-stack' width='100%'>
+                <div className={styles.autocomplete_container}>
+                    <VStack width='100%'>
                         {props.suggestions.map(suggestion => (
                             <SearchBarSuggestion
                                 value={
@@ -108,20 +108,18 @@ function SearchBarSuggestion(props: SearchSuggestion & { onClick: (value: string
 
     if (!props.children) {
         if (props.icon) {
-            innerNodes.push(<span className='search-bar-suggestion-icon'>{props.icon}</span>);
+            innerNodes.push(<span>{props.icon}</span>);
         }
 
         if (props.image) {
-            innerNodes.push(
-                <img className='search-bar-suggestion-image' src={props.image} alt={props.value} />,
-            );
+            innerNodes.push(<img src={props.image} alt={props.value} />);
         }
 
-        innerNodes.push(<span className='search-bar-suggestion-value'>{props.value}</span>);
+        innerNodes.push(<span>{props.value}</span>);
     }
 
     return (
-        <button className='search-bar-suggestion' onClick={() => props.onClick(props.value)}>
+        <button className={styles.suggestion} onClick={() => props.onClick(props.value)}>
             <HStack justify='start'>{props.children ?? innerNodes}</HStack>
         </button>
     );

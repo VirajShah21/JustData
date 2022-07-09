@@ -6,7 +6,6 @@ import SearchBar from 'src/components/ui/SearchBar';
 import Sidebar, { SidebarNavigationButton } from 'src/components/ui/Sidebar';
 import { useTitle } from 'src/hooks/meta';
 import AllFugitivesList from './AllFugitivesList';
-import './JustFugitives.css';
 import TenMostWantedList from './TenMostWantedList';
 
 // TODO: Add ability to view full profile

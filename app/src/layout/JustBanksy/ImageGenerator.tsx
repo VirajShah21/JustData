@@ -4,6 +4,7 @@ import background from 'src/assets/images/backgrounds/banksy.png';
 import LoadingAnimation from 'src/components/LoadingAnimation';
 import SearchBar from 'src/components/ui/SearchBar';
 import { BanksyKit } from 'src/utils/JustSDK';
+import styles from './ImageGenerator.module.css';
 
 /**
  * @returns The image generator for the JustBanksy product.
@@ -46,7 +47,7 @@ export default function ImageGenerator() {
     }
 
     return (
-        <VStack justify='start' width='100%' className='just-banksy' scroll='vertical'>
+        <VStack justify='start' width='100%' scroll='vertical'>
             <SearchBar
                 placeholder='Enter an Image Prompt'
                 onChange={e => setPrompt(e.target.value)}
@@ -61,9 +62,9 @@ export default function ImageGenerator() {
                     </VStack>
                 )}
                 {!isSearching && results === null && (
-                    <img src={background} alt='Banksy Background' className='background' />
+                    <img src={background} alt='Banksy Background' className={styles.background} />
                 )}
-                <HStack className='results'>{renderResults()}</HStack>
+                <HStack className={styles.results}>{renderResults()}</HStack>
             </VStack>
         </VStack>
     );

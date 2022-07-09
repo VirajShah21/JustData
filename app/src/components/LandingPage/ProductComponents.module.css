@@ -1,25 +1,25 @@
 /* The heading for a product category */
-.product-section-title {
+.product_section_title {
     font-size: 1rem;
     font-weight: bold;
 }
 
-.dark .product-section-title {
+[data-theme='dark'] .product_section_title {
     color: var(--secondary-text-dark);
 }
 
-.light .product-section-title {
+[data-theme='light'] .product_section_title {
     color: var(--secondary-text-light);
 }
 
 /* The icon appearing to the left of the product section title */
-.product-section-icon {
+.product_section_title .icon {
     padding: 1rem;
     font-size: 1.5em;
 }
 
 /* A product button */
-.product-result {
+.product_result {
     width: 15%;
     background: transparent;
     font-size: 1rem;
@@ -29,7 +29,7 @@
 }
 
 /* The product icon (png) appearing on the left side of the label */
-.product-result img {
+.product_result img {
     width: 100%;
     height: auto;
     border-radius: 0%;
@@ -37,16 +37,16 @@
     transition: 0.5s all;
 }
 
-.product-result:hover img {
+.product_result:hover img {
     border-radius: 100%;
 }
 
-.dark .product-result:hover img {
+[data-theme='dark'] .product_result:hover img {
     filter: brightness(150%);
     background: var(--secondary-bg-dark);
 }
 
-.light .product-result:hover img {
+[data-theme='light'] .product_result:hover img {
     filter: brightness(75%);
     background: var(--secondary-bg-light);
 }

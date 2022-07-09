@@ -10,7 +10,7 @@ import DropdownMenu, { ValueLabelPair } from 'src/components/ui/DropdownMenu';
 import Sidebar from 'src/components/ui/Sidebar';
 import { useTitle } from 'src/hooks/meta';
 import { SCOTUSKit } from 'src/utils/JustSDK';
-import './JustSCOTUS.css';
+import styles from './JustSCOTUS.module.css';
 
 /**
  * The application container for the Just SCOTUS application.
@@ -47,11 +47,11 @@ export default function JustSCOTUS() {
     }
 
     return (
-        <HStack justify='start' id='just-scotus' height='100%'>
+        <HStack justify='start' height='100%'>
             <Sidebar logo={logo} />
 
             <VStack width='100%'>
-                <HStack className='term-selection-bar'>
+                <HStack className={styles.term_selection_bar}>
                     <HStack justify='start'>
                         <DropdownMenu
                             placeholder='Select a Term'
@@ -103,11 +103,11 @@ export default function JustSCOTUS() {
  */
 function CaseTermBadge(props: { term: number; onRemove: () => void }) {
     return (
-        <HStack className='case-term-badge' width='auto'>
-            <Button className='case-term-remove-btn' onClick={props.onRemove}>
+        <HStack className={styles.term_badge} width='auto'>
+            <Button onClick={props.onRemove}>
                 <IonIcon icon={closeOutline} />
             </Button>
-            <span className='case-term'>
+            <span className={styles.case_term}>
                 {props.term} - {props.term + 1}
             </span>
         </HStack>

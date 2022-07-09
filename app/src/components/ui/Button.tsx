@@ -1,4 +1,4 @@
-import './Button.css';
+import styles from './Button.module.css';
 
 /**
  * A React component for a button. This uses the Just Data design guidelines the
@@ -10,7 +10,7 @@ import './Button.css';
 function Button(props: { children?: React.ReactNode; onClick?: () => void; className?: string }) {
     return (
         <button
-            className={`button-component ${props.className}`.trim()}
+            className={`${styles.button} ${props.className}`.trim()}
             onClick={() => props.onClick?.()}>
             {props.children}
         </button>

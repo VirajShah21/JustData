@@ -1,5 +1,5 @@
 /* For every phrase in a prompt */
-.banksy-statement-generator .statement-generator-phrase {
+.statement_generator .phrase {
     font-family: monospace;
     color: gray;
     box-sizing: border-box;
@@ -9,10 +9,10 @@
 
 /** Active phrases (in light/dark mode) */
 
-.dark .banksy-statement-generator .statement-generator-phrase.active {
+[data-theme='dark'] .statement_generator .phrase.active {
     color: yellow;
 }
 
-.light .banksy-statement-generator .statement-generator-phrase.active {
+[data-theme='light'] .statement_generator .phrase.active {
     color: orangered;
 }
