@@ -16,16 +16,24 @@ import Logger from './utils/Logger';
 import bodyParser from 'body-parser';
 import * as JDSPlayground from './JDScript/JDSPlayground';
 import fs from 'fs';
+import RateLimit from 'express-rate-limit';
 
 // DEV_PORT is 3001 because react-scripts takes 3000
 const DEV_PORT = 3001;
 // If a PORT is provided as an environment variable (usually on a production server)
 // then that port will be used
 const PORT = process.env.PORT ?? DEV_PORT;
+const MINUTE_IN_MS = 60 * 1000;
 
 const app = express();
 
-ScrapeUtils.init();
+// Setup rate limiting
+const rateLimiter = RateLimit({
+    windowMs: MINUTE_IN_MS,
+    max: 1,
+});
+
+app.use(rateLimiter);
 
 // Middleware which allows any origin to access this API.
 app.use((_, res, next) => {
@@ -197,3 +205,6 @@ if (!fs.existsSync(path.resolve('./caches'))) {
     Logger.info('Creating caches directory');
     fs.mkdirSync(path.resolve('./caches'));
 }
+
+// Initialize the web scrpaer and the utilities
+ScrapeUtils.init();
