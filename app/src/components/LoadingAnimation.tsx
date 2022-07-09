@@ -1,5 +1,5 @@
 import logo from 'src/assets/images/icons/logo-alt.png';
-import './LoadingAnimation.css';
+import styles from './LoadingAnimation.module.css';
 
 /**
  * A loading animation component. The loading animation is the alternative brand image that
@@ -8,5 +8,5 @@ import './LoadingAnimation.css';
  * @returns The alternative brand image for JustData as a loading animation.
  */
 export default function LoadingAnimation() {
-    return <img src={logo} alt='Loading Animation' className='loading-animation' />;
+    return <img src={logo} alt='Loading Animation' className={styles.loadingAnimation} />;
 }

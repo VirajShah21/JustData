@@ -10,7 +10,7 @@
 }
 
 /* Defines the sizing and animation of the loading icon */
-.loading-animation {
+.loadingAnimation {
     animation-name: rotate;
     animation-duration: 1s;
     animation-iteration-count: infinite;

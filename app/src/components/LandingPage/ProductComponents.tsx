@@ -1,5 +1,5 @@
 import { HStack } from 'reaction';
-import './ProductComponents.css';
+import styles from './ProductComponents.module.css';
 
 /**
  * @param props - The icon and label to be displayed for the section title
@@ -7,9 +7,13 @@ import './ProductComponents.css';
  */
 function ProductSectionTitle(props: { icon: JSX.Element; label: string }) {
     return (
-        <HStack className='product-section-title' justify='start' align='center' width='100%'>
-            <span className='product-section-icon'>{props.icon}</span>
-            <span className='product-section-label'>{props.label}</span>
+        <HStack
+            className={styles.product_section_title}
+            justify='start'
+            align='center'
+            width='100%'>
+            <span className={styles.icon}>{props.icon}</span>
+            <span className={styles.label}>{props.label}</span>
         </HStack>
     );
 }
@@ -22,7 +26,7 @@ function ProductSectionTitle(props: { icon: JSX.Element; label: string }) {
 function ProductResult(props: { icon: string; label: string; url: string }) {
     return (
         <button
-            className='product-result'
+            className={styles.product_result}
             onClick={() => {
                 window.location.href = props.url;
             }}>

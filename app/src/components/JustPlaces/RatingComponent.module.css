@@ -1,8 +1,8 @@
 /**
  ** The style for the circles that make up the rating component
- **/
+ */
 
-.rating .rating-circle {
+.rating .rating_circle {
     border-radius: 100%;
     width: 1rem;
     height: 1rem;
@@ -13,7 +13,7 @@
     margin: 0.1rem;
 }
 
-.rating .rating-circle .rating-circle-fill {
+.rating .rating_circle .rating_circle_fill {
     height: 100%;
     overflow: hidden;
 }
