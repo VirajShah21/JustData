@@ -31,6 +31,10 @@ export default function JustPlaces() {
 
     useTitle('Just Places');
 
+    /**
+     * Performs a JustPlaces search using the present state variables.
+     * This will use the query and location to define the search terms.
+     */
     async function search() {
         try {
             setLoading(true);
@@ -75,6 +79,7 @@ export default function JustPlaces() {
                         className='just-places-placeholder'
                     />
                 )}
+
                 <VStack justify='start' align='start' className='search-results'>
                     {showingResults &&
                         results.map(result => (

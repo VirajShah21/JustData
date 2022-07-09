@@ -41,10 +41,16 @@ export default function PreparedStatements() {
  * @returns A sequence of phrases that can be clicked to generate a new prompt.
  */
 function StatementGenerator({ onChange }: StatementGeneratorProps) {
+    /**
+     * Concatenates each selected state variable into a single prompt.
+     *
+     * @returns The full prompt.
+     */
     function synthesizePrompt() {
         return `${imageType} ${subject} ${accessory} ${clothing} ${verb} ${location}`;
     }
 
+    // * Possible phrases that can be selected for part of the prompt
     const imageTypes = ['A photo of', 'An oil painting of', 'A doodle of'];
     const subjects = [
         'fuzzy panda',
@@ -58,6 +64,7 @@ function StatementGenerator({ onChange }: StatementGeneratorProps) {
     const verbs = ['playing a guitar', 'riding a bike', 'skateboarding'];
     const locations = ['in a garden', 'on a beach', 'on top of a mountain'];
 
+    // * State variables for each part of the prompt
     const [imageType, setImageType] = useState(ArrayUtils.random(imageTypes));
     const [subject, setSubject] = useState(ArrayUtils.random(subjects));
     const [accessory, setAccessory] = useState(ArrayUtils.random(accessories));

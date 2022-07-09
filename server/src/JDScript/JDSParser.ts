@@ -1,5 +1,13 @@
 const VALID_COMMANDS: JDSCommand[] = ['field', 'var', 'open', 'close', 'select', 'attr'];
 
+/**
+ * Extracts a command name from a line of JDScript code.
+ *
+ * For example, `command arg1=hello arg2=world` would return `command`.
+ *
+ * @param line - The line to parse.
+ * @returns The parsed command.
+ */
 export function parseCommand(line: string): string {
     const space = line.indexOf(' ');
     if (space > 0) {
@@ -8,7 +16,51 @@ export function parseCommand(line: string): string {
     return line;
 }
 
+/**
+ * Extracts an argument from a line of JDScript code.
+ *
+ * The argparser recognizes strings using the following syntax:
+ *
+ * ```
+ * str1=no_spaces str2="with spaces" str3='with spaces'
+ * ```
+ *
+ * The argparser recognizes numbers using the following syntax:
+ *
+ * ```
+ * int=21 decimal=21.21
+ * ```
+ *
+ * The argparser recognizes booleans using the following syntax:
+ *
+ * ```
+ * trueBool !falseBool bool1=true bool2=false
+ * ```
+ *
+ * The argparser recognizes arrays using the following syntax:
+ *
+ * ```
+ * arr=1 arr=2 arr !arr arr=true arr=hello arr=world arr="wow! this is amazing"
+ * ```
+ *
+ * Which will produce the following array:
+ *
+ * ```
+ * arr = [1, 2, true, false, true, 'hello', 'world', 'wow! this is amazing']
+ * ```
+ *
+ * @param line - The line to parse.
+ * @returns An object mapping each argument name to its value.
+ */
 export function parseArgs(line: string): Record<string, ValidJDSArgumentType> {
+    /**
+     * Assigns a value to a key. If the key already has a value assigned to it then
+     * the value is converted to an array and the new value is appended to it.
+     * If the value is already an array, then the new value is appended to it.
+     *
+     * @param key - The parameter key (the variable name).
+     * @param value - The value to assign to the variable.
+     */
     function setArg(key: string, value: JDSPrimitiveType) {
         if (args[key] !== undefined) {
             if (Array.isArray(args[key])) {
@@ -21,6 +73,11 @@ export function parseArgs(line: string): Record<string, ValidJDSArgumentType> {
         }
     }
 
+    /**
+     * Handles encountering a character that is part of an argument key.
+     *
+     * @param char - The character to handle.
+     */
     function handleArgumentKeyChar(char: string) {
         if (char === ' ') {
             if (captured[0] === '!') {
@@ -40,6 +97,11 @@ export function parseArgs(line: string): Record<string, ValidJDSArgumentType> {
         }
     }
 
+    /**
+     * Handles encountering a character that is part of an argument value.
+     *
+     * @param char - The character to handle.
+     */
     function handleArgumentValueChar(char: string) {
         if (!inString && captured === '' && (char === '"' || char === "'")) {
             inString = true;
@@ -105,6 +167,13 @@ export function parseArgs(line: string): Record<string, ValidJDSArgumentType> {
     return args;
 }
 
+/**
+ * Validates a line of JDScript code.
+ *
+ * @param line - The line to validate.
+ * @param lineNumber - The line number of the line.
+ * @returns An array of errors and warnings for the line.
+ */
 export function validateLine(line: string, lineNumber = 0): JDSIssue[] {
     const issues: JDSIssue[] = [];
 
@@ -147,6 +216,12 @@ export function validateLine(line: string, lineNumber = 0): JDSIssue[] {
     return issues;
 }
 
+/**
+ * Validates an entire JDScript file.
+ *
+ * @param script - The script to validate.
+ * @returns An array of errors and warnings for the script.
+ */
 export function validateScript(script: string): JDSIssue[] {
     const issues = [];
 
@@ -159,6 +234,12 @@ export function validateScript(script: string): JDSIssue[] {
     return issues;
 }
 
+/**
+ * Parses a line of JDScript code to a `JDSCommand` object.
+ *
+ * @param line - The line to parse.
+ * @returns A JDSInstruction object.
+ */
 export function parseLine(line: string): JDSInstruction {
     return {
         command: parseCommand(line) as JDSCommand,
@@ -166,6 +247,13 @@ export function parseLine(line: string): JDSInstruction {
     };
 }
 
+/**
+ * Parses a JDScript file to an array of `JDSInstruction` objects.
+ *
+ * @param script - The script to parse.
+ * @returns A `JDSAssembly` object containing every instruction for the runtime to evaluate.
+ * The `JDSAssembly` object is the equivalent to an array of `JDSInstruction` objects.
+ */
 export function parseScript(script: string): JDSAssembly {
     return script
         .split('\n')
