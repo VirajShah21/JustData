@@ -1,5 +1,5 @@
 /* The search result container */
-.search-result {
+.result {
     box-sizing: border-box;
     padding: 0;
     margin-bottom: 1rem;
@@ -14,7 +14,7 @@
     transition: 0.25s all;
 }
 
-.search-result:hover {
+.result:hover {
     /* Enable the psuedo-border by adding padding */
     padding: 0.5rem;
 }
@@ -22,20 +22,20 @@
 /** Sets a background to the search results to hide the background
  ** The background covers the psuedo-border */
 
-.search-result .search-result-inside {
+.result .inner {
     box-sizing: border-box;
     padding: 1rem;
     border-radius: 1rem;
 }
 
-.dark .search-result .search-result-inside {
+.dark .result .inner {
     background-color: var(--secondary-bg-dark);
 }
 
-.light .search-result .search-result-inside {
+.light .result .inner {
     background-color: var(--secondary-bg-light);
 }
 
-.search-result:hover .search-result-inside {
+.result:hover .inner {
     border-radius: 0.75rem;
 }

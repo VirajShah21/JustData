@@ -2,7 +2,7 @@ import { IonIcon } from '@ionic/react';
 import { homeOutline } from 'ionicons/icons';
 import { ReactNode } from 'react';
 import { HStack, VStack } from 'reaction';
-import './Sidebar.css';
+import styles from './Sidebar.module.css';
 
 export interface SidebarProps {
     logo: string;
@@ -26,8 +26,8 @@ export interface SidebarNavigationButtonProps {
  */
 export default function Sidebar({ logo, children }: SidebarProps) {
     return (
-        <VStack justify='start' className='sidebar'>
-            <img src={logo} alt='Product Brand' className='sidebar-brand' />
+        <VStack justify='start' className={styles.sidebar}>
+            <img src={logo} alt='Product Brand' className={styles.brand} />
             <SidebarNavigationButton
                 ionicon={homeOutline}
                 label='Home'
@@ -55,19 +55,19 @@ export function SidebarNavigationButton({
     active,
 }: SidebarNavigationButtonProps) {
     function getClassName() {
-        return `sidebar-navigation-button ${active ? ' active' : ''}`.trim();
+        return `${styles.nav_btn} ${active ? ' active' : ''}`.trim();
     }
 
     function GetIcon() {
         if (typeof ionicon === 'string') {
-            return <IonIcon className='sidebar-navigation-button-icon' icon={ionicon} />;
+            return <IonIcon className={styles.nav_btn_icon} icon={ionicon} />;
         }
 
         if (active) {
-            return <IonIcon className='sidebar-navigation-button-icon' icon={ionicon.active} />;
+            return <IonIcon className={styles.nav_btn_icon} icon={ionicon.active} />;
         }
 
-        return <IonIcon className='sidebar-navigation-button-icon' icon={ionicon.default} />;
+        return <IonIcon className={styles.nav_btn_icon} icon={ionicon.default} />;
     }
 
     return (

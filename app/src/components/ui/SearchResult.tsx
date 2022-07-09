@@ -1,5 +1,5 @@
 import { VStack } from 'reaction';
-import './SearchResult.css';
+import styles from './SearchResult.module.css';
 
 /**
  * A component to display a search result using the Just Data design guidelines.
@@ -9,8 +9,8 @@ import './SearchResult.css';
  */
 function SearchResult(props: { children: JSX.Element | JSX.Element[] }) {
     return (
-        <VStack className='search-result' width='50%' align='start' height='auto'>
-            <VStack className='search-result-inside' align='start' width='100%'>
+        <VStack className={styles.result} width='50%' align='start' height='auto'>
+            <VStack className={styles.inner} align='start' width='100%'>
                 {props.children}
             </VStack>
         </VStack>
