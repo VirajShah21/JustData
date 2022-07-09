@@ -24,14 +24,14 @@ const DEV_PORT = 3001;
 // If a PORT is provided as an environment variable (usually on a production server)
 // then that port will be used
 const PORT = process.env.PORT ?? DEV_PORT;
-const MINUTE_IN_MS = 60 * 1000;
+const MINUTE_IN_MS = 1000;
 
 const app = express();
 
 // Setup rate limiting
 const rateLimiter = RateLimit({
     windowMs: MINUTE_IN_MS,
-    max: 10,
+    max: 1,
 });
 
 app.use(rateLimiter);
