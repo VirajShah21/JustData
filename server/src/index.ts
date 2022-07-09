@@ -17,6 +17,7 @@ import bodyParser from 'body-parser';
 import * as JDSPlayground from './JDScript/JDSPlayground';
 import fs from 'fs';
 import RateLimit from 'express-rate-limit';
+import sanitizeFilename from 'sanitize-filename';
 
 // DEV_PORT is 3001 because react-scripts takes 3000
 const DEV_PORT = 3001;
@@ -178,7 +179,9 @@ app.get('/api/jds/playground/screenshot', async (req, res) => {
     const { id, screenshot } = req.query;
 
     if (typeof id === 'string' && typeof screenshot === 'string') {
-        res.sendFile(path.resolve(`./caches/jds-playground-${id}-${screenshot}.png`));
+        res.sendFile(
+            path.resolve(sanitizeFilename(`./caches/jds-playground-${id}-${screenshot}.png`)),
+        );
     } else {
         res.send('Error: The provided id or screenshot is not a string');
     }
