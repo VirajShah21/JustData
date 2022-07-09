@@ -16,7 +16,7 @@ import Logger from './utils/Logger';
 import bodyParser from 'body-parser';
 import * as JDSPlayground from './JDScript/JDSPlayground';
 import fs from 'fs';
-import RateLimit from 'express-rate-limit';
+import rateLimit from 'express-rate-limit';
 import sanitizeFilename from 'sanitize-filename';
 
 // DEV_PORT is 3001 because react-scripts takes 3000
@@ -24,14 +24,19 @@ const DEV_PORT = 3001;
 // If a PORT is provided as an environment variable (usually on a production server)
 // then that port will be used
 const PORT = process.env.PORT ?? DEV_PORT;
-const MINUTE_IN_MS = 1000;
+
+const MINUTE_TO_MS = 1000;
+const WINDOW_MIN = 15;
+const MAX_REQUESTS_PER_WINDOW = 100;
 
 const app = express();
 
 // Setup rate limiting
-const rateLimiter = RateLimit({
-    windowMs: MINUTE_IN_MS,
-    max: 1,
+const rateLimiter = rateLimit({
+    windowMs: WINDOW_MIN * MINUTE_TO_MS,
+    max: MAX_REQUESTS_PER_WINDOW * MINUTE_TO_MS,
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headersi
 });
 
 app.use(rateLimiter);
