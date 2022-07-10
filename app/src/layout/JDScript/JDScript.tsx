@@ -1,7 +1,7 @@
 import { flask, flaskOutline } from 'ionicons/icons';
 import { HStack } from 'reaction';
 import Sidebar, { SidebarNavigationButton } from 'src/components/ui/Sidebar';
-import { useScriptPlayground } from 'src/hooks/JDScript';
+import { useScriptPlayground } from 'src/hooks/JDScriptSubscriptions';
 import PlaygroundRunner from './PlaygroundRunner';
 import ScriptEditor from './ScriptEditor';
 
@@ -30,7 +30,7 @@ export default function JDScript() {
 export function JDScriptPlayground() {
     const playground = useScriptPlayground();
 
-    if (!playground.running) {
+    if (!playground.lifecycle) {
         return <ScriptEditor playground={playground} />;
     }
 

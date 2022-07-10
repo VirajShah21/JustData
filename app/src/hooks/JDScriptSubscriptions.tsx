@@ -2,15 +2,23 @@ import { useState } from 'react';
 import exampleScripts from 'src/assets/json/jdscript_examples.json';
 import { JDScriptKit } from 'src/utils/JustSDK';
 
+export enum JDSPlaygroundState {
+    IDLE, // not subscribed yet
+    MODIFIED, // uploaded, but modified on client-side
+    UPLOADED, // uploaded and matches server version
+    RUNNING, // playground is executing
+    EXECUTING, // executing an instruction on the server
+}
+
 export interface ScriptPlayground {
     script: string;
-    readonly uploaded: boolean;
-    readonly running: boolean;
     readonly id: string | null;
     readonly assembly: JDSAssembly;
     readonly screenshotUrl: string | null;
     readonly vars: Record<string, ValidJDSArgumentType>;
     readonly fields: Record<string, ValidJDSArgumentType>;
+    readonly lifecycle: JDSPlaygroundState;
+    readonly instructionPointer: number;
     upload: () => void;
     step: () => void;
     run: () => void;
@@ -24,13 +32,13 @@ export interface ScriptPlayground {
  */
 export function useScriptPlayground(): ScriptPlayground {
     const [script, setScript] = useState(exampleScripts.WordOfTheDay.join('\n'));
-    const [uploaded, setUploaded] = useState(false);
-    const [running, setRunning] = useState(false);
+    const [lifecycleState, setLifecycleState] = useState(JDSPlaygroundState.IDLE);
     const [assemblyCode, setAssemblyCode] = useState<JDSAssembly>([]);
     const [instanceId, setInstanceId] = useState<string>();
     const [screenshotId, setScreenshotId] = useState<string>();
     const [vars, setVars] = useState<Record<string, ValidJDSArgumentType>>({});
     const [fields, setFields] = useState<Record<string, ValidJDSArgumentType>>({});
+    const [instructionPointer, setInstructionPointer] = useState(0);
 
     return {
         /**
@@ -45,21 +53,7 @@ export function useScriptPlayground(): ScriptPlayground {
          */
         set script(value: string) {
             setScript(value);
-            setUploaded(false);
-        },
-
-        /**
-         * True if the current script is uploaded to the server.
-         */
-        get uploaded() {
-            return uploaded;
-        },
-
-        /**
-         * Checks
-         */
-        get running() {
-            return running;
+            setLifecycleState(JDSPlaygroundState.MODIFIED);
         },
 
         /**
@@ -103,6 +97,14 @@ export function useScriptPlayground(): ScriptPlayground {
         },
 
         /**
+         * A pointer to the index of the currently executing instruction or next instruction if
+         * none is running.
+         */
+        get instructionPointer() {
+            return instructionPointer;
+        },
+
+        /**
          * Upload the specified script (`this.script`) to the server.
          */
         async upload() {
@@ -110,7 +112,7 @@ export function useScriptPlayground(): ScriptPlayground {
             if (id && assembly) {
                 setInstanceId(id);
                 setAssemblyCode(assembly);
-                setUploaded(true);
+                setLifecycleState(JDSPlaygroundState.UPLOADED);
             }
         },
 
@@ -119,10 +121,15 @@ export function useScriptPlayground(): ScriptPlayground {
          */
         async step() {
             if (instanceId) {
+                setLifecycleState(JDSPlaygroundState.EXECUTING);
                 const { screenshot, vars, fields } = await JDScriptKit.stepScriptInPlayground(
                     instanceId,
                 );
-                setScreenshotId(screenshot ?? undefined);
+
+                if (screenshot) {
+                    setScreenshotId(screenshot);
+                }
+
                 if (vars) {
                     setVars(vars);
                 }
@@ -130,16 +137,26 @@ export function useScriptPlayground(): ScriptPlayground {
                 if (fields) {
                     setFields(fields);
                 }
+
+                setInstructionPointer(instructionPointer + 1);
+                setLifecycleState(JDSPlaygroundState.RUNNING);
             } else {
                 alert('Error: Not in sync with server');
             }
         },
 
         /**
+         * The current state of the lifecycle
+         */
+        get lifecycle() {
+            return lifecycleState;
+        },
+
+        /**
          * Run the script on the server.
          */
         run() {
-            setRunning(true);
+            setLifecycleState(JDSPlaygroundState.RUNNING);
         },
     };
 }

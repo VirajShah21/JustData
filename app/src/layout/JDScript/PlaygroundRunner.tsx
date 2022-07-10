@@ -3,8 +3,9 @@ import { copy, handRight, image, layers, playSkipForward, returnDownForward } fr
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import Button from 'src/components/ui/Button';
-import { ScriptPlayground } from 'src/hooks/JDScript';
+import { JDSPlaygroundState, ScriptPlayground } from 'src/hooks/JDScriptSubscriptions';
 import styles from './PlaygroundRunner.module.css';
+import keyframes from 'src/styles/keyframes.module.css';
 
 export enum JDSDevTool {
     SCREENSHOT,
@@ -119,9 +120,22 @@ export default function PlaygroundRunner({ playground }: PlaygroundRunnerProps) 
             </VStack>
 
             <VStack className={styles.assembly_decoder} scroll='both' width='35%'>
-                {playground.assembly.map(instruction => (
+                {playground.assembly.map((instruction, instPointer) => (
                     <HStack justify='start'>
-                        <code className={`${styles.assembly_code} ${styles.assembly_command}`}>
+                        <code
+                            key={instPointer}
+                            className={`${styles.assembly_code} ${styles.assembly_command} ${
+                                playground.lifecycle === JDSPlaygroundState.EXECUTING &&
+                                instPointer === playground.instructionPointer
+                                    ? `${styles.executing} ${keyframes.rotate} ${keyframes.fast} ${keyframes.forever} ${keyframes.ease}`
+                                    : ''
+                            } ${
+                                (playground.lifecycle === JDSPlaygroundState.RUNNING ||
+                                    playground.lifecycle === JDSPlaygroundState.UPLOADED) &&
+                                instPointer === playground.instructionPointer
+                                    ? styles.next_instruction
+                                    : ''
+                            }`.trim()}>
                             {instruction.command}
                         </code>
                         {Object.keys(instruction.arguments).map(name => (
