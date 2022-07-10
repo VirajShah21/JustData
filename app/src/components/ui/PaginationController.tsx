@@ -48,6 +48,7 @@ function PaginationController(props: {
 
             {ArrayUtils.enumerate(start, stop + 1).map(num => (
                 <PaginationControllerNumberButton
+                    key={num}
                     page={num}
                     active={num === props.currentPage}
                     onClick={page => props.onPageChange(page)}
