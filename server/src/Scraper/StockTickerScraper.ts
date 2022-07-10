@@ -67,13 +67,7 @@ class StockTickerScraper extends Scraper<StockTickerScraperResponse> {
             }),
         };
 
-        this.saveToDatabase(tickerSERPDatabase, {
-            url: this.origin,
-            data: response,
-            expiration: {
-                months: 3,
-            },
-        });
+        this.saveToDatabase(tickerSERPDatabase, response);
 
         return response;
     }

@@ -11,12 +11,7 @@ import Logger from '../utils/Logger';
 
 type CloseMongoDbClientExecutor = () => void;
 
-interface ScrapedDocument<T> extends MongoDocument {
-    url: string;
-    timestamp: number;
-    expires: number;
-    data: T;
-}
+type ScrapedDocument<T> = MongoDocument & T;
 
 interface ScrapedDocumentExpiration {
     seconds?: number;
@@ -68,12 +63,6 @@ class ScraperDatabase<T> {
         const [db, close] = await ScraperDatabase.openDatabase();
         const result = await db.collection(this.collection).findOne({ _id: id });
         close();
-
-        if (result && result.expires < Date.now()) {
-            this.delete(result._id);
-            return null;
-        }
-
         return result as WithId<ScrapedDocument<T>> | null;
     }
 
@@ -87,12 +76,6 @@ class ScraperDatabase<T> {
         const [db, close] = await ScraperDatabase.openDatabase();
         const result = await db.collection(this.collection).findOne(filter);
         close();
-
-        if (result && result.expires < Date.now()) {
-            this.delete(result._id);
-            return null;
-        }
-
         return result as WithId<ScrapedDocument<T>> | null;
     }
 
@@ -106,14 +89,7 @@ class ScraperDatabase<T> {
         const [db, close] = await ScraperDatabase.openDatabase();
         const result = await db.collection(this.collection).find(filter).toArray();
         close();
-
-        const now = Date.now();
-        const toDelete = result.filter(item => item.expires < now);
-        const toKeep = result.filter(item => item.expires >= now);
-
-        this.delete(...toDelete.map(doc => doc._id));
-
-        return toKeep as unknown as WithId<ScrapedDocument<T>>[];
+        return result as WithId<ScrapedDocument<T>>[];
     }
 
     /**
@@ -191,50 +167,6 @@ class ScraperDatabase<T> {
                 });
             }
         });
-    }
-
-    /**
-     * Converts an expiration object to the EPOCH time in milliseconds for which data will expire
-     * from the current time.
-     *
-     * @param expiration - An object containing information about the expiration of the scraped
-     * data. Each key is a unit of time mapping to the number of units.
-     * @returns The epoch time at which the data expires.
-     */
-    static lifespan(expiration: ScrapedDocumentExpiration): [number, number] {
-        let delta = 0; // Time frmo now to expiration
-
-        if (expiration.seconds) {
-            delta += expiration.seconds * SEC_TO_MS;
-        }
-
-        if (expiration.minutes) {
-            delta += expiration.minutes * MIN_TO_MS;
-        }
-
-        if (expiration.hours) {
-            delta += expiration.hours * HOUR_TO_MS;
-        }
-
-        if (expiration.days) {
-            delta += expiration.days * DAY_TO_MS;
-        }
-
-        if (expiration.weeks) {
-            delta += expiration.weeks * WEEK_TO_MS;
-        }
-
-        if (expiration.months) {
-            delta += expiration.months * MONTH_TO_MS;
-        }
-
-        if (expiration.years) {
-            delta += expiration.years * YEAR_TO_MS;
-        }
-
-        const now = Date.now();
-
-        return [now, now + delta];
     }
 }
 

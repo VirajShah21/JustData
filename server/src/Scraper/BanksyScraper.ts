@@ -146,14 +146,7 @@ export default class BanksyScraper extends Scraper<BanksyScraperResults> {
             };
 
             scraping[this.prompt] = result;
-            this.saveToDatabase(banksyDatabase, {
-                url: this.origin,
-                data: result,
-                expiration: {
-                    years: 1,
-                },
-            });
-
+            this.saveToDatabase(banksyDatabase, result);
             return result;
         }
 

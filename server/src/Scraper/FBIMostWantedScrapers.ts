@@ -54,16 +54,7 @@ class TenMostWantedFugitivesScraper extends Scraper<SimpleFugitiveData> {
             };
         });
 
-        this.saveToDatabase(
-            tenMostWantedDatabase,
-            ...response.map(fugitiveData => {
-                return {
-                    url: this.origin,
-                    data: fugitiveData,
-                    expiration: { weeks: 1 },
-                };
-            }),
-        );
+        this.saveToDatabase(tenMostWantedDatabase, ...response);
 
         return response;
     }
@@ -145,16 +136,7 @@ class AllFugitivesScraper extends Scraper<SimpleFugitiveData> {
         });
 
         await allFugitivesDatabase.clear();
-        this.saveToDatabase(
-            allFugitivesDatabase,
-            ...response.map(fugitiveData => {
-                return {
-                    url: this.origin,
-                    data: fugitiveData,
-                    expiration: { weeks: 1 },
-                };
-            }),
-        );
+        this.saveToDatabase(allFugitivesDatabase, ...response);
 
         return response;
     }
