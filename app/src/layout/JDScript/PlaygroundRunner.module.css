@@ -21,13 +21,25 @@
     text-overflow: ellipsis;
 }
 
+.playground_runner .assembly_decoder .assembly_code.assembly_command.executing {
+    background-image: linear-gradient(
+        to bottom right,
+        var(--primary-gradient-start),
+        var(--primary-gradient-end)
+    ) !important;
+}
+
+.playground_runner .assembly_decoder .assembly_code.assembly_command.next_instruction {
+    background-color: yellow !important;
+}
+
 [data-theme='dark'] .playground_runner .assembly_decoder .assembly_code.assembly_command {
-    background: var(--secondary-bg-light);
+    background-color: var(--secondary-bg-light);
     color: var(--primary-text-light);
 }
 
 [data-theme='light'] .playground_runner .assembly_decoder .assembly_code.assembly_command {
-    background: var(--secondary-bg-dark);
+    background-color: var(--secondary-bg-dark);
     color: var(--primary-text-dark);
 }
 

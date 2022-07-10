@@ -3,7 +3,7 @@ import { cloudUpload, play, trash } from 'ionicons/icons';
 import { HStack, VStack } from 'reaction';
 import Button from 'src/components/ui/Button';
 import TextBox from 'src/components/ui/TextBox';
-import { ScriptPlayground } from 'src/hooks/JDScript';
+import { JDSPlaygroundState, ScriptPlayground } from 'src/hooks/JDScriptSubscriptions';
 import styles from './ScriptEditor.module.css';
 
 export interface ScriptEditorProps {
@@ -20,7 +20,7 @@ export default function ScriptEditor({ playground }: ScriptEditorProps) {
      * @returns The button that uploads the script from the editor to the server.
      */
     function UploadButton() {
-        if (!playground.uploaded) {
+        if (!(playground.lifecycle === JDSPlaygroundState.UPLOADED)) {
             return (
                 <Button onClick={() => playground.upload()}>
                     <VStack>
@@ -39,7 +39,7 @@ export default function ScriptEditor({ playground }: ScriptEditorProps) {
      * tools, instructions UI, and screenshots.
      */
     function RunButton() {
-        if (playground.uploaded) {
+        if (playground.lifecycle === JDSPlaygroundState.UPLOADED) {
             return (
                 <Button onClick={() => playground.run()}>
                     <VStack>
