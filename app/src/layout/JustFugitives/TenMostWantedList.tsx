@@ -1,8 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import LoadingAnimation from 'src/components/LoadingAnimation';
 import { FBIKit } from 'src/utils/JustSDK';
 import FugitiveListItem from '../../components/JustFugitives/FugitiveListItem';
+
+export interface TenMostWantedListProps {
+    filter: string;
+}
+
+let allFugitives: SimpleFugitiveData[] = [];
+
+async function downloadFugitives() {
+    try {
+        allFugitives = await FBIKit.requestTenMostWantedFugitives();
+    } catch (err) {
+        // TODO: Error handling
+    }
+}
 
 /**
  * This React component displays a list of the ten most wanted fugitives. It simply
@@ -11,20 +25,15 @@ import FugitiveListItem from '../../components/JustFugitives/FugitiveListItem';
  *
  * @returns The ten most wanted fugitives list.
  */
-export default function TenMostWantedList() {
+export default function TenMostWantedList({ filter }: TenMostWantedListProps) {
     const [isLoading, setIsLoading] = useState(true);
-    const [fugitives, setFugitives] = useState<SimpleFugitiveData[]>([]);
 
-    async function loadFugitives() {
-        try {
-            setFugitives(await FBIKit.requestTenMostWantedFugitives());
+    useEffect(() => {
+        setIsLoading(true);
+        downloadFugitives().then(() => {
             setIsLoading(false);
-        } catch (err) {
-            // TODO: Error handling
-        }
-    }
-
-    loadFugitives();
+        });
+    }, []);
 
     return (
         <VStack>
@@ -33,10 +42,13 @@ export default function TenMostWantedList() {
                     <LoadingAnimation />
                 </VStack>
             )}
+
             <HStack scroll='vertical' wrap>
-                {fugitives.map(fugitive => (
-                    <FugitiveListItem key={fugitive.name} {...fugitive} opensProfile={false} />
-                ))}
+                {allFugitives
+                    .filter(fugitive => fugitive.name.toLowerCase().includes(filter.trim()))
+                    .map(fugitive => (
+                        <FugitiveListItem key={fugitive.name} {...fugitive} opensProfile={false} />
+                    ))}
             </HStack>
         </VStack>
     );

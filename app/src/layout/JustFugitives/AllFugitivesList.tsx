@@ -5,6 +5,25 @@ import PaginationController from 'src/components/ui/PaginationController';
 import { FBIKit } from 'src/utils/JustSDK';
 import FugitiveListItem from '../../components/JustFugitives/FugitiveListItem';
 
+export interface AllFugitivesListProps {
+    filter: string;
+}
+
+let allFugitives: SimpleFugitiveData[] = [];
+let isDownloading = false;
+
+async function downloadFugitives() {
+    if (!isDownloading) {
+        isDownloading = true;
+        try {
+            allFugitives = await FBIKit.requestAllFugitives();
+        } catch (err) {
+            // TODO: Error handling
+        }
+        isDownloading = false;
+    }
+}
+
 /**
  * This is a feature of the FBIs most wanted service. It displays a list of all the fugitives.
  * This also uses pagination to only display a set number of results per page. It will
@@ -15,24 +34,34 @@ import FugitiveListItem from '../../components/JustFugitives/FugitiveListItem';
  *
  * @returns A list of every single fugitive.
  */
-export default function AllFugitivesList() {
+export default function AllFugitivesList({ filter }: AllFugitivesListProps) {
     const pageSize = 20;
     const [isLoading, setIsLoading] = useState(true);
-    const [fugitives, setFugitives] = useState<SimpleFugitiveData[]>([]);
     const [page, setPage] = useState(1);
-
-    async function loadFugitives() {
-        try {
-            setFugitives(await FBIKit.requestAllFugitives());
-            setIsLoading(false);
-        } catch (err) {
-            // TODO: Error handling
-        }
-    }
+    const [fugitives, setFugitives] = useState<SimpleFugitiveData[]>([]);
 
     useEffect(() => {
-        loadFugitives();
+        const timer = setTimeout(() => {
+            console.log('Filter', filter);
+            console.log('Fugitives', fugitives);
+        });
+
+        if (allFugitives.length === 0) {
+            setIsLoading(true);
+            downloadFugitives().then(() => {
+                setFugitives(allFugitives);
+                setIsLoading(false);
+            });
+        }
+
+        return clearInterval(timer);
     }, []);
+
+    useEffect(() => {
+        setFugitives(
+            allFugitives.filter(fugitive => fugitive.name.toLowerCase().includes(filter.trim())),
+        );
+    }, [filter]);
 
     return (
         <VStack width='100%'>

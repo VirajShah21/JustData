@@ -1,4 +1,4 @@
-import { list, listOutline, skull, skullOutline } from 'ionicons/icons';
+import { filter as filterIcon, list, listOutline, skull, skullOutline } from 'ionicons/icons';
 import { useState } from 'react';
 import { HStack, VStack } from 'reaction';
 import logo from 'src/assets/images/icons/Just Fugitives.png';
@@ -43,6 +43,7 @@ const features: Record<string, FBIMostWantedFeature> = {
  */
 export default function JustFugitives() {
     const [feature, setFeature] = useState<FBIMostWantedFeature>(features.tenMostWanted);
+    const [filter, setFilter] = useState('');
 
     useTitle('Just Fugitives');
 
@@ -63,11 +64,15 @@ export default function JustFugitives() {
                 />
             </Sidebar>
             <VStack width='100%' justify='start' className='fbi-most-wanted-page'>
-                <SearchBar />
+                <SearchBar
+                    icon={filterIcon}
+                    placeholder='Filter fugitives by name'
+                    onChange={e => setFilter(e.target.value)}
+                />
 
-                <HStack className='feature-container'>
-                    {feature === features.tenMostWanted && <TenMostWantedList />}
-                    {feature === features.allFugitives && <AllFugitivesList />}
+                <HStack className='feature-container' scroll='vertical'>
+                    {feature === features.tenMostWanted && <TenMostWantedList filter={filter} />}
+                    {feature === features.allFugitives && <AllFugitivesList filter={filter} />}
                 </HStack>
             </VStack>
         </HStack>

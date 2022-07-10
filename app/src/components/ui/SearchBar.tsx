@@ -32,18 +32,25 @@ function SearchBar(props: {
     placeholder?: string;
     value?: string;
     suggestions?: (string | SearchSuggestion)[];
-    icon?: JSX.Element;
+    icon?: string;
     searchDisabled?: boolean;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
     onSearch?: (value: string) => void;
 }) {
+    function ContextIcon() {
+        if (props.icon) {
+            return <IonIcon icon={props.icon} />;
+        }
+        return <IonIcon icon={searchOutline} />;
+    }
+
     const [showingSuggestions, setShowingSuggestions] = useState(false);
 
     return (
         <div className={styles.search_bar_container}>
             <HStack className={styles.search_bar}>
                 <span className={styles.search_icon_wrapper}>
-                    {props.icon ?? <IonIcon icon={searchOutline} />}
+                    <ContextIcon />
                 </span>
                 <input
                     type='text'
