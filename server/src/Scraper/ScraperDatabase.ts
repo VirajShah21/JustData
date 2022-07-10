@@ -68,12 +68,6 @@ class ScraperDatabase<T> {
         const [db, close] = await ScraperDatabase.openDatabase();
         const result = await db.collection(this.collection).findOne({ _id: id });
         close();
-
-        if (result && result.expires < Date.now()) {
-            this.delete(result._id);
-            return null;
-        }
-
         return result as WithId<ScrapedDocument<T>> | null;
     }
 
@@ -87,12 +81,6 @@ class ScraperDatabase<T> {
         const [db, close] = await ScraperDatabase.openDatabase();
         const result = await db.collection(this.collection).findOne(filter);
         close();
-
-        if (result && result.expires < Date.now()) {
-            this.delete(result._id);
-            return null;
-        }
-
         return result as WithId<ScrapedDocument<T>> | null;
     }
 
@@ -106,14 +94,7 @@ class ScraperDatabase<T> {
         const [db, close] = await ScraperDatabase.openDatabase();
         const result = await db.collection(this.collection).find(filter).toArray();
         close();
-
-        const now = Date.now();
-        const toDelete = result.filter(item => item.expires < now);
-        const toKeep = result.filter(item => item.expires >= now);
-
-        this.delete(...toDelete.map(doc => doc._id));
-
-        return toKeep as unknown as WithId<ScrapedDocument<T>>[];
+        return result as WithId<ScrapedDocument<T>>[];
     }
 
     /**
