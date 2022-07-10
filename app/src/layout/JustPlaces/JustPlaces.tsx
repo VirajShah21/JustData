@@ -62,7 +62,7 @@ export default function JustPlaces() {
                         placeholder='Where are you looking for it?'
                         onChange={e => setSearchLocation(e.target.value)}
                         onSearch={search}
-                        icon={<IonIcon icon={locationOutline} />}
+                        icon={locationOutline}
                     />
                 </HStack>
 

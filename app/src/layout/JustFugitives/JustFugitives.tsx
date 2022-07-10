@@ -65,7 +65,7 @@ export default function JustFugitives() {
             <VStack width='100%' justify='start' className='fbi-most-wanted-page'>
                 <SearchBar />
 
-                <HStack className='feature-container'>
+                <HStack className='feature-container' scroll='vertical'>
                     {feature === features.tenMostWanted && <TenMostWantedList />}
                     {feature === features.allFugitives && <AllFugitivesList />}
                 </HStack>
