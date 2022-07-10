@@ -143,16 +143,7 @@ class OyezTermCaseListScraper extends Scraper<OyezCaseListItem> {
             })
             .filter(result => result !== undefined) as OyezCaseListItem[];
 
-        this.saveToDatabase(
-            caseListDatabase,
-            ...results.map(result => ({
-                url: this.origin,
-                data: result,
-                expiration: {
-                    months: 30,
-                },
-            })),
-        );
+        this.saveToDatabase(caseListDatabase, ...results);
 
         return results;
     }

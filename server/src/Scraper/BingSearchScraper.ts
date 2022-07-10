@@ -79,11 +79,7 @@ class BingSearchScraper extends Scraper<BingSearchResults> {
             results,
         };
 
-        this.saveToDatabase(bingSearchDatabase, {
-            url: this.origin,
-            data: response,
-            expiration: { minutes: 30 },
-        });
+        this.saveToDatabase(bingSearchDatabase, response);
 
         return response;
     }

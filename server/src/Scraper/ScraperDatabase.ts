@@ -11,12 +11,7 @@ import Logger from '../utils/Logger';
 
 type CloseMongoDbClientExecutor = () => void;
 
-interface ScrapedDocument<T> extends MongoDocument {
-    url: string;
-    timestamp: number;
-    expires: number;
-    data: T;
-}
+type ScrapedDocument<T> = MongoDocument & T;
 
 interface ScrapedDocumentExpiration {
     seconds?: number;
