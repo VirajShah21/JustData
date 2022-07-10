@@ -8,20 +8,11 @@ import ScrapeUtils from './ScrapeUtils';
 type BaseCache<R> = R | Record<string, R>;
 type UniversalCache<R> = BaseCache<R> | Record<string, BaseCache<R>>;
 
-interface IScraper<R> {
-    scrape(): Promise<R | R[] | null>;
-    findInDatabase(): Promise<ScrapedDocument<R> | ScrapedDocument<R>[] | null>;
-    saveToDatabase(
-        database: ScraperDatabase<R>,
-        ...insertionObjects: ScrapedDocumentInsertionObject<R>[]
-    ): Promise<void>;
-}
-
 /**
  * The Base class for all Scraper. It comes with some handy methods for
  * completing basic scraping tasks.
  */
-abstract class Scraper<R> implements IScraper<R> {
+abstract class Scraper<R> {
     protected origin: string;
     protected tab?: Page;
 
@@ -96,21 +87,10 @@ abstract class Scraper<R> implements IScraper<R> {
 
     async saveToDatabase(
         database: ScraperDatabase<R>,
-        ...insertionObjects: ScrapedDocumentInsertionObject<R>[]
+        ...documents: ScrapedDocument<R>[]
     ): Promise<void> {
-        await database.insert(
-            ...insertionObjects.map<ScrapedDocument<R>>(insertion => {
-                const [timestamp, expires] = ScraperDatabase.lifespan(insertion.expiration);
-                return {
-                    timestamp,
-                    expires,
-                    url: insertion.url,
-                    data: insertion.data,
-                };
-            }),
-        );
+        await database.insert(...documents);
     }
 }
 
 export default Scraper;
-export type { IScraper };
